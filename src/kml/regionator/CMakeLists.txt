@@ -4,6 +4,6 @@ set(KMLREGIONATOR_SRC
     regionator_util.cc
 )
 
-add_library(kmlregionator SHARED ${KMLREGIONATOR_SRC})
+add_library(kmlregionator STATIC ${KMLREGIONATOR_SRC})
 
 target_link_libraries(kmlregionator kmlbase)

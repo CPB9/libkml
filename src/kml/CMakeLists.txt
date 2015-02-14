@@ -3,7 +3,9 @@ include_directories(
     ${EXPAT_INCLUDE_DIRS}
 )
 
-add_definitions(-fno-rtti)
+if(NOT MSVC)
+    add_definitions(-fno-rtti)
+endif()
 
 add_subdirectory(base)
 add_subdirectory(convenience)

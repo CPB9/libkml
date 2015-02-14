@@ -49,6 +49,6 @@ set(KMLDOM_SRC
     visitor_driver.cc
 )
 
-add_library(kmldom SHARED ${KMLDOM_SRC})
+add_library(kmldom STATIC ${KMLDOM_SRC})
 
 target_link_libraries(kmldom kmlbase)

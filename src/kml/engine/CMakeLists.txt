@@ -28,6 +28,6 @@ set(KMLENGINE_SRC
     update.cc
 )
 
-add_library(kmlengine SHARED ${KMLENGINE_SRC})
+add_library(kmlengine STATIC ${KMLENGINE_SRC})
 
 target_link_libraries(kmlengine kmlbase)

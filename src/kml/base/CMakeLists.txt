@@ -1,3 +1,9 @@
+if(WIN32)
+    set(KMLBASE_FILE_SRC file_win32.cc)
+else()
+    set(KMLBASE_FILE_SRC file_posix.cc)
+endif()
+
 set(KMLBASE_SRC
     attributes.cc
     csv_splitter.cc
@@ -5,7 +11,6 @@ set(KMLBASE_SRC
     expat_handler_ns.cc
     expat_parser.cc
     file.cc
-    file_posix.cc
     math_util.cc
     mimetypes.cc
     referent.cc
@@ -17,7 +22,10 @@ set(KMLBASE_SRC
     zip_file.cc
 )
 
-add_library(kmlbase SHARED ${KMLBASE_SRC})
+add_library(kmlbase STATIC
+    ${KMLBASE_SRC}
+    ${KMLBASE_FILE_SRC}
+)
 
 target_link_libraries(kmlbase
     ${EXPAT_LIBRARIES}

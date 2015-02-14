@@ -8,6 +8,6 @@ set(KMLXSD_SRC
     xst_parser.cc
 )
 
-add_library(kmlxsd SHARED ${KMLXSD_SRC})
+add_library(kmlxsd STATIC ${KMLXSD_SRC})
 
 target_link_libraries(kmlxsd kmlbase)

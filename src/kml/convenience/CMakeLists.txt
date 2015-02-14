@@ -12,6 +12,6 @@ set(KMLCONVENIENCE_SRC
     kmz_check_links.cc
 )
 
-add_library(kmlconvenience SHARED ${KMLCONVENIENCE_SRC})
+add_library(kmlconvenience STATIC ${KMLCONVENIENCE_SRC})
 
 target_link_libraries(kmlconvenience kmlbase)
