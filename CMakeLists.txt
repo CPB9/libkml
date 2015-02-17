@@ -24,10 +24,15 @@ endif()
 add_subdirectory(third_party/kml-minizip/minizip)
 add_subdirectory(third_party/uriparser-0.7.5)
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/kml-minizip)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/uriparser-0.7.5/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost_1_34_1)
-include_directories(${ZLIB_INCLUDE_DIRS})
+set(LIBKML_DEP_INCLUDES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/kml-minizip
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/uriparser-0.7.5/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost_1_34_1
+    ${ZLIB_INCLUDE_DIRS}
+)
+
+include_directories(${LIBKML_DEP_INCLUDES})
 
 find_package(EXPAT)
 if(NOT ${EXPAT_FOUND})
@@ -41,11 +46,14 @@ if(NOT ${EXPAT_FOUND})
     add_definitions(-DXML_STATIC)
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
-
 add_subdirectory(src/kml)
 
 get_directory_property(HAS_PARENT_SCOPE PARENT_DIRECTORY)
 if(HAS_PARENT_SCOPE)
-    set(LIBKML_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/src PARENT_SCOPE)
+    set(LIBKML_INCLUDE_DIRS
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${LIBKML_DEP_INCLUDES}
+        PARENT_SCOPE
+    )
 endif()
+
