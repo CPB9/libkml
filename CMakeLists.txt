@@ -16,7 +16,6 @@ if(NOT ${ZLIB_FOUND})
     set(ZLIB_INCLUDE_DIRS
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/zlib-1.2.8
         ${CMAKE_CURRENT_BINARY_DIR}/third_party/zlib-1.2.8
-        FORCE
     )
     set(ZLIB_LIBRARIES zlibstatic)
 endif()
@@ -40,7 +39,6 @@ if(NOT ${EXPAT_FOUND})
     set(EXPAT_INCLUDE_DIRS
         ${CMAKE_CURRENT_SOURCE_DIR}/third_party/expat-2.1.0/lib
         ${CMAKE_CURRENT_BINARY_DIR}/third_party/expat-2.1.0
-        FORCE
     )
     set(EXPAT_LIBRARIES expat)
     add_definitions(-DXML_STATIC)
