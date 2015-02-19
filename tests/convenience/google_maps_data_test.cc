@@ -89,10 +89,25 @@ TEST_F(GoogleMapsDataTest, TestGetConstants) {
   ASSERT_TRUE(strlen(metafeed_uri));  // It's a null terminated C string.
 }
 
+static int kml_setenv(const char* name, const char* value, int overwrite) {
+#ifdef _WIN32
+    if (overwrite && !getenv(name)) {
+        int len = strlen(value) + 1 + strlen(value) + 1;
+        char* str = malloc(len);
+        sprintf(str, "%s=%s", name, value);
+        int rv = putenv(str);
+        free(str);
+        return rv;
+    }
+#else
+    return setenv(name, value, overwrite);
+#endif
+}
+
 // This tests basic use of the Create method and the get_scope() method.
 TEST_F(GoogleMapsDataTest, TestBasicCreate) {
   const string kScope = "http://host.com:123";
-  ASSERT_EQ(0, setenv("GOOGLE_MAPS_DATA_SCOPE", kScope.c_str(), 1));
+  ASSERT_EQ(0, kml_setenv("GOOGLE_MAPS_DATA_SCOPE", kScope.c_str(), 1));
   HttpClient* http_client = new HttpClient("TestBasicCreate");
   google_maps_data_.reset(GoogleMapsData::Create(http_client));
   // An HttpClient was supplied so a GoogleMapsData was created.
@@ -227,7 +242,7 @@ TEST_F(GoogleMapsDataTest, TestGetFeatureFeedByUri) {
     FakeAtomFeedHttpClient()
       : HttpClient("FakeAtomFeedHttpClient") {
     }
-  
+
     virtual bool SendRequest(HttpMethodEnum http_method,
                              const string& request_uri,
                              const StringPairVector* request_headers,
