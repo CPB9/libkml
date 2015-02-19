@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.11)
 
 project(libkml)
 
+option(LIBKML_BUILD_TESTS "Build libkml tests" OFF)
+
 if(NOT WIN32)
     add_definitions(-fPIC -DPIC)
 endif()
@@ -45,6 +47,15 @@ if(NOT ${EXPAT_FOUND})
 endif()
 
 add_subdirectory(src/kml)
+
+if(LIBKML_BUILD_TESTS)
+    enable_testing()
+    find_package(GTest REQUIRED)
+    if(NOT ${GTEST_FOUND})
+        add_subdirectory(third_party/gtest-1.7.0)
+    endif()
+    add_subdirectory(tests)
+endif()
 
 get_directory_property(HAS_PARENT_SCOPE PARENT_DIRECTORY)
 if(HAS_PARENT_SCOPE)

@@ -14,4 +14,4 @@ set(KMLCONVENIENCE_SRC
 
 add_library(kmlconvenience STATIC ${KMLCONVENIENCE_SRC})
 
-target_link_libraries(kmlconvenience kmlbase)
+target_link_libraries(kmlconvenience kmlbase kmldom kmlengine)

@@ -30,4 +30,4 @@ set(KMLENGINE_SRC
 
 add_library(kmlengine STATIC ${KMLENGINE_SRC})
 
-target_link_libraries(kmlengine kmlbase)
+target_link_libraries(kmlengine kmlbase kmldom)
