@@ -40,7 +40,7 @@ set(LIBKML_DEP_INCLUDES
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/kml-minizip
     ${CMAKE_CURRENT_SOURCE_DIR}/third_party/uriparser-0.7.5/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost_1_34_1
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost_1_57_0
     ${ZLIB_INCLUDE_DIRS}
     ${EXPAT_INCLUDE_DIRS}
 )
