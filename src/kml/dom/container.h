@@ -54,7 +54,7 @@ class Container : public Feature {
       if (it == feature_array_.end()) {
           return -1;
       }
-      return it - feature_array_.begin();
+      return int(it - feature_array_.begin()); //HACK
   }
 
   size_t get_feature_array_size() const {

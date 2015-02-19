@@ -93,7 +93,7 @@ static int kml_setenv(const char* name, const char* value, int overwrite) {
 #ifdef _WIN32
     if (overwrite && !getenv(name)) {
         int len = strlen(value) + 1 + strlen(value) + 1;
-        char* str = malloc(len);
+        char* str = (char*)malloc(len);
         sprintf(str, "%s=%s", name, value);
         int rv = putenv(str);
         free(str);

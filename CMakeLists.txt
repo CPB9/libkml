@@ -25,16 +25,6 @@ endif()
 add_subdirectory(third_party/kml-minizip/minizip)
 add_subdirectory(third_party/uriparser-0.7.5)
 
-set(LIBKML_DEP_INCLUDES
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/kml-minizip
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/uriparser-0.7.5/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost_1_34_1
-    ${ZLIB_INCLUDE_DIRS}
-)
-
-include_directories(${LIBKML_DEP_INCLUDES})
-
 find_package(EXPAT)
 if(NOT ${EXPAT_FOUND})
     add_subdirectory(third_party/expat-2.1.0 EXCLUDE_FROM_ALL)
@@ -46,11 +36,22 @@ if(NOT ${EXPAT_FOUND})
     add_definitions(-DXML_STATIC)
 endif()
 
+set(LIBKML_DEP_INCLUDES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/kml-minizip
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/uriparser-0.7.5/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/third_party/boost_1_34_1
+    ${ZLIB_INCLUDE_DIRS}
+    ${EXPAT_INCLUDE_DIRS}
+)
+
+include_directories(${LIBKML_DEP_INCLUDES})
+
 add_subdirectory(src/kml)
 
 if(LIBKML_BUILD_TESTS)
     enable_testing()
-    find_package(GTest REQUIRED)
+    find_package(GTest)
     if(NOT ${GTEST_FOUND})
         add_subdirectory(third_party/gtest-1.7.0)
     endif()
