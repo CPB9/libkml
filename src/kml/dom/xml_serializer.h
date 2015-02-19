@@ -191,8 +191,9 @@ class XmlSerializer : public Serializer {
   virtual void Indent() {
     if (!indent_.empty()) {
       size_t depth = tag_stack_.size();
-      while (depth--) {
+      while (depth) {
         output_->write(indent_.data(), indent_.size());
+        depth--;
       }
     }
   }

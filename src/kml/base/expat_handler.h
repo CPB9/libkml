@@ -112,8 +112,9 @@ inline void xml_char_to_string_vec(const XML_Char **input,
 
 inline string xml_char_to_string_n(const XML_Char *input, size_t length) {
   string output;
-  while (length--) {
+  while (length) {
     xmlchar_to_utf8(input++, &output);
+    length--;
   }
   return output;
 }
