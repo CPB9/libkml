@@ -1,7 +1,7 @@
 if(WIN32)
     set(KMLBASE_FILE_SRC
         file_win32.cc
-        win32/strptime.c
+        win32/strptime.cc
     )
 else()
     set(KMLBASE_FILE_SRC file_posix.cc)

@@ -31,7 +31,7 @@
 
 // win32/strptime.c
 #ifdef _WIN32
-extern "C" char* strptime(const char *buf, const char *fmt, struct tm *tm);
+extern char* strptime(const char *buf, const char *fmt, struct tm *tm);
 #endif
 
 namespace kmlbase {
