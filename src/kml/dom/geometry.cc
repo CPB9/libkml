@@ -31,6 +31,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include "kml/base/attributes.h"
+#include "kml/base/missing/strtod.h"
 #include "kml/base/xml_namespaces.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
@@ -93,7 +94,7 @@ bool Coordinates::ParseVec3(const char* cstr, char** nextp, Vec3* vec) {
   }
 
   // Longitude first.  strtod() eats leading whitespace.
-  vec->set(0, strtod(endp, &endp));
+  vec->set(0, kml_strtod(endp, &endp));
   if (endp) {
 
     // Latitude next.
@@ -109,7 +110,7 @@ bool Coordinates::ParseVec3(const char* cstr, char** nextp, Vec3* vec) {
       // Eat whitespace between double and comma.
       ++endp;
     }
-    vec->set(1, strtod(endp+1, &endp));
+    vec->set(1, kml_strtod(endp+1, &endp));
     done = true;  // Need at least lon,lat to be valid.
 
     // If no altitude set to 0
@@ -118,7 +119,7 @@ bool Coordinates::ParseVec3(const char* cstr, char** nextp, Vec3* vec) {
     }
     if (*endp == ',') {
       // Note that this sets altitude only if an altitude is supplied.
-      vec->set(2, strtod(endp+1, &endp));
+      vec->set(2, kml_strtod(endp+1, &endp));
     }
   }
   if (nextp) {
@@ -530,7 +531,7 @@ void GxTrack::Parse(const string& char_data, std::vector<Vec3>* out) {
   kmlbase::SplitStringUsing(char_data, " ", &s);
   kmlbase::Vec3 vec;
   for (size_t i = 0; i < s.size(); i++) {
-    vec.set(i, strtod(s[i].c_str(), NULL));
+    vec.set(i, kml_strtod(s[i].c_str(), NULL));
     if (i > 2) break;
   }
   out->push_back(vec);

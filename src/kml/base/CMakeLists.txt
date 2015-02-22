@@ -1,7 +1,7 @@
 if(WIN32)
     set(KMLBASE_FILE_SRC
         file_win32.cc
-        win32/strptime.cc
+        missing/strptime.cc
     )
 else()
     set(KMLBASE_FILE_SRC file_posix.cc)
@@ -23,6 +23,7 @@ set(KMLBASE_SRC
     version.cc
     xml_namespaces.cc
     zip_file.cc
+    missing/strtod.cc
 )
 
 add_library(kmlbase STATIC

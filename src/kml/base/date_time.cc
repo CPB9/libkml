@@ -26,13 +26,14 @@
 // This file contains the implementation of the DateTime class.
 
 #include "kml/base/date_time.h"
+
+// missing/strptime.c
+#ifdef _WIN32
+#include "kml/base/missing/strptime.h"
+#endif
+
 #include "boost/scoped_ptr.hpp"
 #include <stdlib.h>
-
-// win32/strptime.c
-#ifdef _WIN32
-extern char* strptime(const char *buf, const char *fmt, struct tm *tm);
-#endif
 
 namespace kmlbase {
 
@@ -110,8 +111,7 @@ DateTime::DateTime() {
 
 // private
 bool DateTime::ParseXsdDateTime(const string& xsd_date_time) {
-  // TODO: strptime on win32?
-  return strptime(xsd_date_time.c_str(), "%Y-%m-%dT%H:%M:%SZ", &tm_) != NULL;
+  return kml_strptime(xsd_date_time.c_str(), "%Y-%m-%dT%H:%M:%SZ", &tm_) != NULL;
 }
 
 }  // end namespace kmlbase

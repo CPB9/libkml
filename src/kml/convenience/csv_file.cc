@@ -31,6 +31,7 @@
 #include <iostream>
 #include <vector>
 #include "kml/base/string_util.h"
+#include "kml/base/missing/strtod.h"
 #include "kml/dom.h"
 #include "kml/engine.h"
 #include "kml/convenience/convenience.h"
@@ -51,8 +52,8 @@ void CsvFile::ParseCsvLine(const string& csv_line) {
     return;
   }
   PlacemarkPtr placemark = kmlconvenience::CreatePointPlacemark(
-      csv_parts[3], strtod(csv_parts[1].c_str(), NULL),
-      strtod(csv_parts[2].c_str(), NULL));
+      csv_parts[3], kml_strtod(csv_parts[1].c_str(), NULL),
+      kml_strtod(csv_parts[2].c_str(), NULL));
   placemark->set_description(csv_parts[4]);
   if (csv_parts.size() > 5) {
     placemark->set_styleurl(csv_parts[5]);

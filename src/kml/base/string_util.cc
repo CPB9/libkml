@@ -26,7 +26,7 @@
 // This file contains the declarations of various string utility functions.
 
 #include "kml/base/string_util.h"
-#include <stdlib.h>  // strtod()
+#include "kml/base/missing/strtod.h"
 #include <string.h>  // memcpy, strchr
 
 namespace kmlbase {
@@ -84,7 +84,7 @@ void FromString(const string& str, bool* out) {
 template<>
 void FromString(const string& str, double* out) {
   if (out) {
-    *out = strtod(str.c_str(), NULL);
+    *out = kml_strtod(str.c_str(), NULL);
   }
 }
 
@@ -124,8 +124,7 @@ bool StringToDouble(const string& number, double* output) {
     return false;
   }
   if (output) {
-    // TODO: consider protobuf's NoLocaleStrtod.
-    *output = strtod(number.c_str(), NULL);
+    *output = kml_strtod(number.c_str(), NULL);
   }
   return true;
 }

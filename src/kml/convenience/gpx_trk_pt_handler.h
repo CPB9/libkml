@@ -33,6 +33,7 @@
 #include "kml/base/attributes.h"
 #include "kml/base/expat_handler.h"
 #include "kml/base/vec3.h"
+#include "kml/base/missing/strtod.h"
 
 namespace kmlconvenience {
 
@@ -89,7 +90,7 @@ class GpxTrkPtHandler : public kmlbase::ExpatHandler {
     } else if (name.compare("ele") == 0) {
       // <ele>4.943848</ele>
       if (vec3_.get()) {
-        vec3_->set_altitude(strtod(char_data_.c_str(), NULL));
+        vec3_->set_altitude(kml_strtod(char_data_.c_str(), NULL));
       }
     }
   }
