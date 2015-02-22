@@ -26,12 +26,7 @@
 // This file contains the implementation of the DateTime class.
 
 #include "kml/base/date_time.h"
-
-// missing/strptime.c
-#ifdef _WIN32
 #include "kml/base/missing/strptime.h"
-#endif
-
 #include "boost/scoped_ptr.hpp"
 #include <stdlib.h>
 

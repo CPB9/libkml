@@ -27,6 +27,7 @@
 
 #include "kml/base/string_util.h"
 #include "kml/base/missing/strtod.h"
+#include <stdlib.h>  // malloc, free
 #include <string.h>  // memcpy, strchr
 
 namespace kmlbase {
