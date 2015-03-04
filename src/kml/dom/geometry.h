@@ -113,6 +113,14 @@ class Coordinates : public BasicElement<Type_coordinates> {
     return coordinates_array_[index];
   }
 
+  void erase_coordinates_array_at(size_t index) {
+    coordinates_array_.erase(coordinates_array_.begin() + index);
+  }
+
+  void set_coordinates_array_at(const kmlbase::Vec3& vec, size_t index) {
+    coordinates_array_[index] = vec;
+  }
+
   // Internal methods used in parser.  Public for unittest purposes.
   // See .cc for more details.
   void Parse(const string& char_data);
