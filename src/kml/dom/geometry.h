@@ -101,6 +101,14 @@ class Coordinates : public BasicElement<Type_coordinates> {
     coordinates_array_.push_back(kmlbase::Vec3(longitude, latitude));
   }
 
+  void insert_latlng(std::size_t index, double latitude, double longitude) {
+    coordinates_array_.insert(coordinates_array_.begin() + index, kmlbase::Vec3(longitude, latitude));
+  }
+
+  void remove_at(std::size_t index) {
+    coordinates_array_.erase(coordinates_array_.begin() + index);
+  }
+
   void add_vec3(const kmlbase::Vec3& vec3) {
     coordinates_array_.push_back(vec3);
   }
@@ -109,7 +117,7 @@ class Coordinates : public BasicElement<Type_coordinates> {
     return coordinates_array_.size();
   }
 
-  const kmlbase::Vec3 get_coordinates_array_at(size_t index) const {
+  const kmlbase::Vec3& get_coordinates_array_at(size_t index) const {
     return coordinates_array_[index];
   }
 
