@@ -196,6 +196,18 @@ class Element : public kmlbase::XmlElement {
     return false;
   }
 
+  // This inserts the given complex child into an array in this element.
+  template <class T>
+  bool InsertComplexChild(std::size_t pos, const T& child, std::vector<T>* vec) {
+    // NULL child ignored.
+    if (child && child->SetParent(this)) {
+      vec->insert(vec->begin() + pos, child);
+      return true;
+    }
+    return false;
+  }
+
+
   // This adds the given complex child to an array in this element.
   template <class T>
   bool AddComplexChild(const T& child, std::vector<T>* vec) {

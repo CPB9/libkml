@@ -48,13 +48,16 @@ class Container : public Feature {
   }
 
   void add_feature(const FeaturePtr& feature);
+  void insert_feature_at(std::size_t at, const FeaturePtr& feature) {
+      InsertComplexChild(at, feature, &feature_array_);
+  }
 
   int get_index_of_feature(const FeaturePtr& feature) const {
-      std::vector<FeaturePtr>::const_iterator it = std::find(feature_array_.begin(), feature_array_.end(), feature);
-      if (it == feature_array_.end()) {
-          return -1;
-      }
-      return int(it - feature_array_.begin()); //HACK
+    std::vector<FeaturePtr>::const_iterator it = std::find(feature_array_.begin(), feature_array_.end(), feature);
+    if (it == feature_array_.end()) {
+      return -1;
+    }
+    return int(it - feature_array_.begin()); //HACK
   }
 
   size_t get_feature_array_size() const {
