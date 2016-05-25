@@ -34,6 +34,7 @@
 #include <tchar.h>
 //#include <xstring>
 #include <algorithm>
+#include <cstdlib>
 
 namespace kmlbase {
 
@@ -41,7 +42,9 @@ namespace kmlbase {
 // LPCWSTR.
 static std::wstring Str2Wstr(const string& str) {
   std::wstring wstr(str.length(), L' ');
-  std::copy(str.begin(), str.end(), wstr.begin());
+  size_t result = std::mbstowcs(&wstr[0], str.c_str(), str.length());
+  if (result != wstr.length())
+      return std::wstring();
   return wstr;
 }
 
