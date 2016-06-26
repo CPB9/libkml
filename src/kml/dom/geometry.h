@@ -121,6 +121,10 @@ class Coordinates : public BasicElement<Type_coordinates> {
     return coordinates_array_[index];
   }
 
+  kmlbase::Vec3& get_coordinates_array_at(size_t index) {
+    return coordinates_array_[index];
+  }
+
   void erase_coordinates_array_at(size_t index) {
     coordinates_array_.erase(coordinates_array_.begin() + index);
   }
