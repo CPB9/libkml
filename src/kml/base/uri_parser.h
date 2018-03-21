@@ -31,7 +31,7 @@
 #define KML_BASE_URI_PARSER_H__
 
 #include "kml/base/util.h"
-#include "boost/scoped_ptr.hpp"
+#include <memory>
 
 namespace kmlbase {
 
@@ -152,7 +152,7 @@ class UriParser {
  private:
   // UriParserPrivate hides the internals of the underlying third party
   // uriparser types from clients of this header.
-  boost::scoped_ptr<UriParserPrivate> uri_parser_private_;
+  std::unique_ptr<UriParserPrivate> uri_parser_private_;
 
   // No copy construction or assignment please.
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(UriParser);

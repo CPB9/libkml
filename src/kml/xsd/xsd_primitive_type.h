@@ -78,7 +78,7 @@ class XsdPrimitiveType : public XsdType {
     if (type_id != XSD_INVALID) {
       return new XsdPrimitiveType(type_id);
     }
-    return NULL;
+    return nullptr;
   }
 
   virtual XsdTypeEnum get_xsd_type_id() const {

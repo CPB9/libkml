@@ -30,7 +30,8 @@
 
 #include <ostream>
 #include <vector>
-#include "boost/scoped_ptr.hpp"
+#include <memory>
+#include <bmcl/Rc.h>
 #include "kml/base/attributes.h"
 #include "kml/base/referent.h"
 #include "kml/base/xml_namespaces.h"
@@ -180,7 +181,7 @@ class KmlFile : public kmlbase::XmlFile {
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmlFile);
 };
 
-typedef boost::intrusive_ptr<KmlFile> KmlFilePtr;
+typedef bmcl::Rc<KmlFile> KmlFilePtr;
 
 }  // end namespace kmlengine
 

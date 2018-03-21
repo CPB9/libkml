@@ -32,43 +32,13 @@
 // class.  Neither the Referent class nor the methods here are part of the
 // libkml public API.
 
+#include <bmcl/RefCountable.h>
+#include <cstddef>
+
 namespace kmlbase {
 
 // This class implements the reference count used by boost::intrusive_ptr.
-class Referent {
- public:
-  // The constructor only constructs the Referent object.  The reference
-  // count is incremented if and when the Referent-derived object is assigned
-  // to a boost::intrusive_ptr.
-  Referent() : ref_count_(0) {}
-  virtual ~Referent() {}
-
-  // This method is used by intrusive_ptr_add_ref() to increment the reference
-  // count of a given Referent-derived object.
-  void add_ref() {
-    ++ref_count_;
-  }
-
-  // This method is used by intrusive_ptr_release() to decrement the reference
-  // count of a given Referent-derived object.
-  int release() {
-    return --ref_count_;
-  }
-
-  // This is for debugging purposes only.
-  int get_ref_count() const {
-    return ref_count_;
-  }
-
- private:
-  int ref_count_;
-};
-
-// These declarations are for the implementation of the functions used within
-// boost::intrusive_ptr to manage Referent-derived objects..  See referent.cc
-// and boost/intrusive_ptr.hpp.
-void intrusive_ptr_add_ref(kmlbase::Referent* r);
-void intrusive_ptr_release(kmlbase::Referent* r);
+using Referent = bmcl::RefCountable<std::size_t>;
 
 } // end namespace kmlbase
 

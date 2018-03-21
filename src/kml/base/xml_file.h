@@ -29,7 +29,6 @@
 #define KML_BASE_XML_FILE_H__
 
 #include <map>
-#include "boost/intrusive_ptr.hpp"
 #include "kml/base/xml_element.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
@@ -64,7 +63,7 @@ class XmlFile : public Referent {
 
   XmlElementPtr FindXmlElementById(const string& id) const {
     XmlElementIdMap::const_iterator find = id_map_.find(id);
-    return find != id_map_.end() ? find->second : NULL;
+    return find != id_map_.end() ? find->second : nullptr;
   }
 
  protected:

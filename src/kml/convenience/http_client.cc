@@ -37,7 +37,7 @@ class HttpMethod {
     if (method_enum >= HTTP_OPTIONS && method_enum <= HTTP_CONNECT) {
       return kHttpMethodString[method_enum];
     }
-    return NULL;
+    return nullptr;
   }
 
  private:

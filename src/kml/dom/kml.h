@@ -61,7 +61,7 @@ class Kml : public BasicElement<Type_kml> {
   const NetworkLinkControlPtr& get_networklinkcontrol() const {
     return networklinkcontrol_;
   }
-  bool has_networklinkcontrol() const { return networklinkcontrol_ != NULL; }
+  bool has_networklinkcontrol() const { return networklinkcontrol_ != nullptr; }
   void set_networklinkcontrol(const NetworkLinkControlPtr& networklinkcontrol) {
     SetComplexChild(networklinkcontrol, &networklinkcontrol_);
   }
@@ -70,7 +70,7 @@ class Kml : public BasicElement<Type_kml> {
   }
 
   const FeaturePtr& get_feature() const { return feature_; }
-  bool has_feature() const { return feature_ != NULL; }
+  bool has_feature() const { return feature_ != nullptr; }
   void set_feature(const FeaturePtr& feature) {
     SetComplexChild(feature, &feature_);
   }

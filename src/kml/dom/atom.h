@@ -300,7 +300,7 @@ class AtomEntry : public AtomCommon {
 
   // <atom:content>
   const AtomContentPtr& get_content() const { return content_; }
-  bool has_content() const { return content_ != NULL; }
+  bool has_content() const { return content_ != nullptr; }
   void set_content(const AtomContentPtr& content) {
     SetComplexChild(content, &content_);
   }

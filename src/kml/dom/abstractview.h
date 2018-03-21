@@ -48,7 +48,7 @@ class AbstractView : public Object {
   const TimePrimitivePtr& get_gx_timeprimitive() const {
     return gx_timeprimitive_;
   }
-  bool has_gx_timeprimitive() const { return gx_timeprimitive_ != NULL; }
+  bool has_gx_timeprimitive() const { return gx_timeprimitive_ != nullptr; }
   void set_gx_timeprimitive(const TimePrimitivePtr& gx_timeprimitive) {
     SetComplexChild(gx_timeprimitive, &gx_timeprimitive_);
   }

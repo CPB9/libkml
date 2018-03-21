@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 // WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/xsd/xsd_file.h"
@@ -45,7 +45,7 @@ XsdFile* XsdFile::CreateFromParse(const string& xsd_data,
     return xsd_file;
   }
   delete xsd_file;
-  return NULL;
+  return nullptr;
 }
 
 // TODO: mem_fun might help avoid this functor
@@ -79,19 +79,19 @@ void XsdFile::GetAllTypes(XsdTypeVector* types) const {
 
 const XsdTypePtr XsdFile::FindType(const string& type_name) const {
   XsdTypeMap::const_iterator iter = type_map_.find(type_name);
-  return iter == type_map_.end() ? NULL : iter->second;
+  return iter == type_map_.end() ? nullptr : iter->second;
 }
 
 const XsdElementPtr XsdFile::FindElement(
     const string& element_name) const {
   XsdElementMap::const_iterator iter = element_map_.find(element_name);
-  return iter == element_map_.end() ? NULL : iter->second;
+  return iter == element_map_.end() ? nullptr : iter->second;
 }
 
 const XsdTypePtr XsdFile::FindElementType(const XsdElementPtr& element) const {
   // Not much to do if the <xs:element> has no type="..." attribute.
   if (!element || element->get_type().empty()) {
-    return NULL;
+    return nullptr;
   }
   // If this is primitive synthesize an XsdType.
   if (element->is_primitive()) {
@@ -102,7 +102,7 @@ const XsdTypePtr XsdFile::FindElementType(const XsdElementPtr& element) const {
   string type_name;
   if (!xsd_schema_ ||
       !xsd_schema_->SplitNsName(element->get_type(), &type_name)) {
-    return NULL;
+    return nullptr;
   }
   return FindType(type_name);
 }
@@ -138,7 +138,7 @@ const XsdElementPtr XsdFile::ResolveRef(const string& element_ref) const {
   // is for this XSD file's target namespace.
   string element_name;
   if (!xsd_schema_ || !xsd_schema_->SplitNsName(element_ref, &element_name)) {
-    return NULL;
+    return nullptr;
   }
   return FindElement(element_name);
 }
@@ -148,7 +148,7 @@ XsdComplexTypePtr XsdFile::GetBaseType(
   string type_name;
   if (!xsd_schema_->SplitNsName(complex_type->get_extension_base(),
                                 &type_name)) {
-    return NULL;  // XSD is incomplete.
+    return nullptr;  // XSD is incomplete.
   }
   return XsdComplexType::AsComplexType(FindType(type_name));
 }

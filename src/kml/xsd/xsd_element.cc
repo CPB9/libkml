@@ -65,7 +65,7 @@ XsdElement* XsdElement::Create(const kmlbase::Attributes& attributes) {
     return xsd_element;
   }
   delete xsd_element;
-  return NULL;
+  return nullptr;
 }
 
 }  // end namespace kmlxsd

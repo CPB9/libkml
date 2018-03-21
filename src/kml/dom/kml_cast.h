@@ -38,16 +38,16 @@ namespace kmldom {
 // Element-derived type is of the template type then a pointer is returned,
 // else NULL.  It is safe to pass a NULL to this function.
 template<class T>
-inline const boost::intrusive_ptr<T> ElementCast(
+inline const bmcl::Rc<T> ElementCast(
     const ElementPtr& element) {
   if (element && element->IsA(T::ElementType())) {
-    return boost::static_pointer_cast<T>(element);
+    return bmcl::static_pointer_cast<T>(element);
   }
-  return NULL;
+  return nullptr;
 }
 
 inline const ElementPtr AsElement(const kmlbase::XmlElementPtr& xml_element) {
-  return boost::static_pointer_cast<Element>(xml_element);
+  return bmcl::static_pointer_cast<Element>(xml_element);
 }
 
 // Abstract element groups.

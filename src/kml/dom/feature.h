@@ -93,7 +93,7 @@ class Feature : public Object {
 
   // <atom:author>
   const AtomAuthorPtr& get_atomauthor() const { return atomauthor_; }
-  bool has_atomauthor() const { return atomauthor_ != NULL; }
+  bool has_atomauthor() const { return atomauthor_ != nullptr; }
   void set_atomauthor(const AtomAuthorPtr& atomauthor) {
     SetComplexChild(atomauthor, &atomauthor_);
   }
@@ -103,7 +103,7 @@ class Feature : public Object {
 
   // <atom:link>
   const AtomLinkPtr& get_atomlink() const { return atomlink_; }
-  bool has_atomlink() const { return atomlink_ != NULL; }
+  bool has_atomlink() const { return atomlink_ != nullptr; }
   void set_atomlink(const AtomLinkPtr& atomlink) {
     SetComplexChild(atomlink, &atomlink_);
   }
@@ -127,7 +127,7 @@ class Feature : public Object {
   const XalAddressDetailsPtr& get_xaladdressdetails() const {
     return xaladdressdetails_;
   }
-  bool has_xaladdressdetails() const { return xaladdressdetails_ != NULL; }
+  bool has_xaladdressdetails() const { return xaladdressdetails_ != nullptr; }
   void set_xaladdressdetails(const XalAddressDetailsPtr& xaladdressdetails) {
     SetComplexChild(xaladdressdetails, &xaladdressdetails_);
   }
@@ -150,7 +150,7 @@ class Feature : public Object {
   // TODO: "little" <snippet> (presently preserved as a misplaced child)
   // <Snippet>
   const SnippetPtr& get_snippet() const { return snippet_; }
-  bool has_snippet() const { return snippet_ != NULL; }
+  bool has_snippet() const { return snippet_ != nullptr; }
   void set_snippet(const SnippetPtr& snippet) {
     SetComplexChild(snippet, &snippet_);
   }
@@ -172,7 +172,7 @@ class Feature : public Object {
 
   // AbstractView
   const AbstractViewPtr& get_abstractview() const { return abstractview_; }
-  bool has_abstractview() const { return abstractview_ != NULL; }
+  bool has_abstractview() const { return abstractview_ != nullptr; }
   void set_abstractview(const AbstractViewPtr& abstractview) {
     SetComplexChild(abstractview, &abstractview_);
   }
@@ -182,7 +182,7 @@ class Feature : public Object {
 
   // TimePrimitive
   const TimePrimitivePtr& get_timeprimitive() const { return timeprimitive_; }
-  bool has_timeprimitive() const { return timeprimitive_ != NULL; }
+  bool has_timeprimitive() const { return timeprimitive_ != nullptr; }
   void set_timeprimitive(const TimePrimitivePtr& timeprimitive) {
     SetComplexChild(timeprimitive, &timeprimitive_);
   }
@@ -205,7 +205,7 @@ class Feature : public Object {
 
   // StyleSelector
   const StyleSelectorPtr& get_styleselector() const { return styleselector_; }
-  bool has_styleselector() const { return styleselector_ != NULL; }
+  bool has_styleselector() const { return styleselector_ != nullptr; }
   void set_styleselector(const StyleSelectorPtr& styleselector) {
     SetComplexChild(styleselector, &styleselector_);
   }
@@ -215,7 +215,7 @@ class Feature : public Object {
 
   // <Region>
   const RegionPtr& get_region() const { return region_; }
-  bool has_region() const { return region_ != NULL; }
+  bool has_region() const { return region_ != nullptr; }
   void set_region(const RegionPtr& region) {
     SetComplexChild(region, &region_);
   }
@@ -226,7 +226,7 @@ class Feature : public Object {
   // TODO: <Metadata> (presently preserved as a misplaced child)
   // <ExtendedData>
   const ExtendedDataPtr& get_extendeddata() const { return extendeddata_; }
-  bool has_extendeddata() const { return extendeddata_ != NULL; }
+  bool has_extendeddata() const { return extendeddata_ != nullptr; }
   void set_extendeddata(const ExtendedDataPtr& extendeddata) {
     SetComplexChild(extendeddata, &extendeddata_);
   }

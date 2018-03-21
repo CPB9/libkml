@@ -54,7 +54,7 @@ GoogleMapsData* GoogleMapsData::Create(HttpClient* http_client) {
   }
   delete http_client;
   delete mds;
-  return NULL;
+  return nullptr;
 }
 
 static string GetScope() {
@@ -100,7 +100,7 @@ kmldom::AtomFeedPtr GoogleMapsData::GetMetaFeed() const {
   if (GetMetaFeedXml(&meta_feed)) {
     return kmldom::AsAtomFeed(kmldom::ParseAtom(meta_feed, NULL));
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -130,7 +130,7 @@ kmldom::AtomFeedPtr GoogleMapsData::GetFeatureFeedByUri(
   if (GetFeatureFeedXml(feature_feed_uri, &feature_feed)) {
     return kmldom::AsAtomFeed(kmldom::ParseAtom(feature_feed, NULL));
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -141,7 +141,7 @@ kmldom::FeaturePtr GoogleMapsData::GetEntryFeature(
     return kmldom::AsFeature(
         entry->get_content()->get_misplaced_elements_array_at(0));
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -171,7 +171,7 @@ int GoogleMapsData::GetMapKml(const kmldom::AtomFeedPtr& feature_feed,
 kmldom::DocumentPtr GoogleMapsData::CreateDocumentOfMapFeatures(
     const kmldom::AtomFeedPtr& feature_feed) {
   if (!feature_feed.get()) {
-    return NULL;
+    return nullptr;
   }
   kmldom::DocumentPtr document =
       kmldom::KmlFactory::GetFactory()->CreateDocument();
@@ -325,13 +325,13 @@ kmldom::AtomFeedPtr GoogleMapsData::SearchMapByBbox(
     const kmldom::AtomEntryPtr& map_entry, const kmlengine::Bbox& bbox) {
   string search_feed_uri;
   if (!GetSearchFeedUri(map_entry, &search_feed_uri)) {
-    return NULL;
+    return nullptr;
   }
   string search_parameters;
   AppendBoxParameterFromBbox(bbox, &search_parameters);
   string atom_feed;
   if (!GetSearchFeed(search_feed_uri, search_parameters, &atom_feed)) {
-    return NULL;
+    return nullptr;
   }
   return kmldom::AsAtomFeed(kmldom::ParseAtom(atom_feed, NULL));
 }
@@ -348,7 +348,7 @@ kmldom::AtomEntryPtr GoogleMapsData::PostMedia(const string& slug,
   if (!http_client_->SendRequest(kmlconvenience::HTTP_POST,
                                  scope_ + kMetaFeedUri, &headers, &data,
                                  &map_entry_xml)) {
-    return NULL;
+    return nullptr;
   }
   if (errors) {
     *errors = map_entry_xml;

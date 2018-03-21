@@ -258,7 +258,7 @@ class CoordinatesGeometryCommon : public ExtrudeGeometryCommon {
  public:
   // <coordinates>
   const CoordinatesPtr& get_coordinates() const { return coordinates_; }
-  bool has_coordinates() const { return coordinates_ != NULL; }
+  bool has_coordinates() const { return coordinates_ != nullptr; }
   void set_coordinates(const CoordinatesPtr& coordinates) {
     SetComplexChild(coordinates, &coordinates_);
   }
@@ -375,7 +375,7 @@ class BoundaryCommon : public Element {
 
  public:
   const LinearRingPtr& get_linearring() const { return linearring_; }
-  bool has_linearring() const { return linearring_ != NULL; }
+  bool has_linearring() const { return linearring_ != nullptr; }
   void set_linearring(const LinearRingPtr& linearring) {
     SetComplexChild(linearring, &linearring_);
   }
@@ -459,7 +459,7 @@ class Polygon : public ExtrudeGeometryCommon {
   const OuterBoundaryIsPtr& get_outerboundaryis() const {
     return outerboundaryis_;
   }
-  bool has_outerboundaryis() const { return outerboundaryis_ != NULL; }
+  bool has_outerboundaryis() const { return outerboundaryis_ != nullptr; }
   void set_outerboundaryis(const OuterBoundaryIsPtr& outerboundaryis) {
     SetComplexChild(outerboundaryis, &outerboundaryis_);
   }
@@ -584,12 +584,12 @@ class GxTrack : public AltitudeGeometryCommon {
   void set_model(const ModelPtr& model) {
     SetComplexChild(model, &model_);
   }
-  bool has_model() const { return model_ != NULL; }
+  bool has_model() const { return model_ != nullptr; }
   void clear_model() { set_model(NULL); }
 
   // <ExtendedData>
   const ExtendedDataPtr& get_extendeddata() const { return extendeddata_; }
-  bool has_extendeddata() const { return extendeddata_ != NULL; }
+  bool has_extendeddata() const { return extendeddata_ != nullptr; }
   void set_extendeddata(const ExtendedDataPtr& extendeddata) {
     SetComplexChild(extendeddata, &extendeddata_);
   }
@@ -1007,7 +1007,7 @@ class Model : public AltitudeGeometryCommon {
 
   // <Location>
   const LocationPtr& get_location() const { return location_; }
-  bool has_location() const { return location_ != NULL; }
+  bool has_location() const { return location_ != nullptr; }
   void set_location(const LocationPtr& location) {
     SetComplexChild(location, &location_);
   }
@@ -1017,7 +1017,7 @@ class Model : public AltitudeGeometryCommon {
 
   // <Orientation>
   const OrientationPtr& get_orientation() const { return orientation_; }
-  bool has_orientation() const { return orientation_ != NULL; }
+  bool has_orientation() const { return orientation_ != nullptr; }
   void set_orientation(const OrientationPtr& orientation) {
     SetComplexChild(orientation, &orientation_);
   }
@@ -1027,7 +1027,7 @@ class Model : public AltitudeGeometryCommon {
 
   // <Scale>
   const ScalePtr& get_scale() const { return scale_; }
-  bool has_scale() const { return scale_ != NULL; }
+  bool has_scale() const { return scale_ != nullptr; }
   void set_scale(const ScalePtr& scale) {
     SetComplexChild(scale, &scale_);
   }
@@ -1037,7 +1037,7 @@ class Model : public AltitudeGeometryCommon {
 
   // <Link>
   const LinkPtr& get_link() const { return link_; }
-  bool has_link() const { return link_ != NULL; }
+  bool has_link() const { return link_ != nullptr; }
   void set_link(const LinkPtr& link) {
     SetComplexChild(link, &link_);
   }
@@ -1047,7 +1047,7 @@ class Model : public AltitudeGeometryCommon {
 
   // <ResourceMap>
   const ResourceMapPtr& get_resourcemap() const { return resourcemap_; }
-  bool has_resourcemap() const { return resourcemap_ != NULL; }
+  bool has_resourcemap() const { return resourcemap_ != nullptr; }
   void set_resourcemap(const ResourceMapPtr& resourcemap) {
     SetComplexChild(resourcemap, &resourcemap_);
   }

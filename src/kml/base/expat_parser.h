@@ -49,7 +49,7 @@ typedef std::map<string, ExpatHandler*> ExpatHandlerMap;
 class ExpatHandlerSet {
  public:
   ExpatHandlerSet()
-    : default_(NULL) {
+    : default_(nullptr) {
   }
 
   void set_handler(const string& xml_namespace,
@@ -71,7 +71,7 @@ class ExpatHandlerSet {
   // the given namespace.
   ExpatHandler* get_handler(const string& xmlns) const {
     ExpatHandlerMap::const_iterator iter = expat_handler_map_.find(xmlns);
-    return iter == expat_handler_map_.end() ? NULL : iter->second;
+    return iter == expat_handler_map_.end() ? nullptr : iter->second;
   }
 
  private:

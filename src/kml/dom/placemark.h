@@ -46,7 +46,7 @@ class Placemark : public Feature {
   }
 
   const GeometryPtr& get_geometry() const { return geometry_; }
-  bool has_geometry() const { return geometry_ != NULL; }
+  bool has_geometry() const { return geometry_ != nullptr; }
   void set_geometry(const GeometryPtr& geometry) {
     SetComplexChild(geometry, &geometry_);
   }

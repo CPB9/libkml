@@ -36,7 +36,7 @@
 #define KML_DOM_ELEMENT_H__
 
 #include <vector>
-#include "boost/scoped_ptr.hpp"
+#include <memory>
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/visitor_driver.h"
@@ -185,7 +185,7 @@ class Element : public kmlbase::XmlElement {
   // methods in a concrete element.
   template <class T>
   bool SetComplexChild(const T& child, T* field) {
-    if (child == NULL) {
+    if (child == nullptr) {
       // TODO: remove child and children from ID maps...
       *field = NULL;  // Assign removes reference and possibly deletes Element.
       return true;
@@ -232,7 +232,7 @@ class Element : public kmlbase::XmlElement {
   template <class T>
   static T DeleteFromArrayAt(std::vector<T>* array, size_t i) {
     if (!array || i >= array->size()) {
-      return NULL;
+      return nullptr;
     }
     T e = (*array)[i];
     array->erase(array->begin() + i);
@@ -254,9 +254,9 @@ class Element : public kmlbase::XmlElement {
   // Unknown attributes found during parse are copied out and a pointer is
   // stored. The object is dynamically allocated so every element is not
   // burdened with an unnecessary Attributes object.
-  boost::scoped_ptr<kmlbase::Attributes> unknown_attributes_;
+  std::unique_ptr<kmlbase::Attributes> unknown_attributes_;
   // Any Element may have 0 or more xmlns attributes.
-  boost::scoped_ptr<kmlbase::Attributes> xmlns_;
+  std::unique_ptr<kmlbase::Attributes> xmlns_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(Element);
 };
 

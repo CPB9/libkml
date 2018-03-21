@@ -63,7 +63,7 @@ class XalAddressDetails : public BasicElement<Type_XalAddressDetails> {
 
   // <xal:Country>
   const XalCountryPtr& get_country() const { return country_; }
-  bool has_country() const { return country_ != NULL; }
+  bool has_country() const { return country_ != nullptr; }
   void set_country(const XalCountryPtr& country) {
     SetComplexChild(country, &country_);
   }
@@ -102,7 +102,7 @@ class XalAdministrativeArea : public BasicElement<Type_XalAdministrativeArea> {
 
   // <xal:Locality>
   const XalLocalityPtr& get_locality() const { return locality_; }
-  bool has_locality() const { return locality_ != NULL; }
+  bool has_locality() const { return locality_ != nullptr; }
   void set_locality(const XalLocalityPtr& locality) {
     SetComplexChild(locality, &locality_);
   }
@@ -113,7 +113,7 @@ class XalAdministrativeArea : public BasicElement<Type_XalAdministrativeArea> {
     return subadministrativearea_;
   }
   bool has_subadministrativearea() const {
-    return subadministrativearea_ != NULL;
+    return subadministrativearea_ != nullptr;
   }
   void set_subadministrativearea(
       const XalSubAdministrativeAreaPtr& subadministrativearea) {
@@ -155,7 +155,7 @@ class XalCountry : public BasicElement<Type_XalCountry> {
   const XalAdministrativeAreaPtr& get_administrativearea() const {
     return administrativearea_;
   }
-  bool has_administrativearea() const { return administrativearea_ != NULL; }
+  bool has_administrativearea() const { return administrativearea_ != nullptr; }
   void set_administrativearea(
       const XalAdministrativeAreaPtr& administrativearea) {
     SetComplexChild(administrativearea, &administrativearea_);
@@ -198,7 +198,7 @@ class XalLocality : public BasicElement<Type_XalLocality> {
 
   // <xal:Thoroughfare>
   const XalThoroughfarePtr& get_thoroughfare() const { return thoroughfare_; }
-  bool has_thoroughfare() const { return thoroughfare_ != NULL; }
+  bool has_thoroughfare() const { return thoroughfare_ != nullptr; }
   void set_thoroughfare(const XalThoroughfarePtr& thoroughfare) {
     SetComplexChild(thoroughfare, &thoroughfare_);
   }
@@ -206,7 +206,7 @@ class XalLocality : public BasicElement<Type_XalLocality> {
 
   // <xal:PostalCode>
   const XalPostalCodePtr& get_postalcode() const { return postalcode_; }
-  bool has_postalcode() const { return postalcode_ != NULL; }
+  bool has_postalcode() const { return postalcode_ != nullptr; }
   void set_postalcode(const XalPostalCodePtr& postalcode) {
     SetComplexChild(postalcode, &postalcode_);
   }
@@ -281,7 +281,7 @@ class XalSubAdministrativeArea :
 
   // <xal:Locality>
   const XalLocalityPtr& get_locality() const { return locality_; }
-  bool has_locality() const { return locality_ != NULL; }
+  bool has_locality() const { return locality_ != nullptr; }
   void set_locality(const XalLocalityPtr& locality) {
     SetComplexChild(locality, &locality_);
   }

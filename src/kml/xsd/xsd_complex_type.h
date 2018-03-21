@@ -27,7 +27,7 @@
 #define KML_XSD_XSD_COMPLEX_TYPE_H__
 
 #include <vector>
-#include "boost/intrusive_ptr.hpp"
+#include <bmcl/Rc.h>
 #include "kml/base/attributes.h"
 #include "kml/xsd/xsd_element.h"
 #include "kml/xsd/xsd_type.h"
@@ -38,7 +38,7 @@ class XsdComplexType;
 
 // Use this typedef to manage the XsdComplexType pointer.  For example:
 //   XsdComplexTypePtr complex_type = XsdComplexType::Create(attributes);
-typedef boost::intrusive_ptr<XsdComplexType> XsdComplexTypePtr;
+typedef bmcl::Rc<XsdComplexType> XsdComplexTypePtr;
 
 // Corresponds to <xs:complexType> with possible <xs:extension> and use of
 // <xs:sequence> (order of <xs:element>'s matters in <xs:sequence>).
@@ -52,16 +52,16 @@ class XsdComplexType : public XsdType {
     if (attributes.GetString("name", &name)) {
       return new XsdComplexType(name);
     }
-    return NULL;
+    return nullptr;
   }
 
   // This dynamic cast to XsdComplexTypePtr returns non-NULL if the xsd_type
   // is non-NULL and is_complex() is true.
   static XsdComplexTypePtr AsComplexType(const XsdTypePtr& xsd_type) {
     if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_COMPLEX) {
-      return boost::static_pointer_cast<XsdComplexType>(xsd_type);
+      return bmcl::static_pointer_cast<XsdComplexType>(xsd_type);
     }
-    return NULL;
+    return nullptr;
   }
 
   virtual XsdTypeEnum get_xsd_type_id() const {

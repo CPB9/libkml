@@ -26,7 +26,7 @@
 #ifndef KML_BASE_MEMORY_FILE_H__
 #define KML_BASE_MEMORY_FILE_H__
 
-#include "boost/intrusive_ptr.hpp"
+#include <bmcl/Rc.h>
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 
@@ -52,7 +52,7 @@ class MemoryFile : public Referent {
   string content_;
 };
 
-typedef boost::intrusive_ptr<MemoryFile> MemoryFilePtr;
+typedef bmcl::Rc<MemoryFile> MemoryFilePtr;
 
 }  // end namespace kmlbase
 

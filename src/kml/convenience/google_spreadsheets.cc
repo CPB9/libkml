@@ -43,7 +43,7 @@ GoogleSpreadsheets* GoogleSpreadsheets::Create(
     HttpClient* http_client) {
   // The HttpClient must exist.
   if (!http_client) {
-    return NULL;
+    return nullptr;
   }
   GoogleSpreadsheets* gs = new GoogleSpreadsheets;
   http_client->AddHeader("GData-Version", "3.0");
@@ -90,7 +90,7 @@ kmldom::AtomFeedPtr GoogleSpreadsheets::GetMetaFeed() const {
   if (GetMetaFeedXml(&meta_feed)) {
     return kmldom::AsAtomFeed(kmldom::ParseAtom(meta_feed, NULL));
   }
-  return NULL;
+  return nullptr;
 }
 
 // http://spreadsheets.google.com/feeds/download/spreadsheets/Export?key={resource_id}&exportFormat={format}

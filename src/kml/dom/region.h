@@ -239,7 +239,7 @@ class Region : public Object {
 
   // <LatLonAltBox>
   const LatLonAltBoxPtr& get_latlonaltbox() const { return latlonaltbox_; }
-  bool has_latlonaltbox() const { return latlonaltbox_ != NULL; }
+  bool has_latlonaltbox() const { return latlonaltbox_ != nullptr; }
   void set_latlonaltbox(const LatLonAltBoxPtr& latlonaltbox) {
     SetComplexChild(latlonaltbox, &latlonaltbox_);
   }
@@ -249,7 +249,7 @@ class Region : public Object {
 
   // <Lod>
   const LodPtr& get_lod() const { return lod_; }
-  bool has_lod() const { return lod_ != NULL; }
+  bool has_lod() const { return lod_ != nullptr; }
   void set_lod(const LodPtr& lod) {
     SetComplexChild(lod, &lod_);
   }

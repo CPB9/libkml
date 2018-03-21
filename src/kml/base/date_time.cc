@@ -27,7 +27,7 @@
 
 #include "kml/base/date_time.h"
 #include "kml/base/missing/strptime.h"
-#include "boost/scoped_ptr.hpp"
+#include <memory>
 #include <stdlib.h>
 
 namespace kmlbase {
@@ -39,12 +39,12 @@ DateTime* DateTime::Create(const string& str) {
     return date_time;
   }
   delete date_time;
-  return NULL;
+  return nullptr;
 }
 
 // static
 time_t DateTime::ToTimeT(const string& str) {
-  boost::scoped_ptr<DateTime> date_time(DateTime::Create(str));
+  std::unique_ptr<DateTime> date_time(DateTime::Create(str));
   return date_time.get() ? date_time->GetTimeT() : 0;
 }
 

@@ -81,7 +81,7 @@ class IconStyle : public ColorStyle {
 
   // <Icon> (different than Overlay Icon)
   const IconStyleIconPtr& get_icon() const { return icon_; }
-  bool has_icon() const { return icon_ != NULL; }
+  bool has_icon() const { return icon_ != nullptr; }
   void set_icon(const IconStyleIconPtr& icon) {
     SetComplexChild(icon, &icon_);
   }
@@ -91,7 +91,7 @@ class IconStyle : public ColorStyle {
 
   // <hotSpot>
   const HotSpotPtr& get_hotspot() const { return hotspot_; }
-  bool has_hotspot() const { return hotspot_ != NULL; }
+  bool has_hotspot() const { return hotspot_ != nullptr; }
   void set_hotspot(const HotSpotPtr& hotspot) {
     SetComplexChild(hotspot, &hotspot_);
   }

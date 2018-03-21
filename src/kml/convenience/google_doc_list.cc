@@ -43,7 +43,7 @@ GoogleDocList* GoogleDocList::Create(
     HttpClient* http_client) {
   // The HttpClient must exist.
   if (!http_client) {
-    return NULL;
+    return nullptr;
   }
   GoogleDocList* gs = new GoogleDocList;
   http_client->AddHeader("GData-Version", "3.0");
@@ -86,7 +86,7 @@ kmldom::AtomFeedPtr GoogleDocList::GetMetaFeed() const {
   if (GetMetaFeedXml(&meta_feed)) {
     return kmldom::AsAtomFeed(kmldom::ParseAtom(meta_feed, NULL));
   }
-  return NULL;
+  return nullptr;
 }
 
 bool GoogleDocList::UploadSpreadsheet(const string& spreadsheet,

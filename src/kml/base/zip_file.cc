@@ -26,6 +26,7 @@
 // This file contains the implementation of the ZipFile class.
 
 #include <exception>
+#include <memory>
 #include "kml/base/zip_file.h"
 #include "kml/base/file.h"
 #include "minizip/unzip.h"
@@ -54,17 +55,17 @@ class MinizipFile {
 
 // Static.
 ZipFile* ZipFile::OpenFromString(const string& zip_data) {
-  return IsZipData(zip_data) ? new ZipFile(zip_data) : NULL;
+  return IsZipData(zip_data) ? new ZipFile(zip_data) : nullptr;
 }
 
 // Static.
 ZipFile* ZipFile::OpenFromFile(const char* file_path) {
   if (!File::Exists(file_path)) {
-    return NULL;
+    return nullptr;
   }
   string data;
   if (!File::ReadFileToString(file_path, &data)) {
-    return NULL;
+    return nullptr;
   }
   return OpenFromString(data);
 }
@@ -73,18 +74,18 @@ ZipFile* ZipFile::OpenFromFile(const char* file_path) {
 ZipFile* ZipFile::Create(const char* file_path) {
   zipFile zipfile = zipOpen(file_path, 0);
   if (!zipfile) {
-    return NULL;
+    return nullptr;
   }
   MinizipFile* minizipfile = new MinizipFile(zipfile);
   if (!minizipfile) {
-    return NULL;
+    return nullptr;
   }
   return new ZipFile(minizipfile);
 }
 
 // Private. Class constructed with static methods.
 ZipFile::ZipFile(const string& data)
-  : minizip_file_(NULL), data_(data),
+  : minizip_file_(nullptr), data_(data),
     max_uncompressed_file_size_(kMaxUncompressedZipSize) {
   // Fill the table of contents for this zipfile.
   zlib_filefunc_def api;
@@ -183,7 +184,7 @@ bool ZipFile::GetEntry(const string& path_in_zip,
     return false;
   }
 
-  boost::scoped_ptr<UnzFileHelper> unzfilehelper(new UnzFileHelper(unzfile));
+  std::unique_ptr<UnzFileHelper> unzfilehelper(new UnzFileHelper(unzfile));
   unz_file_info finfo;
   if (libkml_unzLocateFile(unzfilehelper->get_unzfile(),
                     path_in_zip.c_str(), 0) != UNZ_OK ||

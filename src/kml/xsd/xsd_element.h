@@ -28,7 +28,7 @@
 #ifndef KML_XSD_XSD_ELEMENT_H__
 #define KML_XSD_XSD_ELEMENT_H__
 
-#include "boost/intrusive_ptr.hpp"
+#include <bmcl/Rc.h>
 #include "kml/base/referent.h"
 #include "kml/xsd/xsd_primitive_type.h"
 
@@ -106,7 +106,7 @@ public:
   string substitution_group_;
 };
 
-typedef boost::intrusive_ptr<XsdElement> XsdElementPtr;
+typedef bmcl::Rc<XsdElement> XsdElementPtr;
 
 }  // end namespace kmlxsd
 

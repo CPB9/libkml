@@ -56,7 +56,7 @@ ElementPtr Parser::Parse(const string& kml, string* errors) {
   if (kmlbase::ExpatParser::ParseString(kml, &kml_handler, errors, false)) {
     return kml_handler.PopRoot();
   }
-  return NULL;
+  return nullptr;
 }
 
 
@@ -67,7 +67,7 @@ ElementPtr Parser::ParseNS(const string& kml, string* errors) {
   if (kmlbase::ExpatParser::ParseString(kml, &kml_handler, errors, true)) {
     return kml_handler.PopRoot();
   }
-  return NULL;
+  return nullptr;
 }
 
 // This is obviously a bit of a special case.  If libkml always used full
@@ -87,13 +87,13 @@ ElementPtr Parser::ParseAtom(const string& atom, string* errors) {
   // 4) KmlHandler knows that <atom:feed> is kmldom::AtomFeed
   attributes.SetValue("xmlns", "http://www.opengis.net/kml/2.2");
   attributes.SetValue("xmlns:atom", "http://www.w3.org/2005/Atom");
-  boost::scoped_ptr<kmlbase::Xmlns> xmlns(kmlbase::Xmlns::Create(attributes));
+  std::unique_ptr<kmlbase::Xmlns> xmlns(kmlbase::Xmlns::Create(attributes));
   kmlbase::ExpatHandlerNs expat_handler_ns(&kml_handler, xmlns.get());
   if (kmlbase::ExpatParser::ParseString(atom, &expat_handler_ns, errors,
                                         true)) {
     return kml_handler.PopRoot();
   }
-  return NULL;
+  return nullptr;
 }
 
 // This is the implementation of the public API to parse KML from a memory

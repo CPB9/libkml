@@ -83,7 +83,7 @@ class Pair : public Object {
 
   // StyleSelector
   const StyleSelectorPtr& get_styleselector() const { return styleselector_; }
-  bool has_styleselector() const { return styleselector_ != NULL; }
+  bool has_styleselector() const { return styleselector_ != nullptr; }
   void set_styleselector(const StyleSelectorPtr& styleselector) {
     SetComplexChild(styleselector, &styleselector_);
   }

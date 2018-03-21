@@ -75,7 +75,7 @@ class NetworkLink : public Feature {
   // <Link>
   // <Url> is deprecated, no API access
   const LinkPtr& get_link() const { return link_; }
-  bool has_link() const { return link_ != NULL; }
+  bool has_link() const { return link_ != nullptr; }
   void set_link(const LinkPtr& link) {
     SetComplexChild(link, &link_);
   }

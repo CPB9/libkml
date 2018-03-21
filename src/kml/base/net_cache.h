@@ -29,8 +29,8 @@
 #define KML_BASE_NET_CACHE_H__
 
 #include <map>
+#include <bmcl/Rc.h>
 #include "kml/base/util.h"
-#include "boost/intrusive_ptr.hpp"
 
 namespace kmlbase {
 
@@ -68,7 +68,7 @@ class NetFetcher {
 //     }
 //     // other methods if you have them
 //   };
-//   typedef boost::intrusive_ptr<MyCacheItem> MyCacheItemPtr;
+//   typedef bmcl::Rc<MyCacheItem> MyCacheItemPtr;
 //
 // Create a NetCache for that CacheItem:
 //   NetCache<MyCacheItem> net_cache_of_my_cache_items;
@@ -96,7 +96,7 @@ class NetFetcher {
 template<class CacheItem>
 class NetCache {
  public:
-  typedef boost::intrusive_ptr<CacheItem> CacheItemPtr;
+  typedef bmcl::Rc<CacheItem> CacheItemPtr;
   typedef std::pair<CacheItemPtr, uint64_t> CacheEntry;
   typedef std::map<string, CacheEntry> CacheMap;
 
@@ -125,12 +125,12 @@ class NetCache {
     string data;
     // NetFetcher knows only about "get me the data at this URL".
     if (!net_fetcher_->FetchUrl(url, &data)) {
-      return NULL;  // Fetch failed, no such URL.
+      return nullptr;  // Fetch failed, no such URL.
     }
     // Fetch succeeded: create a CacheItem from the data.
     CacheItemPtr item = CacheItem::CreateFromString(data);
     if (!Save(url, item)) {  // This is basically an internal error.
-      return NULL;
+      return nullptr;
     }
     return item;
   }
@@ -142,7 +142,7 @@ class NetCache {
   const CacheItemPtr LookUp(const string& url) const {
     typename CacheMap::const_iterator iter = cache_map_.find(url);
     if (iter == cache_map_.end()) {
-      return NULL;
+      return nullptr;
     }
     // iter->first is key, second is val and val is KmzCacheEntry pair whose
     // first is KmlFilePtr (second is creation time of cache entry).

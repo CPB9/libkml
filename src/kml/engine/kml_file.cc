@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the KmlFile class methods.
@@ -51,7 +51,7 @@ KmlFile* KmlFile::CreateFromParse(const string& kml_or_kmz_data,
     return kml_file;
   }
   delete kml_file;
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -63,7 +63,7 @@ KmlFile* KmlFile::CreateFromStringWithUrl(const string& kml_data,
     kml_file->set_kml_cache(kml_cache);
     return kml_file;
   }
-  return NULL;
+  return nullptr;
 }
 
 // private
@@ -134,7 +134,7 @@ bool KmlFile::ParseFromString(const string& kml, string* errors) {
 KmlFile* KmlFile::CreateFromImportInternal(const kmldom::ElementPtr& element,
                                            bool strict) {
   if (!element) {
-    return NULL;
+    return nullptr;
   }
   KmlFile* kml_file = new KmlFile;
   ElementVector dup_id_elements;
@@ -142,7 +142,7 @@ KmlFile* KmlFile::CreateFromImportInternal(const kmldom::ElementPtr& element,
   MapIds(element, map_ptr, &dup_id_elements);
   if (strict && !dup_id_elements.empty()) {
     delete kml_file;
-    return NULL;
+    return nullptr;
   }
   // Add all the shared styles to the style map. A shared style is any style
   // with an id whose parent is a document (and by defintion anything in
@@ -213,13 +213,13 @@ bool KmlFile::SerializeToString(string* xml_output) const {
 
 kmldom::ObjectPtr KmlFile::GetObjectById(const string& id) const {
   ObjectIdMap::const_iterator find = object_id_map_.find(id);
-  return find != object_id_map_.end() ? kmldom::AsObject(find->second) : NULL;
+  return find != object_id_map_.end() ? kmldom::AsObject(find->second) : nullptr;
 }
 
 kmldom::StyleSelectorPtr KmlFile::GetSharedStyleById(
     const string& id) const {
   SharedStyleMap::const_iterator find = shared_style_map_.find(id);
-  return find != shared_style_map_.end() ? find->second : NULL;
+  return find != shared_style_map_.end() ? find->second : nullptr;
 }
 
 }  // end namespace kmlengine

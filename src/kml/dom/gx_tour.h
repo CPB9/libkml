@@ -60,7 +60,7 @@ class GxTour : public Feature {
 
   // <gx:Playlist>
   const GxPlaylistPtr& get_gx_playlist() const { return gx_playlist_; }
-  bool has_gx_playlist() const { return gx_playlist_ != NULL; }
+  bool has_gx_playlist() const { return gx_playlist_ != nullptr; }
   void set_gx_playlist(const GxPlaylistPtr& gx_playlist) {
     SetComplexChild(gx_playlist, &gx_playlist_);
   }
@@ -183,7 +183,7 @@ class GxAnimatedUpdate : public GxTourPrimitiveCommon {
 
   // <Update>
   const UpdatePtr& get_update() const { return update_; }
-  bool has_update() const { return update_ != NULL; }
+  bool has_update() const { return update_ != nullptr; }
   void set_update(const UpdatePtr& update) {
     SetComplexChild(update, &update_);
   }
@@ -232,7 +232,7 @@ class GxFlyTo : public GxTourPrimitiveCommon {
 
   // AbstractView
   const AbstractViewPtr& get_abstractview() const { return abstractview_; }
-  bool has_abstractview() const { return abstractview_ != NULL; }
+  bool has_abstractview() const { return abstractview_ != nullptr; }
   void set_abstractview(const AbstractViewPtr& abstractview) {
     SetComplexChild(abstractview, &abstractview_);
   }

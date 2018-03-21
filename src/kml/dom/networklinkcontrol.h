@@ -296,7 +296,7 @@ class NetworkLinkControl : public BasicElement<Type_NetworkLinkControl> {
 
   // <linkSnippet>
   const LinkSnippetPtr& get_linksnippet() const { return linksnippet_; }
-  bool has_linksnippet() const { return linksnippet_ != NULL; }
+  bool has_linksnippet() const { return linksnippet_ != nullptr; }
   void set_linksnippet(LinkSnippetPtr linksnippet) {
     SetComplexChild(linksnippet, &linksnippet_);
   }
@@ -318,7 +318,7 @@ class NetworkLinkControl : public BasicElement<Type_NetworkLinkControl> {
 
   // <Update>
   const UpdatePtr& get_update() const { return update_; }
-  bool has_update() const { return update_ != NULL; }
+  bool has_update() const { return update_ != nullptr; }
   void set_update(const UpdatePtr& update) {
     SetComplexChild(update, &update_);
   }
@@ -328,7 +328,7 @@ class NetworkLinkControl : public BasicElement<Type_NetworkLinkControl> {
 
   // AbstractView
   const AbstractViewPtr& get_abstractview() const { return abstractview_; }
-  bool has_abstractview() const { return abstractview_ != NULL; }
+  bool has_abstractview() const { return abstractview_ != nullptr; }
   void set_abstractview(const AbstractViewPtr& abstractview) {
     SetComplexChild(abstractview, &abstractview_);
   }

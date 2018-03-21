@@ -69,7 +69,7 @@ AtomLinkPtr AtomUtil::CreateBasicLink(const string& href,
 kmldom::AtomEntryPtr AtomUtil::CreateEntryForFeature(
     const FeaturePtr& feature) {
   if (!feature.get()) {
-    return NULL;
+    return nullptr;
   }
   AtomEntryPtr entry = CreateBasicEntry(feature->get_name(),
                                         feature->get_description());
@@ -114,7 +114,7 @@ kmldom::AtomCategoryPtr AtomUtil::FindCategoryByScheme(
       return category;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -144,7 +144,7 @@ kmldom::AtomLinkPtr AtomUtil::FindLink(const kmldom::AtomCommon& atom_common,
       return link;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -155,7 +155,7 @@ FeaturePtr AtomUtil::GetEntryFeature(const AtomEntryPtr& entry) {
     return kmldom::AsFeature(
              entry->get_content()->get_misplaced_elements_array_at(0));
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -169,7 +169,7 @@ FeaturePtr AtomUtil::CloneEntryFeature(const AtomEntryPtr& entry) {
     }
     return feature;
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -194,7 +194,7 @@ AtomEntryPtr AtomUtil::FindEntryByTitle(const kmldom::AtomFeedPtr& feed,
       return entry;
     }
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -204,7 +204,7 @@ kmldom::AtomFeedPtr AtomUtil::GetAndParseFeed(const string& feed_uri,
   if (http_client.SendRequest(HTTP_GET, feed_uri, NULL, NULL, &feed_xml)) {
     return kmldom::AsAtomFeed(kmldom::ParseAtom(feed_xml, NULL));
   }
-  return NULL;
+  return nullptr;
 }
 
 // static
@@ -214,7 +214,7 @@ kmldom::AtomFeedPtr AtomUtil::GetNextFeed(const kmldom::AtomFeedPtr& feed,
   if (kmlconvenience::AtomUtil::FindRelUrl(*feed, "next", &next_feed_url)) {
     return GetAndParseFeed(next_feed_url, http_client);
   }
-  return NULL;
+  return nullptr;
 }
 
 // Parse a string of this form: <namempace|key>val</namespace|key>.

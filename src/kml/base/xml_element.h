@@ -28,7 +28,7 @@
 #ifndef KML_BASE_XML_ELEMENT_H__
 #define KML_BASE_XML_ELEMENT_H__
 
-#include "boost/intrusive_ptr.hpp"
+#include <bmcl/Rc.h>
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_namespaces.h"
@@ -40,7 +40,7 @@ class XmlFile;
 // Forward declare XmlElement to create typedef used within class XmlElement.
 class XmlElement;
 
-typedef boost::intrusive_ptr<XmlElement> XmlElementPtr;
+typedef bmcl::Rc<XmlElement> XmlElementPtr;
 
 // This class represents an XML element.  An XmlElement may be in one XmlFile,
 // and may have one parent XmlElement.  This class is derived from Referent
@@ -82,7 +82,7 @@ class XmlElement : public Referent {
 
  protected:
   // This is an abstract base class and is never created directly.
-  XmlElement() : xmlns_id_(XMLNS_NONE), parent_(NULL), xml_file_(NULL) {}
+  XmlElement() : xmlns_id_(XMLNS_NONE), parent_(nullptr), xml_file_(nullptr) {}
 
   void set_xmlns(XmlnsId xmlns_id) {
     xmlns_id_ = xmlns_id;

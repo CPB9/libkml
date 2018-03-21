@@ -28,14 +28,14 @@
 #ifndef KML_BASE_TEMPFILE_H__
 #define KML_BASE_TEMPFILE_H__
 
-#include "boost/intrusive_ptr.hpp"
+#include <bmcl/Rc.h>
 #include "kml/base/file.h"
 #include "kml/base/referent.h"
 
 namespace kmlbase {
 
 class TempFile;
-typedef boost::intrusive_ptr<kmlbase::TempFile> TempFilePtr;
+typedef bmcl::Rc<kmlbase::TempFile> TempFilePtr;
 
 // A helper class to manage the creation and deletion of temporary files.
 // TempFile::CreateTempFile(string) returns a pointer to the class upon
@@ -47,7 +47,7 @@ class TempFile : public Referent {
   static TempFile* CreateTempFile() {
     string tempfile;
     if (!File::CreateNewTempFile(&tempfile)) {
-      return NULL;
+      return nullptr;
     }
     return new TempFile(tempfile);
   }

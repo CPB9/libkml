@@ -28,7 +28,7 @@
 #include "kml/engine/kmz_file.h"
 #include <cstring>
 #include <set>
-#include "boost/scoped_ptr.hpp"
+#include <memory>
 #include "kml/base/file.h"
 #include "kml/base/string_util.h"
 #include "kml/base/zip_file.h"
@@ -56,7 +56,7 @@ KmzFile* KmzFile::OpenFromFile(const char* kmz_filename) {
   if (ZipFile* zipfile = ZipFile::OpenFromFile(kmz_filename)) {
     return new KmzFile(zipfile);
   }
-  return NULL;
+  return nullptr;
 }
 
 // Static.
@@ -64,7 +64,7 @@ KmzFile* KmzFile::OpenFromString(const string& kmz_data) {
   if (ZipFile* zipfile = ZipFile::OpenFromString(kmz_data)) {
     return new KmzFile(zipfile);
   }
-  return NULL;
+  return nullptr;
 }
 
 // Static.
@@ -124,7 +124,7 @@ bool KmzFile::SaveToString(string* kmz_bytes) {
 KmzFile* KmzFile::Create(const char* kmz_filepath) {
   ZipFile* zipfile = ZipFile::Create(kmz_filepath);
   if (!zipfile) {
-    return NULL;
+    return nullptr;
   }
   return new KmzFile(zipfile);
 }
@@ -187,7 +187,7 @@ size_t KmzFile::AddFileList(const string& base_url,
 
 // Static.
 bool KmzFile::WriteKmz(const char* kmz_filepath, const string& kml) {
-  boost::scoped_ptr<KmzFile> kmz(KmzFile::Create(kmz_filepath));
+  std::unique_ptr<KmzFile> kmz(KmzFile::Create(kmz_filepath));
   if (!kmz.get()) {
     return false;
   }
