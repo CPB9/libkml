@@ -46,7 +46,7 @@ class Xsd;
 // The Serializer class is internal to the KML DOM and is used by each
 // Element to save its tag name, fields (attributes and simple elements),
 // character data content and/or complex child elements.
-class Serializer {
+class KML_EXPORT Serializer {
  public:
   Serializer();
 

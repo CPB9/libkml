@@ -141,9 +141,22 @@ src = [
   'xsd/xst_parser.cc',
 ] + file_src
 
+
+args = []
+cc = meson.get_compiler('cpp')
+if cc.get_id() == 'msvc'
+  args += '-wd4251'
+endif
+
 libkml_lib = shared_library('kml',
   sources : src,
+  name_prefix : 'lib',
   include_directories : kml_inc,
   dependencies : [uriparser_dep, minizip_dep, zlib_dep, bmcl_dep, expat_dep],
-  cpp_args : '-DBUILDING_LIBKML'
+  cpp_args : ['-DBUILDING_LIBKML'] + args
+)
+
+libkml_dep = declare_dependency(
+  link_with : libkml_lib,
+  include_directories : include_directories('..', is_system : true),
 )

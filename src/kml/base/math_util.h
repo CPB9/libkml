@@ -88,15 +88,15 @@ KML_EXPORT double DistanceBetweenPoints3d(double lat_from, double lng_from,
 // where the vector starts at a point on the surface of the Earth,
 // returns the absolute distance between the ground point and the point
 // directly under the end point.
-KML_EXPORT double KML_EXPORT
+KML_EXPORT double
 GroundDistanceFromRangeAndElevation(double range, double elevation);
 
 // Given a vector describing a line at an angle from the horizontal plane,
 // where the vector starts at a point on the surface of the Earth,
 // returns the absolute height between the end point and the surface
 // point directly under it.
-KML_EXPORT double KML_EXPORT HeightFromRangeAndElevation(double range,
-                                                         double elevation);
+KML_EXPORT double HeightFromRangeAndElevation(double range,
+                                              double elevation);
 
 // Returns a Vec3 containing the latitude and longitude of a point at a
 // distance (meters) out on the radial (degrees) from a center point lat, lng.

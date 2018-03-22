@@ -41,7 +41,7 @@ class Serializer;
 class Visitor;
 
 // This is SnippetType in the KML standard.
-class SnippetCommon : public Element {
+class KML_EXPORT SnippetCommon : public Element {
  public:
   virtual ~SnippetCommon();
   virtual KmlDomType Type() const;

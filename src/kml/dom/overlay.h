@@ -48,7 +48,7 @@ class VisitorDriver;
 
 // OGC KML 2.2 Standard: 11.1 kml:AbstractOverlayGroup
 // OGC KML 2.2 XSD: <element name="AbstractOverlayGroup"...
-class Overlay : public Feature {
+class KML_EXPORT Overlay : public Feature {
  public:
   virtual ~Overlay();
   virtual KmlDomType Type() const;

@@ -30,6 +30,7 @@
 
 #include <bmcl/Rc.h>
 #include <map>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -47,7 +48,7 @@ namespace kmlbase {
 // Application code should derive from NetFetcher and implement FetchUrl
 // to perform (synchronous) network fetching as desired.  All external I/O
 // from within NetCache is called out to the application code in this manner.
-class NetFetcher {
+class KML_EXPORT NetFetcher {
  public:
   virtual ~NetFetcher() {
   }
