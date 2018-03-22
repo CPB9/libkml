@@ -29,12 +29,13 @@
 #define KML_BASE_EXPAT_HANDLER_H__
 
 #include <expat.h>                 // XML_Char
+#include "kml/config.h"
 #include "kml/base/string_util.h"  // StringVector
 
 namespace kmlbase {
 class Attributes;
 // This declares the pure virtual ExpatHandler interface.
-class ExpatHandler {
+class KML_EXPORT ExpatHandler {
  public:
   virtual ~ExpatHandler();
   virtual void StartElement(const string& name, const StringVector& atts) = 0;

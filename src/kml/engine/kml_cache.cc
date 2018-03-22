@@ -28,6 +28,8 @@
 #include "kml/engine/kml_cache.h"
 #include <memory>
 #include "kml/base/net_cache.h"
+#include "kml/dom/object.h"
+#include "kml/dom/styleselector.h"
 #include "kml/engine/kml_file.h"
 #include "kml/engine/kml_uri_internal.h"
 #include "kml/engine/kmz_cache.h"

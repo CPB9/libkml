@@ -40,6 +40,7 @@
 #include "kml/dom/kml_factory.h"
 #include "kml/dom/kml_funcs.h"
 #include "kml/dom/placemark.h"
+#include "kml/dom/styleselector.h"
 #include "kml/engine/bbox.h"
 #include "kml/engine/clone.h"
 #include "kml/engine/find.h"

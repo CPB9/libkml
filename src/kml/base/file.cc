@@ -31,7 +31,7 @@
 
 namespace kmlbase {
 
-#ifdef WIN32
+#ifdef _WIN32
 const char kSeparator = '\\';
 #else
 const char kSeparator = '/';

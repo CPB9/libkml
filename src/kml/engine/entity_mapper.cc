@@ -32,6 +32,7 @@
 #include "kml/dom/kml_cast.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/schema.h"
+#include "kml/dom/styleselector.h"
 #include "kml/dom/snippet.h"
 #include "kml/dom/xsd.h"  // TODO: should be Xsd class be public?
 #include "kml/engine/kml_uri.h"

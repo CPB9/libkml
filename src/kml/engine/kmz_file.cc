@@ -33,6 +33,8 @@
 #include "kml/base/string_util.h"
 #include "kml/base/zip_file.h"
 #include "kml/dom/element.h"
+#include "kml/dom/object.h"
+#include "kml/dom/styleselector.h"
 #include "kml/dom/kml_funcs.h"
 #include "kml/engine/get_links.h"
 #include "kml/engine/href.h"

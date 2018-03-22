@@ -28,6 +28,7 @@
 #include "kml/dom/networklink.h"
 #include "kml/dom/overlay.h"
 #include "kml/engine/kml_cache.h"
+#include "kml/dom/styleselector.h"
 #include "kml/engine/kml_file.h"
 #include "kml/engine/kml_uri.h"
 

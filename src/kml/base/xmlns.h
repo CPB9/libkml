@@ -57,6 +57,7 @@ class Attributes;
 // returns NULL.
 class KML_EXPORT Xmlns {
  public:
+  ~Xmlns();
   // The caller owns the created Xmlns object.
   static Xmlns* Create(const kmlbase::Attributes& attributes);
 
@@ -84,6 +85,7 @@ class KML_EXPORT Xmlns {
 
  private:
   Xmlns();
+
   bool Parse(const kmlbase::Attributes& attributes);
   string default_;
   std::unique_ptr<Attributes> prefix_map_;

@@ -28,6 +28,10 @@
 
 namespace kmlbase {
 
+Xmlns::~Xmlns()
+{
+}
+
 kmlbase::Xmlns* Xmlns::Create(const Attributes& attributes) {
   Xmlns* xmlns = new Xmlns;
   if (xmlns->Parse(attributes)) {

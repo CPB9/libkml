@@ -29,6 +29,7 @@
 #include <stdlib.h>  // malloc, free
 #include <string.h>  // memcpy, strchr
 #include "kml/base/missing/strtod.h"
+#include "kml/base/missing/strtod.h"
 
 namespace kmlbase {
 
@@ -111,7 +112,7 @@ bool StringEndsWith(const string& str, const string& end) {
 }
 
 bool StringCaseEqual(const string& a, const string& b) {
-#ifdef WIN32
+#ifdef _WIN32
 #define strncasecmp(s1, s2, n) _strnicmp(s1, s2, n)
 #endif
   return a.size() == b.size() && strncasecmp(a.data(), b.data(), a.size()) == 0;

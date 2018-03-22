@@ -25,17 +25,17 @@
 
 #include "kml/base/time_util.h"
 #include <cstddef>  // NULL
-#ifdef WIN32
+#ifdef _WIN32
 #include <time.h>
-#include <windows.h>   // http://code.google.com/p/libkml/issues/detail?id=31
 #include <winsock2.h>  // This header MUST come before windows.h. See
+#include <windows.h>   // http://code.google.com/p/libkml/issues/detail?id=31
 #else
 #include <sys/time.h>
 #endif
 
 namespace kmlbase {
 
-#ifdef WIN32
+#ifdef _WIN32
 // http://forums.msdn.microsoft.com/en/vcgeneral/thread/430449b3-f6dd-4e18-84de-eebd26a8d668/
 #if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
 #define DELTA_EPOCH_IN_MICROSECS 11644473600000000Ui64

@@ -27,6 +27,8 @@
 
 #include "kml/convenience/kmz_check_links.h"
 #include <vector>
+#include "kml/dom/object.h"
+#include "kml/dom/styleselector.h"
 #include "kml/engine/get_links.h"
 #include "kml/engine/href.h"
 #include "kml/engine/kmz_file.h"

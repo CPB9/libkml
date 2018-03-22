@@ -145,7 +145,7 @@ bool UriParser::ToString(string* output) const {
 }
 
 bool UriParser::UriToFilename(const string& uri, string* output) {
-#ifdef WIN32
+#ifdef _WIN32
   return UriToWindowsFilename(uri, output);
 #else
   return UriToUnixFilename(uri, output);
@@ -183,7 +183,7 @@ bool UriParser::UriToWindowsFilename(const string& uri, string* output) {
 }
 
 bool UriParser::FilenameToUri(const string& filename, string* output) {
-#ifdef WIN32
+#ifdef _WIN32
   return WindowsFilenameToUri(filename, output);
 #else
   return UnixFilenameToUri(filename, output);

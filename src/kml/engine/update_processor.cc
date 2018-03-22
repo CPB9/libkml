@@ -34,6 +34,7 @@
 #include "kml/base/string_util.h"
 #include "kml/dom/container.h"
 #include "kml/dom/feature.h"
+#include "kml/dom/styleselector.h"
 #include "kml/dom/kml.h"
 #include "kml/dom/kml_cast.h"
 #include "kml/dom/networklinkcontrol.h"

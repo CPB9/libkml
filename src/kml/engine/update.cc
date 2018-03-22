@@ -30,6 +30,8 @@
 
 #include "kml/engine/update.h"
 #include "kml/base/string_util.h"
+#include "kml/dom/styleselector.h"
+#include "kml/dom/object.h"
 #include "kml/engine/kml_file.h"
 #include "kml/engine/update_processor.h"
 
