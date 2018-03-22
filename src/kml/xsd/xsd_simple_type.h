@@ -26,11 +26,15 @@
 #ifndef KML_XSD_XSD_SIMPLE_TYPE_H__
 #define KML_XSD_XSD_SIMPLE_TYPE_H__
 
-#include <vector>
 #include <bmcl/Rc.h>
+#include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/base/attributes.h"
 #include "kml/xsd/xsd_type.h"
+
+namespace kmlbase {
+class Attributes;
+}
 
 namespace kmlxsd {
 

@@ -30,7 +30,8 @@
 
 #include <map>
 #include <vector>
-#include "kml/dom.h"
+#include "kml/base/util.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
 

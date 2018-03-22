@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the abstract Container element.
@@ -33,7 +33,8 @@
 
 namespace kmldom {
 
-Container::Container() {}
+Container::Container() {
+}
 
 Container::~Container() {
   // feature_array_'s destructor calls the destructor of each FeaturePtr
@@ -69,7 +70,7 @@ FeaturePtr Container::DeleteFeatureById(const string& id) {
   for (; iter != feature_array_.end(); ++iter) {
     FeaturePtr feature = *iter;
     if (feature->has_id() && id == feature->get_id()) {
-  // TODO: if Container is in a KmlFile remove Feature from object map
+      // TODO: if Container is in a KmlFile remove Feature from object map
       feature_array_.erase(iter);
       return feature;
     }
@@ -86,30 +87,32 @@ void Container::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<FeaturePtr>(&feature_array_, driver);
 }
 
+kmldom::KmlDomType Container::Type() const {
+  return Type_Container;
+}
 
-kmldom::KmlDomType Container::Type() const{ return Type_Container; }
+bool Container::IsA(kmldom::KmlDomType type) const {
+  return type == Type_Container || Feature::IsA(type);
+}
 
-bool Container::IsA(kmldom::KmlDomType type) const{
-   return type == Type_Container || Feature::IsA(type);
- }
+void Container::insert_feature_at(std::size_t at, const FeaturePtr& feature) {
+  InsertComplexChild(at, feature, &feature_array_);
+}
 
-void Container::insert_feature_at(std::size_t at, const FeaturePtr& feature){
-     InsertComplexChild(at, feature, &feature_array_);
- }
+int Container::get_index_of_feature(const FeaturePtr& feature) const {
+  std::vector<FeaturePtr>::const_iterator it =
+      std::find(feature_array_.begin(), feature_array_.end(), feature);
+  if (it == feature_array_.end()) {
+    return -1;
+  }
+  return int(it - feature_array_.begin());  // HACK
+}
 
-int Container::get_index_of_feature(const FeaturePtr& feature) const{
-   std::vector<FeaturePtr>::const_iterator it = std::find(feature_array_.begin(), feature_array_.end(), feature);
-   if (it == feature_array_.end()) {
-     return -1;
-   }
-   return int(it - feature_array_.begin()); //HACK
- }
+size_t Container::get_feature_array_size() const {
+  return feature_array_.size();
+}
 
-size_t Container::get_feature_array_size() const{
-   return feature_array_.size();
- }
-
-const FeaturePtr& Container::get_feature_array_at(size_t index) const{
-   return feature_array_[index];
- }
+const FeaturePtr& Container::get_feature_array_at(size_t index) const {
+  return feature_array_[index];
+}
 }  // end namespace kmldom

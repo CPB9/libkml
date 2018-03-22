@@ -29,43 +29,41 @@ namespace kmlxsd {
 
 // This exactly matches the XsdPrimitiveType enum.
 static const char* XsdPrimitiveTypeName[] = {
-  NULL,  // XSD_INVALID
-  "string",  // 3.2.1
-  "boolean",  // 3.2.2
-  "decimal",  // 3.2.3
-  "float",  // 3.2.4
-  "double",  // 3.2.5
-  "duration",  // 3.2.6
-  "dateTime",  // 3.2.7
-  "time",  // 3.2.8
-  "date",  // 3.2.9
-  "gYearMonth",  // 3.2.10
-  "gYear",  // 3.2.11
-  "gMonthDay",  // 3.2.12
-  "gDay",  // 3.2.13
-  "gMonth",  // 3.2.14
-  "hexBinary",  // 3.2.15
-  "base64Binary",  // 3.2.16
-  "anyURI",  // 3.2.17
-  "QNAME",  // 3.2.18
-  "NOTATION",  // 3.2.19
-  // NOTE: this includes only the types involved in the xsd:int derivation.
-  "integer",  // 3.3.13.  Is-a XSD_DECIMAL.
-  "long",  // 3.3.16.  Is-a XSD_INTEGER.
-  "int",  // 3.3.17.  Is-a XSD_LONG.
+    NULL,            // XSD_INVALID
+    "string",        // 3.2.1
+    "boolean",       // 3.2.2
+    "decimal",       // 3.2.3
+    "float",         // 3.2.4
+    "double",        // 3.2.5
+    "duration",      // 3.2.6
+    "dateTime",      // 3.2.7
+    "time",          // 3.2.8
+    "date",          // 3.2.9
+    "gYearMonth",    // 3.2.10
+    "gYear",         // 3.2.11
+    "gMonthDay",     // 3.2.12
+    "gDay",          // 3.2.13
+    "gMonth",        // 3.2.14
+    "hexBinary",     // 3.2.15
+    "base64Binary",  // 3.2.16
+    "anyURI",        // 3.2.17
+    "QNAME",         // 3.2.18
+    "NOTATION",      // 3.2.19
+    // NOTE: this includes only the types involved in the xsd:int derivation.
+    "integer",  // 3.3.13.  Is-a XSD_DECIMAL.
+    "long",     // 3.3.16.  Is-a XSD_INTEGER.
+    "int",      // 3.3.17.  Is-a XSD_LONG.
 };
 
-XsdPrimitiveType::XsdPrimitiveType(TypeId type_id)
-    : type_id_(type_id) {
-  }
+XsdPrimitiveType::XsdPrimitiveType(TypeId type_id) : type_id_(type_id) {
+}
 const string XsdPrimitiveType::GetTypeName(TypeId type_id) {
   return XsdPrimitiveTypeName[type_id];
 }
 
-XsdPrimitiveType::TypeId XsdPrimitiveType::GetTypeId(
-    const string& type_name) {
+XsdPrimitiveType::TypeId XsdPrimitiveType::GetTypeId(const string& type_name) {
   // TODO: make a map and save it somewhere...
-  size_t size = sizeof(XsdPrimitiveTypeName)/sizeof(XsdPrimitiveTypeName[0]);
+  size_t size = sizeof(XsdPrimitiveTypeName) / sizeof(XsdPrimitiveTypeName[0]);
   for (size_t i = 1; i < size; ++i) {
     if (type_name.compare(XsdPrimitiveTypeName[i]) == 0) {
       return static_cast<TypeId>(i);
@@ -74,28 +72,28 @@ XsdPrimitiveType::TypeId XsdPrimitiveType::GetTypeId(
   return XSD_INVALID;
 }
 
+kmlxsd::XsdPrimitiveType* XsdPrimitiveType::Create(
+    const std::__cxx11::string& type_name) {
+  TypeId type_id = GetTypeId(type_name);
+  if (type_id != XSD_INVALID) {
+    return new XsdPrimitiveType(type_id);
+  }
+  return nullptr;
+}
 
-kmlxsd::XsdPrimitiveType* XsdPrimitiveType::Create(const std::__cxx11::string& type_name){
-   TypeId type_id = GetTypeId(type_name);
-   if (type_id != XSD_INVALID) {
-     return new XsdPrimitiveType(type_id);
-   }
-   return nullptr;
- }
+kmlxsd::XsdType::XsdTypeEnum XsdPrimitiveType::get_xsd_type_id() const {
+  return XSD_TYPE_PRIMITIVE;
+}
 
-kmlxsd::XsdType::XsdTypeEnum XsdPrimitiveType::get_xsd_type_id() const{
-   return XSD_TYPE_PRIMITIVE;
- }
+bool XsdPrimitiveType::is_complex() const {
+  return false;
+}
 
-bool XsdPrimitiveType::is_complex() const{
-   return false;
- }
+const std::__cxx11::string XsdPrimitiveType::get_name() const {
+  return GetTypeName(type_id_);
+}
 
-const std::__cxx11::string XsdPrimitiveType::get_name() const{
-   return GetTypeName(type_id_);
- }
-
-const std::__cxx11::string XsdPrimitiveType::get_base() const{
-   return "xsd:primitive";
- }
+const std::__cxx11::string XsdPrimitiveType::get_base() const {
+  return "xsd:primitive";
+}
 }  // end namespace kmlxsd

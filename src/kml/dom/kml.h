@@ -26,12 +26,11 @@
 #ifndef KML_DOM_KML_H__
 #define KML_DOM_KML_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
 #include "kml/dom/element.h"
-#include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/networklinkcontrol.h"
 
 namespace kmlbase {
 class Attributes;
@@ -42,6 +41,8 @@ namespace kmldom {
 class Serializer;
 class Visitor;
 class VisitorDriver;
+class KmlFactory;
+class KmlHandler;
 
 // <kml>
 class KML_EXPORT Kml : public BasicElement<Type_kml> {

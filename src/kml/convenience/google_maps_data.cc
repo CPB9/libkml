@@ -32,8 +32,18 @@
 #include "kml/base/string_util.h"
 #include "kml/convenience/atom_util.h"
 #include "kml/convenience/http_client.h"
-#include "kml/dom.h"
-#include "kml/engine.h"
+#include "kml/dom/atom.h"
+#include "kml/dom/container.h"
+#include "kml/dom/document.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/kml_funcs.h"
+#include "kml/dom/placemark.h"
+#include "kml/engine/bbox.h"
+#include "kml/engine/clone.h"
+#include "kml/engine/find.h"
+#include "kml/engine/kml_file.h"
 
 namespace kmlconvenience {
 
@@ -64,8 +74,7 @@ static string GetScope() {
   return kScope;
 }
 
-GoogleMapsData::GoogleMapsData()
-  : scope_(GetScope()) {
+GoogleMapsData::GoogleMapsData() : scope_(GetScope()) {
 }
 
 // Keep POI of scoped_ptr<GoogleHttpClient>'s dtor out of .h
@@ -185,8 +194,7 @@ kmldom::DocumentPtr GoogleMapsData::CreateDocumentOfMapFeatures(
   return document;
 }
 
-bool GoogleMapsData::CreateMap(const string& title,
-                               const string& summary,
+bool GoogleMapsData::CreateMap(const string& title, const string& summary,
                                string* entry) {
   // Create the <atom:entry> for the new map.
   kmlengine::KmlFilePtr kml_file = kmlengine::KmlFile::CreateFromImport(
@@ -220,15 +228,13 @@ bool GoogleMapsData::AddFeature(const string& feature_feed_post_uri,
   // Create an <atom:entry> to hold the <atom:content>.  Set the <atom:title>
   // from the Feature's <name> and <atom:description> from the Feature's
   // <description>.
-  kmldom::AtomEntryPtr entry =
-      AtomUtil::CreateBasicEntry(feature->get_name(),
-                                 feature->get_description());
+  kmldom::AtomEntryPtr entry = AtomUtil::CreateBasicEntry(
+      feature->get_name(), feature->get_description());
   entry->set_content(content);
 
   // Get the Atom in XML form.  Use KmlFile's serializer to get proper xmlns
   // headers.
-  kmlengine::KmlFilePtr kml_file =
-      kmlengine::KmlFile::CreateFromImport(entry);
+  kmlengine::KmlFilePtr kml_file = kmlengine::KmlFile::CreateFromImport(entry);
   string post_data;
   kml_file->SerializeToString(&post_data);
 
@@ -237,8 +243,8 @@ bool GoogleMapsData::AddFeature(const string& feature_feed_post_uri,
   HttpClient::PushHeader("Content-Type", kmlbase::kAtomMimeType, &headers);
 
   // Send off the HTTP POST and save the result to the user supplied buffer.
-  return http_client_->SendRequest(HTTP_POST, feature_feed_post_uri,
-                                   &headers, &post_data, feature_entry_xml);
+  return http_client_->SendRequest(HTTP_POST, feature_feed_post_uri, &headers,
+                                   &post_data, feature_entry_xml);
 }
 
 int GoogleMapsData::PostPlacemarks(const kmldom::FeaturePtr& root_feature,
@@ -268,7 +274,8 @@ int GoogleMapsData::PostPlacemarks(const kmldom::FeaturePtr& root_feature,
 
 // The Google Maps Data API Search Feeds section documents the search feed uri
 // as based on the feature feed uri.
-// See: http://code.google.com/apis/maps/documentation/mapsdata/developers_guide_protocol.html#Search.
+// See:
+// http://code.google.com/apis/maps/documentation/mapsdata/developers_guide_protocol.html#Search.
 // A feature feed is of this form:
 //   http://maps.google.com/maps/feeds/features/userID/mapID/full
 // A search feed is of this form:
@@ -286,7 +293,7 @@ bool GoogleMapsData::GetSearchFeedUri(const kmldom::AtomEntryPtr& map_entry,
     return false;
   }
   if (search_feed_uri) {
-    *search_feed_uri = feature_feed_uri.substr(0, last_slash+1) + "snippet";
+    *search_feed_uri = feature_feed_uri.substr(0, last_slash + 1) + "snippet";
   }
   return true;
 }
@@ -303,20 +310,19 @@ bool GoogleMapsData::GetSearchFeed(const string& search_feed_uri,
 
 // static
 void GoogleMapsData::AppendBoxParameter(const double north, const double south,
-                               const double east, const double west,
-                               string* search_parameters) {
+                                        const double east, const double west,
+                                        string* search_parameters) {
   if (!search_parameters) {
     return;
   }
-  search_parameters->append("box=" + kmlbase::ToString(west) + "," +
-                                      kmlbase::ToString(south) + "," +
-                                      kmlbase::ToString(east) + "," +
-                                      kmlbase::ToString(north));
+  search_parameters->append(
+      "box=" + kmlbase::ToString(west) + "," + kmlbase::ToString(south) + "," +
+      kmlbase::ToString(east) + "," + kmlbase::ToString(north));
 }
 
 // static
 void GoogleMapsData::AppendBoxParameterFromBbox(const kmlengine::Bbox& bbox,
-                                       string* search_parameters) {
+                                                string* search_parameters) {
   AppendBoxParameter(bbox.get_north(), bbox.get_south(), bbox.get_east(),
                      bbox.get_west(), search_parameters);
 }

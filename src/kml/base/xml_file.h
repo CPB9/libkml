@@ -29,9 +29,10 @@
 #define KML_BASE_XML_FILE_H__
 
 #include <map>
-#include "kml/base/xml_element.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
+#include "kml/base/xml_element.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -42,7 +43,7 @@ typedef std::map<string, XmlElementPtr> XmlElementIdMap;
 // "document", however we avoid that term due to the use of "<Document>" as
 // an element in KML).  An XmlFile may have a URL, a root XmlElement and
 // a set of xml ID to XmlElement mappings.
-class XmlFile : public Referent {
+class KML_EXPORT XmlFile : public Referent {
  public:
   const string& get_url() const;
 
@@ -69,4 +70,4 @@ class XmlFile : public Referent {
 
 }  // end namespace kmlbase
 
-#endif // KML_BASE_XML_FILE_H__
+#endif  // KML_BASE_XML_FILE_H__

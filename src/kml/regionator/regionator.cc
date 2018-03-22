@@ -32,9 +32,18 @@
 #include "kml/base/mimetypes.h"
 #include "kml/base/util.h"
 #include "kml/convenience/atom_util.h"
-#include "kml/dom.h"
+#include "kml/dom/abstractview.h"
+#include "kml/dom/atom.h"
+#include "kml/dom/document.h"
+#include "kml/dom/element.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/networklink.h"
+#include "kml/dom/region.h"
 #include "kml/engine/bbox.h"
 #include "kml/engine/feature_view.h"
+#include "kml/regionator/region_handler.h"
 #include "kml/regionator/regionator_qid.h"
 #include "kml/regionator/regionator_util.h"
 
@@ -111,9 +120,8 @@ bool Regionator::_Regionate(const RegionPtr& region) {
   // up: "A URI that refers to a parent document in a hierarchy of documents."
   // See: http://www.iana.org/assignments/link-relations/link-relations.xhtml
   document->set_atomlink(kmlconvenience::AtomUtil::CreateBasicLink(
-    root_filename_ ? root_filename_ : "1.kml",
-    qid.IsRoot() ? "self" : "up",
-    kmlbase::kKmlMimeType));
+      root_filename_ ? root_filename_ : "1.kml", qid.IsRoot() ? "self" : "up",
+      kmlbase::kKmlMimeType));
 
   // Create a NetworkLink to the KML file for each child region with data.
   for (size_t i = 0; i < children.size(); ++i) {
@@ -171,16 +179,17 @@ bool Regionator::RegionateAligned(RegionHandler& rhandler,
       kmldom::KmlFactory::GetFactory()->CreateRegion();
   aligned_region->set_latlonaltbox(llab);
   aligned_region->set_lod(CloneLod(region->get_lod()));
-  std::unique_ptr<Regionator> regionator(new Regionator(rhandler,
-                                                          aligned_region));
+  std::unique_ptr<Regionator> regionator(
+      new Regionator(rhandler, aligned_region));
   regionator->SetNaturalRegion(region);
   return regionator->Regionate(output_directory);
 }
 
+void Regionator::SetRootFilename(const char* filename) {
+  root_filename_ = filename;
+}
 
-void Regionator::SetRootFilename(const char* filename){ root_filename_ = filename; }
-
-void Regionator::SetNaturalRegion(const kmldom::RegionPtr& region){
-   natural_region_ = region;
- }
+void Regionator::SetNaturalRegion(const kmldom::RegionPtr& region) {
+  natural_region_ = region;
+}
 }  // end namespace kmlregionator

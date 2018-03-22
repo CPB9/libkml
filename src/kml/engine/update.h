@@ -26,8 +26,10 @@
 #ifndef KML_ENGINE_UPDATE_H__
 #define KML_ENGINE_UPDATE_H__
 
+#include "kml/base/string_util.h"
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/kml_file.h"
 
 namespace kmlengine {
@@ -35,7 +37,8 @@ namespace kmlengine {
 // This provides in-place (destructive) processing of the given update against
 // the given KmlFile.  In the case of NetworkLinkControl it is presumed the
 // caller has checked Update's targetHref against KmlFile's url.
-KML_EXPORT void ProcessUpdate(const kmldom::UpdatePtr& update, KmlFilePtr kml_file);
+KML_EXPORT void ProcessUpdate(const kmldom::UpdatePtr& update,
+                              KmlFilePtr kml_file);
 
 // This is the same as ProcessUpdate() except the caller provided StringMap is
 // used to map the targetId='s in the Update before they are applied to the
@@ -46,12 +49,12 @@ KML_EXPORT void ProcessUpdate(const kmldom::UpdatePtr& update, KmlFilePtr kml_fi
 // targetId= is mapped or not.  If a NULL pointer is passed for the StringMap
 // then no mapping are performed and this operates like ProcessUpdate().
 KML_EXPORT void ProcessUpdateWithIdMap(const kmldom::UpdatePtr& update,
-                            const kmlbase::StringMap* id_map,
-                            KmlFilePtr kml_file);
+                                       const kmlbase::StringMap* id_map,
+                                       KmlFilePtr kml_file);
 
 // Clone each Feature in the source_container and append to the target.
 KML_EXPORT void CopyFeatures(const kmldom::ContainerPtr& source_container,
-                  kmldom::ContainerPtr target_container);
+                             kmldom::ContainerPtr target_container);
 
 }  // namespace kmlengine
 

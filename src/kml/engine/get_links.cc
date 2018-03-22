@@ -28,6 +28,9 @@
 #include "kml/dom/parser_observer.h"
 // TODO: deprecate use of kmlengine::Href. kml_url.h and/or kmlbase::UriParser
 // should be used instead.
+#include "kml/dom/element.h"
+#include "kml/dom/extendeddata.h"
+#include "kml/dom/kml_cast.h"
 #include "kml/engine/href.h"
 
 using kmldom::Parser;
@@ -35,7 +38,8 @@ using kmldom::Parser;
 namespace kmlengine {
 
 GetLinksParserObserver::GetLinksParserObserver(href_vector_t* href_vector)
-      : href_vector_(href_vector) {}
+    : href_vector_(href_vector) {
+}
 bool GetLinks(const string& kml, href_vector_t* href_vector) {
   if (!href_vector) {
     return false;
@@ -56,7 +60,7 @@ bool GetRelativeLinks(const string& kml, href_vector_t* href_vector) {
   }
 
   href_vector_t::const_iterator itr;
-  for (itr = all_hrefs.begin(); itr != all_hrefs.end(); ++ itr) {
+  for (itr = all_hrefs.begin(); itr != all_hrefs.end(); ++itr) {
     Href href(*itr);
     if (href.IsRelativePath()) {
       href_vector->push_back(*itr);
@@ -65,34 +69,36 @@ bool GetRelativeLinks(const string& kml, href_vector_t* href_vector) {
   return true;
 }
 
-bool GetLinksParserObserver::AddChild(const kmldom::ElementPtr& parent, const kmldom::ElementPtr& child){
-   switch (child->Type()) {
-     default:
-       break;
-     case kmldom::Type_href:
-       // NetworkLink/Link/href, Overlay/Icon/href, ItemIcon/href
-       // Model/Link/href, IconStyle/Icon/href
-       href_vector_->push_back(child->get_char_data());
-       break;
-     case kmldom::Type_targetHref:
-       if (kmldom::Type_Alias == parent->Type()) {
-         href_vector_->push_back(child->get_char_data());
-       }
-       break;
-     case kmldom::Type_styleUrl:
-       href_vector_->push_back(child->get_char_data());
-       break;
-     case kmldom::Type_SchemaData:
-       kmldom::SchemaDataPtr schemadata = kmldom::AsSchemaData(child);
-       if (schemadata->has_schemaurl()) {
-         href_vector_->push_back(schemadata->get_schemaurl());
-       }
-     // TODO: HTML links in description and BalloonStyle/text
-       break;
-   }
-   return true;
- }
+bool GetLinksParserObserver::AddChild(const kmldom::ElementPtr& parent,
+                                      const kmldom::ElementPtr& child) {
+  switch (child->Type()) {
+    default:
+      break;
+    case kmldom::Type_href:
+      // NetworkLink/Link/href, Overlay/Icon/href, ItemIcon/href
+      // Model/Link/href, IconStyle/Icon/href
+      href_vector_->push_back(child->get_char_data());
+      break;
+    case kmldom::Type_targetHref:
+      if (kmldom::Type_Alias == parent->Type()) {
+        href_vector_->push_back(child->get_char_data());
+      }
+      break;
+    case kmldom::Type_styleUrl:
+      href_vector_->push_back(child->get_char_data());
+      break;
+    case kmldom::Type_SchemaData:
+      kmldom::SchemaDataPtr schemadata = kmldom::AsSchemaData(child);
+      if (schemadata->has_schemaurl()) {
+        href_vector_->push_back(schemadata->get_schemaurl());
+      }
+      // TODO: HTML links in description and BalloonStyle/text
+      break;
+  }
+  return true;
+}
 
-GetLinksParserObserver::~GetLinksParserObserver(){}
+GetLinksParserObserver::~GetLinksParserObserver() {
+}
 
 }  // end namespace kmlengine

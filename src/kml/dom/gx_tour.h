@@ -31,11 +31,10 @@
 #define KML_GX_DOM_TOUR_H__
 
 #include "kml/config.h"
-#include "kml/dom/element.h"
 #include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/networklinkcontrol.h"
+#include "kml/dom/object.h"
 
 namespace kmlbase {
 class Attributes;
@@ -284,7 +283,6 @@ class KML_EXPORT GxTourControl : public GxTourPrimitive {
   virtual void Serialize(Serializer& serializer) const;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(GxTourControl);
 };
-
 
 }  // end namespace kmldom
 

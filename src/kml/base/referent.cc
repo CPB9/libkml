@@ -25,7 +25,4 @@
 
 #include "kml/base/referent.h"
 
-namespace kmlbase {
-
-
-}  // end namespace kmlbase
+namespace kmlbase {}  // end namespace kmlbase

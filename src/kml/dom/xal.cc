@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the <xal:AddressDetails> elements.
@@ -45,7 +45,7 @@ void XalAddressDetails::AddElement(const ElementPtr& element) {
     return;
   }
 
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_XalCountry:
       set_country(AsXalCountry(element));
       break;
@@ -59,8 +59,8 @@ void XalAddressDetails::Serialize(Serializer& serializer) const {
   // <xal:Country>
   if (has_country()) {
     serializer.SaveElement(get_country());
-  } 
-} 
+  }
+}
 
 // <xal:AdministrativeArea>
 XalAdministrativeArea::XalAdministrativeArea()
@@ -72,7 +72,7 @@ void XalAdministrativeArea::AddElement(const ElementPtr& element) {
   if (!element) {
     return;
   }
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_xalAdministrativeAreaName:
       has_administrativeareaname_ =
           element->SetString(&administrativeareaname_);
@@ -93,7 +93,7 @@ void XalAdministrativeArea::Serialize(Serializer& serializer) const {
   if (has_administrativeareaname()) {
     serializer.SaveFieldById(Type_xalAdministrativeAreaName,
                              get_administrativeareaname());
-  } 
+  }
   if (has_locality()) {
     serializer.SaveElement(get_locality());
   }
@@ -103,8 +103,7 @@ void XalAdministrativeArea::Serialize(Serializer& serializer) const {
 }
 
 // <xal:Country>
-XalCountry::XalCountry()
-    : has_countrynamecode_(false) {
+XalCountry::XalCountry() : has_countrynamecode_(false) {
   set_xmlns(kmlbase::XMLNS_XAL);
 }
 
@@ -112,7 +111,7 @@ void XalCountry::AddElement(const ElementPtr& element) {
   if (!element) {
     return;
   }
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_xalCountryNameCode:
       has_countrynamecode_ = element->SetString(&countrynamecode_);
       break;
@@ -129,7 +128,7 @@ void XalCountry::Serialize(Serializer& serializer) const {
   // <xal:CountryNameCode>
   if (has_countrynamecode()) {
     serializer.SaveFieldById(Type_xalCountryNameCode, get_countrynamecode());
-  } 
+  }
   // <xal:AdministrativeArea>
   if (has_administrativearea()) {
     serializer.SaveElement(get_administrativearea());
@@ -137,8 +136,7 @@ void XalCountry::Serialize(Serializer& serializer) const {
 }
 
 // <xal:Locality>
-XalLocality::XalLocality()
-    : has_localityname_(false) {
+XalLocality::XalLocality() : has_localityname_(false) {
   set_xmlns(kmlbase::XMLNS_XAL);
 }
 
@@ -146,7 +144,7 @@ void XalLocality::AddElement(const ElementPtr& element) {
   if (!element) {
     return;
   }
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_xalLocalityName:
       has_localityname_ = element->SetString(&localityname_);
       break;
@@ -173,8 +171,7 @@ void XalLocality::Serialize(Serializer& serializer) const {
 }
 
 // <xal:PostalCode>
-XalPostalCode::XalPostalCode()
-    : has_postalcodenumber_(false) {
+XalPostalCode::XalPostalCode() : has_postalcodenumber_(false) {
   set_xmlns(kmlbase::XMLNS_XAL);
 }
 
@@ -182,7 +179,7 @@ void XalPostalCode::AddElement(const ElementPtr& element) {
   if (!element) {
     return;
   }
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_xalPostalCodeNumber:
       has_postalcodenumber_ = element->SetString(&postalcodenumber_);
       break;
@@ -209,7 +206,7 @@ void XalSubAdministrativeArea::AddElement(const ElementPtr& element) {
   if (!element) {
     return;
   }
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_xalSubAdministrativeAreaName:
       has_subadministrativeareaname_ =
           element->SetString(&subadministrativeareaname_);
@@ -235,8 +232,7 @@ void XalSubAdministrativeArea::Serialize(Serializer& serializer) const {
 
 // <xal:Thoroughfare>
 XalThoroughfare::XalThoroughfare()
-    : has_thoroughfarename_(false),
-      has_thoroughfarenumber_(false) {
+    : has_thoroughfarename_(false), has_thoroughfarenumber_(false) {
   set_xmlns(kmlbase::XMLNS_XAL);
 }
 
@@ -244,7 +240,7 @@ void XalThoroughfare::AddElement(const ElementPtr& element) {
   if (!element) {
     return;
   }
-  switch(element->Type()) {
+  switch (element->Type()) {
     case Type_xalThoroughfareName:
       has_thoroughfarename_ = element->SetString(&thoroughfarename_);
       break;
@@ -268,214 +264,267 @@ void XalThoroughfare::Serialize(Serializer& serializer) const {
   }
 }
 
+XalAddressDetails::~XalAddressDetails() {
+}
 
-XalAddressDetails::~XalAddressDetails(){}
+const XalCountryPtr& XalAddressDetails::get_country() const {
+  return country_;
+}
 
-const XalCountryPtr& XalAddressDetails::get_country() const{ return country_; }
+bool XalAddressDetails::has_country() const {
+  return country_ != nullptr;
+}
 
-bool XalAddressDetails::has_country() const{ return country_ != nullptr; }
+void XalAddressDetails::set_country(const XalCountryPtr& country) {
+  SetComplexChild(country, &country_);
+}
 
-void XalAddressDetails::set_country(const XalCountryPtr& country){
-   SetComplexChild(country, &country_);
- }
+void XalAddressDetails::clear_country() {
+  set_country(NULL);
+}
 
-void XalAddressDetails::clear_country(){ set_country(NULL); }
+XalAdministrativeArea::~XalAdministrativeArea() {
+}
 
-XalAdministrativeArea::~XalAdministrativeArea(){}
+const std::__cxx11::string& XalAdministrativeArea::get_administrativeareaname()
+    const {
+  return administrativeareaname_;
+}
 
-const std::__cxx11::string& XalAdministrativeArea::get_administrativeareaname() const{
-   return administrativeareaname_;
- }
+bool XalAdministrativeArea::has_administrativeareaname() const {
+  return has_administrativeareaname_;
+}
 
-bool XalAdministrativeArea::has_administrativeareaname() const{
-   return has_administrativeareaname_;
- }
+void XalAdministrativeArea::set_administrativeareaname(
+    const std::__cxx11::string& value) {
+  administrativeareaname_ = value;
+  has_administrativeareaname_ = true;
+}
 
-void XalAdministrativeArea::set_administrativeareaname(const std::__cxx11::string& value){
-   administrativeareaname_ = value;
-   has_administrativeareaname_ = true;
- }
+void XalAdministrativeArea::clear_administrativeareaname() {
+  administrativeareaname_.clear();
+  has_administrativeareaname_ = false;
+}
 
-void XalAdministrativeArea::clear_administrativeareaname(){
-   administrativeareaname_.clear();
-   has_administrativeareaname_ = false;
- }
+const XalLocalityPtr& XalAdministrativeArea::get_locality() const {
+  return locality_;
+}
 
-const XalLocalityPtr& XalAdministrativeArea::get_locality() const{ return locality_; }
+bool XalAdministrativeArea::has_locality() const {
+  return locality_ != nullptr;
+}
 
-bool XalAdministrativeArea::has_locality() const{ return locality_ != nullptr; }
+void XalAdministrativeArea::set_locality(const XalLocalityPtr& locality) {
+  SetComplexChild(locality, &locality_);
+}
 
-void XalAdministrativeArea::set_locality(const XalLocalityPtr& locality){
-   SetComplexChild(locality, &locality_);
- }
+void XalAdministrativeArea::clear_locality() {
+  set_locality(NULL);
+}
 
-void XalAdministrativeArea::clear_locality(){ set_locality(NULL); }
+const XalSubAdministrativeAreaPtr&
+XalAdministrativeArea::get_subadministrativearea() const {
+  return subadministrativearea_;
+}
 
-const XalSubAdministrativeAreaPtr& XalAdministrativeArea::get_subadministrativearea() const{
-   return subadministrativearea_;
- }
+bool XalAdministrativeArea::has_subadministrativearea() const {
+  return subadministrativearea_ != nullptr;
+}
 
-bool XalAdministrativeArea::has_subadministrativearea() const{
-   return subadministrativearea_ != nullptr;
- }
+void XalAdministrativeArea::set_subadministrativearea(
+    const XalSubAdministrativeAreaPtr& subadministrativearea) {
+  SetComplexChild(subadministrativearea, &subadministrativearea_);
+}
 
-void XalAdministrativeArea::set_subadministrativearea(const XalSubAdministrativeAreaPtr& subadministrativearea){
-   SetComplexChild(subadministrativearea, &subadministrativearea_);
- }
+void XalAdministrativeArea::clear_subadministrativearea() {
+  set_subadministrativearea(NULL);
+}
 
-void XalAdministrativeArea::clear_subadministrativearea(){ set_subadministrativearea(NULL); }
+XalCountry::~XalCountry() {
+}
 
-XalCountry::~XalCountry(){}
+const std::__cxx11::string& XalCountry::get_countrynamecode() const {
+  return countrynamecode_;
+}
 
-const std::__cxx11::string& XalCountry::get_countrynamecode() const{ return countrynamecode_; }
+bool XalCountry::has_countrynamecode() const {
+  return has_countrynamecode_;
+}
 
-bool XalCountry::has_countrynamecode() const{ return has_countrynamecode_; }
+void XalCountry::set_countrynamecode(const std::__cxx11::string& value) {
+  countrynamecode_ = value;
+  has_countrynamecode_ = true;
+}
 
-void XalCountry::set_countrynamecode(const std::__cxx11::string& value){
-   countrynamecode_ = value;
-   has_countrynamecode_ = true;
- }
+void XalCountry::clear_countrynamecode() {
+  countrynamecode_.clear();
+  has_countrynamecode_ = false;
+}
 
-void XalCountry::clear_countrynamecode(){
-   countrynamecode_.clear();
-   has_countrynamecode_ = false;
- }
+const XalAdministrativeAreaPtr& XalCountry::get_administrativearea() const {
+  return administrativearea_;
+}
 
-const XalAdministrativeAreaPtr& XalCountry::get_administrativearea() const{
-   return administrativearea_;
- }
+bool XalCountry::has_administrativearea() const {
+  return administrativearea_ != nullptr;
+}
 
-bool XalCountry::has_administrativearea() const{ return administrativearea_ != nullptr; }
+void XalCountry::set_administrativearea(
+    const XalAdministrativeAreaPtr& administrativearea) {
+  SetComplexChild(administrativearea, &administrativearea_);
+}
 
-void XalCountry::set_administrativearea(const XalAdministrativeAreaPtr& administrativearea){
-   SetComplexChild(administrativearea, &administrativearea_);
- }
+void XalCountry::clear_administrativearea() {
+  set_administrativearea(NULL);
+}
 
-void XalCountry::clear_administrativearea(){ set_administrativearea(NULL); }
+XalLocality::~XalLocality() {
+}
 
-XalLocality::~XalLocality(){}
+const std::__cxx11::string& XalLocality::get_localityname() const {
+  return localityname_;
+}
 
-const std::__cxx11::string& XalLocality::get_localityname() const{
-   return localityname_;
- }
+bool XalLocality::has_localityname() const {
+  return has_localityname_;
+}
 
-bool XalLocality::has_localityname() const{
-   return has_localityname_;
- }
+void XalLocality::set_localityname(const std::__cxx11::string& value) {
+  localityname_ = value;
+  has_localityname_ = true;
+}
 
-void XalLocality::set_localityname(const std::__cxx11::string& value){
-   localityname_ = value;
-   has_localityname_ = true;
- }
+void XalLocality::clear_localityname() {
+  localityname_.clear();
+  has_localityname_ = false;
+}
 
-void XalLocality::clear_localityname(){
-   localityname_.clear();
-   has_localityname_ = false;
- }
+const XalThoroughfarePtr& XalLocality::get_thoroughfare() const {
+  return thoroughfare_;
+}
 
-const XalThoroughfarePtr& XalLocality::get_thoroughfare() const{ return thoroughfare_; }
+bool XalLocality::has_thoroughfare() const {
+  return thoroughfare_ != nullptr;
+}
 
-bool XalLocality::has_thoroughfare() const{ return thoroughfare_ != nullptr; }
+void XalLocality::set_thoroughfare(const XalThoroughfarePtr& thoroughfare) {
+  SetComplexChild(thoroughfare, &thoroughfare_);
+}
 
-void XalLocality::set_thoroughfare(const XalThoroughfarePtr& thoroughfare){
-   SetComplexChild(thoroughfare, &thoroughfare_);
- }
+void XalLocality::clear_thoroughfare() {
+  set_thoroughfare(NULL);
+}
 
-void XalLocality::clear_thoroughfare(){ set_thoroughfare(NULL); }
+const XalPostalCodePtr& XalLocality::get_postalcode() const {
+  return postalcode_;
+}
 
-const XalPostalCodePtr& XalLocality::get_postalcode() const{ return postalcode_; }
+bool XalLocality::has_postalcode() const {
+  return postalcode_ != nullptr;
+}
 
-bool XalLocality::has_postalcode() const{ return postalcode_ != nullptr; }
+void XalLocality::set_postalcode(const XalPostalCodePtr& postalcode) {
+  SetComplexChild(postalcode, &postalcode_);
+}
 
-void XalLocality::set_postalcode(const XalPostalCodePtr& postalcode){
-   SetComplexChild(postalcode, &postalcode_);
- }
+void XalLocality::clear_postalcode() {
+  set_postalcode(NULL);
+}
 
-void XalLocality::clear_postalcode(){ set_postalcode(NULL); }
+const std::__cxx11::string& XalPostalCode::get_postalcodenumber() const {
+  return postalcodenumber_;
+}
 
-const std::__cxx11::string& XalPostalCode::get_postalcodenumber() const{
-   return postalcodenumber_;
- }
+bool XalPostalCode::has_postalcodenumber() const {
+  return has_postalcodenumber_;
+}
 
-bool XalPostalCode::has_postalcodenumber() const{
-   return has_postalcodenumber_;
- }
+void XalPostalCode::set_postalcodenumber(const std::__cxx11::string& value) {
+  postalcodenumber_ = value;
+  has_postalcodenumber_ = true;
+}
 
-void XalPostalCode::set_postalcodenumber(const std::__cxx11::string& value){
-   postalcodenumber_ = value;
-   has_postalcodenumber_ = true;
- }
+void XalPostalCode::clear_postalcodenumber() {
+  postalcodenumber_.clear();
+  has_postalcodenumber_ = false;
+}
 
-void XalPostalCode::clear_postalcodenumber(){
-   postalcodenumber_.clear();
-   has_postalcodenumber_ = false;
- }
+XalSubAdministrativeArea::~XalSubAdministrativeArea() {
+}
 
-XalSubAdministrativeArea::~XalSubAdministrativeArea(){}
+const std::__cxx11::string&
+XalSubAdministrativeArea::get_subadministrativeareaname() const {
+  return subadministrativeareaname_;
+}
 
-const std::__cxx11::string& XalSubAdministrativeArea::get_subadministrativeareaname() const{
-   return subadministrativeareaname_;
- }
+bool XalSubAdministrativeArea::has_subadministrativeareaname() const {
+  return has_subadministrativeareaname_;
+}
 
-bool XalSubAdministrativeArea::has_subadministrativeareaname() const{
-   return has_subadministrativeareaname_;
- }
+void XalSubAdministrativeArea::set_subadministrativeareaname(
+    const std::__cxx11::string& value) {
+  subadministrativeareaname_ = value;
+  has_subadministrativeareaname_ = true;
+}
 
-void XalSubAdministrativeArea::set_subadministrativeareaname(const std::__cxx11::string& value){
-   subadministrativeareaname_ = value;
-   has_subadministrativeareaname_ = true;
- }
+void XalSubAdministrativeArea::clear_subadministrativeareaname() {
+  subadministrativeareaname_.clear();
+  has_subadministrativeareaname_ = false;
+}
 
-void XalSubAdministrativeArea::clear_subadministrativeareaname(){
-   subadministrativeareaname_.clear();
-   has_subadministrativeareaname_ = false;
- }
+const XalLocalityPtr& XalSubAdministrativeArea::get_locality() const {
+  return locality_;
+}
 
-const XalLocalityPtr& XalSubAdministrativeArea::get_locality() const{ return locality_; }
+bool XalSubAdministrativeArea::has_locality() const {
+  return locality_ != nullptr;
+}
 
-bool XalSubAdministrativeArea::has_locality() const{ return locality_ != nullptr; }
+void XalSubAdministrativeArea::set_locality(const XalLocalityPtr& locality) {
+  SetComplexChild(locality, &locality_);
+}
 
-void XalSubAdministrativeArea::set_locality(const XalLocalityPtr& locality){
-   SetComplexChild(locality, &locality_);
- }
+void XalSubAdministrativeArea::clear_locality() {
+  set_locality(NULL);
+}
 
-void XalSubAdministrativeArea::clear_locality(){ set_locality(NULL); }
+XalThoroughfare::~XalThoroughfare() {
+}
 
-XalThoroughfare::~XalThoroughfare(){}
+const std::__cxx11::string& XalThoroughfare::get_thoroughfarename() const {
+  return thoroughfarename_;
+}
 
-const std::__cxx11::string& XalThoroughfare::get_thoroughfarename() const{
-   return thoroughfarename_;
- }
+bool XalThoroughfare::has_thoroughfarename() const {
+  return has_thoroughfarename_;
+}
 
-bool XalThoroughfare::has_thoroughfarename() const{
-   return has_thoroughfarename_;
- }
+void XalThoroughfare::set_thoroughfarename(const std::__cxx11::string& value) {
+  thoroughfarename_ = value;
+  has_thoroughfarename_ = true;
+}
 
-void XalThoroughfare::set_thoroughfarename(const std::__cxx11::string& value){
-   thoroughfarename_ = value;
-   has_thoroughfarename_ = true;
- }
+void XalThoroughfare::clear_thoroughfarename() {
+  thoroughfarename_.clear();
+  has_thoroughfarename_ = false;
+}
 
-void XalThoroughfare::clear_thoroughfarename(){
-   thoroughfarename_.clear();
-   has_thoroughfarename_ = false;
- }
+const std::__cxx11::string& XalThoroughfare::get_thoroughfarenumber() const {
+  return thoroughfarenumber_;
+}
 
-const std::__cxx11::string& XalThoroughfare::get_thoroughfarenumber() const{
-   return thoroughfarenumber_;
- }
+bool XalThoroughfare::has_thoroughfarenumber() const {
+  return has_thoroughfarenumber_;
+}
 
-bool XalThoroughfare::has_thoroughfarenumber() const{
-   return has_thoroughfarenumber_;
- }
+void XalThoroughfare::set_thoroughfarenumber(
+    const std::__cxx11::string& value) {
+  thoroughfarenumber_ = value;
+  has_thoroughfarenumber_ = true;
+}
 
-void XalThoroughfare::set_thoroughfarenumber(const std::__cxx11::string& value){
-   thoroughfarenumber_ = value;
-   has_thoroughfarenumber_ = true;
- }
-
-void XalThoroughfare::clear_thoroughfarenumber(){
-   thoroughfarenumber_.clear();
-   has_thoroughfarenumber_ = false;
- }
+void XalThoroughfare::clear_thoroughfarenumber() {
+  thoroughfarenumber_.clear();
+  has_thoroughfarenumber_ = false;
+}
 }  // end namespace kmldom

@@ -75,8 +75,8 @@
 #define KML_DOM_KML_HANDLER_H__
 
 #include <stack>
-#include "kml/config.h"
 #include "kml/base/expat_handler.h"
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
@@ -88,7 +88,7 @@ class KmlFactory;
 // This class implements the expat handlers for parsing KML.  This class is
 // handed to expat in the ExpatParser() function.
 class KML_EXPORT KmlHandler : public kmlbase::ExpatHandler {
-public:
+ public:
   KmlHandler(parser_observer_vector_t& observers);
   ~KmlHandler();
 
@@ -103,7 +103,7 @@ public:
   // after a successful parse.
   ElementPtr PopRoot();
 
-private:
+ private:
   const KmlFactory& kml_factory_;
   std::stack<ElementPtr> stack_;
   // Char data is managed as a stack to allow for gathering all character data
@@ -141,8 +141,7 @@ private:
   // ParserObserver::AddChild() returns false this immediately returns false.
   // If all ParserObserver::AddChild()'s return true this returns true.
   bool CallAddChildObservers(const parser_observer_vector_t& observers,
-                             const ElementPtr& parent,
-                             const ElementPtr& child);
+                             const ElementPtr& parent, const ElementPtr& child);
 
   // Looks in attrs to find the attributes of an old KML 2.0/2.1
   // <Schema parent="Placemark" name="..."> element. Writes the value of the
@@ -154,21 +153,18 @@ private:
   // old Schema element. Appends a SimpleData element from the name
   // and character data to simpledata_vec for later reparenting.
   static bool ParseOldSchemaChild(
-      const string& name,
-      const kmlbase::StringVector& simplefield_name_vec,
+      const string& name, const kmlbase::StringVector& simplefield_name_vec,
       std::vector<SimpleDataPtr>* simpledata_vec);
 
   // Handle reaching the closing old-style </Schema> tag.
   static void HandleOldSchemaEndElement(
-      const SchemaPtr& schema,
-      const string& old_schema_name,
+      const SchemaPtr& schema, const string& old_schema_name,
       kmlbase::StringVector* simplefield_name_vec);
 
   // Handle reaching the closing of the element discovered by
   // FindOldSchemaParentName.
   void HandleOldSchemaParentEndElement(
-      const PlacemarkPtr& placemark,
-      const string& old_schema_name,
+      const PlacemarkPtr& placemark, const string& old_schema_name,
       const KmlFactory& kml_factory,
       const std::vector<SimpleDataPtr> simpledata_vec);
 
@@ -176,6 +172,6 @@ private:
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmlHandler);
 };
 
-} // end namespace kmldom
+}  // end namespace kmldom
 
 #endif  // KML_DOM_KML_HANDLER_H__

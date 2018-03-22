@@ -27,5 +27,6 @@
 
 namespace kmlregionator {
 
-RegionHandler::~RegionHandler(){}
+RegionHandler::~RegionHandler() {
 }
+}  // namespace kmlregionator

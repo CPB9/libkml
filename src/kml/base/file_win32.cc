@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // The file contains the implementation of the File methods specific to
@@ -29,9 +29,9 @@
 // TODO: likely there are better ways to accomplish Delete and
 // CreateNewTempFile.
 
-#include "kml/base/file.h"
-#include <windows.h>
 #include <tchar.h>
+#include <windows.h>
+#include "kml/base/file.h"
 //#include <xstring>
 #include <algorithm>
 #include <cstdlib>
@@ -43,8 +43,7 @@ namespace kmlbase {
 static std::wstring Str2Wstr(const string& str) {
   std::wstring wstr(str.length(), L' ');
   size_t result = std::mbstowcs(&wstr[0], str.c_str(), str.length());
-  if (result != wstr.length())
-      return std::wstring();
+  if (result != wstr.length()) return std::wstring();
   return wstr;
 }
 
@@ -52,7 +51,7 @@ static std::wstring Str2Wstr(const string& str) {
 // string.
 string Wstr2Str(const std::wstring& wstr) {
   size_t s = wstr.size();
-  string str(static_cast<int>(s+1), 0);
+  string str(static_cast<int>(s + 1), 0);
   WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), static_cast<int>(s), &str[0],
                       static_cast<int>(s), NULL, NULL);
   return str;
@@ -65,7 +64,7 @@ bool File::Exists(const string& full_path) {
   std::wstring wstr = Str2Wstr(full_path);
   DWORD attrs = ::GetFileAttributesW(wstr.c_str());
   return (attrs != INVALID_FILE_ATTRIBUTES) &&
-    ((attrs & FILE_ATTRIBUTE_DIRECTORY) == 0);
+         ((attrs & FILE_ATTRIBUTE_DIRECTORY) == 0);
 }
 
 bool File::Delete(const string& filepath) {

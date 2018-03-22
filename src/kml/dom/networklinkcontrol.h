@@ -29,15 +29,11 @@
 #define KML_DOM_NETWORKLINKCONTROL_H__
 
 #include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom/abstractview.h"
-#include "kml/dom/container.h"
 #include "kml/dom/element.h"
-#include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/object.h"
-#include "kml/base/util.h"
 
 namespace kmldom {
 
@@ -168,8 +164,7 @@ class KML_EXPORT Update : public BasicElement<Type_Update> {
 
   size_t get_updateoperation_array_size() const;
 
-  const UpdateOperationPtr& get_updateoperation_array_at(
-      size_t index) const;
+  const UpdateOperationPtr& get_updateoperation_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -189,7 +184,8 @@ class KML_EXPORT Update : public BasicElement<Type_Update> {
 };
 
 // <NetworkLinkControl>
-class KML_EXPORT NetworkLinkControl : public BasicElement<Type_NetworkLinkControl> {
+class KML_EXPORT NetworkLinkControl
+    : public BasicElement<Type_NetworkLinkControl> {
  public:
   virtual ~NetworkLinkControl();
 

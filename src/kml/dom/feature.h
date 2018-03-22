@@ -28,19 +28,11 @@
 #ifndef KML_DOM_FEATURE_H__
 #define KML_DOM_FEATURE_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom/abstractview.h"
-#include "kml/dom/atom.h"
-#include "kml/dom/extendeddata.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/object.h"
-#include "kml/dom/region.h"
-#include "kml/dom/snippet.h"
-#include "kml/dom/styleselector.h"
-#include "kml/dom/timeprimitive.h"
-#include "kml/dom/xal.h"
-#include "kml/base/util.h"
 
 namespace kmldom {
 
@@ -82,9 +74,7 @@ class KML_EXPORT Feature : public Object {
   const AtomLinkPtr& get_atomlink() const;
   bool has_atomlink() const;
   void set_atomlink(const AtomLinkPtr& atomlink);
-  void clear_atomlink() {
-    set_atomlink(NULL);
-  }
+  void clear_atomlink();
 
   // <address>
   const string& get_address() const;

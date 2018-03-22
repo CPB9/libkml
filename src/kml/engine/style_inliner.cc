@@ -26,15 +26,18 @@
 // This file contains the implementation of the internal StyleInliner.
 
 #include "kml/engine/style_inliner.h"
-#include "kml/engine/style_inliner_internal.h"
+#include "kml/dom/document.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/parser.h"
+#include "kml/dom/styleselector.h"
 #include "kml/engine/id_mapper.h"
 #include "kml/engine/kml_uri.h"
+#include "kml/engine/style_inliner_internal.h"
 #include "kml/engine/style_resolver.h"
 
 namespace kmlengine {
 
-StyleInliner::StyleInliner()
-  : in_update_(false) {
+StyleInliner::StyleInliner() : in_update_(false) {
 }
 
 // ParserObserver::NewElement()
@@ -68,7 +71,7 @@ bool StyleInliner::EndElement(const kmldom::ElementPtr& parent,
   if (parent->IsA(kmldom::Type_Document)) {
     // Capture shared styles.
     if (kmldom::StyleSelectorPtr styleselector =
-        kmldom::AsStyleSelector(child)) {
+            kmldom::AsStyleSelector(child)) {
       if (styleselector->has_id()) {
         shared_styles_[styleselector->get_id()] = styleselector;
         return false;  // Do not add the shared style to the <Document>.
@@ -83,7 +86,8 @@ bool StyleInliner::EndElement(const kmldom::ElementPtr& parent,
       string fragment;
       string path;
       if (SplitUri(child->get_char_data(), NULL, NULL, NULL, &path, NULL,
-                   &fragment) && path.empty()) {
+                   &fragment) &&
+          path.empty()) {
         SharedStyleMap::const_iterator iter = shared_styles_.find(fragment);
         if (iter != shared_styles_.end()) {
           feature->set_styleselector(
@@ -108,8 +112,7 @@ bool StyleInliner::AddChild(const kmldom::ElementPtr& parent,
   return true;  // Always continue parsing.
 }
 
-kmldom::ElementPtr InlineStyles(const string& input_kml,
-                               string* errors) {
+kmldom::ElementPtr InlineStyles(const string& input_kml, string* errors) {
   StyleInliner style_inliner;
   kmldom::Parser parser;
   parser.AddObserver(&style_inliner);

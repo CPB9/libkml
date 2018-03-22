@@ -29,8 +29,8 @@
 #define KML_BASE_DATE_TIME_H__
 
 #include <time.h>
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -57,7 +57,7 @@ class DateTime {
 
  private:
   DateTime();
-  template<int N>
+  template <int N>
   string DoStrftime(const char* format) const;
   bool ParseXsdDateTime(const string& xsd_date_time);
   struct tm tm_;

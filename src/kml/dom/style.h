@@ -27,14 +27,9 @@
 #define KML_DOM_STYLE_H__
 
 #include "kml/config.h"
-#include "kml/dom/balloonstyle.h"
-#include "kml/dom/iconstyle.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/labelstyle.h"
-#include "kml/dom/liststyle.h"
-#include "kml/dom/linestyle.h"
-#include "kml/dom/polystyle.h"
+
 #include "kml/dom/styleselector.h"
 
 namespace kmldom {
@@ -91,7 +86,7 @@ class KML_EXPORT Style : public StyleSelector {
 
  private:
   friend class KmlFactory;
-  Style ();
+  Style();
   friend class KmlHandler;
   virtual void AddElement(const ElementPtr& element);
   friend class Serializer;

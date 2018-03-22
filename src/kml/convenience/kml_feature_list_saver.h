@@ -29,11 +29,13 @@
 #define KML_CONVENIENCE_KML_FEATURE_LIST_SAVER_H__
 
 #include "kml/config.h"
-#include "kml/convenience/feature_list.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
+#include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
 
 namespace kmlconvenience {
+
+class FeatureList;
 
 // This ParserObserver saves the non-Container Features in the input KML
 // to the given FeatureList and the shared style selectors to the given

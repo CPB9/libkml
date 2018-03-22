@@ -32,7 +32,8 @@
 #include <stack>
 #include <string>
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/engine_types.h"
 
 namespace kmlengine {
@@ -45,15 +46,15 @@ namespace kmlengine {
 // TODO: decide const vs non-const semantics: modifications to an Element
 // in one place might wreak havoc on usage elsewhere.
 KML_EXPORT void GetElementsById(const kmldom::ElementPtr& element,
-                     kmldom::KmlDomType type_id,
-                     ElementVector* element_vector);
+                                kmldom::KmlDomType type_id,
+                                ElementVector* element_vector);
 
 // Get all children of the given element.  If recurse is true find all children
 // hierarchically.  If element_vector is non-NULL all children found are
 // appended in depth-first order.  The return value is the number of children
 // encountered.
 KML_EXPORT int GetChildElements(const kmldom::ElementPtr& element, bool recurse,
-                     ElementVector* element_vector);
+                                ElementVector* element_vector);
 
 }  // end namespace kmlengine
 

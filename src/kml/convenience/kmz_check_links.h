@@ -23,9 +23,13 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "kml/config.h"
-#include "kml/engine/kmz_file.h"
 #include <vector>
+#include "kml/base/util.h"
+#include "kml/config.h"
+
+namespace kmlengine {
+class KmzFile;
+}
 
 namespace kmlconvenience {
 
@@ -33,6 +37,6 @@ namespace kmlconvenience {
 // This returns false if there is no KML in the KmzFile.  If a missing_files
 // vector is supplied the names of all missing files are saved there.
 KML_EXPORT bool KmzCheckLinks(const kmlengine::KmzFile& kmzfile,
-                   std::vector<string>* missing_files);
+                              std::vector<string>* missing_files);
 
 }  // end namespace kmlconvenience

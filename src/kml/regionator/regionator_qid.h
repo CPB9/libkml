@@ -34,21 +34,18 @@
 
 namespace kmlregionator {
 
-enum quadrant_t {
-  NW,
-  NE,
-  SW,
-  SE
-};
+enum quadrant_t { NW, NE, SW, SE };
 
 const char* const kRootName = "q0";
 
 // A Qid is simply a number to identify a Region.  There are methods on a Qid
 // to create Qid's for the four children of a Region.
 class Qid {
-public:
-  Qid() {}
-  Qid(const string& qid) : qid_(qid) {}
+ public:
+  Qid() {
+  }
+  Qid(const string& qid) : qid_(qid) {
+  }
   static Qid CreateRoot() {
     return Qid(kRootName);
   }
@@ -66,7 +63,8 @@ public:
   bool IsRoot() {
     return qid_ == kRootName;
   }
-private:
+
+ private:
   string qid_;
 };
 

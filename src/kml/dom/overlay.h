@@ -31,14 +31,12 @@
 #ifndef KML_DOM_OVERLAY_H__
 #define KML_DOM_OVERLAY_H__
 
-#include "kml/config.h"
 #include "kml/base/color32.h"
+#include "kml/config.h"
 #include "kml/dom/abstractlatlonbox.h"
 #include "kml/dom/feature.h"
-#include "kml/dom/geometry.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/link.h"
 #include "kml/dom/object.h"
 #include "kml/dom/vec2.h"
 

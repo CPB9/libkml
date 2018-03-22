@@ -28,12 +28,10 @@
 #ifndef KML_BASE_ATTRIBUTES_H__
 #define KML_BASE_ATTRIBUTES_H__
 
-#include <stdlib.h>
 #include <map>
-#include <sstream>
-#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -63,7 +61,7 @@ class KML_EXPORT Attributes {
   // if an attribute with this name exits.  If no attribute by this name exists
   // false is returned and the attr_val is untouched.  T can be one of
   // string, int, double or bool.
-  template<typename T>
+  template <typename T>
   bool GetValue(const string& attr_name, T* attr_val) const {
     string string_val;
     if (FindValue(attr_name, &string_val)) {
@@ -76,7 +74,7 @@ class KML_EXPORT Attributes {
   }
 
   // This is the same as GetValue() + erase().
-  template<typename T>
+  template <typename T>
   bool CutValue(const string& attr_name, T* attr_val) {
     if (GetValue(attr_name, attr_val)) {
       attributes_map_.erase(attr_name);
@@ -88,7 +86,7 @@ class KML_EXPORT Attributes {
   // Set the value of the given attribute.  Any previous value for this
   // attribute is overwritten.  T can be one of string, int, double or
   // bool.
-  template<typename T>
+  template <typename T>
   void SetValue(const string& attr_name, const T& attr_val) {
     attributes_map_[attr_name] = ToString(attr_val);
   }

@@ -29,8 +29,8 @@
 #define KML_XSD_XST_PARSER_H__
 
 #include <vector>
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlxsd {
 
@@ -60,6 +60,6 @@ class KML_EXPORT XstParser {
   XsdFile* xsd_file_;
 };
 
-} //  end namespace kmlxsd
+}  //  end namespace kmlxsd
 
 #endif  // KML_XSD_XST_PARSER_H__

@@ -30,14 +30,16 @@
 #ifndef KML_ENGINE_STYLE_MERGER_H__
 #define KML_ENGINE_STYLE_MERGER_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/engine_types.h"
-#include "kml/engine/kml_file.h"
 
 namespace kmlengine {
 
 class KmlCache;
+class KmlFile;
 
 // This class computes a resolved style for a Feature in a KML file.
 // Usage is as follows:
@@ -118,6 +120,6 @@ class KML_EXPORT StyleMerger {
   int nesting_depth_;
 };
 
-}  // endnamespace kmlengine
+}  // namespace kmlengine
 
 #endif  // KML_ENGINE_STYLE_MERGER_H__

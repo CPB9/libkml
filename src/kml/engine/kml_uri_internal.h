@@ -26,13 +26,12 @@
 // This file contains the declaration of the internal KmlUri class.  Do not use
 // this class in application code.  Use the functions declared in kml_uri.h.
 
-
 #ifndef KML_ENGINE_KML_URI_INTERNAL_H__
 #define KML_ENGINE_KML_URI_INTERNAL_H__
 
 #include <memory>
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 // Forward declare to avoid including uri_parser.h in app code.
 namespace kmlbase {
@@ -62,8 +61,7 @@ class KML_EXPORT KmlUri {
   // raw content of any <href>, <styleUrl>, schemaUrl=, <targetHref>,
   // <a href="...">, or <img href="..."> within the KmlFile.  However, there
   // is no specific knowlege of any KML or HTML element within this class.
-  static KmlUri* CreateRelative(const string& base,
-                                const string& target);
+  static KmlUri* CreateRelative(const string& base, const string& target);
 
   ~KmlUri();
 

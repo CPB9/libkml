@@ -32,16 +32,12 @@
 #define KML_XSD_XSD_H__
 
 #include <map>
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmldom {
 
-enum XsdType {
-  XSD_SIMPLE_TYPE,
-  XSD_COMPLEX_TYPE,
-  XSD_UNKNOWN
-};
+enum XsdType { XSD_SIMPLE_TYPE, XSD_COMPLEX_TYPE, XSD_UNKNOWN };
 
 // This represents an XSD <element>.
 // For example:
@@ -54,7 +50,7 @@ enum XsdType {
 //  If the type is no fundamental then xsd_type_t is XSD_COMPLEX_TYPE
 struct XsdElement {
   const char* element_name_;  // <element name="element_name_" ...  />
-  XsdType xsd_type_;  // <element ... type="simple-or-complex" />
+  XsdType xsd_type_;          // <element ... type="simple-or-complex" />
 };
 
 // This respresents an XSD <simpleType> with <restriction base="string">
@@ -75,7 +71,7 @@ struct XsdSimpleTypeEnum {
   const char** enum_value_list;  // Value of value attribute.
 };
 
-typedef std::map<string,int> tag_id_map_t;
+typedef std::map<string, int> tag_id_map_t;
 
 // This a 0.1 C++ version of the information in the KML XSD.
 // At present it is just the list of elements.  Each element has a name,
@@ -99,7 +95,7 @@ class KML_EXPORT Xsd {
   static Xsd* schema_;
 
   tag_id_map_t tag_to_id;
-  std::map<int,XsdElement> id_to_string;
+  std::map<int, XsdElement> id_to_string;
 };
 
 }  // end namespace kmldom

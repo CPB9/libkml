@@ -29,10 +29,10 @@
 #define KML_ENGINE_KML_STREAM_H__
 
 #include <istream>
-#include "kml/config.h"
-#include "kml/dom.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_file.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmldom {
 class ParserObserver;

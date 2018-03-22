@@ -29,13 +29,14 @@
 #define KML_XSD_XSD_FILE_H__
 
 #include <map>
+#include <memory>
 #include <stack>
 #include <vector>
-#include <memory>
-#include "kml/config.h"
+#include "kml/base/util.h"
 #include "kml/base/xmlns.h"
-#include "kml/xsd/xsd_element.h"
+#include "kml/config.h"
 #include "kml/xsd/xsd_complex_type.h"
+#include "kml/xsd/xsd_element.h"
 #include "kml/xsd/xsd_schema.h"
 #include "kml/xsd/xsd_simple_type.h"
 #include "kml/xsd/xsd_type.h"
@@ -59,8 +60,7 @@ typedef std::vector<XsdTypePtr> XsdTypeVector;
 //   GetChildElementNames(...);
 class KML_EXPORT XsdFile {
  public:
-  static XsdFile* CreateFromParse(const string& xsd_data,
-                                  string* errors);
+  static XsdFile* CreateFromParse(const string& xsd_data, string* errors);
 
   XsdFile();  // Use static CreateFromParse().
   ~XsdFile();
@@ -80,8 +80,7 @@ class KML_EXPORT XsdFile {
   const string& get_target_namespace_prefix() const;
 
   // Create an alias.  For example, "AbstractFeatureGroup" == "Feature".
-  void set_alias(const string& real_name,
-                 const string& alias_name);
+  void set_alias(const string& real_name, const string& alias_name);
 
   // Returns the alias for this name or NULL if this name has no alias.  For
   // example, if set_alias("AbstractGeometryGroup", "Geometry") was used then
@@ -102,7 +101,6 @@ class KML_EXPORT XsdFile {
                          XsdElementVector* elements) const;
   void GetChildElements(const string& complex_element_name,
                         XsdElementVector* elements) const;
-
 
   // This looks up the given element by name.
   const XsdElementPtr FindElement(const string& element_name) const;
@@ -144,7 +142,7 @@ class KML_EXPORT XsdFile {
   // 2) complex elements, 3) simple elements.  Offset 0 is reserved/invalid.
   void GenerateElementIdVector(XsdElementVector* elements,
                                size_t* begin_complex,
-                               size_t *begin_simple) const;
+                               size_t* begin_simple) const;
 
   // If find_type is a base type of complex_type return true, else false.
   bool SearchTypeHierarchy(const XsdComplexTypePtr& complex_type,
@@ -167,4 +165,4 @@ class KML_EXPORT XsdFile {
 
 }  // end namespace kmlxsd
 
-#endif // KML_XSD_XSD_FILE_H__
+#endif  // KML_XSD_XSD_FILE_H__

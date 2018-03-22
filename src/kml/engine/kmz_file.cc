@@ -27,11 +27,13 @@
 
 #include "kml/engine/kmz_file.h"
 #include <cstring>
-#include <set>
 #include <memory>
+#include <set>
 #include "kml/base/file.h"
 #include "kml/base/string_util.h"
 #include "kml/base/zip_file.h"
+#include "kml/dom/element.h"
+#include "kml/dom/kml_funcs.h"
 #include "kml/engine/get_links.h"
 #include "kml/engine/href.h"
 #include "kml/engine/kml_uri.h"
@@ -47,9 +49,11 @@ namespace kmlengine {
 // that ends with ".kml".
 const char kDefaultKmlFilename[] = "doc.kml";
 
-KmzFile::KmzFile(ZipFile* zip_file) : zip_file_(zip_file) {}
+KmzFile::KmzFile(ZipFile* zip_file) : zip_file_(zip_file) {
+}
 
-KmzFile::~KmzFile() {}
+KmzFile::~KmzFile() {
+}
 
 // Static.
 KmzFile* KmzFile::OpenFromFile(const char* kmz_filename) {
@@ -72,7 +76,6 @@ bool KmzFile::IsKmz(const string& kmz_data) {
   return ZipFile::IsZipData(kmz_data);
 }
 
-
 void KmzFile::set_max_uncompressed_file_size(unsigned int i) {
   zip_file_->set_max_uncompressed_file_size(i);
 }
@@ -81,9 +84,7 @@ unsigned int KmzFile::get_max_uncompressed_file_size() {
   return zip_file_->get_max_uncompressed_file_size();
 }
 
-
-bool KmzFile::ReadKmlAndGetPath(string* output,
-                                string* kml_name) const {
+bool KmzFile::ReadKmlAndGetPath(string* output, string* kml_name) const {
   if (!output) {
     return false;
   }
@@ -212,7 +213,7 @@ bool KmzFile::CreateFromKmlFilepath(const string& kml_filepath,
   kmlbase::File::SplitFilePath(kml_filepath, &base_dir, NULL);
 
   KmlFilePtr kml_file =
-    KmlFile::CreateFromStringWithUrl(kml_data, base_dir, NULL);
+      KmlFile::CreateFromStringWithUrl(kml_data, base_dir, NULL);
 
   return CreateFromKmlFile(kml_file, kmz_filepath);
 }
@@ -245,12 +246,12 @@ bool KmzFile::CreateFromElement(const kmldom::ElementPtr& element,
 // Static.
 bool KmzFile::CreateFromKmlFile(const KmlFilePtr& kml_file,
                                 const string& kmz_filepath) {
-  return KmzFile::CreateFromElement(
-      kml_file->get_root(), kml_file->get_url(), kmz_filepath);
+  return KmzFile::CreateFromElement(kml_file->get_root(), kml_file->get_url(),
+                                    kmz_filepath);
 }
 
-
-kmlengine::KmzFile* KmzFile::CreateFromString(const std::__cxx11::string& kmz_data){
-   return OpenFromString(kmz_data);
- }
+kmlengine::KmzFile* KmzFile::CreateFromString(
+    const std::__cxx11::string& kmz_data) {
+  return OpenFromString(kmz_data);
+}
 }  // end namespace kmlengine

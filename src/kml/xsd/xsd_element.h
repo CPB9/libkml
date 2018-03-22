@@ -29,8 +29,8 @@
 #define KML_XSD_XSD_ELEMENT_H__
 
 #include <bmcl/Rc.h>
-#include "kml/config.h"
 #include "kml/base/referent.h"
+#include "kml/config.h"
 #include "kml/xsd/xsd_primitive_type.h"
 
 namespace kmlbase {
@@ -42,7 +42,7 @@ namespace kmlxsd {
 // XsdElement corresponds to <xs:element name="..." type="..." ... />
 // or <xs:element ref="..."/>.
 class KML_EXPORT XsdElement : public kmlbase::Referent {
-public:
+ public:
   // Create an XsdElement from the given attributes.
   static XsdElement* Create(const kmlbase::Attributes& attributes);
 

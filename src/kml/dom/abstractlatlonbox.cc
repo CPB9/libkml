@@ -31,11 +31,18 @@ namespace kmldom {
 // Defaults http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd for
 // <north>, <south>, <east>, and <west>.
 AbstractLatLonBox::AbstractLatLonBox()
-  : north_(180.0), has_north_(false), south_(-180.0), has_south_(false),
-    east_(180.0), has_east_(false), west_(-180.0), has_west_(false)
-{}
+    : north_(180.0),
+      has_north_(false),
+      south_(-180.0),
+      has_south_(false),
+      east_(180.0),
+      has_east_(false),
+      west_(-180.0),
+      has_west_(false) {
+}
 
-AbstractLatLonBox::~AbstractLatLonBox() {}
+AbstractLatLonBox::~AbstractLatLonBox() {
+}
 
 void AbstractLatLonBox::AddElement(const ElementPtr& element) {
   switch (element->Type()) {
@@ -73,82 +80,83 @@ void AbstractLatLonBox::Serialize(Serializer& serializer) const {
   }
 }
 
+kmldom::KmlDomType AbstractLatLonBox::Type() const {
+  return Type_AbstractLatLonBox;
+}
 
-kmldom::KmlDomType AbstractLatLonBox::Type() const{ return Type_AbstractLatLonBox; }
+bool AbstractLatLonBox::IsA(kmldom::KmlDomType type) const {
+  return type == Type_AbstractLatLonBox || Object::IsA(type);
+}
 
-bool AbstractLatLonBox::IsA(kmldom::KmlDomType type) const{
-   return type == Type_AbstractLatLonBox || Object::IsA(type);
- }
+double AbstractLatLonBox::get_north() const {
+  return north_;
+}
 
-double AbstractLatLonBox::get_north() const{
-   return north_;
- }
+bool AbstractLatLonBox::has_north() const {
+  return has_north_;
+}
 
-bool AbstractLatLonBox::has_north() const{
-   return has_north_;
- }
+void AbstractLatLonBox::set_north(double north) {
+  north_ = north;
+  has_north_ = true;
+}
 
-void AbstractLatLonBox::set_north(double north){
-   north_ = north;
-   has_north_ = true;
- }
+void AbstractLatLonBox::clear_north() {
+  north_ = 180.0;
+  has_north_ = false;
+}
 
-void AbstractLatLonBox::clear_north(){
-   north_ = 180.0;
-   has_north_ = false;
- }
+double AbstractLatLonBox::get_south() const {
+  return south_;
+}
 
-double AbstractLatLonBox::get_south() const{
-   return south_;
- }
+bool AbstractLatLonBox::has_south() const {
+  return has_south_;
+}
 
-bool AbstractLatLonBox::has_south() const{
-   return has_south_;
- }
+void AbstractLatLonBox::set_south(double south) {
+  south_ = south;
+  has_south_ = true;
+}
 
-void AbstractLatLonBox::set_south(double south){
-   south_ = south;
-   has_south_ = true;
- }
+void AbstractLatLonBox::clear_south() {
+  south_ = -180.0;
+  has_south_ = false;
+}
 
-void AbstractLatLonBox::clear_south(){
-   south_ = -180.0;
-   has_south_ = false;
- }
+void AbstractLatLonBox::clear_west() {
+  west_ = -180.0;
+  has_west_ = false;
+}
 
-void AbstractLatLonBox::clear_west(){
-   west_ = -180.0;
-   has_west_ = false;
- }
+void AbstractLatLonBox::set_west(double south) {
+  west_ = south;
+  has_west_ = true;
+}
 
-void AbstractLatLonBox::set_west(double south){
-   west_ = south;
-   has_west_ = true;
- }
+bool AbstractLatLonBox::has_west() const {
+  return has_west_;
+}
 
-bool AbstractLatLonBox::has_west() const{
-   return has_west_;
- }
+double AbstractLatLonBox::get_west() const {
+  return west_;
+}
 
-double AbstractLatLonBox::get_west() const{
-   return west_;
- }
+void AbstractLatLonBox::clear_east() {
+  east_ = 180.0;
+  has_east_ = false;
+}
 
-void AbstractLatLonBox::clear_east(){
-   east_ = 180.0;
-   has_east_ = false;
- }
+void AbstractLatLonBox::set_east(double south) {
+  east_ = south;
+  has_east_ = true;
+}
 
-void AbstractLatLonBox::set_east(double south){
-   east_ = south;
-   has_east_ = true;
- }
+bool AbstractLatLonBox::has_east() const {
+  return has_east_;
+}
 
-bool AbstractLatLonBox::has_east() const{
-   return has_east_;
- }
-
-double AbstractLatLonBox::get_east() const{
-   return east_;
- }
+double AbstractLatLonBox::get_east() const {
+  return east_;
+}
 }  // end namespace kmldom

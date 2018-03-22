@@ -28,11 +28,17 @@
 
 #include <memory>
 #include "kml/config.h"
-#include "kml/base/net_cache.h"
 #include "kml/engine/kml_file.h"
-#include "kml/engine/kmz_cache.h"
+
+namespace kmlbase {
+template <class CacheItem>
+class NetCache;
+class NetFetcher;
+}  // namespace kmlbase
 
 namespace kmlengine {
+
+class KmzCache;
 
 // A cache of KmlFile's (parse of a KML file of a given URL).
 typedef kmlbase::NetCache<KmlFile> KmlFileNetCache;
@@ -62,6 +68,7 @@ typedef kmlbase::NetCache<KmlFile> KmlFileNetCache;
 class KML_EXPORT KmlCache {
  public:
   KmlCache(kmlbase::NetFetcher* net_fetcher, size_t max_size);
+  ~KmlCache();
 
   // Any caller expecting to fetch and parse KML data should use this method.
   // Use this with the raw content of a NetworkLink/Link/href, styleUrl, or
@@ -85,8 +92,7 @@ class KML_EXPORT KmlCache {
   // or model textures.  The target_href here typically is the content of an
   // Overlay Icon's href, or Model's Link href.  The base_url is typically that
   // of the file containing the target_href.
-  bool FetchDataRelative(const string& base_url,
-                         const string& target_href,
+  bool FetchDataRelative(const string& base_url, const string& target_href,
                          string* content);
 
  private:

@@ -28,9 +28,8 @@
 
 #include <exception>  // Needed by boost::instrusive_ptr.
 
-#include "kml/config.h"
 #include "kml/base/xml_element.h"
-#include "kml/dom/kmldom.h"
+#include "kml/config.h"
 #include "kml/dom/kml_ptr.h"
 
 namespace kmldom {
@@ -38,21 +37,12 @@ namespace kmldom {
 // This function template operates akin to dynamic_cast.  If the given
 // Element-derived type is of the template type then a pointer is returned,
 // else NULL.  It is safe to pass a NULL to this function.
-template<class T>
-inline const bmcl::Rc<T> ElementCast(
-    const ElementPtr& element) {
-  if (element && element->IsA(T::ElementType())) {
-    return bmcl::static_pointer_cast<T>(element);
-  }
-  return nullptr;
-}
-
-inline const ElementPtr AsElement(const kmlbase::XmlElementPtr& xml_element) {
-  return bmcl::static_pointer_cast<Element>(xml_element);
-}
+KML_EXPORT const ElementPtr
+AsElement(const kmlbase::XmlElementPtr& xml_element);
 
 // Abstract element groups.
-KML_EXPORT const AbstractLatLonBoxPtr AsAbstractLatLonBox(const ElementPtr element);
+KML_EXPORT const AbstractLatLonBoxPtr
+AsAbstractLatLonBox(const ElementPtr element);
 KML_EXPORT const AbstractViewPtr AsAbstractView(const ElementPtr element);
 KML_EXPORT const ColorStylePtr AsColorStyle(const ElementPtr element);
 KML_EXPORT const ContainerPtr AsContainer(const ElementPtr element);
@@ -69,16 +59,12 @@ KML_EXPORT const AliasPtr AsAlias(const ElementPtr element);
 KML_EXPORT const BalloonStylePtr AsBalloonStyle(const ElementPtr element);
 KML_EXPORT const CameraPtr AsCamera(const ElementPtr element);
 KML_EXPORT const ChangePtr AsChange(const ElementPtr element);
-inline const CoordinatesPtr AsCoordinates(const ElementPtr& element) {
-  return ElementCast<Coordinates>(element);
-}
+KML_EXPORT const CoordinatesPtr AsCoordinates(const ElementPtr& element);
 KML_EXPORT const CreatePtr AsCreate(const ElementPtr element);
 KML_EXPORT const DataPtr AsData(const ElementPtr element);
 KML_EXPORT const DeletePtr AsDelete(const ElementPtr element);
 KML_EXPORT const DocumentPtr AsDocument(const ElementPtr element);
-inline const ExtendedDataPtr AsExtendedData(const ElementPtr& element) {
-  return ElementCast<ExtendedData>(element);
-}
+KML_EXPORT const ExtendedDataPtr AsExtendedData(const ElementPtr& element);
 KML_EXPORT const FolderPtr AsFolder(const ElementPtr element);
 KML_EXPORT const GroundOverlayPtr AsGroundOverlay(const ElementPtr element);
 KML_EXPORT const HotSpotPtr AsHotSpot(const ElementPtr element);
@@ -88,9 +74,7 @@ KML_EXPORT const IconStyleIconPtr AsIconStyleIcon(const ElementPtr element);
 KML_EXPORT const ImagePyramidPtr AsImagePyramid(const ElementPtr element);
 KML_EXPORT const InnerBoundaryIsPtr AsInnerBoundaryIs(const ElementPtr element);
 KML_EXPORT const ItemIconPtr AsItemIcon(const ElementPtr element);
-inline const KmlPtr AsKml(const ElementPtr& element) {
-  return ElementCast<Kml>(element);
-}
+KML_EXPORT const KmlPtr AsKml(const ElementPtr& element);
 KML_EXPORT const LabelStylePtr AsLabelStyle(const ElementPtr element);
 KML_EXPORT const LatLonAltBoxPtr AsLatLonAltBox(const ElementPtr element);
 KML_EXPORT const LatLonBoxPtr AsLatLonBox(const ElementPtr element);
@@ -103,16 +87,12 @@ KML_EXPORT const ListStylePtr AsListStyle(const ElementPtr element);
 KML_EXPORT const LocationPtr AsLocation(const ElementPtr element);
 KML_EXPORT const LodPtr AsLod(const ElementPtr element);
 KML_EXPORT const LookAtPtr AsLookAt(const ElementPtr element);
-inline const MetadataPtr AsMetadata(const ElementPtr& element) {
-  return ElementCast<Metadata>(element);
-}
+KML_EXPORT const MetadataPtr AsMetadata(const ElementPtr& element);
 KML_EXPORT const ModelPtr AsModel(const ElementPtr element);
 KML_EXPORT const MultiGeometryPtr AsMultiGeometry(const ElementPtr element);
 KML_EXPORT const NetworkLinkPtr AsNetworkLink(const ElementPtr element);
-inline const NetworkLinkControlPtr AsNetworkLinkControl(
-    const ElementPtr& element) {
-  return ElementCast<NetworkLinkControl>(element);
-}
+KML_EXPORT const NetworkLinkControlPtr
+AsNetworkLinkControl(const ElementPtr& element);
 KML_EXPORT const OrientationPtr AsOrientation(const ElementPtr element);
 KML_EXPORT const OuterBoundaryIsPtr AsOuterBoundaryIs(const ElementPtr element);
 KML_EXPORT const OverlayXYPtr AsOverlayXY(const ElementPtr element);
@@ -130,137 +110,57 @@ KML_EXPORT const SchemaPtr AsSchema(const ElementPtr element);
 KML_EXPORT const SchemaDataPtr AsSchemaData(const ElementPtr element);
 KML_EXPORT const ScreenOverlayPtr AsScreenOverlay(const ElementPtr element);
 KML_EXPORT const ScreenXYPtr AsScreenXY(const ElementPtr element);
-inline const SimpleDataPtr AsSimpleData(const ElementPtr& element) {
-  return ElementCast<SimpleData>(element);
-}
-inline const SimpleFieldPtr AsSimpleField(const ElementPtr& element) {
-  return ElementCast<SimpleField>(element);
-}
+KML_EXPORT const SimpleDataPtr AsSimpleData(const ElementPtr& element);
+KML_EXPORT const SimpleFieldPtr AsSimpleField(const ElementPtr& element);
 KML_EXPORT const SizePtr AsSize(const ElementPtr element);
 KML_EXPORT const SnippetPtr AsSnippet(const ElementPtr element);
 KML_EXPORT const StylePtr AsStyle(const ElementPtr element);
 KML_EXPORT const StyleMapPtr AsStyleMap(const ElementPtr element);
 KML_EXPORT const TimeSpanPtr AsTimeSpan(const ElementPtr element);
 KML_EXPORT const TimeStampPtr AsTimeStamp(const ElementPtr element);
-inline const UpdatePtr AsUpdate(const ElementPtr& element) {
-  return ElementCast<Update>(element);
-}
+KML_EXPORT const UpdatePtr AsUpdate(const ElementPtr& element);
 KML_EXPORT const ViewVolumePtr AsViewVolume(const ElementPtr element);
 
 // Atom
-inline const AtomAuthorPtr AsAtomAuthor(const ElementPtr& element) {
-  return ElementCast<AtomAuthor>(element);
-}
-inline const AtomCategoryPtr AsAtomCategory(const ElementPtr& element) {
-  return ElementCast<AtomCategory>(element);
-}
-inline const AtomContentPtr AsAtomContent(const ElementPtr& element) {
-  return ElementCast<AtomContent>(element);
-}
-inline const AtomEntryPtr AsAtomEntry(const ElementPtr& element) {
-  return ElementCast<AtomEntry>(element);
-}
-inline const AtomFeedPtr AsAtomFeed(const ElementPtr& element) {
-  return ElementCast<AtomFeed>(element);
-}
-inline const AtomLinkPtr AsAtomLink(const ElementPtr& element) {
-  return ElementCast<AtomLink>(element);
-}
+KML_EXPORT const AtomAuthorPtr AsAtomAuthor(const ElementPtr& element);
+KML_EXPORT const AtomCategoryPtr AsAtomCategory(const ElementPtr& element);
+KML_EXPORT const AtomContentPtr AsAtomContent(const ElementPtr& element);
+KML_EXPORT const AtomEntryPtr AsAtomEntry(const ElementPtr& element);
+KML_EXPORT const AtomFeedPtr AsAtomFeed(const ElementPtr& element);
+KML_EXPORT const AtomLinkPtr AsAtomLink(const ElementPtr& element);
 
 // xAL
-inline const XalAddressDetailsPtr AsXalAddressDetails(
-    const ElementPtr& element) {
-  return ElementCast<XalAddressDetails>(element);
-}
-inline const XalAdministrativeAreaPtr AsXalAdministrativeArea(
-    const ElementPtr& element) {
-  return ElementCast<XalAdministrativeArea>(element);
-}
-
-inline const XalCountryPtr AsXalCountry(const ElementPtr& element) {
-  return ElementCast<XalCountry>(element);
-}
-
-inline const XalLocalityPtr AsXalLocality(const ElementPtr& element) {
-  return ElementCast<XalLocality>(element);
-}
-
-inline const XalPostalCodePtr AsXalPostalCode(const ElementPtr& element) {
-  return ElementCast<XalPostalCode>(element);
-}
-
-inline const XalSubAdministrativeAreaPtr AsXalSubAdministrativeArea(
-    const ElementPtr& element) {
-  return ElementCast<XalSubAdministrativeArea>(element);
-}
-
-inline const XalThoroughfarePtr AsXalThoroughfare(const ElementPtr& element) {
-  return ElementCast<XalThoroughfare>(element);
-}
+KML_EXPORT const XalAddressDetailsPtr
+AsXalAddressDetails(const ElementPtr& element);
+KML_EXPORT const XalAdministrativeAreaPtr
+AsXalAdministrativeArea(const ElementPtr& element);
+KML_EXPORT const XalCountryPtr AsXalCountry(const ElementPtr& element);
+KML_EXPORT const XalLocalityPtr AsXalLocality(const ElementPtr& element);
+KML_EXPORT const XalPostalCodePtr AsXalPostalCode(const ElementPtr& element);
+KML_EXPORT const XalSubAdministrativeAreaPtr
+AsXalSubAdministrativeArea(const ElementPtr& element);
+KML_EXPORT const XalThoroughfarePtr
+AsXalThoroughfare(const ElementPtr& element);
 
 // gx
-
-inline const GxAnimatedUpdatePtr AsGxAnimatedUpdate(const ElementPtr element) {
-  return ElementCast<GxAnimatedUpdate>(element);
-}
-
-inline const GxFlyToPtr AsGxFlyTo(const ElementPtr element) {
-  return ElementCast<GxFlyTo>(element);
-}
-
-inline const GxLatLonQuadPtr AsGxLatLonQuad(const ElementPtr element) {
-  return ElementCast<GxLatLonQuad>(element);
-}
-
-inline const GxMultiTrackPtr AsGxMultiTrack(const ElementPtr element) {
-  return ElementCast<GxMultiTrack>(element);
-}
-
-inline const GxPlaylistPtr AsGxPlaylist(const ElementPtr element) {
-  return ElementCast<GxPlaylist>(element);
-}
-
-inline const GxSimpleArrayFieldPtr AsGxSimpleArrayField(
-    const ElementPtr element) {
-  return ElementCast<GxSimpleArrayField>(element);
-}
-
-inline const GxSimpleArrayDataPtr AsGxSimpleArrayData(
-    const ElementPtr element) {
-  return ElementCast<GxSimpleArrayData>(element);
-}
-
-inline const GxSoundCuePtr AsGxSoundCue(const ElementPtr element) {
-  return ElementCast<GxSoundCue>(element);
-}
-
-inline const GxTimeSpanPtr AsGxTimeSpan(const ElementPtr element) {
-  return ElementCast<GxTimeSpan>(element);
-}
-
-inline const GxTimeStampPtr AsGxTimeStamp(const ElementPtr element) {
-  return ElementCast<GxTimeStamp>(element);
-}
-
-inline const GxTourPtr AsGxTour(const ElementPtr element) {
-  return ElementCast<GxTour>(element);
-}
-
-inline const GxTourControlPtr AsGxTourControl(const ElementPtr element) {
-  return ElementCast<GxTourControl>(element);
-}
-
-inline const GxTourPrimitivePtr AsGxTourPrimitive(const ElementPtr element) {
-  return ElementCast<GxTourPrimitive>(element);
-}
-
-inline const GxTrackPtr AsGxTrack(const ElementPtr element) {
-  return ElementCast<GxTrack>(element);
-}
-
-inline const GxWaitPtr AsGxWait(const ElementPtr element) {
-  return ElementCast<GxWait>(element);
-}
+KML_EXPORT const GxAnimatedUpdatePtr
+AsGxAnimatedUpdate(const ElementPtr element);
+KML_EXPORT const GxFlyToPtr AsGxFlyTo(const ElementPtr element);
+KML_EXPORT const GxLatLonQuadPtr AsGxLatLonQuad(const ElementPtr element);
+KML_EXPORT const GxMultiTrackPtr AsGxMultiTrack(const ElementPtr element);
+KML_EXPORT const GxPlaylistPtr AsGxPlaylist(const ElementPtr element);
+KML_EXPORT const GxSimpleArrayFieldPtr
+AsGxSimpleArrayField(const ElementPtr element);
+KML_EXPORT const GxSimpleArrayDataPtr
+AsGxSimpleArrayData(const ElementPtr element);
+KML_EXPORT const GxSoundCuePtr AsGxSoundCue(const ElementPtr element);
+KML_EXPORT const GxTimeSpanPtr AsGxTimeSpan(const ElementPtr element);
+KML_EXPORT const GxTimeStampPtr AsGxTimeStamp(const ElementPtr element);
+KML_EXPORT const GxTourPtr AsGxTour(const ElementPtr element);
+KML_EXPORT const GxTourControlPtr AsGxTourControl(const ElementPtr element);
+KML_EXPORT const GxTourPrimitivePtr AsGxTourPrimitive(const ElementPtr element);
+KML_EXPORT const GxTrackPtr AsGxTrack(const ElementPtr element);
+KML_EXPORT const GxWaitPtr AsGxWait(const ElementPtr element);
 
 }  // end namespace kmldom
 

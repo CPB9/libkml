@@ -28,7 +28,9 @@
 
 #include <map>
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/kml_ptr.h"
+#include "kml/dom/parser_observer.h"
 
 namespace kmlconvenience {
 
@@ -50,4 +52,4 @@ class KML_EXPORT ElementCounter : public kmldom::ParserObserver {
 
 }  // end namespace kmlconvenience
 
-#endif // KML_CONVENIENCE_ELEMENT_COUNTER_H__
+#endif  // KML_CONVENIENCE_ELEMENT_COUNTER_H__

@@ -31,7 +31,7 @@
 #define KML_ENGINE_MERGE_H__
 
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
 
@@ -40,7 +40,8 @@ namespace kmlengine {
 // usage is for both source and target to be of the same complex type this does
 // not need to be the case.  Thus, it is possible to set the latitude of Camera
 // from a LookAt.
-KML_EXPORT void MergeFields(const kmldom::ElementPtr& source, kmldom::ElementPtr target);
+KML_EXPORT void MergeFields(const kmldom::ElementPtr& source,
+                            kmldom::ElementPtr target);
 
 // This function implements a deep merge of all simple and complex child
 // elements of source into the corresponding children of target.  The source
@@ -56,7 +57,8 @@ KML_EXPORT void MergeFields(const kmldom::ElementPtr& source, kmldom::ElementPtr
 // element type do not need to match.  Elements from source unknown to target
 // are handled the same as a parse of unknown elements into the target and
 // are similarily preserved for serialization.
-KML_EXPORT void MergeElements(const kmldom::ElementPtr& source, kmldom::ElementPtr target);
+KML_EXPORT void MergeElements(const kmldom::ElementPtr& source,
+                              kmldom::ElementPtr target);
 
 }  // end namespace kmlengine
 

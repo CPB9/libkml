@@ -39,9 +39,8 @@ using kmlbase::Attributes;
 namespace kmlxsd {
 
 XsdHandler::XsdHandler(XsdFile* xsd_file)
-    : xsd_file_(xsd_file),
-      current_type_(NULL) {
-  }
+    : xsd_file_(xsd_file), current_type_(NULL) {
+}
 // <xs:complexType name="..." abstract="...">
 void XsdHandler::StartComplexType(const Attributes& attributes) {
   if (!current_type_) {  // <xs:complexType> and/or <xs:simpleType>
@@ -109,7 +108,7 @@ void XsdHandler::StartXsElement(const Attributes& attributes) {
     xsd_file_->add_element(element);
   } else if (XsdComplexTypePtr complex_type =
                  XsdComplexType::AsComplexType(current_type_)) {
-     // Is it a child of <xs:complexType>?
+    // Is it a child of <xs:complexType>?
     complex_type->add_element(element);
   }
 }
@@ -150,8 +149,9 @@ void XsdHandler::EndElement(const string& xs_element_name) {
   }
 }
 
+XsdHandler::~XsdHandler() {
+}
 
-XsdHandler::~XsdHandler(){}
-
-void XsdHandler::CharData(const std::__cxx11::string& s){}
+void XsdHandler::CharData(const std::__cxx11::string& s) {
+}
 }  // end namespace kmlxsd

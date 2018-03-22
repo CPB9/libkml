@@ -26,10 +26,10 @@
 #ifndef KML_DOM_LABELSTYLE_H__
 #define KML_DOM_LABELSTYLE_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
 #include "kml/dom/colorstyle.h"
 #include "kml/dom/kml22.h"
-#include "kml/base/util.h"
 
 namespace kmldom {
 
@@ -64,4 +64,4 @@ class KML_EXPORT LabelStyle : public ColorStyle {
 
 }  // end namespace kmldom
 
-#endif // KML_DOM_LABELSTYLE_H__
+#endif  // KML_DOM_LABELSTYLE_H__

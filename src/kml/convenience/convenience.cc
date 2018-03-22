@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/convenience/convenience.h"
@@ -88,8 +88,7 @@ kmldom::GxAnimatedUpdatePtr CreateAnimatedUpdateChangePoint(
   return animated_update;
 }
 
-PlacemarkPtr CreateBasicPolygonPlacemark(
-    const kmldom::LinearRingPtr& lr) {
+PlacemarkPtr CreateBasicPolygonPlacemark(const kmldom::LinearRingPtr& lr) {
   KmlFactory* factory = KmlFactory::GetFactory();
   OuterBoundaryIsPtr obi = factory->CreateOuterBoundaryIs();
   obi->set_linearring(lr);
@@ -114,12 +113,12 @@ CameraPtr CreateCamera(double latitude, double longitude, double altitude,
   return camera;
 }
 
-CoordinatesPtr CreateCoordinatesCircle(double lat, double lng,
-                                       double radius, size_t segments) {
+CoordinatesPtr CreateCoordinatesCircle(double lat, double lng, double radius,
+                                       size_t segments) {
   CoordinatesPtr coords = KmlFactory::GetFactory()->CreateCoordinates();
   for (size_t i = 0; i < segments; ++i) {
-    coords->add_vec3(kmlbase::LatLngOnRadialFromPoint(
-        lat, lng, radius, static_cast<double>(i)));
+    coords->add_vec3(kmlbase::LatLngOnRadialFromPoint(lat, lng, radius,
+                                                      static_cast<double>(i)));
   }
   return coords;
 }
@@ -182,8 +181,7 @@ PointPtr CreatePointLatLon(double lat, double lon) {
 }
 
 // This is a convenience function to create a Point Placemark.
-PlacemarkPtr CreatePointPlacemark(const string& name, double lat,
-                                  double lon) {
+PlacemarkPtr CreatePointPlacemark(const string& name, double lat, double lon) {
   PlacemarkPtr placemark = KmlFactory::GetFactory()->CreatePlacemark();
   placemark->set_name(name);
   placemark->set_geometry(CreatePointLatLon(lat, lon));
@@ -236,8 +234,7 @@ GxWaitPtr CreateWait(double duration) {
   return wait;
 }
 
-bool GetExtendedDataValue(const FeaturePtr& feature,
-                          const string& name,
+bool GetExtendedDataValue(const FeaturePtr& feature, const string& name,
                           string* value) {
   if (value && feature->has_extendeddata()) {
     ExtendedDataPtr extendeddata = feature->get_extendeddata();
@@ -282,8 +279,8 @@ PlacemarkPtr CreatePointPlacemarkWithTimeStamp(const PointPtr& point,
   return placemark;
 }
 
-void SimplifyCoordinates(const CoordinatesPtr& src,
-                         CoordinatesPtr dest, double merge_tolerance) {
+void SimplifyCoordinates(const CoordinatesPtr& src, CoordinatesPtr dest,
+                         double merge_tolerance) {
   if (!src || !dest) {
     return;
   }
@@ -300,10 +297,11 @@ void SimplifyCoordinates(const CoordinatesPtr& src,
     // point is greater than merge_tolerance, do not append it to the vector.
     if (merge_tolerance > 0.0) {
       Vec3 this_vec = src->get_coordinates_array_at(i);
-      if (merge_tolerance >= kmlbase::DistanceBetweenPoints3d(
-            last_vec.get_latitude(), last_vec.get_longitude(),
-            last_vec.get_altitude(), this_vec.get_latitude(),
-            this_vec.get_longitude(), this_vec.get_altitude())) {
+      if (merge_tolerance >=
+          kmlbase::DistanceBetweenPoints3d(
+              last_vec.get_latitude(), last_vec.get_longitude(),
+              last_vec.get_altitude(), this_vec.get_latitude(),
+              this_vec.get_longitude(), this_vec.get_altitude())) {
         last_vec = src->get_coordinates_array_at(i);
         continue;
       }

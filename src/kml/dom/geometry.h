@@ -73,13 +73,12 @@
 #define KML_DOM_GEOMETRY_H__
 
 #include <vector>
-#include "kml/config.h"
 #include "kml/base/util.h"
 #include "kml/base/vec3.h"
-#include "kml/dom/extendeddata.h"
+#include "kml/config.h"
+#include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/link.h"  // Remove when model.h is repaired.
 #include "kml/dom/object.h"
 
 namespace kmldom {
@@ -499,7 +498,7 @@ class KML_EXPORT GxTrack : public AltitudeGeometryCommon {
   std::vector<kmlbase::Vec3> gx_coord_array_;
   std::vector<kmlbase::Vec3> gx_angles_array_;
   ModelPtr model_;
-  ExtendedDataPtr  extendeddata_;
+  ExtendedDataPtr extendeddata_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(GxTrack);
 };
 
@@ -538,7 +537,6 @@ class KML_EXPORT GxMultiTrack : public Geometry {
   std::vector<GxTrackPtr> gx_track_array_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(GxMultiTrack);
 };
-
 
 // HACK: the rest of this file contains what was in, and what should return to,
 // kml/dom/model.h. GxTrack was added to this file, which has a <Model>. Since
@@ -802,4 +800,3 @@ class KML_EXPORT Model : public AltitudeGeometryCommon {
 }  // namespace kmldom
 
 #endif  // KML_DOM_GEOMETRY_H__
-

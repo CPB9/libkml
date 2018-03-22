@@ -30,71 +30,72 @@
 
 namespace kmlxsd {
 
-XsdComplexType::XsdComplexType(const string& name)
-    : name_(name) {
-  }
+XsdComplexType::XsdComplexType(const string& name) : name_(name) {
+}
 // private
 bool XsdComplexType::ParseAttributes(const kmlbase::Attributes& attributes) {
   // <xs:complexType name="FooType">.  Returns false if there's no name=.
   return attributes.GetString("name", &name_);
 }
 
+kmlxsd::XsdComplexType* XsdComplexType::Create(
+    const kmlbase::Attributes& attributes) {
+  string name;
+  if (attributes.GetString("name", &name)) {
+    return new XsdComplexType(name);
+  }
+  return nullptr;
+}
 
-kmlxsd::XsdComplexType* XsdComplexType::Create(const kmlbase::Attributes& attributes){
-   string name;
-   if (attributes.GetString("name", &name)) {
-     return new XsdComplexType(name);
-   }
-   return nullptr;
- }
+XsdComplexTypePtr XsdComplexType::AsComplexType(
+    const kmlxsd::XsdTypePtr& xsd_type) {
+  if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_COMPLEX) {
+    return bmcl::static_pointer_cast<XsdComplexType>(xsd_type);
+  }
+  return nullptr;
+}
 
-XsdComplexTypePtr XsdComplexType::AsComplexType(const kmlxsd::XsdTypePtr& xsd_type){
-   if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_COMPLEX) {
-     return bmcl::static_pointer_cast<XsdComplexType>(xsd_type);
-   }
-   return nullptr;
- }
+kmlxsd::XsdType::XsdTypeEnum XsdComplexType::get_xsd_type_id() const {
+  return XSD_TYPE_COMPLEX;
+}
 
-kmlxsd::XsdType::XsdTypeEnum XsdComplexType::get_xsd_type_id() const{
-   return XSD_TYPE_COMPLEX;
- }
+bool XsdComplexType::is_complex() const {
+  return true;
+}
 
-bool XsdComplexType::is_complex() const{
-   return true;
- }
+const std::__cxx11::string XsdComplexType::get_name() const {
+  return name_;
+}
 
-const std::__cxx11::string XsdComplexType::get_name() const{
-   return name_;
- }
+const std::__cxx11::string XsdComplexType::get_base() const {
+  return extension_base_;
+}
 
-const std::__cxx11::string XsdComplexType::get_base() const{
-   return extension_base_;
- }
+void XsdComplexType::set_extension_base(
+    const std::__cxx11::string& extension_base) {
+  extension_base_ = extension_base;
+}
 
-void XsdComplexType::set_extension_base(const std::__cxx11::string& extension_base){
-   extension_base_ = extension_base;
- }
+const std::__cxx11::string& XsdComplexType::get_extension_base() const {
+  return extension_base_;
+}
 
-const std::__cxx11::string& XsdComplexType::get_extension_base() const{
-   return extension_base_;
- }
+bool XsdComplexType::has_extension_base() const {
+  return !extension_base_.empty();
+}
 
-bool XsdComplexType::has_extension_base() const{
-   return !extension_base_.empty();
- }
+void XsdComplexType::add_element(const XsdElementPtr& element) {
+  sequence_.push_back(element);
+}
 
-void XsdComplexType::add_element(const XsdElementPtr& element){
-   sequence_.push_back(element);
- }
+size_t XsdComplexType::get_sequence_size() const {
+  return sequence_.size();
+}
 
-size_t XsdComplexType::get_sequence_size() const{
-   return sequence_.size();
- }
+const XsdElementPtr XsdComplexType::get_sequence_at(size_t index) const {
+  return sequence_[index];
+}
 
-const XsdElementPtr XsdComplexType::get_sequence_at(size_t index) const{
-   return sequence_[index];
- }
-
-XsdComplexType::~XsdComplexType(){}
+XsdComplexType::~XsdComplexType() {
+}
 }  // end namespace kmlxsd
-

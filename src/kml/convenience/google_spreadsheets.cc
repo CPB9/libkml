@@ -26,9 +26,11 @@
 // This file contains the implementation of the GoogleSpreadsheets class.
 
 #include "kml/convenience/google_spreadsheets.h"
-
 #include "kml/convenience/atom_util.h"
 #include "kml/convenience/http_client.h"
+#include "kml/dom/atom.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_funcs.h"
 
 namespace kmlconvenience {
 
@@ -39,8 +41,7 @@ static const char* kScope = "http://spreadsheets.google.com";
 static const char* kMetaFeedUri = "/feeds/spreadsheets/private/full";
 
 // static
-GoogleSpreadsheets* GoogleSpreadsheets::Create(
-    HttpClient* http_client) {
+GoogleSpreadsheets* GoogleSpreadsheets::Create(HttpClient* http_client) {
   // The HttpClient must exist.
   if (!http_client) {
     return nullptr;
@@ -58,8 +59,7 @@ static string GetScope() {
   return kScope;
 }
 
-GoogleSpreadsheets::GoogleSpreadsheets()
-  : scope_(GetScope()) {
+GoogleSpreadsheets::GoogleSpreadsheets() : scope_(GetScope()) {
 }
 
 // Keep POI of scoped_ptr<GoogleHttpClient>'s dtor out of .h
@@ -81,8 +81,8 @@ const string& GoogleSpreadsheets::get_scope() const {
 }
 
 bool GoogleSpreadsheets::GetMetaFeedXml(string* atom_feed) const {
-  return http_client_->SendRequest(HTTP_GET, scope_ + kMetaFeedUri,
-                                   NULL, NULL, atom_feed);
+  return http_client_->SendRequest(HTTP_GET, scope_ + kMetaFeedUri, NULL, NULL,
+                                   atom_feed);
 }
 
 kmldom::AtomFeedPtr GoogleSpreadsheets::GetMetaFeed() const {
@@ -101,10 +101,10 @@ bool GoogleSpreadsheets::DownloadSpreadsheet(const kmldom::AtomEntryPtr& entry,
   if (!AtomUtil::GetGdResourceId(entry, &resource_id)) {
     return false;
   }
-  const string uri = scope_ + "/feeds/download/spreadsheets/Export?key=" +
-      resource_id + "&exportFormat=" + format;
+  const string uri = scope_ +
+                     "/feeds/download/spreadsheets/Export?key=" + resource_id +
+                     "&exportFormat=" + format;
   return http_client_->SendRequest(HTTP_GET, uri, NULL, NULL, spreadsheet_data);
 }
-
 
 }  // end namespace kmlconvenience

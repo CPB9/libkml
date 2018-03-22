@@ -27,9 +27,11 @@
 
 namespace kmldom {
 
-SubStyle::SubStyle() {}
+SubStyle::SubStyle() {
+}
 
-SubStyle::~SubStyle() {}
+SubStyle::~SubStyle() {
+}
 
 void SubStyle::AddElement(const ElementPtr& element) {
   Object::AddElement(element);
@@ -39,10 +41,11 @@ void SubStyle::Serialize(Serializer& serializer) const {
   Object::Serialize(serializer);
 }
 
+kmldom::KmlDomType SubStyle::Type() const {
+  return Type_SubStyle;
+}
 
-kmldom::KmlDomType SubStyle::Type() const{ return Type_SubStyle; }
-
-bool SubStyle::IsA(kmldom::KmlDomType type) const{
-   return type == Type_SubStyle || Object::IsA(type);
- }
+bool SubStyle::IsA(kmldom::KmlDomType type) const {
+  return type == Type_SubStyle || Object::IsA(type);
+}
 }  // end namespace kmldom

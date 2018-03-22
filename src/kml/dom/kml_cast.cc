@@ -24,10 +24,22 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml_cast.h"
-#include "kml_ptr.h"
 #include <bmcl/Rc.h>
+#include "kml/dom/kmldom.h"
 
 namespace kmldom {
+
+template <class T>
+inline const bmcl::Rc<T> ElementCast(const ElementPtr& element) {
+  if (element && element->IsA(T::ElementType())) {
+    return bmcl::static_pointer_cast<T>(element);
+  }
+  return nullptr;
+}
+
+const ElementPtr AsElement(const kmlbase::XmlElementPtr& xml_element) {
+  return bmcl::static_pointer_cast<Element>(xml_element);
+}
 
 const AbstractLatLonBoxPtr AsAbstractLatLonBox(const ElementPtr element) {
   if (element && element->IsA(Type_AbstractLatLonBox)) {
@@ -505,4 +517,149 @@ const ViewVolumePtr AsViewVolume(const ElementPtr element) {
   return nullptr;
 }
 
+const CoordinatesPtr AsCoordinates(const ElementPtr& element) {
+  return ElementCast<Coordinates>(element);
+}
+
+const ExtendedDataPtr AsExtendedData(const ElementPtr& element) {
+  return ElementCast<ExtendedData>(element);
+}
+
+const KmlPtr AsKml(const ElementPtr& element) {
+  return ElementCast<Kml>(element);
+}
+
+const MetadataPtr AsMetadata(const ElementPtr& element) {
+  return ElementCast<Metadata>(element);
+}
+
+const NetworkLinkControlPtr AsNetworkLinkControl(const ElementPtr& element) {
+  return ElementCast<NetworkLinkControl>(element);
+}
+
+const SimpleDataPtr AsSimpleData(const ElementPtr& element) {
+  return ElementCast<SimpleData>(element);
+}
+
+const SimpleFieldPtr AsSimpleField(const ElementPtr& element) {
+  return ElementCast<SimpleField>(element);
+}
+
+const UpdatePtr AsUpdate(const ElementPtr& element) {
+  return ElementCast<Update>(element);
+}
+
+const AtomAuthorPtr AsAtomAuthor(const ElementPtr& element) {
+  return ElementCast<AtomAuthor>(element);
+}
+
+const AtomCategoryPtr AsAtomCategory(const ElementPtr& element) {
+  return ElementCast<AtomCategory>(element);
+}
+
+const AtomContentPtr AsAtomContent(const ElementPtr& element) {
+  return ElementCast<AtomContent>(element);
+}
+
+const AtomEntryPtr AsAtomEntry(const ElementPtr& element) {
+  return ElementCast<AtomEntry>(element);
+}
+
+const AtomFeedPtr AsAtomFeed(const ElementPtr& element) {
+  return ElementCast<AtomFeed>(element);
+}
+
+const AtomLinkPtr AsAtomLink(const ElementPtr& element) {
+  return ElementCast<AtomLink>(element);
+}
+
+const XalAddressDetailsPtr AsXalAddressDetails(const ElementPtr& element) {
+  return ElementCast<XalAddressDetails>(element);
+}
+
+const XalAdministrativeAreaPtr AsXalAdministrativeArea(
+    const ElementPtr& element) {
+  return ElementCast<XalAdministrativeArea>(element);
+}
+
+const XalCountryPtr AsXalCountry(const ElementPtr& element) {
+  return ElementCast<XalCountry>(element);
+}
+
+const XalLocalityPtr AsXalLocality(const ElementPtr& element) {
+  return ElementCast<XalLocality>(element);
+}
+
+const XalPostalCodePtr AsXalPostalCode(const ElementPtr& element) {
+  return ElementCast<XalPostalCode>(element);
+}
+
+const XalSubAdministrativeAreaPtr AsXalSubAdministrativeArea(
+    const ElementPtr& element) {
+  return ElementCast<XalSubAdministrativeArea>(element);
+}
+
+const XalThoroughfarePtr AsXalThoroughfare(const ElementPtr& element) {
+  return ElementCast<XalThoroughfare>(element);
+}
+
+const GxAnimatedUpdatePtr AsGxAnimatedUpdate(const ElementPtr element) {
+  return ElementCast<GxAnimatedUpdate>(element);
+}
+
+const GxFlyToPtr AsGxFlyTo(const ElementPtr element) {
+  return ElementCast<GxFlyTo>(element);
+}
+
+const GxLatLonQuadPtr AsGxLatLonQuad(const ElementPtr element) {
+  return ElementCast<GxLatLonQuad>(element);
+}
+
+const GxMultiTrackPtr AsGxMultiTrack(const ElementPtr element) {
+  return ElementCast<GxMultiTrack>(element);
+}
+
+const GxPlaylistPtr AsGxPlaylist(const ElementPtr element) {
+  return ElementCast<GxPlaylist>(element);
+}
+
+const GxSimpleArrayFieldPtr AsGxSimpleArrayField(const ElementPtr element) {
+  return ElementCast<GxSimpleArrayField>(element);
+}
+
+const GxSimpleArrayDataPtr AsGxSimpleArrayData(const ElementPtr element) {
+  return ElementCast<GxSimpleArrayData>(element);
+}
+
+const GxSoundCuePtr AsGxSoundCue(const ElementPtr element) {
+  return ElementCast<GxSoundCue>(element);
+}
+
+const GxTimeSpanPtr AsGxTimeSpan(const ElementPtr element) {
+  return ElementCast<GxTimeSpan>(element);
+}
+
+const GxTimeStampPtr AsGxTimeStamp(const ElementPtr element) {
+  return ElementCast<GxTimeStamp>(element);
+}
+
+const GxTourPtr AsGxTour(const ElementPtr element) {
+  return ElementCast<GxTour>(element);
+}
+
+const GxTourControlPtr AsGxTourControl(const ElementPtr element) {
+  return ElementCast<GxTourControl>(element);
+}
+
+const GxTourPrimitivePtr AsGxTourPrimitive(const ElementPtr element) {
+  return ElementCast<GxTourPrimitive>(element);
+}
+
+const GxTrackPtr AsGxTrack(const ElementPtr element) {
+  return ElementCast<GxTrack>(element);
+}
+
+const GxWaitPtr AsGxWait(const ElementPtr element) {
+  return ElementCast<GxWait>(element);
+}
 }  // end namespace kmldom

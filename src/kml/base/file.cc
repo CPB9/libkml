@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // The file contains the implementation of the File methods common across
@@ -32,10 +32,10 @@
 namespace kmlbase {
 
 #ifdef WIN32
-  const char kSeparator = '\\';
+const char kSeparator = '\\';
 #else
-  const char kSeparator = '/';
-#endif  
+const char kSeparator = '/';
+#endif
 
 bool File::ReadFileToString(const string& filename, string* output) {
   if (filename.empty() || !output) {
@@ -59,8 +59,7 @@ bool File::ReadFileToString(const string& filename, string* output) {
   return true;
 }
 
-bool File::WriteStringToFile(const string& data,
-                             const string& filename) {
+bool File::WriteStringToFile(const string& data, const string& filename) {
   if (filename.empty()) {
     return false;
   }
@@ -78,7 +77,7 @@ string File::JoinPaths(const string& p1, const string& p2) {
   if (p1.empty()) return p2;
   if (p2.empty()) return p1;
   string temp_str(p1);
-  if (p1[p1.length()-1] != kSeparator) {
+  if (p1[p1.length() - 1] != kSeparator) {
     temp_str += kSeparator;
     return (temp_str + p2);
   } else {
@@ -86,8 +85,7 @@ string File::JoinPaths(const string& p1, const string& p2) {
   }
 }
 
-void File::SplitFilePath(const string& filepath,
-                         string* base_directory,
+void File::SplitFilePath(const string& filepath, string* base_directory,
                          string* filename) {
   size_t found = filepath.find_last_of("/\\");
   if (base_directory) {
@@ -100,7 +98,7 @@ void File::SplitFilePath(const string& filepath,
     }
   }
   if (filename) {
-    *filename = filepath.substr(found+1);
+    *filename = filepath.substr(found + 1);
   }
 }
 

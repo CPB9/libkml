@@ -27,13 +27,12 @@
 
 #include "kml/convenience/csv_parser.h"
 
-#include <vector>
 #include <memory>
+#include <vector>
 #include "kml/base/csv_splitter.h"
 #include "kml/base/string_util.h"
 #include "kml/convenience/convenience.h"
-#include "kml/dom.h"
-#include "kml/engine.h"
+#include "kml/dom/kml_factory.h"
 
 namespace kmlconvenience {
 
@@ -50,7 +49,7 @@ static const char* kStyleIdBase = "style-";
 
 // static
 bool CsvParser::ParseCsv(kmlbase::CsvSplitter* csv_splitter,
-                     CsvParserHandler* csv_parser_handler) {
+                         CsvParserHandler* csv_parser_handler) {
   if (!csv_splitter || !csv_parser_handler) {
     return false;
   }
@@ -72,15 +71,15 @@ bool CsvParser::ParseCsv(kmlbase::CsvSplitter* csv_splitter,
 // private
 CsvParser::CsvParser(kmlbase::CsvSplitter* csv_splitter,
                      CsvParserHandler* csv_parser_handler)
-  : csv_splitter_(csv_splitter),
-    csv_parser_handler_(csv_parser_handler),
-    name_col_(npos),
-    description_col_(npos),
-    lat_col_(npos),
-    lon_col_(npos),
-    feature_id_(npos),
-    style_id_(npos),
-    style_url_base_(kDefaultStyleUrlBase) {
+    : csv_splitter_(csv_splitter),
+      csv_parser_handler_(csv_parser_handler),
+      name_col_(npos),
+      description_col_(npos),
+      lat_col_(npos),
+      lon_col_(npos),
+      feature_id_(npos),
+      style_id_(npos),
+      style_url_base_(kDefaultStyleUrlBase) {
 }
 
 // private
@@ -125,8 +124,8 @@ CsvParserStatus CsvParser::CsvLineToPlacemark(
   // Note that StringToDouble returns false on non-numeric strings.
   double lat;
   double lon;
-  if (lat_col_ != npos && lon_col_ != npos &&
-      csv_line.size() > lat_col_ && csv_line.size() > lon_col_ &&
+  if (lat_col_ != npos && lon_col_ != npos && csv_line.size() > lat_col_ &&
+      csv_line.size() > lon_col_ &&
       kmlbase::StringToDouble(csv_line[lat_col_], &lat) &&
       kmlbase::StringToDouble(csv_line[lon_col_], &lon)) {
     placemark->set_geometry(CreatePointLatLon(lat, lon));
@@ -171,14 +170,15 @@ bool CsvParser::ParseCsvData() {
   return true;
 }
 
+CsvParserHandler::~CsvParserHandler() {
+}
 
-CsvParserHandler::~CsvParserHandler(){}
+bool CsvParserHandler::HandleLine(int line, CsvParserStatus status,
+                                  kmldom::PlacemarkPtr placemark) {
+  return true;  // Always continue to the next line.
+}
 
-bool CsvParserHandler::HandleLine(int line, CsvParserStatus status, kmldom::PlacemarkPtr placemark){
-   return true;  // Always continue to the next line.
- }
-
-const CsvParser::CsvSchema& CsvParser::GetSchema() const{
-   return csv_schema_;
- }
-}  // end kmlconvenience
+const CsvParser::CsvSchema& CsvParser::GetSchema() const {
+  return csv_schema_;
+}
+}  // namespace kmlconvenience

@@ -28,10 +28,10 @@
 
 #include <algorithm>
 #include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
 #include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
-#include "kml/base/util.h"
 
 namespace kmldom {
 
@@ -91,4 +91,4 @@ class KML_EXPORT Container : public Feature {
 
 }  // end namespace kmldom
 
-#endif // KML_CONTAINER_H_
+#endif  // KML_CONTAINER_H_

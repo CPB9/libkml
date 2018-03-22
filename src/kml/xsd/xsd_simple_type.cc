@@ -24,69 +24,71 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 #include "kml/xsd/xsd_simple_type.h"
+#include "kml/base/attributes.h"
 
 namespace kmlxsd {
 
-kmlxsd::XsdSimpleType* XsdSimpleType::Create(const kmlbase::Attributes& attributes){
-   string name;
-   if (attributes.GetString("name", &name)) {
-     return new XsdSimpleType(name);
-   }
-   return nullptr;
- }
-
-XsdSimpleTypePtr XsdSimpleType::AsSimpleType(const XsdTypePtr& xsd_type){
-   if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_SIMPLE) {
-     return bmcl::static_pointer_cast<XsdSimpleType>(xsd_type);
-   }
-   return nullptr;
- }
-
-kmlxsd::XsdType::XsdTypeEnum XsdSimpleType::get_xsd_type_id() const{
-   return XSD_TYPE_SIMPLE;
- }
-
-bool XsdSimpleType::is_complex() const{
-   return false;
- }
-
-const std::__cxx11::string XsdSimpleType::get_name() const{
-   return name_;
- }
-
-const std::__cxx11::string XsdSimpleType::get_base() const{
-   return restriction_base_;
- }
-
-void XsdSimpleType::set_restriction_base(const std::__cxx11::string& base){
-   restriction_base_ = base;
- }
-
-const std::__cxx11::string& XsdSimpleType::get_restriction_base() const{
-   return restriction_base_;
- }
-
-void XsdSimpleType::add_enumeration(const std::__cxx11::string& value){
-   enumeration_.push_back(value);
- }
-
-size_t XsdSimpleType::get_enumeration_size() const{
-   return enumeration_.empty() ? 0 : enumeration_.size();
- }
-
-const std::__cxx11::string& XsdSimpleType::get_enumeration_at(size_t index) const{
-   return enumeration_[index];
- }
-
-bool XsdSimpleType::IsEnumeration() const{
-   return restriction_base_ == "string" && !enumeration_.empty();
- }
-
-XsdSimpleType::~XsdSimpleType(){}
-
-XsdSimpleType::XsdSimpleType(const string& name)
-    : name_(name) {
+kmlxsd::XsdSimpleType* XsdSimpleType::Create(
+    const kmlbase::Attributes& attributes) {
+  string name;
+  if (attributes.GetString("name", &name)) {
+    return new XsdSimpleType(name);
   }
+  return nullptr;
 }
+
+XsdSimpleTypePtr XsdSimpleType::AsSimpleType(const XsdTypePtr& xsd_type) {
+  if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_SIMPLE) {
+    return bmcl::static_pointer_cast<XsdSimpleType>(xsd_type);
+  }
+  return nullptr;
+}
+
+kmlxsd::XsdType::XsdTypeEnum XsdSimpleType::get_xsd_type_id() const {
+  return XSD_TYPE_SIMPLE;
+}
+
+bool XsdSimpleType::is_complex() const {
+  return false;
+}
+
+const std::__cxx11::string XsdSimpleType::get_name() const {
+  return name_;
+}
+
+const std::__cxx11::string XsdSimpleType::get_base() const {
+  return restriction_base_;
+}
+
+void XsdSimpleType::set_restriction_base(const std::__cxx11::string& base) {
+  restriction_base_ = base;
+}
+
+const std::__cxx11::string& XsdSimpleType::get_restriction_base() const {
+  return restriction_base_;
+}
+
+void XsdSimpleType::add_enumeration(const std::__cxx11::string& value) {
+  enumeration_.push_back(value);
+}
+
+size_t XsdSimpleType::get_enumeration_size() const {
+  return enumeration_.empty() ? 0 : enumeration_.size();
+}
+
+const std::__cxx11::string& XsdSimpleType::get_enumeration_at(
+    size_t index) const {
+  return enumeration_[index];
+}
+
+bool XsdSimpleType::IsEnumeration() const {
+  return restriction_base_ == "string" && !enumeration_.empty();
+}
+
+XsdSimpleType::~XsdSimpleType() {
+}
+
+XsdSimpleType::XsdSimpleType(const string& name) : name_(name) {
+}
+}  // namespace kmlxsd

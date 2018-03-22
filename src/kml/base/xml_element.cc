@@ -27,23 +27,23 @@
 
 namespace kmlbase {
 
-const kmlbase::XmlElement* XmlElement::GetParent() const{
+const kmlbase::XmlElement* XmlElement::GetParent() const {
   return parent_;
 }
 
-const XmlFile* XmlElement::GetXmlFile() const{
+const XmlFile* XmlElement::GetXmlFile() const {
   return xml_file_;
 }
 
-kmlbase::XmlnsId XmlElement::get_xmlns() const{
+kmlbase::XmlnsId XmlElement::get_xmlns() const {
   return xmlns_id_;
 }
 
-bool XmlElement::InSameXmlFile(const XmlElementPtr& element) const{
+bool XmlElement::InSameXmlFile(const XmlElementPtr& element) const {
   return element && xml_file_ == element->xml_file_;
 }
 
-bool XmlElement::SetXmlFile(const XmlFile* xml_file){
+bool XmlElement::SetXmlFile(const XmlFile* xml_file) {
   if (!xml_file_ && xml_file) {
     xml_file_ = xml_file;
     return true;
@@ -52,13 +52,14 @@ bool XmlElement::SetXmlFile(const XmlFile* xml_file){
 }
 
 XmlElement::XmlElement()
- : xmlns_id_(XMLNS_NONE), parent_(nullptr), xml_file_(nullptr){}
+    : xmlns_id_(XMLNS_NONE), parent_(nullptr), xml_file_(nullptr) {
+}
 
-void XmlElement::set_xmlns(kmlbase::XmlnsId xmlns_id){
+void XmlElement::set_xmlns(kmlbase::XmlnsId xmlns_id) {
   xmlns_id_ = xmlns_id;
 }
 
-bool XmlElement::SetParent(const XmlElementPtr& parent){
+bool XmlElement::SetParent(const XmlElementPtr& parent) {
   if (!parent_ && parent && InSameXmlFile(parent)) {
     parent_ = parent.get();
     return true;
@@ -66,4 +67,3 @@ bool XmlElement::SetParent(const XmlElementPtr& parent){
   return false;
 }
 }  // end namespace kmlbase
-

@@ -48,15 +48,7 @@ class HttpMethod {
 // private static
 const char* HttpMethod::kHttpMethodString[] = {
     NULL,  // HTTP_NONE = 0,
-    "OPTIONS",
-    "GET",
-    "HEAD",
-    "POST",
-    "PUT",
-    "DELETE",
-    "TRACE",
-    "CONNECT"
-};
+    "OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT"};
 
 static const char* kVersion = "1.0";
 static const char* kGoogleClientLoginUrl =
@@ -77,14 +69,12 @@ void HttpClient::AddHeader(const string& field_name,
 
 // This is an implementation of this:
 // http://code.google.com/apis/accounts/docs/AuthForInstalledApps.html
-bool HttpClient::Login(const string& service_name,
-                       const string& email,
+bool HttpClient::Login(const string& service_name, const string& email,
                        const string& password) {
-  const string data = string("Email=") + email +
-                                       "&Passwd=" + password +
-                                       "&accountType=" + kAccountType +
-                                       "&source=" + application_name_ +
-                                       "&service=" + service_name;
+  const string data = string("Email=") + email + "&Passwd=" + password +
+                      "&accountType=" + kAccountType +
+                      "&source=" + application_name_ +
+                      "&service=" + service_name;
   string response;
   if (!SendRequest(HTTP_POST, kGoogleClientLoginUrl, NULL, &data, &response)) {
     return false;
@@ -106,11 +96,9 @@ bool HttpClient::Login(const string& service_name,
 }
 
 // This default implemention is really only for debugging and unit testing.
-bool HttpClient::SendRequest(const HttpMethodEnum method,
-                             const string& uri,
+bool HttpClient::SendRequest(const HttpMethodEnum method, const string& uri,
                              const StringPairVector* headers,
-                             const string* data,
-                             string* response) const {
+                             const string* data, string* response) const {
   if (response) {
     response->append(HttpMethod::GetMethodString(method));
     response->append(" ");
@@ -135,8 +123,7 @@ bool HttpClient::FetchUrl(const string& url, string* data) const {
 }
 
 // static
-void HttpClient::PushHeader(const string& field_name,
-                            const string& field_value,
+void HttpClient::PushHeader(const string& field_name, const string& field_value,
                             StringPairVector* headers) {
   if (headers) {
     headers->push_back(std::make_pair(field_name, field_value));

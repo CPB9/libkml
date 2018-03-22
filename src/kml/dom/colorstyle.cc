@@ -33,14 +33,15 @@ using kmlbase::Color32;
 
 namespace kmldom {
 
-ColorStyle::ColorStyle() :
-  color_(Color32(0xffffffff)),
-  has_color_(false),
-  colormode_(COLORMODE_NORMAL),
-  has_colormode_(false) {
+ColorStyle::ColorStyle()
+    : color_(Color32(0xffffffff)),
+      has_color_(false),
+      colormode_(COLORMODE_NORMAL),
+      has_colormode_(false) {
 }
 
-ColorStyle::~ColorStyle() {}
+ColorStyle::~ColorStyle() {
+}
 
 void ColorStyle::AddElement(const ElementPtr& element) {
   switch (element->Type()) {
@@ -66,46 +67,47 @@ void ColorStyle::Serialize(Serializer& serializer) const {
   }
 }
 
+kmldom::KmlDomType ColorStyle::Type() const {
+  return Type_ColorStyle;
+}
 
-kmldom::KmlDomType ColorStyle::Type() const{ return Type_ColorStyle; }
+bool ColorStyle::IsA(kmldom::KmlDomType type) const {
+  return type == Type_ColorStyle || SubStyle::IsA(type);
+}
 
-bool ColorStyle::IsA(kmldom::KmlDomType type) const{
-   return type == Type_ColorStyle || SubStyle::IsA(type);
- }
+const kmlbase::Color32& ColorStyle::get_color() const {
+  return color_;
+}
 
-const kmlbase::Color32& ColorStyle::get_color() const{
-   return color_;
- }
+bool ColorStyle::has_color() const {
+  return has_color_;
+}
 
-bool ColorStyle::has_color() const{
-   return has_color_;
- }
+void ColorStyle::set_color(const kmlbase::Color32& color) {
+  color_ = color;
+  has_color_ = true;
+}
 
-void ColorStyle::set_color(const kmlbase::Color32& color){
-   color_ = color;
-   has_color_ = true;
- }
+void ColorStyle::clear_color() {
+  color_ = kmlbase::Color32(0xffffffff);
+  has_color_ = false;
+}
 
-void ColorStyle::clear_color(){
-   color_ = kmlbase::Color32(0xffffffff);
-   has_color_ = false;
- }
+int ColorStyle::get_colormode() const {
+  return colormode_;
+}
 
-int ColorStyle::get_colormode() const{
-   return colormode_;
- }
+bool ColorStyle::has_colormode() const {
+  return has_colormode_;
+}
 
-bool ColorStyle::has_colormode() const{
-   return has_colormode_;
- }
+void ColorStyle::set_colormode(int colormode) {
+  colormode_ = colormode;
+  has_colormode_ = true;
+}
 
-void ColorStyle::set_colormode(int colormode){
-   colormode_ = colormode;
-   has_colormode_ = true;
- }
-
-void ColorStyle::clear_colormode(){
-   colormode_ = COLORMODE_NORMAL;
-   has_colormode_ = false;
- }
+void ColorStyle::clear_colormode() {
+  colormode_ = COLORMODE_NORMAL;
+  has_colormode_ = false;
+}
 }  // end namespace kmldom

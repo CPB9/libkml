@@ -28,8 +28,8 @@
 #ifndef KML_BASE_NET_CACHE_H__
 #define KML_BASE_NET_CACHE_H__
 
-#include <map>
 #include <bmcl/Rc.h>
+#include <map>
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -49,7 +49,8 @@ namespace kmlbase {
 // from within NetCache is called out to the application code in this manner.
 class NetFetcher {
  public:
-  virtual ~NetFetcher() {}
+  virtual ~NetFetcher() {
+  }
   virtual bool FetchUrl(const string& url, string* data) const {
     return false;
   }
@@ -93,7 +94,7 @@ class NetFetcher {
 // however use of boost::intrusive_ptr does permit any code to hold a pointer
 // to an item originally from cache beyond the cache's lifetime.
 // NOTE: This class is NOT thread safe!
-template<class CacheItem>
+template <class CacheItem>
 class NetCache {
  public:
   typedef bmcl::Rc<CacheItem> CacheItemPtr;
@@ -106,9 +107,8 @@ class NetCache {
   // file descriptors open so platform limits may limit max_size.  Typical
   // sizes are expected to be in the 10s to 100s of items.
   NetCache(NetFetcher* net_fetcher, size_t max_size)
-      : max_size_(max_size),
-        cache_count_(0),
-        net_fetcher_(net_fetcher) {}
+      : max_size_(max_size), cache_count_(0), net_fetcher_(net_fetcher) {
+  }
 
   // This is the main public method in NetCache.  If the NetFetcher FetchUrl
   // returns true for this url the data fetched is passed to CreateFromString
@@ -190,7 +190,7 @@ class NetCache {
     // Find the entry with the smallest time.
     typename CacheMap::iterator iter = cache_map_.begin();
     typename CacheMap::iterator oldest = iter;
-    for (;iter != cache_map_.end(); ++iter) {
+    for (; iter != cache_map_.end(); ++iter) {
       // STL map iter is a pair<key,val> with val CacheItem which is a pair
       // whose second is the timestamp.
       if (iter->second.second < oldest->second.second) {

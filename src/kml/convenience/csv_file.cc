@@ -30,19 +30,18 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include "kml/base/string_util.h"
 #include "kml/base/missing/strtod.h"
-#include "kml/dom.h"
-#include "kml/engine.h"
+#include "kml/base/string_util.h"
 #include "kml/convenience/convenience.h"
 #include "kml/convenience/feature_list.h"
+#include "kml/dom/kml_factory.h"
 
 namespace kmlconvenience {
 
+using kmlconvenience::FeatureList;
 using kmldom::FeaturePtr;
 using kmldom::KmlFactory;
 using kmldom::PlacemarkPtr;
-using kmlconvenience::FeatureList;
 using std::vector;
 
 void CsvFile::ParseCsvLine(const string& csv_line) {
@@ -76,5 +75,6 @@ void CsvFile::ParseCsvFile(const char* filename) {
   }
 }
 
-CsvFile::CsvFile(FeatureList* feature_list) : feature_list_(feature_list){}
+CsvFile::CsvFile(FeatureList* feature_list) : feature_list_(feature_list) {
+}
 }  // end namespace kmlconvenience

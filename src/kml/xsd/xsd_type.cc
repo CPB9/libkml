@@ -28,9 +28,10 @@
 
 namespace kmlxsd {
 
-bool XsdType::operator==(const XsdType& xsd_type) const{
-   return get_name() == xsd_type.get_name();
- }
-
-XsdType::~XsdType(){}
+bool XsdType::operator==(const XsdType& xsd_type) const {
+  return get_name() == xsd_type.get_name();
 }
+
+XsdType::~XsdType() {
+}
+}  // namespace kmlxsd

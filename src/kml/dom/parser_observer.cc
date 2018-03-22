@@ -27,19 +27,20 @@
 
 namespace kmldom {
 
-
-ParserObserver::~ParserObserver(){  // Silence compiler warnings.
- }
-
-bool ParserObserver::NewElement(const ElementPtr& element){
-   return true;  // Default implementation is a NOP: parse continues.
- }
-
-bool ParserObserver::EndElement(const ElementPtr& parent, const ElementPtr& child){
-   return true;
- }
-
-bool ParserObserver::AddChild(const ElementPtr& parent, const ElementPtr& child){
-   return true;  // Default implementation is a NOP: parse continues.
- }
+ParserObserver::~ParserObserver() {  // Silence compiler warnings.
 }
+
+bool ParserObserver::NewElement(const ElementPtr& element) {
+  return true;  // Default implementation is a NOP: parse continues.
+}
+
+bool ParserObserver::EndElement(const ElementPtr& parent,
+                                const ElementPtr& child) {
+  return true;
+}
+
+bool ParserObserver::AddChild(const ElementPtr& parent,
+                              const ElementPtr& child) {
+  return true;  // Default implementation is a NOP: parse continues.
+}
+}  // namespace kmldom

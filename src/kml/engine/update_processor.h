@@ -30,8 +30,8 @@
 #ifndef KML_ENGINE_UPDATE_PROCESSOR_H__
 #define KML_ENGINE_UPDATE_PROCESSOR_H__
 
-#include "kml/config.h"
 #include "kml/base/string_util.h"
+#include "kml/config.h"
 #include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
@@ -65,8 +65,7 @@ class KML_EXPORT UpdateProcessor {
   // This is a key reason for this class: to remap the targetId against
   // the supplied id map.  If the id_map this class was constructed with was
   // NULL then this simply returns the targetid.
-  bool GetTargetId(const kmldom::ObjectPtr& object,
-                   string* targetid) const;
+  bool GetTargetId(const kmldom::ObjectPtr& object, string* targetid) const;
 
  private:
   kmldom::FeaturePtr DeleteFeatureById(const string& id);

@@ -40,6 +40,6 @@ namespace kmlbase {
 // This class implements the reference count used by boost::intrusive_ptr.
 using Referent = bmcl::RefCountable<std::size_t>;
 
-} // end namespace kmlbase
+}  // end namespace kmlbase
 
 #endif  // KML_BASE_REFERENT_H__

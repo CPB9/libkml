@@ -35,8 +35,8 @@ namespace kmlengine {
 
 KmzCache::KmzCache(kmlbase::NetFetcher* net_fetcher_, size_t max_size)
     : kmlbase::NetCache<KmzFile>(net_fetcher_, max_size) {
-    memory_file_cache_.reset(new MemoryFileCache(net_fetcher_, max_size));
-  }
+  memory_file_cache_.reset(new MemoryFileCache(net_fetcher_, max_size));
+}
 // This encodes "a bit of history" regarding the two-level fetch semantics of
 // KMZ relative references.  While there exists no formal KMZ specification
 // it is possible that such would specify a simpler deterministic scheme
@@ -158,8 +158,7 @@ bool KmzCache::FetchFromCache(KmlUri* kml_uri, string* content) const {
   return false;
 }
 
-
-bool KmzCache::DoFetch(KmlUri* kml_uri, std::__cxx11::string* content){
-   return DoFetchAndReturnUrl(kml_uri, content, NULL);
- }
+bool KmzCache::DoFetch(KmlUri* kml_uri, std::__cxx11::string* content) {
+  return DoFetchAndReturnUrl(kml_uri, content, NULL);
+}
 }  // end namespace kmlengine

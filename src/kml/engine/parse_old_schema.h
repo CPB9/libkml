@@ -5,7 +5,9 @@
 //
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice,//     this list of conditions and the following disclaimer in the documentation//     and/or other materials provided with the distribution.
+//  2. Redistributions in binary form must reproduce the above copyright
+//  notice,//     this list of conditions and the following disclaimer in the
+//  documentation//     and/or other materials provided with the distribution.
 //  3. Neither the name of Google Inc. nor the names of its contributors may be
 //     used to endorse or promote products derived from this software without
 //     specific prior written permission.
@@ -26,8 +28,9 @@
 #ifndef KML_ENGINE_PARSE_OLD_SCHEMA_H__
 #define KML_ENGINE_PARSE_OLD_SCHEMA_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/engine_types.h"
 
 namespace kmlengine {
@@ -68,14 +71,13 @@ namespace kmlengine {
 // If the input_xml is an element whose name is in the SchemaNameMap then
 // this returns a converted <Placemark> to the given output buffer.
 KML_EXPORT bool ConvertOldSchema(const string& input_xml,
-                      const SchemaNameMap& schema_name_map,
-                      string* output_xml);
+                                 const SchemaNameMap& schema_name_map,
+                                 string* output_xml);
 
 // This uses ConvertOldSchema() to convert and parse the input.  If anything
 // fails NULL is returned and errors are saved to the given error buffer.
-KML_EXPORT kmldom::PlacemarkPtr ParseOldSchema(const string& xml,
-                                    const SchemaNameMap& schema_name_map,
-                                    string* errors);
+KML_EXPORT kmldom::PlacemarkPtr ParseOldSchema(
+    const string& xml, const SchemaNameMap& schema_name_map, string* errors);
 
 }  // end namespace kmlengine
 

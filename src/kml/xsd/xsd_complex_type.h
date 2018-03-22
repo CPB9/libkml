@@ -26,12 +26,16 @@
 #ifndef KML_XSD_XSD_COMPLEX_TYPE_H__
 #define KML_XSD_XSD_COMPLEX_TYPE_H__
 
-#include <vector>
 #include <bmcl/Rc.h>
+#include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/base/attributes.h"
 #include "kml/xsd/xsd_element.h"
 #include "kml/xsd/xsd_type.h"
+
+namespace kmldom {
+class Attributes;
+}
 
 namespace kmlxsd {
 
@@ -85,7 +89,7 @@ class KML_EXPORT XsdComplexType : public XsdType {
   XsdComplexType(const string& name);
 
   string name_;
-  string extension_base_;  // <xs:extension base="xx">
+  string extension_base_;                // <xs:extension base="xx">
   std::vector<XsdElementPtr> sequence_;  // <xs:sequence> of <xs:element>'s.
 };
 

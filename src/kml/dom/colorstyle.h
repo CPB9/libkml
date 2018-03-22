@@ -28,11 +28,11 @@
 #ifndef KML_DOM_COLORSTYLE_H__
 #define KML_DOM_COLORSTYLE_H__
 
-#include "kml/config.h"
-#include "kml/dom/substyle.h"
 #include "kml/base/color32.h"
-#include "kml/dom/kml22.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/substyle.h"
 
 namespace kmldom {
 
@@ -72,4 +72,4 @@ class KML_EXPORT ColorStyle : public SubStyle {
 
 }  // end namespace kmldom
 
-#endif // KML_COLORSTYLE_H_
+#endif  // KML_COLORSTYLE_H_

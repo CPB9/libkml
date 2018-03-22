@@ -31,14 +31,13 @@
 #include "kml/base/string_util.h"
 #include "kml/xsd/xsd_handler.h"
 
-using std::vector;
 using kmlbase::ExpatParser;
+using std::vector;
 
 namespace kmlxsd {
 
 // static
-XsdFile* XsdFile::CreateFromParse(const string& xsd_data,
-                                        string* errors) {
+XsdFile* XsdFile::CreateFromParse(const string& xsd_data, string* errors) {
   XsdFile* xsd_file = new XsdFile;
   XsdHandler xsd_handler(xsd_file);
   if (ExpatParser::ParseString(xsd_data, &xsd_handler, errors, false)) {
@@ -51,8 +50,7 @@ XsdFile* XsdFile::CreateFromParse(const string& xsd_data,
 // TODO: mem_fun might help avoid this functor
 typedef std::pair<string, XsdElementPtr> NameElementPair;
 struct GetElement : public std::unary_function<NameElementPair, void> {
-  GetElement(XsdElementVector* elements)
-    : elements_(elements) {
+  GetElement(XsdElementVector* elements) : elements_(elements) {
   }
 
   void operator()(NameElementPair name_element_pair) {
@@ -71,7 +69,7 @@ void XsdFile::GetAllElements(XsdElementVector* elements) const {
 void XsdFile::GetAllTypes(XsdTypeVector* types) const {
   XsdTypeMap::const_iterator iter = type_map_.begin();
   XsdTypeMap::const_iterator type_map_end = type_map_.end();
-  for(;iter != type_map_end; ++iter) {
+  for (; iter != type_map_end; ++iter) {
     XsdTypePtr xsd_type = iter->second;
     types->push_back(xsd_type);
   }
@@ -82,8 +80,7 @@ const XsdTypePtr XsdFile::FindType(const string& type_name) const {
   return iter == type_map_.end() ? nullptr : iter->second;
 }
 
-const XsdElementPtr XsdFile::FindElement(
-    const string& element_name) const {
+const XsdElementPtr XsdFile::FindElement(const string& element_name) const {
   XsdElementMap::const_iterator iter = element_map_.find(element_name);
   return iter == element_map_.end() ? nullptr : iter->second;
 }
@@ -116,7 +113,7 @@ void XsdFile::FindChildElements(const XsdComplexTypePtr& complex_type,
   for (size_t i = 0; i < sequence_size; ++i) {
     const XsdElementPtr element = complex_type->get_sequence_at(i);
     if (element->is_ref()) {
-       elements->push_back(ResolveRef(element->get_name()));
+      elements->push_back(ResolveRef(element->get_name()));
     } else {
       elements->push_back(element);
     }
@@ -214,7 +211,7 @@ void XsdFile::GetSimpleElements(XsdElementVector* elements) const {
 // TODO: this isn't particularily XsdFile-specific
 void XsdFile::GenerateElementIdVector(XsdElementVector* elements,
                                       size_t* begin_complex,
-                                      size_t *begin_simple) const {
+                                      size_t* begin_simple) const {
   // TODO: make a map<XsdElement, XsdType> first and avoid FindElementType
   // in the GetXxxElements() above.
   if (!elements) {
@@ -268,42 +265,45 @@ void XsdFile::GetElementsOfTypeByName(const string& type_name,
     return;
   }
   if (const XsdComplexTypePtr complex_type =
-      XsdComplexType::AsComplexType(FindType(type_name))) {
+          XsdComplexType::AsComplexType(FindType(type_name))) {
     GetElementsOfType(complex_type, elements);
   }
 }
 
+XsdFile::XsdFile() {
+}
 
-XsdFile::XsdFile(){}
+void XsdFile::set_schema(const XsdSchemaPtr& xsd_schema) {
+  xsd_schema_ = xsd_schema;
+}
 
-void XsdFile::set_schema(const XsdSchemaPtr& xsd_schema){
-   xsd_schema_ = xsd_schema;
- }
+void XsdFile::add_element(const XsdElementPtr& xsd_element) {
+  element_map_[xsd_element->get_name()] = xsd_element;
+}
 
-void XsdFile::add_element(const XsdElementPtr& xsd_element){
-   element_map_[xsd_element->get_name()] = xsd_element;
- }
+void XsdFile::add_type(const kmlxsd::XsdTypePtr& xsd_type) {
+  type_map_[xsd_type->get_name()] = xsd_type;
+}
 
-void XsdFile::add_type(const kmlxsd::XsdTypePtr& xsd_type){
-   type_map_[xsd_type->get_name()] = xsd_type;
- }
+const std::__cxx11::string& XsdFile::get_target_namespace() const {
+  return xsd_schema_->get_target_namespace();
+}
 
-const std::__cxx11::string& XsdFile::get_target_namespace() const{
-   return xsd_schema_->get_target_namespace();
- }
+const std::__cxx11::string& XsdFile::get_target_namespace_prefix() const {
+  return xsd_schema_->get_target_namespace_prefix();
+}
 
-const std::__cxx11::string& XsdFile::get_target_namespace_prefix() const{
-   return xsd_schema_->get_target_namespace_prefix();
- }
+void XsdFile::set_alias(const std::__cxx11::string& real_name,
+                        const std::__cxx11::string& alias_name) {
+  alias_map_[real_name] = alias_name;
+}
 
-void XsdFile::set_alias(const std::__cxx11::string& real_name, const std::__cxx11::string& alias_name){
-   alias_map_[real_name] = alias_name;
- }
+const std::__cxx11::string XsdFile::get_alias(
+    const std::__cxx11::string& real_name) const {
+  XsdAliasMap::const_iterator iter = alias_map_.find(real_name);
+  return iter == alias_map_.end() ? "" : iter->second;
+}
 
-const std::__cxx11::string XsdFile::get_alias(const std::__cxx11::string& real_name) const{
-   XsdAliasMap::const_iterator iter = alias_map_.find(real_name);
-   return iter == alias_map_.end() ? "" : iter->second;
- }
-
-XsdFile::~XsdFile(){}
+XsdFile::~XsdFile() {
+}
 }  // end namespace kmlxsd

@@ -26,10 +26,10 @@
 #ifndef KML_DOM_HOTSPOT_H__
 #define KML_DOM_HOTSPOT_H__
 
-#include "kml/config.h"
-#include "kml/dom/vec2.h"
-#include "kml/dom/kml22.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/vec2.h"
 
 namespace kmldom {
 

@@ -34,9 +34,8 @@ using std::vector;
 
 namespace kmlxsd {
 
-XstParser::XstParser(XsdFile* xsd_file)
-    : xsd_file_(xsd_file) {
-  }
+XstParser::XstParser(XsdFile* xsd_file) : xsd_file_(xsd_file) {
+}
 void XstParser::ParseXstAlias(const vector<string>& alias_line) {
   if (alias_line.size() != 3) {
     return;
@@ -60,4 +59,3 @@ void XstParser::ParseXst(const string& xst_data) {
 }
 
 }  // end namespace kmlxsd
-

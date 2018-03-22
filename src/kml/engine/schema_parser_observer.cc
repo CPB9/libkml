@@ -25,23 +25,29 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/engine/schema_parser_observer.h"
+#include "kml/dom/document.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/schema.h"
 
 namespace kmlengine {
 
 SchemaParserObserver::SchemaParserObserver(SchemaNameMap* schema_name_map)
-    : schema_name_map_(schema_name_map) {}
-
-SchemaParserObserver::~SchemaParserObserver(){}
-
-bool SchemaParserObserver::AddChild(const kmldom::ElementPtr& parent, const kmldom::ElementPtr& child){
-   if (kmldom::DocumentPtr document = kmldom::AsDocument(parent)) {
-     if (kmldom::SchemaPtr schema = kmldom::AsSchema(child)) {
-       if (schema->has_name()) {
-         // Last one wins on name collisions.
-         (*schema_name_map_)[schema->get_name()] = schema;
-       }
-     }
-   }
-   return true;  // Keep parsing.
- }
+    : schema_name_map_(schema_name_map) {
 }
+
+SchemaParserObserver::~SchemaParserObserver() {
+}
+
+bool SchemaParserObserver::AddChild(const kmldom::ElementPtr& parent,
+                                    const kmldom::ElementPtr& child) {
+  if (kmldom::DocumentPtr document = kmldom::AsDocument(parent)) {
+    if (kmldom::SchemaPtr schema = kmldom::AsSchema(child)) {
+      if (schema->has_name()) {
+        // Last one wins on name collisions.
+        (*schema_name_map_)[schema->get_name()] = schema;
+      }
+    }
+  }
+  return true;  // Keep parsing.
+}
+}  // namespace kmlengine

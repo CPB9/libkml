@@ -24,57 +24,61 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/xsd/xsd_schema.h"
+#include "kml/base/attributes.h"
 
 namespace kmlxsd {
 
-kmlxsd::XsdSchema* XsdSchema::Create(const kmlbase::Attributes& attributes){
-   XsdSchema* xsd_schema = new XsdSchema;
-   if (xsd_schema->Parse(attributes)) {
-     return xsd_schema;
-   }
-   delete xsd_schema;
-   return nullptr;
- }
-
-const std::__cxx11::string& XsdSchema::get_target_namespace() const{
-   return target_namespace_;
- }
-
-const std::__cxx11::string& XsdSchema::get_target_namespace_prefix() const{
-   return target_namespace_prefix_;
- }
-
-bool XsdSchema::SplitNsName(const std::__cxx11::string& ns_name, std::__cxx11::string* name) const{
-   size_t prefix_size = target_namespace_prefix_.size();
-   if (ns_name.size() > prefix_size + 1 &&
-       ns_name.compare(0, prefix_size + 1,
-                       target_namespace_prefix_ + ":") == 0) {
-     if (name) {
-       *name = ns_name.substr(prefix_size + 1);
-     }
-     return true;
-   }
-   return false;
- }
-
-XsdSchema::XsdSchema(){}
-
-bool XsdSchema::Parse(const kmlbase::Attributes& attributes){
-   attributes.GetString("targetNamespace", &target_namespace_);
-   if (target_namespace_.empty()) {
-     return false;
-   }
-   xmlns_.reset(kmlbase::Xmlns::Create(attributes));
-   if (!xmlns_.get()) {
-     return false;
-   }
-   // Find the prefix used for the targetNamespace.
-   // For example, if xmlns:foo="a:b:c" and targetNamespace="a:b:c" then the
-   // prefix we seek is "foo".  A targetNamespace and xmlns:prefix _must_
-   // appear in the <schema> for this to be a valid XSD.
-   target_namespace_prefix_ = xmlns_->GetKey(target_namespace_);
-   return !target_namespace_.empty() && !target_namespace_prefix_.empty();
- }
-
-XsdSchema::~XsdSchema(){}
+kmlxsd::XsdSchema* XsdSchema::Create(const kmlbase::Attributes& attributes) {
+  XsdSchema* xsd_schema = new XsdSchema;
+  if (xsd_schema->Parse(attributes)) {
+    return xsd_schema;
+  }
+  delete xsd_schema;
+  return nullptr;
 }
+
+const std::__cxx11::string& XsdSchema::get_target_namespace() const {
+  return target_namespace_;
+}
+
+const std::__cxx11::string& XsdSchema::get_target_namespace_prefix() const {
+  return target_namespace_prefix_;
+}
+
+bool XsdSchema::SplitNsName(const std::__cxx11::string& ns_name,
+                            std::__cxx11::string* name) const {
+  size_t prefix_size = target_namespace_prefix_.size();
+  if (ns_name.size() > prefix_size + 1 &&
+      ns_name.compare(0, prefix_size + 1, target_namespace_prefix_ + ":") ==
+          0) {
+    if (name) {
+      *name = ns_name.substr(prefix_size + 1);
+    }
+    return true;
+  }
+  return false;
+}
+
+XsdSchema::XsdSchema() {
+}
+
+bool XsdSchema::Parse(const kmlbase::Attributes& attributes) {
+  attributes.GetString("targetNamespace", &target_namespace_);
+  if (target_namespace_.empty()) {
+    return false;
+  }
+  xmlns_.reset(kmlbase::Xmlns::Create(attributes));
+  if (!xmlns_.get()) {
+    return false;
+  }
+  // Find the prefix used for the targetNamespace.
+  // For example, if xmlns:foo="a:b:c" and targetNamespace="a:b:c" then the
+  // prefix we seek is "foo".  A targetNamespace and xmlns:prefix _must_
+  // appear in the <schema> for this to be a valid XSD.
+  target_namespace_prefix_ = xmlns_->GetKey(target_namespace_);
+  return !target_namespace_.empty() && !target_namespace_prefix_.empty();
+}
+
+XsdSchema::~XsdSchema() {
+}
+}  // namespace kmlxsd

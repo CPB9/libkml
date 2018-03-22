@@ -25,9 +25,9 @@
 
 // This file contains the implementation of the ZipFile class.
 
+#include "kml/base/zip_file.h"
 #include <exception>
 #include <memory>
-#include "kml/base/zip_file.h"
 #include "kml/base/file.h"
 #include "minizip/unzip.h"
 #include "minizip/zip.h"
@@ -41,13 +41,17 @@ static const unsigned long kMaxUncompressedZipSize = ZIP_MAX_UNCOMPRESSED_SIZE;
 // This class hides the use of minizip from the interface.
 class MinizipFile {
  public:
-  MinizipFile(zipFile zipfile) : zipfile_(zipfile) {}
+  MinizipFile(zipFile zipfile) : zipfile_(zipfile) {
+  }
   ~MinizipFile() {
     if (zipfile_) {
       zipClose(zipfile_, 0);
     }
   }
-  zipFile get_zipfile() { return zipfile_; }
+  zipFile get_zipfile() {
+    return zipfile_;
+  }
+
  private:
   zipFile zipfile_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(MinizipFile);
@@ -85,20 +89,21 @@ ZipFile* ZipFile::Create(const char* file_path) {
 
 // Private. Class constructed with static methods.
 ZipFile::ZipFile(const string& data)
-  : minizip_file_(nullptr), data_(data),
-    max_uncompressed_file_size_(kMaxUncompressedZipSize) {
+    : minizip_file_(nullptr),
+      data_(data),
+      max_uncompressed_file_size_(kMaxUncompressedZipSize) {
   // Fill the table of contents for this zipfile.
   zlib_filefunc_def api;
   if (voidpf mem_stream = mem_simple_create_file(
-      &api, const_cast<void*>(static_cast<const void*>(data.data())),
-      data.size())) {
+          &api, const_cast<void*>(static_cast<const void*>(data.data())),
+          data.size())) {
     unzFile zfile = libkml_unzAttach(mem_stream, &api);
     if (zfile) {
       unz_file_info finfo;
       do {
         static char buf[1024];
-        if (libkml_unzGetCurrentFileInfo(zfile, &finfo, buf, sizeof(buf),
-              0, 0, 0, 0) == UNZ_OK) {
+        if (libkml_unzGetCurrentFileInfo(zfile, &finfo, buf, sizeof(buf), 0, 0,
+                                         0, 0) == UNZ_OK) {
           zipfile_toc_.push_back(buf);
         }
       } while (libkml_unzGoToNextFile(zfile) == UNZ_OK);
@@ -109,8 +114,9 @@ ZipFile::ZipFile(const string& data)
 
 // Private. Class constructed with static methods.
 ZipFile::ZipFile(MinizipFile* minizip_file)
-  : minizip_file_(minizip_file),
-    max_uncompressed_file_size_(kMaxUncompressedZipSize) {}
+    : minizip_file_(minizip_file),
+      max_uncompressed_file_size_(kMaxUncompressedZipSize) {
+}
 
 ZipFile::~ZipFile() {
   // Scoped ptr takes care of minizip_file_.
@@ -127,7 +133,7 @@ bool ZipFile::FindFirstOf(const string& file_extension,
     return false;
   }
   kmlbase::StringVector::const_iterator itr = zipfile_toc_.begin();
-  for(; itr != zipfile_toc_.end(); ++itr) {
+  for (; itr != zipfile_toc_.end(); ++itr) {
     if (kmlbase::StringEndsWith(*itr, file_extension)) {
       *path_in_zip = *itr;
       return true;
@@ -147,7 +153,7 @@ bool ZipFile::GetToc(kmlbase::StringVector* subfiles) const {
 // Is the requested path in the Zip file's table of contents?
 bool ZipFile::IsInToc(const string& path_in_zip) const {
   kmlbase::StringVector::const_iterator itr = zipfile_toc_.begin();
-  for(; itr != zipfile_toc_.end(); ++itr) {
+  for (; itr != zipfile_toc_.end(); ++itr) {
     if (*itr == path_in_zip) {
       return true;
     }
@@ -159,15 +165,20 @@ bool ZipFile::IsInToc(const string& path_in_zip) const {
 // GetEntry method.
 class UnzFileHelper {
  public:
-  UnzFileHelper(unzFile unzfile) : unzfile_(unzfile) {}
-  ~UnzFileHelper() { libkml_unzClose(unzfile_); }
-  unzFile get_unzfile() { return unzfile_; }
+  UnzFileHelper(unzFile unzfile) : unzfile_(unzfile) {
+  }
+  ~UnzFileHelper() {
+    libkml_unzClose(unzfile_);
+  }
+  unzFile get_unzfile() {
+    return unzfile_;
+  }
+
  private:
   unzFile unzfile_;
 };
 
-bool ZipFile::GetEntry(const string& path_in_zip,
-                       string* output) const {
+bool ZipFile::GetEntry(const string& path_in_zip, string* output) const {
   // Check the TOC first.
   if (!IsInToc(path_in_zip)) {
     return false;
@@ -186,8 +197,8 @@ bool ZipFile::GetEntry(const string& path_in_zip,
 
   std::unique_ptr<UnzFileHelper> unzfilehelper(new UnzFileHelper(unzfile));
   unz_file_info finfo;
-  if (libkml_unzLocateFile(unzfilehelper->get_unzfile(),
-                    path_in_zip.c_str(), 0) != UNZ_OK ||
+  if (libkml_unzLocateFile(unzfilehelper->get_unzfile(), path_in_zip.c_str(),
+                           0) != UNZ_OK ||
       libkml_unzOpenCurrentFile(unzfilehelper->get_unzfile()) != UNZ_OK ||
       libkml_unzGetCurrentFileInfo(unzfilehelper->get_unzfile(), &finfo, 0, 0,
                                    0, 0, 0, 0) != UNZ_OK) {
@@ -206,17 +217,16 @@ bool ZipFile::GetEntry(const string& path_in_zip,
   }
   char* filedata = new char[nbytes];
   if (libkml_unzReadCurrentFile(unzfilehelper->get_unzfile(), filedata,
-                         nbytes) == static_cast<int>(nbytes)) {
+                                nbytes) == static_cast<int>(nbytes)) {
     output->assign(filedata, nbytes);
-    delete [] filedata;
+    delete[] filedata;
     return true;
   }
-  delete [] filedata;
+  delete[] filedata;
   return false;
 }
 
-bool ZipFile::AddEntry(const string& data,
-                       const string& path_in_zip) {
+bool ZipFile::AddEntry(const string& data, const string& path_in_zip) {
   // The path must be relative to and below the archive.
   if (path_in_zip.substr(0, 1).find_first_of("/\\") != string::npos ||
       path_in_zip.substr(0, 2) == "..") {
@@ -236,11 +246,11 @@ bool ZipFile::AddEntry(const string& data,
   return zipCloseFileInZip(zipfile) == ZIP_OK;
 }
 
-void ZipFile::set_max_uncompressed_file_size(unsigned int i){
+void ZipFile::set_max_uncompressed_file_size(unsigned int i) {
   max_uncompressed_file_size_ = i;
 }
 
-unsigned int ZipFile::get_max_uncompressed_file_size(){
+unsigned int ZipFile::get_max_uncompressed_file_size() {
   return max_uncompressed_file_size_;
 }
 }  // end namespace kmlbase

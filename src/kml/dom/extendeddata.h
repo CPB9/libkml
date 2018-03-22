@@ -30,12 +30,12 @@
 #define KML_DOM_EXTENDEDDATA_H__
 
 #include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/object.h"
-#include "kml/base/util.h"
 
 namespace kmlbase {
 class Attributes;
@@ -83,7 +83,8 @@ class KML_EXPORT SimpleData : public BasicElement<Type_SimpleData> {
 };
 
 // <gx:SimpleArrayData>
-class KML_EXPORT GxSimpleArrayData : public BasicElement<Type_GxSimpleArrayData> {
+class KML_EXPORT GxSimpleArrayData
+    : public BasicElement<Type_GxSimpleArrayData> {
  public:
   virtual ~GxSimpleArrayData();
 
@@ -138,8 +139,7 @@ class KML_EXPORT SchemaData : public Object {
 
   const SimpleDataPtr& get_simpledata_array_at(size_t index) const;
 
-  void add_gx_simplearraydata(
-      const GxSimpleArrayDataPtr& gx_simplearraydata);
+  void add_gx_simplearraydata(const GxSimpleArrayDataPtr& gx_simplearraydata);
 
   size_t get_gx_simplearraydata_array_size() const;
 

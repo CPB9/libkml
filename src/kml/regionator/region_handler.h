@@ -28,7 +28,9 @@
 #ifndef KML_REGIONATOR_REGION_HANDLER_H__
 #define KML_REGIONATOR_REGION_HANDLER_H__
 
-#include "kml/dom.h"
+#include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlregionator {
 
@@ -72,11 +74,9 @@ class KML_EXPORT RegionHandler {
   // is saved, but the exact name in the filename argument should be used
   // with no modification.
   // TODO: provide a flag to specify use of .kmz.
-  virtual void SaveKml(const kmldom::KmlPtr& kml,
-                       const string& filename) = 0;
+  virtual void SaveKml(const kmldom::KmlPtr& kml, const string& filename) = 0;
 };
 
 }  // end namespace kmlregionator
 
-#endif // KML_REGIONATOR_REGION_HANDLER_H__
-
+#endif  // KML_REGIONATOR_REGION_HANDLER_H__

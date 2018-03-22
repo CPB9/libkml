@@ -29,7 +29,7 @@
 #define KML_ENGINE_STYLE_INLINER_INTERNAL_H__
 
 #include "kml/base/string_util.h"
-#include "kml/dom.h"
+#include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
 
 namespace kmlengine {
@@ -41,7 +41,8 @@ class StyleInliner : public kmldom::ParserObserver {
  public:
   StyleInliner();
 
-  virtual ~StyleInliner() {}
+  virtual ~StyleInliner() {
+  }
 
   // ParserObserver::NewElement()
   virtual bool NewElement(const kmldom::ElementPtr& element);

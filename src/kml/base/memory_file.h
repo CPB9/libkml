@@ -39,16 +39,17 @@ namespace kmlbase {
 //   const string& file_content = memory_file.get_content();
 class MemoryFile : public Referent {
  public:
-   static MemoryFile* CreateFromString(const string& data) {
-     return new MemoryFile(data);
-   }
+  static MemoryFile* CreateFromString(const string& data) {
+    return new MemoryFile(data);
+  }
 
-   const string& get_content() const {
-     return content_;
-   }
+  const string& get_content() const {
+    return content_;
+  }
 
  private:
-  MemoryFile(const string& content) : content_(content) {}
+  MemoryFile(const string& content) : content_(content) {
+  }
   string content_;
 };
 

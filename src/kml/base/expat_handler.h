@@ -28,29 +28,27 @@
 #ifndef KML_BASE_EXPAT_HANDLER_H__
 #define KML_BASE_EXPAT_HANDLER_H__
 
-#include "expat.h" // XML_Char
-#include "string_util.h"  // StringVector
+#include <expat.h>                 // XML_Char
+#include "kml/base/string_util.h"  // StringVector
 
 namespace kmlbase {
 class Attributes;
 // This declares the pure virtual ExpatHandler interface.
 class ExpatHandler {
-public:
+ public:
   virtual ~ExpatHandler();
-  virtual void StartElement(const string& name,
-                            const StringVector& atts) = 0;
+  virtual void StartElement(const string& name, const StringVector& atts) = 0;
   virtual void EndElement(const string& name) = 0;
   virtual void CharData(const string&) = 0;
 
   // Namespace handlers with an empty default implementation.
-  virtual void StartNamespace(const string& prefix,
-                              const string& uri);
+  virtual void StartNamespace(const string& prefix, const string& uri);
   virtual void EndNamespace(const string& prefix);
 
   void set_parser(XML_Parser parser);
   XML_Parser get_parser();
 
-private:
+ private:
   XML_Parser parser_;
 };
 
@@ -65,9 +63,8 @@ const int kMask3Bytes = 0xe0;
 // allow surrogate pairs,  but our interface is a pointer in case we find
 // an exception to the Unicode's book assertion that no interesting languages
 // are represented outside the first 64K Unicode characters.
-inline void xmlchar_to_utf8(const XML_Char *input, string* buffer) {
-  if (!input || !buffer)
-    return;
+inline void xmlchar_to_utf8(const XML_Char* input, string* buffer) {
+  if (!input || !buffer) return;
 
   const int c = *input;
   // Rely on constant folding and inlining to make this fast when not
@@ -87,26 +84,25 @@ inline void xmlchar_to_utf8(const XML_Char *input, string* buffer) {
   }
 }
 
-inline string xml_char_to_string(const XML_Char *input) {
+inline string xml_char_to_string(const XML_Char* input) {
   string output;
 
-  for (const XML_Char *p = input; input && *p; p++) {
+  for (const XML_Char* p = input; input && *p; p++) {
     xmlchar_to_utf8(p, &output);
   }
   return output;
 }
 
-inline void xml_char_to_string_vec(const XML_Char **input,
-                                   kmlbase::StringVector *ovec) {
-  if (!ovec)
-    return;
+inline void xml_char_to_string_vec(const XML_Char** input,
+                                   kmlbase::StringVector* ovec) {
+  if (!ovec) return;
   while (input && *input) {
     ovec->push_back(xml_char_to_string(*input++));
     ovec->push_back(xml_char_to_string(*input++));
   }
 }
 
-inline string xml_char_to_string_n(const XML_Char *input, size_t length) {
+inline string xml_char_to_string_n(const XML_Char* input, size_t length) {
   string output;
   while (length) {
     xmlchar_to_utf8(input++, &output);

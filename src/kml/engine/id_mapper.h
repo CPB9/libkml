@@ -28,9 +28,9 @@
 #ifndef KML_ENGINE_ID_MAPPER_H__
 #define KML_ENGINE_ID_MAPPER_H__
 
-#include "kml/config.h"
 #include "kml/base/string_util.h"
-#include "kml/dom.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/engine_types.h"
 
 namespace kmlengine {
@@ -38,8 +38,9 @@ namespace kmlengine {
 // This function creates a map of all Objects with ids in the given element
 // hierarchy.  If an element_vector is supplied it will be given all elements
 // with duplicate ids.
-KML_EXPORT void MapIds(const kmldom::ElementPtr& root, ObjectIdMap* object_id_map,
-            ElementVector* element_vector);
+KML_EXPORT void MapIds(const kmldom::ElementPtr& root,
+                       ObjectIdMap* object_id_map,
+                       ElementVector* element_vector);
 
 // This function clears the id= attribute of every Object with an id in the
 // given element hierarchy.  This function should be used with caution!
@@ -52,8 +53,8 @@ KML_EXPORT const kmldom::ElementPtr& ClearIds(const kmldom::ElementPtr& root);
 // remapped object is added to that map.  This returns the number of objects
 // whose ids were cleared.  This function should be used with caution!
 KML_EXPORT int RemapIds(const ObjectIdMap& input_object_id_map,
-             const kmlbase::StringMap& id_map,
-             ObjectIdMap* output_object_id_map);
+                        const kmlbase::StringMap& id_map,
+                        ObjectIdMap* output_object_id_map);
 
 }  // end namespace kmlengine
 

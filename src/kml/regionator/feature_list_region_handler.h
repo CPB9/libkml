@@ -27,9 +27,9 @@
 #define KML_REGIONATOR_FEATURE_LIST_REGION_HANDLER_H__
 
 #include <map>
-#include "kml/dom.h"
+#include "kml/base/util.h"
 #include "kml/convenience/feature_list.h"
-#include "kml/engine.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/regionator/region_handler.h"
 
 namespace kmlregionator {

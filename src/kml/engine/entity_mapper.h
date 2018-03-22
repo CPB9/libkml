@@ -29,9 +29,10 @@
 #ifndef KML_ENGINE_ENTITY_MAPPER_H__
 #define KML_ENGINE_ENTITY_MAPPER_H__
 
-#include "kml/config.h"
-#include "kml/dom.h"
 #include "kml/base/string_util.h"
+#include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/engine_types.h"
 #include "kml/engine/kml_file.h"
 
@@ -109,7 +110,7 @@ class KML_EXPORT EntityMapper {
 // the replaced entities. The entity_map is typically built with the
 // EntityMapper class declared in this file.
 KML_EXPORT string CreateExpandedEntities(const string& in,
-                              const kmlbase::StringMap& entity_map);
+                                         const kmlbase::StringMap& entity_map);
 
 }  // end namespace kmlengine
 

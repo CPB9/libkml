@@ -24,6 +24,7 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/engine/get_link_parents.h"
+#include "kml/dom/element.h"
 #include "kml/dom/parser.h"
 #include "kml/engine/engine_types.h"
 
@@ -32,8 +33,10 @@ using kmldom::Parser;
 
 namespace kmlengine {
 
-GetLinkParentsParserObserver::GetLinkParentsParserObserver(ElementVector* link_parent_vector)
-      : link_parent_vector_(link_parent_vector) {}
+GetLinkParentsParserObserver::GetLinkParentsParserObserver(
+    ElementVector* link_parent_vector)
+    : link_parent_vector_(link_parent_vector) {
+}
 bool IsIconParent(const ElementPtr& element) {
   switch (element->Type()) {
     default:
@@ -53,12 +56,11 @@ bool IsLinkParent(const ElementPtr& element) {
       return false;
     case kmldom::Type_NetworkLink:
     case kmldom::Type_Model:
-     return true;
+      return true;
   }
 }
 
-bool GetLinkParents(const string& kml,
-                    ElementVector* link_parent_vector) {
+bool GetLinkParents(const string& kml, ElementVector* link_parent_vector) {
   if (!link_parent_vector) {
     return false;
   }
@@ -68,13 +70,15 @@ bool GetLinkParents(const string& kml,
   return parser.Parse(kml, NULL) != nullptr;
 }
 
-bool GetLinkParentsParserObserver::NewElement(const kmldom::ElementPtr& element){
-   if (IsLinkParent(element) || IsIconParent(element)) {
-     link_parent_vector_->push_back(element);
-   }
-   return true;
- }
+bool GetLinkParentsParserObserver::NewElement(
+    const kmldom::ElementPtr& element) {
+  if (IsLinkParent(element) || IsIconParent(element)) {
+    link_parent_vector_->push_back(element);
+  }
+  return true;
+}
 
-GetLinkParentsParserObserver::~GetLinkParentsParserObserver(){}
+GetLinkParentsParserObserver::~GetLinkParentsParserObserver() {
+}
 
 }  // end namespace kmlengine

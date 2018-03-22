@@ -35,14 +35,11 @@ namespace kmlbase {
 
 class Color32 {
  public:
-  explicit Color32()
-    : color_abgr_(0xffffffff) {
+  explicit Color32() : color_abgr_(0xffffffff) {
   }
-  explicit Color32(uint32_t abgr)
-    : color_abgr_(abgr) {
+  explicit Color32(uint32_t abgr) : color_abgr_(abgr) {
   }
-  explicit Color32(int32_t abgr)
-    : color_abgr_(static_cast<uint32_t>(abgr)) {
+  explicit Color32(int32_t abgr) : color_abgr_(static_cast<uint32_t>(abgr)) {
   }
   Color32(unsigned char a, unsigned char b, unsigned char g, unsigned char r) {
     set_color_abgr((a << 24) | (b << 16) | (g << 8) | r);
@@ -90,10 +87,8 @@ class Color32 {
 
   // Returns the color as AARRGGBB.
   uint32_t get_color_argb() const {
-    return (color_abgr_ & 0xff000000) |
-           ((color_abgr_ & 0x00ff0000) >> 16) |
-           (color_abgr_ & 0x0000ff00) |
-           ((color_abgr_ & 0x000000ff) << 16);
+    return (color_abgr_ & 0xff000000) | ((color_abgr_ & 0x00ff0000) >> 16) |
+           (color_abgr_ & 0x0000ff00) | ((color_abgr_ & 0x000000ff) << 16);
   }
 
   // Returns a new string in the AABBGGRR format.
@@ -132,13 +127,13 @@ class Color32 {
     // being common practice.)
     size_t offset = 0;
     while (isspace(color_abgr[offset])) {
-      offset ++;
+      offset++;
     }
     if (color_abgr.size() > 0 && color_abgr[offset] == '#') {
-      offset ++;
+      offset++;
     }
     size_t length = color_abgr.size() >= 8 + offset ? 8 : color_abgr.size();
-    for(size_t i = offset; i < length + offset; ++i) {
+    for (size_t i = offset; i < length + offset; ++i) {
       out = out * 16;
       if (color_abgr[i] >= '0' && color_abgr[i] <= '9') {
         out += color_abgr[i] - '0';
@@ -154,8 +149,8 @@ class Color32 {
   }
 
   // Sets the color from four unsigned r, g, b, a chars.
-  void set_color_abgr(unsigned char a, unsigned char b,
-                      unsigned char g, unsigned char r) {
+  void set_color_abgr(unsigned char a, unsigned char b, unsigned char g,
+                      unsigned char r) {
     set_alpha(a);
     set_blue(b);
     set_green(g);
@@ -184,7 +179,7 @@ class Color32 {
     return *this;
   }
   bool operator!=(const Color32& color) const {
-    return !operator == (color);
+    return !operator==(color);
   }
   bool operator==(const Color32& color) const {
     return color_abgr_ == color.color_abgr_;
@@ -202,4 +197,4 @@ class Color32 {
 
 }  // end namespace kmlbase
 
-#endif // KML_BASE_COLOR_H_
+#endif  // KML_BASE_COLOR_H_

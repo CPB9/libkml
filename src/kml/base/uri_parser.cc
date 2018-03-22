@@ -35,8 +35,8 @@ namespace kmlbase {
 class UriParserPrivate {
  public:
   UriParserPrivate() {
-   // Initialize the UriUriA struct this class wraps to a sane state.
-   memset((void *)&uri_, 0, sizeof(UriUriA));
+    // Initialize the UriUriA struct this class wraps to a sane state.
+    memset((void*)&uri_, 0, sizeof(UriUriA));
   }
 
   ~UriParserPrivate() {
@@ -54,8 +54,7 @@ class UriParserPrivate {
   // This helper function detects the existence of the given component and
   // converts it to a string if one is supplied.  If this component does not
   // exist false is returned.  If the component does exist true is returned.
-  bool GetUriComponent(const UriTextRangeA& text_range,
-                       string* output) const {
+  bool GetUriComponent(const UriTextRangeA& text_range, string* output) const {
     if (!text_range.first || !text_range.afterLast) {
       return false;
     }
@@ -112,7 +111,7 @@ bool UriParser::Parse(const char* str) {
 
 bool UriParser::Normalize() {
   return uriNormalizeSyntaxA(uri_parser_private_->get_mutable_uri()) ==
-                             URI_SUCCESS;
+         URI_SUCCESS;
 }
 
 bool UriParser::Resolve(const UriParser& base, const UriParser& relative) {
@@ -130,13 +129,13 @@ bool UriParser::ToString(string* output) const {
                                 &chars_required) != URI_SUCCESS) {
     return false;
   }
-  char* dest_str = (char*)malloc(chars_required+1);
+  char* dest_str = (char*)malloc(chars_required + 1);
   if (!dest_str) {
     return false;
   }
   int chars_written;
   if (uriToStringA(dest_str, uri_parser_private_->get_mutable_uri(),
-                   chars_required+1, &chars_written) != URI_SUCCESS) {
+                   chars_required + 1, &chars_written) != URI_SUCCESS) {
     free(dest_str);
     return false;
   }
@@ -145,8 +144,7 @@ bool UriParser::ToString(string* output) const {
   return true;
 }
 
-bool UriParser::UriToFilename(const string& uri,
-                              string* output) {
+bool UriParser::UriToFilename(const string& uri, string* output) {
 #ifdef WIN32
   return UriToWindowsFilename(uri, output);
 #else
@@ -154,8 +152,7 @@ bool UriParser::UriToFilename(const string& uri,
 #endif
 }
 
-bool UriParser::UriToUnixFilename(const string& uri,
-                                  string* output) {
+bool UriParser::UriToUnixFilename(const string& uri, string* output) {
   if (!output) {
     return false;
   }
@@ -170,8 +167,7 @@ bool UriParser::UriToUnixFilename(const string& uri,
   return true;
 }
 
-bool UriParser::UriToWindowsFilename(const string& uri,
-                                     string* output) {
+bool UriParser::UriToWindowsFilename(const string& uri, string* output) {
   if (!output) {
     return false;
   }
@@ -186,8 +182,7 @@ bool UriParser::UriToWindowsFilename(const string& uri,
   return true;
 }
 
-bool UriParser::FilenameToUri(const string& filename,
-                              string* output) {
+bool UriParser::FilenameToUri(const string& filename, string* output) {
 #ifdef WIN32
   return WindowsFilenameToUri(filename, output);
 #else
@@ -195,8 +190,7 @@ bool UriParser::FilenameToUri(const string& filename,
 #endif
 }
 
-bool UriParser::UnixFilenameToUri(const string& filename,
-                                  string* output) {
+bool UriParser::UnixFilenameToUri(const string& filename, string* output) {
   if (!output) {
     return false;
   }
@@ -211,8 +205,7 @@ bool UriParser::UnixFilenameToUri(const string& filename,
   return true;
 }
 
-bool UriParser::WindowsFilenameToUri(const string& filename,
-                                     string* output) {
+bool UriParser::WindowsFilenameToUri(const string& filename, string* output) {
   if (!output) {
     return false;
   }

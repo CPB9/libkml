@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,21 +13,20 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the public XML serializing
 // functions and the implementation of the Serialize class.
 
 #include "kml/dom/serializer.h"
-#include "kml/base/string_util.h"
 #include "kml/base/vec3.h"
 #include "kml/dom/element.h"
 #include "kml/dom/xsd.h"
@@ -46,35 +45,47 @@ static string EnityEscapeXml(const string& xml) {
   return kmlbase::CreateExpandedStrings(xml, map, "", "");
 }
 
-void Serializer::EndElementGroupArray(int group_id){}
+void Serializer::EndElementGroupArray(int group_id) {
+}
 
-void Serializer::BeginElementGroupArray(int group_id, size_t element_count){}
+void Serializer::BeginElementGroupArray(int group_id, size_t element_count) {
+}
 
-void Serializer::EndElementArray(int type_id){}
+void Serializer::EndElementArray(int type_id) {
+}
 
-void Serializer::BeginElementArray(int type_id, size_t element_count){}
+void Serializer::BeginElementArray(int type_id, size_t element_count) {
+}
 
-void Serializer::SaveColor(int type_id, const kmlbase::Color32& color){}
+void Serializer::SaveColor(int type_id, const kmlbase::Color32& color) {
+}
 
-void Serializer::Indent(){}
+void Serializer::Indent() {
+}
 
-void Serializer::SaveContent(const std::__cxx11::string& content, bool maybe_quote){}
+void Serializer::SaveContent(const std::__cxx11::string& content,
+                             bool maybe_quote) {
+}
 
-void Serializer::SaveStringFieldById(int type_id, std::__cxx11::string value){}
+void Serializer::SaveStringFieldById(int type_id, std::__cxx11::string value) {
+}
 
-void Serializer::SaveElementGroup(const ElementPtr& element, int group_id){
-   // Default implementation just calls SaveElement for those serializers
-   // that have no need to use the group id of the given child element.
-   // This also ensures that a serializer recurses on a complex element
-   // whether SaveElement() or SaveElementGroup() is used.
-   SaveElement(element);
- }
+void Serializer::SaveElementGroup(const ElementPtr& element, int group_id) {
+  // Default implementation just calls SaveElement for those serializers
+  // that have no need to use the group id of the given child element.
+  // This also ensures that a serializer recurses on a complex element
+  // whether SaveElement() or SaveElementGroup() is used.
+  SaveElement(element);
+}
 
-void Serializer::End(){}
+void Serializer::End() {
+}
 
-void Serializer::BeginById(int type_id, const kmlbase::Attributes& attributes){}
+void Serializer::BeginById(int type_id, const kmlbase::Attributes& attributes) {
+}
 
-Serializer::~Serializer(){}
+Serializer::~Serializer() {
+}
 
 Serializer::Serializer() : xsd_(*Xsd::GetSchema()) {
 }
@@ -123,8 +134,9 @@ void Serializer::SaveElement(const ElementPtr& element) {
 void Serializer::SaveVec3(const kmlbase::Vec3& vec3) {
   Indent();
   SaveContent(ToString(vec3.get_longitude()) + "," +
-              ToString(vec3.get_latitude()) + "," +
-              ToString(vec3.get_altitude()) + "\n", false); 
+                  ToString(vec3.get_latitude()) + "," +
+                  ToString(vec3.get_altitude()) + "\n",
+              false);
   // TODO: here's where we can use has_altitude() to avoid emitting that.
   // TODO: just call the following SaveSimpleVec3.
 }

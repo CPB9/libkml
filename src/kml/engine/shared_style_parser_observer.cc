@@ -24,34 +24,38 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/engine/shared_style_parser_observer.h"
+#include "kml/dom/document.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/styleselector.h"
 
 namespace kmlengine {
 
-SharedStyleParserObserver::SharedStyleParserObserver(SharedStyleMap* shared_style_map,
-                            bool strict_parse)
-    : shared_style_map_(shared_style_map),
-      strict_parse_(strict_parse) {}
-
-SharedStyleParserObserver::~SharedStyleParserObserver(){}
-
-bool SharedStyleParserObserver::AddChild(const kmldom::ElementPtr& parent, const kmldom::ElementPtr& child){
-   // A shared style is defined to be a StyleSelector with an id that is
-   // a child of a Document.  If this id already has a mapping return false
-   // to terminate the parse.
-   if (kmldom::DocumentPtr document = kmldom::AsDocument(parent)) {
-     if (kmldom::StyleSelectorPtr ss = kmldom::AsStyleSelector(child)) {
-       if (ss->has_id()) {
-         if (strict_parse_ && shared_style_map_->find(ss->get_id()) !=
-                              shared_style_map_->end()) {
-           // TODO: provide means to send back an and error string with id
-           return false;  // Duplicate id, fail parse.
-         }
-       }
-       // No such mapping so save it, and "last one wins" on non-strict parse.
-       (*shared_style_map_)[ss->get_id()] = ss;
-     }
-   }
-   return true;  // Not a duplicate id, keep parsing.
- }
+SharedStyleParserObserver::SharedStyleParserObserver(
+    SharedStyleMap* shared_style_map, bool strict_parse)
+    : shared_style_map_(shared_style_map), strict_parse_(strict_parse) {
 }
 
+SharedStyleParserObserver::~SharedStyleParserObserver() {
+}
+
+bool SharedStyleParserObserver::AddChild(const kmldom::ElementPtr& parent,
+                                         const kmldom::ElementPtr& child) {
+  // A shared style is defined to be a StyleSelector with an id that is
+  // a child of a Document.  If this id already has a mapping return false
+  // to terminate the parse.
+  if (kmldom::DocumentPtr document = kmldom::AsDocument(parent)) {
+    if (kmldom::StyleSelectorPtr ss = kmldom::AsStyleSelector(child)) {
+      if (ss->has_id()) {
+        if (strict_parse_ &&
+            shared_style_map_->find(ss->get_id()) != shared_style_map_->end()) {
+          // TODO: provide means to send back an and error string with id
+          return false;  // Duplicate id, fail parse.
+        }
+      }
+      // No such mapping so save it, and "last one wins" on non-strict parse.
+      (*shared_style_map_)[ss->get_id()] = ss;
+    }
+  }
+  return true;  // Not a duplicate id, keep parsing.
+}
+}  // namespace kmlengine

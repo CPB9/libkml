@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/engine/href.h"
@@ -67,87 +67,86 @@ void Href::Parse(const string& href) {
   path_ = href.substr(path_start, path_end);
 }
 
+Href::Href() {
+}
 
-Href::Href(){}
+Href::Href(const std::__cxx11::string& href) {
+  Parse(href);
+}
 
-Href::Href(const std::__cxx11::string& href){
-   Parse(href);
- }
+bool Href::IsRelative() const {
+  return !has_scheme() && !has_net_loc();
+}
 
-bool Href::IsRelative() const{
-   return !has_scheme() && !has_net_loc();
- }
+bool Href::IsRelativePath() const {
+  return !has_scheme() && !has_net_loc() && has_path();
+}
 
-bool Href::IsRelativePath() const{
-   return !has_scheme() && !has_net_loc() && has_path();
- }
+bool Href::IsFragmentOnly() const {
+  return has_fragment() && !has_scheme() && !has_net_loc() && !has_path();
+}
 
-bool Href::IsFragmentOnly() const{
-   return has_fragment() && !has_scheme() && !has_net_loc() && !has_path();
- }
+const std::__cxx11::string& Href::get_scheme() const {
+  return scheme_;
+}
 
-const std::__cxx11::string& Href::get_scheme() const{
-   return scheme_;
- }
+bool Href::has_scheme() const {
+  return !scheme_.empty();
+}
 
-bool Href::has_scheme() const{
-   return !scheme_.empty();
- }
+void Href::set_scheme(const std::__cxx11::string& scheme) {
+  scheme_ = scheme;
+}
 
-void Href::set_scheme(const std::__cxx11::string& scheme){
-   scheme_ = scheme;
- }
+void Href::clear_scheme() {
+  scheme_.clear();
+}
 
-void Href::clear_scheme(){
-   scheme_.clear();
- }
+const std::__cxx11::string& Href::get_net_loc() const {
+  return net_loc_;
+}
 
-const std::__cxx11::string& Href::get_net_loc() const{
-   return net_loc_;
- }
+bool Href::has_net_loc() const {
+  return !net_loc_.empty();
+}
 
-bool Href::has_net_loc() const{
-   return !net_loc_.empty();
- }
+void Href::set_net_loc(const std::__cxx11::string& net_loc) {
+  net_loc_ = net_loc;
+}
 
-void Href::set_net_loc(const std::__cxx11::string& net_loc){
-   net_loc_ = net_loc;
- }
+void Href::clear_net_loc() {
+  net_loc_.clear();
+}
 
-void Href::clear_net_loc(){
-   net_loc_.clear();
- }
+const std::__cxx11::string& Href::get_path() const {
+  return path_;
+}
 
-const std::__cxx11::string& Href::get_path() const{
-   return path_;
- }
+bool Href::has_path() const {
+  return !path_.empty();
+}
 
-bool Href::has_path() const{
-   return !path_.empty();
- }
+void Href::set_path(const std::__cxx11::string& path) {
+  path_ = path;
+}
 
-void Href::set_path(const std::__cxx11::string& path){
-   path_ = path;
- }
+void Href::clear_path() {
+  path_.clear();
+}
 
-void Href::clear_path(){
-   path_.clear();
- }
+const std::__cxx11::string& Href::get_fragment() const {
+  return fragment_;
+}
 
-const std::__cxx11::string& Href::get_fragment() const{
-   return fragment_;
- }
+bool Href::has_fragment() const {
+  return !fragment_.empty();
+}
 
-bool Href::has_fragment() const{
-   return !fragment_.empty();
- }
+void Href::set_fragment(const std::__cxx11::string& fragment) {
+  fragment_ = fragment;
+}
 
-void Href::set_fragment(const std::__cxx11::string& fragment){
-   fragment_ = fragment;
- }
-
-void Href::clear_fragment(){
-   fragment_.clear();
- }
+void Href::clear_fragment() {
+  fragment_.clear();
+}
 }  // end namespace kmlengine
-

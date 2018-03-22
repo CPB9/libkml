@@ -32,7 +32,7 @@
 #define KML_ENGINE_LOCATION_UTIL_H__
 
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
 
@@ -41,54 +41,58 @@ class Bbox;
 // This returns the latitude half way between the north and south and
 // the longitude half way between the east and west of the given LatLonBox
 // or LatLonAltBox.
-KML_EXPORT void GetCenter(const kmldom::AbstractLatLonBoxPtr& allb,
-               double* lat, double* lon);
+KML_EXPORT void GetCenter(const kmldom::AbstractLatLonBoxPtr& allb, double* lat,
+                          double* lon);
 
 // This returns the n,s,e,w bounds of the given list of coordinates.  This
 // returns true if the coordinates are not empty.  A NULL bbox is ignored.
 KML_EXPORT bool GetCoordinatesBounds(const kmldom::CoordinatesPtr& coordinates,
-                          Bbox* bbox);
+                                     Bbox* bbox);
 
 // This returns the n,s,e,w bounds of the given Feature.  If the Feature is
 // a Container this is the bounds of all Features within that Container
 // recursively.  This returns true if the coordinates are not empty.
 // A NULL bbox is ignored.
-KML_EXPORT bool GetFeatureBounds(const kmldom::FeaturePtr& placemark, Bbox* bbox);
+KML_EXPORT bool GetFeatureBounds(const kmldom::FeaturePtr& placemark,
+                                 Bbox* bbox);
 
 // Return the location of the Feature.
 KML_EXPORT bool GetFeatureLatLon(const kmldom::FeaturePtr& placemark,
-                      double* lat, double* lon);
+                                 double* lat, double* lon);
 
 // This returns the bounding box of any Geometry including: Point, LineString,
 // LinearRing, Polygon, Model, and MultiGeometry.  If the Geometry has no
 // location (empty or missing <coordinates>, for example) false is returned.
 // A NULL bbox is ignored and does not affect the return value.
-KML_EXPORT bool GetGeometryBounds(const kmldom::GeometryPtr& geometry, Bbox* bbox);
+KML_EXPORT bool GetGeometryBounds(const kmldom::GeometryPtr& geometry,
+                                  Bbox* bbox);
 
 // Return the location of the Geometry.
 KML_EXPORT bool GetGeometryLatLon(const kmldom::GeometryPtr& geometry,
-                      double* lat, double* lon);
+                                  double* lat, double* lon);
 
 // This returns the bounds of the coordinates child of the given element.
 // CP can be one of LineString, LinearRing or Point.
-template<class CP>
+template <class CP>
 bool GetCoordinatesParentBounds(const CP& cp, Bbox* bbox) {
   return cp && cp->has_coordinates() &&
-      GetCoordinatesBounds(cp->get_coordinates(), bbox);
+         GetCoordinatesBounds(cp->get_coordinates(), bbox);
 }
 
 // Return the bounds of the Model.
 KML_EXPORT bool GetModelBounds(const kmldom::ModelPtr& model, Bbox* bbox);
 
 // Return the location of the Model.
-KML_EXPORT bool GetModelLatLon(const kmldom::ModelPtr& model, double* lat, double* lon);
+KML_EXPORT bool GetModelLatLon(const kmldom::ModelPtr& model, double* lat,
+                               double* lon);
 
 // Return the location of the Placemark.
 KML_EXPORT bool GetPlacemarkLatLon(const kmldom::PlacemarkPtr& placemark,
-                        double* lat, double* lon);
+                                   double* lat, double* lon);
 
 // Return the location of the Point.
-KML_EXPORT bool GetPointLatLon(const kmldom::PointPtr& point, double* lat, double* lon);
+KML_EXPORT bool GetPointLatLon(const kmldom::PointPtr& point, double* lat,
+                               double* lon);
 
 }  // end namespace kmlengine
 

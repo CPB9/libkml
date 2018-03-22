@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/dom/stylemap.h"
@@ -28,17 +28,19 @@
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_cast.h"
 #include "kml/dom/serializer.h"
+#include "kml/dom/styleselector.h"
+#include "kml/dom/visitor.h"
 
 using kmlbase::Attributes;
 
 namespace kmldom {
 
 // <Pair>
-Pair::Pair()
-  : key_(STYLESTATE_NORMAL), has_key_(false), has_styleurl_(false) {
+Pair::Pair() : key_(STYLESTATE_NORMAL), has_key_(false), has_styleurl_(false) {
 }
 
-Pair::~Pair() {}
+Pair::~Pair() {
+}
 
 void Pair::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -87,9 +89,11 @@ void Pair::AcceptChildren(VisitorDriver* driver) {
 }
 
 // <StyleMap>
-StyleMap::StyleMap() {}
+StyleMap::StyleMap() {
+}
 
-StyleMap::~StyleMap() {}
+StyleMap::~StyleMap() {
+}
 
 void StyleMap::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -117,76 +121,83 @@ void StyleMap::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<PairPtr>(&pair_array_, driver);
 }
 
+kmldom::KmlDomType Pair::Type() const {
+  return Type_Pair;
+}
 
-kmldom::KmlDomType Pair::Type() const{ return Type_Pair; }
+bool Pair::IsA(kmldom::KmlDomType type) const {
+  return type == Type_Pair || Object::IsA(type);
+}
 
-bool Pair::IsA(kmldom::KmlDomType type) const{
-   return type == Type_Pair || Object::IsA(type);
- }
+int Pair::get_key() const {
+  return key_;
+}
 
-int Pair::get_key() const{
-   return key_;
- }
+bool Pair::has_key() const {
+  return has_key_;
+}
 
-bool Pair::has_key() const{
-   return has_key_;
- }
+void Pair::set_key(int key) {
+  key_ = key;
+  has_key_ = true;
+}
 
-void Pair::set_key(int key){
-   key_ = key;
-   has_key_ = true;
- }
+void Pair::clear_key() {
+  key_ = STYLESTATE_NORMAL;
+  has_key_ = false;
+}
 
-void Pair::clear_key(){
-   key_ = STYLESTATE_NORMAL;
-   has_key_ = false;
- }
+const std::__cxx11::string& Pair::get_styleurl() const {
+  return styleurl_;
+}
 
-const std::__cxx11::string& Pair::get_styleurl() const{
-   return styleurl_;
- }
+bool Pair::has_styleurl() const {
+  return has_styleurl_;
+}
 
-bool Pair::has_styleurl() const{
-   return has_styleurl_;
- }
+void Pair::set_styleurl(const std::__cxx11::string& styleurl) {
+  styleurl_ = styleurl;
+  has_styleurl_ = true;
+}
 
-void Pair::set_styleurl(const std::__cxx11::string& styleurl){
-   styleurl_ = styleurl;
-   has_styleurl_ = true;
- }
+void Pair::clear_styleurl() {
+  styleurl_.clear();
+  has_styleurl_ = false;
+}
 
-void Pair::clear_styleurl(){
-   styleurl_.clear();
-   has_styleurl_ = false;
- }
+const StyleSelectorPtr& Pair::get_styleselector() const {
+  return styleselector_;
+}
 
-const StyleSelectorPtr& Pair::get_styleselector() const{ return styleselector_; }
+bool Pair::has_styleselector() const {
+  return styleselector_ != nullptr;
+}
 
-bool Pair::has_styleselector() const{ return styleselector_ != nullptr; }
+void Pair::set_styleselector(const StyleSelectorPtr& styleselector) {
+  SetComplexChild(styleselector, &styleselector_);
+}
 
-void Pair::set_styleselector(const StyleSelectorPtr& styleselector){
-   SetComplexChild(styleselector, &styleselector_);
- }
+void Pair::clear_styleselector() {
+  set_styleselector(NULL);
+}
 
-void Pair::clear_styleselector(){
-   set_styleselector(NULL);
- }
+kmldom::KmlDomType StyleMap::Type() const {
+  return Type_StyleMap;
+}
 
-kmldom::KmlDomType StyleMap::Type() const{ return Type_StyleMap; }
+bool StyleMap::IsA(kmldom::KmlDomType type) const {
+  return type == Type_StyleMap || StyleSelector::IsA(type);
+}
 
-bool StyleMap::IsA(kmldom::KmlDomType type) const{
-   return type == Type_StyleMap || StyleSelector::IsA(type);
- }
+void StyleMap::add_pair(const PairPtr& pair) {
+  AddComplexChild(pair, &pair_array_);
+}
 
-void StyleMap::add_pair(const PairPtr& pair){
-   AddComplexChild(pair, &pair_array_);
- }
+size_t StyleMap::get_pair_array_size() const {
+  return pair_array_.size();
+}
 
-size_t StyleMap::get_pair_array_size() const{
-   return pair_array_.size();
- }
-
-const PairPtr& StyleMap::get_pair_array_at(size_t index) const{
-   return pair_array_[index];
- }
+const PairPtr& StyleMap::get_pair_array_at(size_t index) const {
+  return pair_array_[index];
+}
 }  // end namespace kmldom

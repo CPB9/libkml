@@ -29,8 +29,8 @@
 #ifndef KML_ENGINE_KML_URI_H__
 #define KML_ENGINE_KML_URI_H__
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlengine {
 
@@ -81,7 +81,7 @@ namespace kmlengine {
 // relative reference with a KMZ to refer "up and out" of the KMZ to
 // either a file within another KMZ or a single file.
 KML_EXPORT bool ResolveUri(const string& base, const string& relative,
-                string* result);
+                           string* result);
 
 // Performs a syntax-based normalization of uri as per RFC 3986 6.2.2. False is
 // returned if result is NULL or upon any internal error.
@@ -108,8 +108,8 @@ KML_EXPORT bool FilenameToUri(const string& filename, string* output);
 // string should be inspected using empty() to discover if the uri has
 // the particular component.
 KML_EXPORT bool SplitUri(const string& uri, string* scheme, string* host,
-              string* port, string* path, string* query,
-              string* fragment);
+                         string* port, string* path, string* query,
+                         string* fragment);
 
 // This function returns true if the given uri is valid and has a fragment.
 // If it has a fragment and a string pointer is supplied it is saved there
@@ -130,7 +130,7 @@ KML_EXPORT bool GetFetchableUri(const string& uri, string* fetchable_uri);
 // fetchable URL does not end in .kmz it returns false. If there is no subfile
 // to split out, it sets kmz_path to an empty string.
 KML_EXPORT bool KmzSplit(const string& kml_url, string* kmz_url,
-              string* kmz_path);
+                         string* kmz_path);
 
 // Resolve the URL to the Model's targetHref.  The base is the URL
 // of the KML file holding the Model.  The geometry_href is the value
@@ -138,9 +138,8 @@ KML_EXPORT bool KmzSplit(const string& kml_url, string* kmz_url,
 // Model's ResourceMap/Alias/targetHref's.  Note that the result URL may
 // be into a KMZ and hence might be used with KmzSplit.
 KML_EXPORT bool ResolveModelTargetHref(const string& base,
-                            const string& geometry_href,
-                            const string& target,
-                            string* result);
+                                       const string& geometry_href,
+                                       const string& target, string* result);
 
 }  // end namespace kmlengine
 

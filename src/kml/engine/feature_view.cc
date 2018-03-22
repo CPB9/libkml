@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,27 +13,29 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the ComputeFeatureLookAt function.
 
 #include "kml/engine/feature_view.h"
 #include "kml/base/math_util.h"
+#include "kml/dom/abstractview.h"
+#include "kml/dom/feature.h"
 #include "kml/dom/kml_factory.h"
 #include "kml/engine/bbox.h"
 #include "kml/engine/location_util.h"
 
-using kmldom::LookAtPtr;
-using kmldom::KmlFactory;
 using kmldom::FeaturePtr;
+using kmldom::KmlFactory;
+using kmldom::LookAtPtr;
 
 namespace kmlengine {
 
@@ -58,13 +60,13 @@ LookAtPtr ComputeFeatureLookAt(const FeaturePtr& feature) {
 
 LookAtPtr ComputeBboxLookAt(const Bbox& bbox) {
   // The distance from the center point to the northern bound.
-  const double d_north = kmlbase::DistanceBetweenPoints(
-      bbox.GetCenterLat(), bbox.GetCenterLon(),
-      bbox.get_north(), bbox.GetCenterLon());
+  const double d_north =
+      kmlbase::DistanceBetweenPoints(bbox.GetCenterLat(), bbox.GetCenterLon(),
+                                     bbox.get_north(), bbox.GetCenterLon());
   // The distance from the center point to the western bound.
-  const double d_west = kmlbase::DistanceBetweenPoints(
-      bbox.GetCenterLat(), bbox.GetCenterLon(),
-      bbox.GetCenterLat(), bbox.get_west());
+  const double d_west =
+      kmlbase::DistanceBetweenPoints(bbox.GetCenterLat(), bbox.GetCenterLon(),
+                                     bbox.GetCenterLat(), bbox.get_west());
   // The distance from the center point to the north-western bound.
   const double d_nw_corner = sqrt(pow(d_north, 2) + pow(d_west, 2));
   // Scale the result by 1.2 to provide a margin around the feature.

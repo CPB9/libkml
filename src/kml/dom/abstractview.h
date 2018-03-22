@@ -27,8 +27,8 @@
 #define KML_DOM_ABSTRACTVIEW_H__
 
 #include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/dom/object.h"
-#include "kml/dom/gx_timeprimitive.h"
 
 namespace kmldom {
 

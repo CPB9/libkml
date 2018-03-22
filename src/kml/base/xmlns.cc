@@ -24,10 +24,11 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/base/xmlns.h"
+#include "kml/base/attributes.h"
 
 namespace kmlbase {
 
-kmlbase::Xmlns* Xmlns::Create(const Attributes& attributes){
+kmlbase::Xmlns* Xmlns::Create(const Attributes& attributes) {
   Xmlns* xmlns = new Xmlns;
   if (xmlns->Parse(attributes)) {
     return xmlns;
@@ -36,11 +37,12 @@ kmlbase::Xmlns* Xmlns::Create(const Attributes& attributes){
   return nullptr;
 }
 
-const std::__cxx11::string& Xmlns::get_default() const{
+const std::__cxx11::string& Xmlns::get_default() const {
   return default_;
 }
 
-const std::__cxx11::string Xmlns::GetNamespace(const std::__cxx11::string& prefix) const{
+const std::__cxx11::string Xmlns::GetNamespace(
+    const std::__cxx11::string& prefix) const {
   string name_space;
   if (prefix_map_.get()) {
     prefix_map_->GetValue(prefix, &name_space);
@@ -48,7 +50,8 @@ const std::__cxx11::string Xmlns::GetNamespace(const std::__cxx11::string& prefi
   return name_space;
 }
 
-const std::__cxx11::string Xmlns::GetKey(const std::__cxx11::string& value) const{
+const std::__cxx11::string Xmlns::GetKey(
+    const std::__cxx11::string& value) const {
   string key;
   if (prefix_map_.get()) {
     prefix_map_->FindKey(value, &key);
@@ -56,15 +59,17 @@ const std::__cxx11::string Xmlns::GetKey(const std::__cxx11::string& value) cons
   return key;
 }
 
-void Xmlns::GetPrefixes(std::vector< std::__cxx11::string >* prefix_vector) const{
+void Xmlns::GetPrefixes(
+    std::vector<std::__cxx11::string>* prefix_vector) const {
   if (prefix_map_.get()) {
     prefix_map_->GetAttrNames(prefix_vector);
   }
 }
 
-Xmlns::Xmlns(){}
+Xmlns::Xmlns() {
+}
 
-bool Xmlns::Parse(const Attributes& attributes){
+bool Xmlns::Parse(const Attributes& attributes) {
   // Create a copy so that we can use non-const SplitByPrefix.
   std::unique_ptr<Attributes> clone(attributes.Clone());
   prefix_map_.reset(clone->SplitByPrefix("xmlns"));

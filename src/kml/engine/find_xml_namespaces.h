@@ -30,7 +30,7 @@
 #define KML_ENGINE_FIND_XML_NAMESPACES_H__
 
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlbase {
 class Attributes;
@@ -43,7 +43,7 @@ namespace kmlengine {
 // kmlbase::XmlnsId list and the prefix and xml_namespace is as is found by
 // kmlbase::FindXmlNamespaceAndPrefix.  Unknown namespaces are ignored.
 KML_EXPORT void FindXmlNamespaces(const kmldom::ElementPtr& element,
-                       kmlbase::Attributes* xmlns_attributes);
+                                  kmlbase::Attributes* xmlns_attributes);
 
 // This calls FindXmlNamespaces() and inserts the resulting xmlns
 // prefix/namespace pairs.  The KML namespace is special cased as the default

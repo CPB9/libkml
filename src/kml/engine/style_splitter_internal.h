@@ -32,7 +32,6 @@
 
 #include <map>
 #include "kml/base/string_util.h"
-#include "kml/dom.h"
 #include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
 #include "kml/engine/merge.h"
@@ -46,11 +45,11 @@ class StyleSplitter : public kmldom::ParserObserver {
  public:
   // A SharedStyleMap must be supplied.
   StyleSplitter(kmlengine::SharedStyleMap* shared_style_map)
-    : shared_style_map_(shared_style_map),
-      id_counter_(0),
-      in_update_(false) {}
+      : shared_style_map_(shared_style_map), id_counter_(0), in_update_(false) {
+  }
 
-  virtual ~StyleSplitter() {}
+  virtual ~StyleSplitter() {
+  }
 
   // ParserObserver::NewElement()
   virtual bool NewElement(const kmldom::ElementPtr& element);
@@ -68,9 +67,9 @@ class StyleSplitter : public kmldom::ParserObserver {
   // method and use its own naming scheme, however if the id created is not
   // unique the given style will not be split from the feature.
   virtual string CreateUniqueId(const SharedStyleMap& shared_style_map,
-                                     unsigned int id_counter) {
+                                unsigned int id_counter) {
     // xml:id cannot begin with a digit.
-    return string("_")  + kmlbase::ToString(id_counter);
+    return string("_") + kmlbase::ToString(id_counter);
   }
 
   // ParserObserver::EndElement()

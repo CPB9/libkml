@@ -26,17 +26,16 @@
 // This file contains the implementation of the CsvSplitter class.
 
 #include "kml/base/csv_splitter.h"
-
 #include "kml/base/string_util.h"
 
 namespace kmlbase {
 
 CsvSplitter::CsvSplitter(const string& csv_data)
-  : csv_data_(csv_data),
-    current_line_(0) {
+    : csv_data_(csv_data), current_line_(0) {
 }
 
-CsvSplitter::~CsvSplitter() {}
+CsvSplitter::~CsvSplitter() {
+}
 
 size_t CsvSplitter::FindNextLine(size_t* this_end) const {
   size_t nl = csv_data_.find_first_of("\r\n", current_line_);

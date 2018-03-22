@@ -32,8 +32,8 @@
 #ifndef KML_ENGINE_HREF_H__
 #define KML_ENGINE_HREF_H__
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlengine {
 

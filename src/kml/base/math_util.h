@@ -42,8 +42,8 @@
 #define M_PI 3.14159265358979323846
 #endif
 #include <utility>
-#include "kml/config.h"
 #include "kml/base/vec3.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -57,7 +57,7 @@ namespace kmlbase {
 // Note that this is the _initial_ azimuth; it changes as one follows the
 // great circle path from point 1 to point2.
 KML_EXPORT double AzimuthBetweenPoints(double lat_from, double lng_from,
-                            double lat_to, double lng_to);
+                                       double lat_to, double lng_to);
 
 // Returns the angle from the horizontal plane between alt1 and alt2.
 // For example, the returned angle from (37.00, -121.98, 600) to a point
@@ -69,38 +69,41 @@ KML_EXPORT double AzimuthBetweenPoints(double lat_from, double lng_from,
 //
 // TODO: this is a naive implementation accurate only over short distances.
 // It does not yet account for surface curvature.
-KML_EXPORT double ElevationBetweenPoints(double lat_from, double lng_from, double alt_from,
-                              double lat_to, double lng_to, double alt_to);
+KML_EXPORT double ElevationBetweenPoints(double lat_from, double lng_from,
+                                         double alt_from, double lat_to,
+                                         double lng_to, double alt_to);
 
 // Returns the great circle distance in meters between two points on the
 // Earth's surface. The antemeridian is not considered here.
 KML_EXPORT double DistanceBetweenPoints(double lat_from, double lng_from,
-                             double lat_to, double lng_to);
+                                        double lat_to, double lng_to);
 
 // Returns the great circle distance in meters between two 3d points. The
 // antemeridian is not considered here.
-KML_EXPORT double DistanceBetweenPoints3d(
-    double lat_from, double lng_from, double alt_from,
-    double lat_to, double lng_to, double alt_to);
+KML_EXPORT double DistanceBetweenPoints3d(double lat_from, double lng_from,
+                                          double alt_from, double lat_to,
+                                          double lng_to, double alt_to);
 
 // Given a vector describing a line at an angle from the horizontal plane,
 // where the vector starts at a point on the surface of the Earth,
 // returns the absolute distance between the ground point and the point
 // directly under the end point.
-KML_EXPORT double KML_EXPORT GroundDistanceFromRangeAndElevation(double range, double elevation);
+KML_EXPORT double KML_EXPORT
+GroundDistanceFromRangeAndElevation(double range, double elevation);
 
 // Given a vector describing a line at an angle from the horizontal plane,
 // where the vector starts at a point on the surface of the Earth,
 // returns the absolute height between the end point and the surface
 // point directly under it.
-KML_EXPORT double KML_EXPORT HeightFromRangeAndElevation(double range, double elevation);
+KML_EXPORT double KML_EXPORT HeightFromRangeAndElevation(double range,
+                                                         double elevation);
 
 // Returns a Vec3 containing the latitude and longitude of a point at a
 // distance (meters) out on the radial (degrees) from a center point lat, lng.
 // The radial is measured clockwise from north. The antemeridian is not
 // considered here.
-KML_EXPORT Vec3 LatLngOnRadialFromPoint(double lat, double lng,
-                             double distance, double radial);
+KML_EXPORT Vec3 LatLngOnRadialFromPoint(double lat, double lng, double distance,
+                                        double radial);
 
 // These functions are mostly internal, used in converting between degrees and
 // radians.

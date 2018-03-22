@@ -30,10 +30,10 @@
 #define KML_ENGINE_OLD_SCHEMA_PARSER_OBSERVER_H__
 
 #include <map>
-#include "kml/dom.h"
+#include "kml/base/util.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
-#include "kml/engine/parse_old_schema.h"
 
 namespace kmlengine {
 

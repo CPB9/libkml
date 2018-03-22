@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,20 +13,21 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the KmlStream class.
 
 #include "kml/engine/kml_stream.h"
 #include "kml/base/expat_parser.h"
+#include "kml/dom/kml_cast.h"
 #include "kml/dom/kml_handler.h"
 #include "kml/dom/parser_observer.h"
 
@@ -35,8 +36,8 @@ using kmldom::ParserObserver;
 
 namespace kmlengine {
 
-KmlStream* KmlStream::ParseFromIstream(
-    std::istream* input, string* errors, ParserObserver* observer) {
+KmlStream* KmlStream::ParseFromIstream(std::istream* input, string* errors,
+                                       ParserObserver* observer) {
   if (!input) {
     return nullptr;
   }
@@ -57,8 +58,8 @@ KmlStream* KmlStream::ParseFromIstream(
           input->read(static_cast<char*>(buf), kBufSize).gcount();
       // Guard negative read sizes for MSVC 2010.
       if (read_size < 0 ||
-          !parser.ParseInternalBuffer(static_cast<size_t>(read_size),
-                                      errors, input->eof())) {
+          !parser.ParseInternalBuffer(static_cast<size_t>(read_size), errors,
+                                      input->eof())) {
         return nullptr;  // Parse error
       }
     } else {
@@ -75,10 +76,10 @@ KmlStream* KmlStream::ParseFromIstream(
   return kml_stream;
 }
 
+const kmldom::ElementPtr KmlStream::get_root() const {
+  return kmldom::AsElement(XmlFile::get_root());
+}
 
-const kmldom::ElementPtr KmlStream::get_root() const{
-   return kmldom::AsElement(XmlFile::get_root());
- }
-
-KmlStream::KmlStream(){}
+KmlStream::KmlStream() {
+}
 }  // end namespace kmlengine

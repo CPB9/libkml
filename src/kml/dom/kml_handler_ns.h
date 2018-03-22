@@ -32,12 +32,12 @@
 
 #include <stack>
 #include <string>
-#include "kml/config.h"
-#include "kml_handler.h"
 #include "kml/base/expat_handler.h"
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
+#include "kml_handler.h"
 
 namespace kmldom {
 
@@ -46,16 +46,15 @@ class KmlFactory;
 // This subclass of KmlHandler is used with Expat's namespace-aware parsing.
 class KML_EXPORT KmlHandlerNS : public KmlHandler {
  public:
-  KmlHandlerNS(parser_observer_vector_t& observers);
+  KmlHandlerNS(parser_observer_vector_t &observers);
   ~KmlHandlerNS();
 
   // ExpatHandler methods.
   virtual void StartElement(const string &name,
-                            const kmlbase::StringVector& atts);
+                            const kmlbase::StringVector &atts);
   virtual void EndElement(const string &name);
   virtual void CharData(const string &s);
-  virtual void StartNamespace(const string &prefix,
-                              const string &uri);
+  virtual void StartNamespace(const string &prefix, const string &uri);
   virtual void EndNamespace(const string &prefix);
 
  private:
@@ -63,6 +62,6 @@ class KML_EXPORT KmlHandlerNS : public KmlHandler {
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmlHandlerNS);
 };
 
-} // end namespace kmldom
+}  // end namespace kmldom
 
 #endif  // KML_DOM_KML_HANDLER_NS_H__

@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/dom/object.h"
@@ -31,13 +31,12 @@ using kmlbase::Attributes;
 
 namespace kmldom {
 
-Object::Object()
-  : has_id_(false),
-     has_targetid_(false) {
+Object::Object() : has_id_(false), has_targetid_(false) {
   set_xmlns(kmlbase::XMLNS_KML22);
 }
 
-Object::~Object() {}
+Object::~Object() {
+}
 
 static const char kId[] = "id";
 static const char kTargetId[] = "targetId";
@@ -71,39 +70,47 @@ void Object::SerializeAttributes(Attributes* attributes) const {
   }
 }
 
+kmldom::KmlDomType Object::Type() const {
+  return Type_Object;
+}
 
+bool Object::IsA(kmldom::KmlDomType type) const {
+  return type == Type_Object;
+}
 
-kmldom::KmlDomType Object::Type() const{ return Type_Object; }
+const std::__cxx11::string& Object::get_id() const {
+  return id_;
+}
 
-bool Object::IsA(kmldom::KmlDomType type) const{
-   return type == Type_Object;
- }
+bool Object::has_id() const {
+  return has_id_;
+}
 
-const std::__cxx11::string& Object::get_id() const{ return id_; }
+void Object::set_id(const std::__cxx11::string& value) {
+  id_ = value;
+  has_id_ = true;
+}
 
-bool Object::has_id() const{ return has_id_; }
+void Object::clear_id() {
+  id_.clear();
+  has_id_ = false;
+}
 
-void Object::set_id(const std::__cxx11::string& value){
-   id_ = value;
-   has_id_ = true;
- }
+const std::__cxx11::string& Object::get_targetid() const {
+  return targetid_;
+}
 
-void Object::clear_id(){
-   id_.clear();
-   has_id_ = false;
- }
+bool Object::has_targetid() const {
+  return has_targetid_;
+}
 
-const std::__cxx11::string& Object::get_targetid() const{ return targetid_; }
+void Object::set_targetid(const std::__cxx11::string& targetid) {
+  targetid_ = targetid;
+  has_targetid_ = true;
+}
 
-bool Object::has_targetid() const{ return has_targetid_; }
-
-void Object::set_targetid(const std::__cxx11::string& targetid){
-   targetid_ = targetid;
-   has_targetid_ = true;
- }
-
-void Object::clear_targetid(){
-   targetid_.clear();
-   has_targetid_ = false;
- }
+void Object::clear_targetid() {
+  targetid_.clear();
+  has_targetid_ = false;
+}
 }  // namespace kmldom

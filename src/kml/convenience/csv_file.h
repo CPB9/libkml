@@ -27,9 +27,8 @@
 // files and generating Point Placemark KML.
 // NOTE: The CsvFile class is deprecated.  Use CsvParser in new code.
 
-#include <vector>
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlconvenience {
 

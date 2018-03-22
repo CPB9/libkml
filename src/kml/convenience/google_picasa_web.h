@@ -32,11 +32,12 @@
 #ifndef KML_CONVENIENCE_GOOGLE_PICASA_WEB_H_
 #define KML_CONVENIENCE_GOOGLE_PICASA_WEB_H_
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlconvenience {
 

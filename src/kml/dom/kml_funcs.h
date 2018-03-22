@@ -31,7 +31,6 @@
 
 #include <ostream>
 #include "kml/config.h"
-#include "kml/dom/element.h"
 #include "kml/dom/kml_ptr.h"
 
 namespace kmldom {
@@ -68,7 +67,8 @@ KML_EXPORT string SerializeRaw(const ElementPtr& root);
 // hierarchy.  The comments for SerializePretty() vs SerializeRaw() describe
 // the behavior of the "pretty" flag.  If root or xml are null this method
 // does nothing and immediately returns.
-KML_EXPORT void SerializeToOstream(const ElementPtr& root, bool pretty, std::ostream* xml);
+KML_EXPORT void SerializeToOstream(const ElementPtr& root, bool pretty,
+                                   std::ostream* xml);
 
 // This function is the public API for returning the element's tag name, for
 // example "Placemark" for <Placemark> and "NetworkLink" for <NetworkLink>.

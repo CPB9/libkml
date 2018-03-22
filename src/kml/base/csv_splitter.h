@@ -28,9 +28,9 @@
 #ifndef KML_BASE_CSV_SPLITTER_H__
 #define KML_BASE_CSV_SPLITTER_H__
 
-#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 

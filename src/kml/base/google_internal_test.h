@@ -32,4 +32,3 @@
 #define DATADIR FLAGS_test_srcdir + "/google3/third_party/libkml/testdata"
 
 #endif  // KML_BASE_GOOGLE_INTERNAL_TEST__
-

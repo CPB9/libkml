@@ -29,9 +29,9 @@
 #define KML_BASE_ZIP_FILE_H__
 
 #include <memory>
-#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -71,8 +71,7 @@ class KML_EXPORT ZipFile {
   // extension and writes the entire path into path_in_zip. Returns false
   // if no file with the given extension exists in the archive or if
   // path_in_zip is NULL.
-  bool FindFirstOf(const string& file_extension,
-                   string* path_in_zip) const;
+  bool FindFirstOf(const string& file_extension, string* path_in_zip) const;
 
   // Returns the table of contents for the ZIP file. The StringVector
   // is not cleared before writing. Returns false if the pointer is invalid.
@@ -91,7 +90,9 @@ class KML_EXPORT ZipFile {
   bool GetEntry(const string& path_in_zip, string* output) const;
 
   // Returns the raw bytes of this ZipFile.
-  const string& get_data() const { return data_; }
+  const string& get_data() const {
+    return data_;
+  }
 
   // Writes data to path_in_zip. The path must be relative to the root of the
   // archive. e.g. AddEntry(data, "somedir/file.png"). Specifically, paths that

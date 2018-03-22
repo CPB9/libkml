@@ -28,9 +28,9 @@
 #ifndef KML_ENGINE_FEATURE_VIEW_H__
 #define KML_ENGINE_FEATURE_VIEW_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom/abstractview.h"
-#include "kml/dom/feature.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
 
@@ -42,7 +42,8 @@ class Bbox;
 // be within a viewport with a field of view of 60 deg and is clamped to a
 // minimum of 1,000 meters. Returns NULL if the feature has no specified
 // AbstractView and none can be computed.
-KML_EXPORT kmldom::LookAtPtr ComputeFeatureLookAt(const kmldom::FeaturePtr& feature);
+KML_EXPORT kmldom::LookAtPtr ComputeFeatureLookAt(
+    const kmldom::FeaturePtr& feature);
 
 // Returns a <LookAt> element computed from the spatial extents of a Bbox.
 // See ComputeFeatureLookAt for the details of how the LookAt is created.

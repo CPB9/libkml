@@ -30,8 +30,9 @@
 #define KML_ENGINE_GET_LINKS_H__
 
 #include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
 
 namespace kmlengine {

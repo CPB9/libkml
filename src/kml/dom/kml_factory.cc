@@ -43,101 +43,194 @@ KmlFactory* KmlFactory::GetFactory() {
 
 ElementPtr KmlFactory::CreateElementById(KmlDomType id) const {
   switch (id) {
-  case Type_Alias: return CreateAlias();
-  case Type_AtomAuthor: return CreateAtomAuthor();
-  case Type_AtomCategory: return CreateAtomCategory();
-  case Type_AtomContent: return CreateAtomContent();
-  case Type_AtomEntry: return CreateAtomEntry();
-  case Type_AtomFeed: return CreateAtomFeed();
-  case Type_AtomLink: return CreateAtomLink();
-  case Type_BalloonStyle: return CreateBalloonStyle();
-  case Type_Camera: return CreateCamera();
-  case Type_Change: return CreateChange();
-  case Type_Create: return CreateCreate();
-  case Type_Data: return CreateData();
-  case Type_Delete: return CreateDelete();
-  case Type_Document: return CreateDocument();
-  case Type_ExtendedData: return CreateExtendedData();
-  case Type_Folder: return CreateFolder();
-  case Type_GroundOverlay: return CreateGroundOverlay();
-  case Type_Icon: return CreateIcon();
-  case Type_IconStyle: return CreateIconStyle();
-  case Type_IconStyleIcon: return CreateIconStyleIcon();
-  case Type_ImagePyramid: return CreateImagePyramid();
-  case Type_ItemIcon: return CreateItemIcon();
-  case Type_LabelStyle: return CreateLabelStyle();
-  case Type_LatLonBox: return CreateLatLonBox();
-  case Type_LatLonAltBox: return CreateLatLonAltBox();
-  case Type_LinearRing: return CreateLinearRing();
-  case Type_LineString: return CreateLineString();
-  case Type_LineStyle: return CreateLineStyle();
-  case Type_Link: return CreateLink();
-  case Type_ListStyle: return CreateListStyle();
-  case Type_Location: return CreateLocation();
-  case Type_Lod: return CreateLod();
-  case Type_LookAt: return CreateLookAt();
-  case Type_Metadata: return CreateMetadata();
-  case Type_Model: return CreateModel();
-  case Type_MultiGeometry: return CreateMultiGeometry();
-  case Type_NetworkLink: return CreateNetworkLink();
-  case Type_NetworkLinkControl: return CreateNetworkLinkControl();
-  case Type_Orientation: return CreateOrientation();
-  case Type_Pair: return CreatePair();
-  case Type_PhotoOverlay: return CreatePhotoOverlay();
-  case Type_Placemark: return CreatePlacemark();
-  case Type_PolyStyle: return CreatePolyStyle();
-  case Type_Point: return CreatePoint();
-  case Type_Polygon: return CreatePolygon();
-  case Type_Region: return CreateRegion();
-  case Type_ResourceMap: return CreateResourceMap();
-  case Type_Scale: return CreateScale();
-  case Type_Schema: return CreateSchema();
-  case Type_SchemaData: return CreateSchemaData();
-  case Type_ScreenOverlay: return CreateScreenOverlay();
-  case Type_SimpleData: return CreateSimpleData();
-  case Type_SimpleField: return CreateSimpleField();
-  case Type_Snippet: return CreateSnippet();
-  case Type_Style: return CreateStyle();
-  case Type_StyleMap: return CreateStyleMap();
-  case Type_TimeSpan: return CreateTimeSpan();
-  case Type_TimeStamp: return CreateTimeStamp();
-  case Type_ViewVolume: return CreateViewVolume();
-  case Type_Update: return CreateUpdate();
-  case Type_Url: return CreateUrl();
-  case Type_coordinates: return CreateCoordinates();
-  case Type_hotSpot: return CreateHotSpot();
-  case Type_innerBoundaryIs: return CreateInnerBoundaryIs();
-  case Type_kml: return CreateKml();
-  case Type_linkSnippet: return CreateLinkSnippet();
-  case Type_overlayXY: return CreateOverlayXY();
-  case Type_outerBoundaryIs: return CreateOuterBoundaryIs();
-  case Type_rotationXY: return CreateRotationXY();
-  case Type_screenXY: return CreateScreenXY();
-  case Type_size: return CreateSize();
-  case Type_XalAddressDetails: return CreateXalAddressDetails();
-  case Type_XalAdministrativeArea: return CreateXalAdministrativeArea();
-  case Type_XalCountry: return CreateXalCountry();
-  case Type_XalLocality: return CreateXalLocality();
-  case Type_XalPostalCode: return CreateXalPostalCode();
-  case Type_XalSubAdministrativeArea: return CreateXalSubAdministrativeArea();
-  case Type_XalThoroughfare: return CreateXalThoroughfare();
+    case Type_Alias:
+      return CreateAlias();
+    case Type_AtomAuthor:
+      return CreateAtomAuthor();
+    case Type_AtomCategory:
+      return CreateAtomCategory();
+    case Type_AtomContent:
+      return CreateAtomContent();
+    case Type_AtomEntry:
+      return CreateAtomEntry();
+    case Type_AtomFeed:
+      return CreateAtomFeed();
+    case Type_AtomLink:
+      return CreateAtomLink();
+    case Type_BalloonStyle:
+      return CreateBalloonStyle();
+    case Type_Camera:
+      return CreateCamera();
+    case Type_Change:
+      return CreateChange();
+    case Type_Create:
+      return CreateCreate();
+    case Type_Data:
+      return CreateData();
+    case Type_Delete:
+      return CreateDelete();
+    case Type_Document:
+      return CreateDocument();
+    case Type_ExtendedData:
+      return CreateExtendedData();
+    case Type_Folder:
+      return CreateFolder();
+    case Type_GroundOverlay:
+      return CreateGroundOverlay();
+    case Type_Icon:
+      return CreateIcon();
+    case Type_IconStyle:
+      return CreateIconStyle();
+    case Type_IconStyleIcon:
+      return CreateIconStyleIcon();
+    case Type_ImagePyramid:
+      return CreateImagePyramid();
+    case Type_ItemIcon:
+      return CreateItemIcon();
+    case Type_LabelStyle:
+      return CreateLabelStyle();
+    case Type_LatLonBox:
+      return CreateLatLonBox();
+    case Type_LatLonAltBox:
+      return CreateLatLonAltBox();
+    case Type_LinearRing:
+      return CreateLinearRing();
+    case Type_LineString:
+      return CreateLineString();
+    case Type_LineStyle:
+      return CreateLineStyle();
+    case Type_Link:
+      return CreateLink();
+    case Type_ListStyle:
+      return CreateListStyle();
+    case Type_Location:
+      return CreateLocation();
+    case Type_Lod:
+      return CreateLod();
+    case Type_LookAt:
+      return CreateLookAt();
+    case Type_Metadata:
+      return CreateMetadata();
+    case Type_Model:
+      return CreateModel();
+    case Type_MultiGeometry:
+      return CreateMultiGeometry();
+    case Type_NetworkLink:
+      return CreateNetworkLink();
+    case Type_NetworkLinkControl:
+      return CreateNetworkLinkControl();
+    case Type_Orientation:
+      return CreateOrientation();
+    case Type_Pair:
+      return CreatePair();
+    case Type_PhotoOverlay:
+      return CreatePhotoOverlay();
+    case Type_Placemark:
+      return CreatePlacemark();
+    case Type_PolyStyle:
+      return CreatePolyStyle();
+    case Type_Point:
+      return CreatePoint();
+    case Type_Polygon:
+      return CreatePolygon();
+    case Type_Region:
+      return CreateRegion();
+    case Type_ResourceMap:
+      return CreateResourceMap();
+    case Type_Scale:
+      return CreateScale();
+    case Type_Schema:
+      return CreateSchema();
+    case Type_SchemaData:
+      return CreateSchemaData();
+    case Type_ScreenOverlay:
+      return CreateScreenOverlay();
+    case Type_SimpleData:
+      return CreateSimpleData();
+    case Type_SimpleField:
+      return CreateSimpleField();
+    case Type_Snippet:
+      return CreateSnippet();
+    case Type_Style:
+      return CreateStyle();
+    case Type_StyleMap:
+      return CreateStyleMap();
+    case Type_TimeSpan:
+      return CreateTimeSpan();
+    case Type_TimeStamp:
+      return CreateTimeStamp();
+    case Type_ViewVolume:
+      return CreateViewVolume();
+    case Type_Update:
+      return CreateUpdate();
+    case Type_Url:
+      return CreateUrl();
+    case Type_coordinates:
+      return CreateCoordinates();
+    case Type_hotSpot:
+      return CreateHotSpot();
+    case Type_innerBoundaryIs:
+      return CreateInnerBoundaryIs();
+    case Type_kml:
+      return CreateKml();
+    case Type_linkSnippet:
+      return CreateLinkSnippet();
+    case Type_overlayXY:
+      return CreateOverlayXY();
+    case Type_outerBoundaryIs:
+      return CreateOuterBoundaryIs();
+    case Type_rotationXY:
+      return CreateRotationXY();
+    case Type_screenXY:
+      return CreateScreenXY();
+    case Type_size:
+      return CreateSize();
+    case Type_XalAddressDetails:
+      return CreateXalAddressDetails();
+    case Type_XalAdministrativeArea:
+      return CreateXalAdministrativeArea();
+    case Type_XalCountry:
+      return CreateXalCountry();
+    case Type_XalLocality:
+      return CreateXalLocality();
+    case Type_XalPostalCode:
+      return CreateXalPostalCode();
+    case Type_XalSubAdministrativeArea:
+      return CreateXalSubAdministrativeArea();
+    case Type_XalThoroughfare:
+      return CreateXalThoroughfare();
 
-  case Type_GxAnimatedUpdate: return CreateGxAnimatedUpdate();
-  case Type_GxFlyTo: return CreateGxFlyTo();
-  case Type_GxLatLonQuad: return CreateGxLatLonQuad();
-  case Type_GxMultiTrack: return CreateGxMultiTrack();
-  case Type_GxPlaylist: return CreateGxPlaylist();
-  case Type_GxSimpleArrayData: return CreateGxSimpleArrayData();
-  case Type_GxSimpleArrayField: return CreateGxSimpleArrayField();
-  case Type_GxSoundCue: return CreateGxSoundCue();
-  case Type_GxTimeSpan: return CreateGxTimeSpan();
-  case Type_GxTimeStamp: return CreateGxTimeStamp();
-  case Type_GxTour: return CreateGxTour();
-  case Type_GxTourControl: return CreateGxTourControl();
-  case Type_GxTrack: return CreateGxTrack();
-  case Type_GxWait: return CreateGxWait();
+    case Type_GxAnimatedUpdate:
+      return CreateGxAnimatedUpdate();
+    case Type_GxFlyTo:
+      return CreateGxFlyTo();
+    case Type_GxLatLonQuad:
+      return CreateGxLatLonQuad();
+    case Type_GxMultiTrack:
+      return CreateGxMultiTrack();
+    case Type_GxPlaylist:
+      return CreateGxPlaylist();
+    case Type_GxSimpleArrayData:
+      return CreateGxSimpleArrayData();
+    case Type_GxSimpleArrayField:
+      return CreateGxSimpleArrayField();
+    case Type_GxSoundCue:
+      return CreateGxSoundCue();
+    case Type_GxTimeSpan:
+      return CreateGxTimeSpan();
+    case Type_GxTimeStamp:
+      return CreateGxTimeStamp();
+    case Type_GxTour:
+      return CreateGxTour();
+    case Type_GxTourControl:
+      return CreateGxTourControl();
+    case Type_GxTrack:
+      return CreateGxTrack();
+    case Type_GxWait:
+      return CreateGxWait();
 
-  default: return nullptr;
+    default:
+      return nullptr;
   }
 }
 
@@ -518,6 +611,6 @@ GxWait* KmlFactory::CreateGxWait() const {
   return new GxWait();
 }
 
-
-KmlFactory::KmlFactory(){}
+KmlFactory::KmlFactory() {
+}
 }  // namespace kmldom

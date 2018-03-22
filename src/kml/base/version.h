@@ -28,8 +28,8 @@
 #ifndef KML_BASE_VERSION_H__
 #define KML_BASE_VERSION_H__
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -66,4 +66,3 @@ class KML_EXPORT Version {
 }  // end namespace kmlbase
 
 #endif  // KML_BASE_VERSION_H__
-

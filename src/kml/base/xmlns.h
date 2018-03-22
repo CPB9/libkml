@@ -29,12 +29,14 @@
 #define KML_BASE_XMLNS_H__
 
 #include <map>
-#include <vector>
 #include <memory>
+#include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/base/attributes.h"
 
 namespace kmlbase {
+
+class Attributes;
 
 // This class holds the default namespace and the set of prefix-namespace
 // mappings for an XML file.  For example, if these attributes of the root
@@ -89,4 +91,4 @@ class KML_EXPORT Xmlns {
 
 }  // end namespace kmlbase
 
-#endif // KML_BASE_XMLNS_H__
+#endif  // KML_BASE_XMLNS_H__

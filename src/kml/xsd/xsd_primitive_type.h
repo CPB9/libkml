@@ -43,29 +43,29 @@ class KML_EXPORT XsdPrimitiveType : public XsdType {
   //   http://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes
   enum TypeId {
     XSD_INVALID,
-    XSD_STRING,  // 3.2.1
-    XSD_BOOLEAN,  // 3.2.2
-    XSD_DECIMAL,  // 3.2.3
-    XSD_FLOAT,  // 3.2.4
-    XSD_DOUBLE,  // 3.2.5
-    XSD_DURATION,  // 3.2.6
-    XSD_DATE_TIME,  // 3.2.7
-    XSD_TIME,  // 3.2.8
-    XSD_DATE,  // 3.2.9
-    XSD_G_YEAR_MONTH,  // 3.2.10
-    XSD_G_YEAR,  // 3.2.11
-    XSD_G_MONTH_DAY,  // 3.2.12
-    XSD_G_DAY,  // 3.2.13
-    XSD_G_MONTH,  // 3.2.14
-    XSD_HEX_BINARY,  // 3.2.15
+    XSD_STRING,         // 3.2.1
+    XSD_BOOLEAN,        // 3.2.2
+    XSD_DECIMAL,        // 3.2.3
+    XSD_FLOAT,          // 3.2.4
+    XSD_DOUBLE,         // 3.2.5
+    XSD_DURATION,       // 3.2.6
+    XSD_DATE_TIME,      // 3.2.7
+    XSD_TIME,           // 3.2.8
+    XSD_DATE,           // 3.2.9
+    XSD_G_YEAR_MONTH,   // 3.2.10
+    XSD_G_YEAR,         // 3.2.11
+    XSD_G_MONTH_DAY,    // 3.2.12
+    XSD_G_DAY,          // 3.2.13
+    XSD_G_MONTH,        // 3.2.14
+    XSD_HEX_BINARY,     // 3.2.15
     XSD_BASE64_BINARY,  // 3.2.16
-    XSD_ANY_URI,  // 3.2.17
-    XSD_QNAME,  // 3.2.18
-    XSD_NOTATION,  // 3.2.19
+    XSD_ANY_URI,        // 3.2.17
+    XSD_QNAME,          // 3.2.18
+    XSD_NOTATION,       // 3.2.19
     // NOTE: this includes only the types involved in the xsd:int derivation.
     XSD_INTEGER,  // 3.3.13.  Is-a XSD_DECIMAL.
-    XSD_LONG,  // 3.3.16.  Is-a XSD_INTEGER.
-    XSD_INT  // 3.3.17.  Is-a XSD_LONG.
+    XSD_LONG,     // 3.3.16.  Is-a XSD_INTEGER.
+    XSD_INT       // 3.3.17.  Is-a XSD_LONG.
   };
 
   // Use this method to create a new XsdPrimitiveType from the type name.

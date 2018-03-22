@@ -27,9 +27,10 @@
 #define KML_DOM_KML_FACTORY_H__
 
 #include <string>
-#include "kml/config.h"
-#include "kml/dom/kmldom.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmldom {
 

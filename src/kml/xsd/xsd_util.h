@@ -25,8 +25,8 @@
 
 // This file contains XSD convenience utilities.
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlxsd {
 
@@ -60,6 +60,6 @@ KML_EXPORT XsdElement* CreateXsdElement(const string& name, const string& type);
 // <schema xmlns:PREFIX="TARGET_NAMESPACE"
 //         targetNamespace="TARGET_NAMESPACE"/>
 KML_EXPORT XsdSchema* CreateXsdSchema(const string& prefix,
-                           const string& target_namespace);
+                                      const string& target_namespace);
 
 }  // end namespace kmlxsd

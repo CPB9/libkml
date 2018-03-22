@@ -26,10 +26,10 @@
 #ifndef KML_DOM_SUBSTYLE_H__
 #define KML_DOM_SUBSTYLE_H__
 
-#include "kml/config.h"
-#include "kml/dom/object.h"
-#include "kml/dom/kml22.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/object.h"
 
 namespace kmldom {
 

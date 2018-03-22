@@ -29,13 +29,13 @@
 #define KML_DOM_LISTSTYLE_H__
 
 #include <vector>
-#include "kml/config.h"
 #include "kml/base/color32.h"
+#include "kml/base/util.h"
+#include "kml/config.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/object.h"
 #include "kml/dom/substyle.h"
-#include "kml/base/util.h"
 
 namespace kmldom {
 
@@ -149,4 +149,4 @@ class KML_EXPORT ListStyle : public SubStyle {
 
 }  // end namespace kmldom
 
-#endif // KML_DOM_LISTSTYLE_H__
+#endif  // KML_DOM_LISTSTYLE_H__

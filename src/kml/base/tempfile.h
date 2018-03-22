@@ -59,6 +59,7 @@ class TempFile : public Referent {
   const string& name() {
     return name_;
   }
+
  private:
   TempFile(const string& filename) : name_(filename) {
   }

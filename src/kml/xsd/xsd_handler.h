@@ -28,8 +28,8 @@
 #ifndef KML_XSD_XSD_HANDLER_H__
 #define KML_XSD_XSD_HANDLER_H__
 
-#include <stack>
 #include <memory>
+#include <stack>
 #include "kml/base/expat_handler.h"
 #include "kml/xsd/xsd_type.h"
 
@@ -86,4 +86,4 @@ class KML_EXPORT XsdHandler : public kmlbase::ExpatHandler {
 
 }  // end namespace kmlxsd
 
-#endif // KML_XSD_XSD_HANDLER_H__
+#endif  // KML_XSD_XSD_HANDLER_H__

@@ -31,9 +31,7 @@
 
 #include <string>
 #include "kml/config.h"
-#include "kml/base/xml_namespaces.h"
 #include "kml/dom/kml22.h"
-#include "kml/dom/object.h"
 #include "kml/dom/timeprimitive.h"
 
 namespace kmldom {

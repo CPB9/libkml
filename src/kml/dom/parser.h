@@ -29,10 +29,10 @@
 #define KML_DOM_PARSER_H__
 
 #include <vector>
+#include "kml/base/util.h"
 #include "kml/config.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
-#include "kml/base/util.h"
 
 namespace kmldom {
 
@@ -58,18 +58,19 @@ class KML_EXPORT Parser {
   // any errors NULL is returned and if error's is non-NULL a human readable
   // diagnostic is stored there.  If there are no parse errors the root
   // element is returned.  Note that any ParseObserver can terminate the parse.
-  ElementPtr Parse(const string& kml, string *errors);
+  ElementPtr Parse(const string& kml, string* errors);
 
   // As Parse(), but invokes the underlying XML parser's namespace-aware mode.
-  ElementPtr ParseNS(const string& kml, string *errors);
+  ElementPtr ParseNS(const string& kml, string* errors);
 
   // As Parse(), but invokes the underlying XML parser's namespace-aware mode
   // with special recognition of the Atom namespace.  See kml_funcs.h.
-  ElementPtr ParseAtom(const string& atom, string *errors);
+  ElementPtr ParseAtom(const string& atom, string* errors);
 
   // This method registers the given ParserObserver-based class.  Each
   // NewElement() and AddChild() method is called in the order added.
   void AddObserver(ParserObserver* parser_observer);
+
  private:
   parser_observer_vector_t observers_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(Parser);

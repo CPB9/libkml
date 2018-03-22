@@ -26,6 +26,7 @@
 // This file contains the implementation of the Attributes class.
 
 #include "kml/base/attributes.h"
+#include <stdlib.h>
 #include <map>
 #include <vector>
 
@@ -52,7 +53,7 @@ Attributes* Attributes::Create(const kmlbase::StringVector& attrs) {
 
 // private
 bool Attributes::Parse(const char** attrs) {
-  while (*attrs && *(attrs+1)) {  // Quietly ignore unpaired last item.
+  while (*attrs && *(attrs + 1)) {  // Quietly ignore unpaired last item.
     const char* attr_name = *attrs++;
     const char* attr_val = *attrs++;
     attributes_map_[attr_name] = attr_val;
@@ -61,11 +62,10 @@ bool Attributes::Parse(const char** attrs) {
 }
 
 bool Attributes::Parse(const kmlbase::StringVector& attrs) {
-  for (unsigned int i = 0; i < attrs.size() ; i += 2) {
-    if (attrs.size() - i < 1)
-      break;
+  for (unsigned int i = 0; i < attrs.size(); i += 2) {
+    if (attrs.size() - i < 1) break;
     string attr_name = attrs.at(i);
-    string attr_val = attrs.at(i+1);
+    string attr_val = attrs.at(i + 1);
     attributes_map_[attr_name] = attr_val;
   }
   return true;
@@ -134,8 +134,8 @@ Attributes* Attributes::SplitByPrefix(const string& prefix) {
   size_t prefix_size = prefix.size() + 1;  // +1 for the ":"
   Attributes* split = new Attributes();
   std::vector<string> keys_to_erase;
-  for (StringMapIterator iter = CreateIterator();
-       !iter.AtEnd(); iter.Advance()) {
+  for (StringMapIterator iter = CreateIterator(); !iter.AtEnd();
+       iter.Advance()) {
     const string& key = iter.Data().first;
     if (key.compare(0, prefix_size, prefix + ":") == 0) {
       split->SetValue(key.substr(prefix_size), iter.Data().second);
@@ -155,29 +155,34 @@ Attributes* Attributes::SplitByPrefix(const string& prefix) {
   return split;
 }
 
-void Attributes::SetString(const std::__cxx11::string& attr_name, const std::__cxx11::string& attr_val){
+void Attributes::SetString(const std::__cxx11::string& attr_name,
+                           const std::__cxx11::string& attr_val) {
   SetValue(attr_name, attr_val);
 }
 
-bool Attributes::GetDouble(const std::__cxx11::string& attr_name, double* attr_val) const{
+bool Attributes::GetDouble(const std::__cxx11::string& attr_name,
+                           double* attr_val) const {
   return GetValue(attr_name, attr_val);
 }
 
-bool Attributes::GetBool(const std::__cxx11::string& attr_name, bool* attr_val) const{
+bool Attributes::GetBool(const std::__cxx11::string& attr_name,
+                         bool* attr_val) const {
   return GetValue(attr_name, attr_val);
 }
 
-bool Attributes::GetString(const std::__cxx11::string& attr_name, std::__cxx11::string* attr_val) const{
+bool Attributes::GetString(const std::__cxx11::string& attr_name,
+                           std::__cxx11::string* attr_val) const {
   return GetValue(attr_name, attr_val);
 }
 
-StringMapIterator Attributes::CreateIterator() const{
+StringMapIterator Attributes::CreateIterator() const {
   return StringMapIterator(attributes_map_);
 }
 
-size_t Attributes::GetSize() const{
+size_t Attributes::GetSize() const {
   return attributes_map_.size();
 }
 
-Attributes::Attributes(){}
+Attributes::Attributes() {
+}
 }  // end namespace kmlbase

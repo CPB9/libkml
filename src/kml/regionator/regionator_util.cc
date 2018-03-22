@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of some utility functions used
@@ -28,7 +28,18 @@
 // derived from RegionHandler.
 
 #include "kml/regionator/regionator_util.h"
-#include "kml/engine.h"
+#include "kml/dom/abstractlatlonbox.h"
+#include "kml/dom/document.h"
+#include "kml/dom/geometry.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/link.h"
+#include "kml/dom/networklink.h"
+#include "kml/dom/placemark.h"
+#include "kml/dom/region.h"
+#include "kml/engine/bbox.h"
+#include "kml/engine/clone.h"
+#include "kml/engine/location_util.h"
 
 namespace kmlregionator {
 
@@ -70,7 +81,7 @@ bool CreateAlignedAbstractLatLonBox(const AbstractLatLonBoxPtr& llb,
   if (!llb || !aligned_llb) {
     return false;
   }
-  Bbox qt(180,-180,180,-180);
+  Bbox qt(180, -180, 180, -180);
   Bbox r(llb->get_north(), llb->get_south(), llb->get_east(), llb->get_west());
   if (!r.ContainedByBbox(qt)) {
     return false;

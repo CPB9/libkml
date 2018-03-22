@@ -28,12 +28,16 @@
 #ifndef KML_CONVENIENCE_CSV_PARSER_H_
 #define KML_CONVENIENCE_CSV_PARSER_H_
 
-#include "kml/config.h"
 #include "kml/base/string_util.h"
-#include "kml/dom.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlbase {
 class CsvSplitter;
+}
+
+namespace kmldom {
+class KmlFactory;
 }
 
 namespace kmlconvenience {

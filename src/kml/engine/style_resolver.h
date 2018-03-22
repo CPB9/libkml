@@ -29,20 +29,22 @@
 #define KML_ENGINE_STYLE_RESOLVER_H__
 
 #include "kml/config.h"
-#include "kml/dom.h"
-#include "kml/engine/kml_cache.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/kml_file.h"
 
 namespace kmlengine {
+
+class KmlCache;
 
 // This creates a new <Style> representing the merge of the inline and/or
 // shared StyleSelector(s) of the given Feature within the given KmlFile for
 // the given style state (<key>).  All SubStyle simple and complex children
 // set in inline/shared StyleSelectors are also set in the created Style.
 // This folows an internal maximum number of nested styleUrls.
-KML_EXPORT kmldom::StylePtr CreateResolvedStyle(const kmldom::FeaturePtr& feature,
-                                     const KmlFilePtr& kml_file,
-                                     kmldom::StyleStateEnum style_state);
+KML_EXPORT kmldom::StylePtr CreateResolvedStyle(
+    const kmldom::FeaturePtr& feature, const KmlFilePtr& kml_file,
+    kmldom::StyleStateEnum style_state);
 
 // This class provides the full set of style resolution possibilities.
 class KML_EXPORT StyleResolver {
@@ -53,12 +55,9 @@ class KML_EXPORT StyleResolver {
   // typically from a KmlFile.  This method is well behaved with any or all
   // arguments NULL or empty.
   static kmldom::StylePtr CreateResolvedStyle(
-      const string& styleurl,
-      const kmldom::StyleSelectorPtr& styleselector,
-      const SharedStyleMap& shared_style_map,
-      const string& base_url,
-      KmlCache* kml_cache,
-      kmldom::StyleStateEnum style_state);
+      const string& styleurl, const kmldom::StyleSelectorPtr& styleselector,
+      const SharedStyleMap& shared_style_map, const string& base_url,
+      KmlCache* kml_cache, kmldom::StyleStateEnum style_state);
 
   // This method resolves the style selector for the given styleurl assuming
   // it references a style selector in the given SharedStyleMap.  The resulting

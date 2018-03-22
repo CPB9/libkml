@@ -29,6 +29,9 @@
 
 #include "kml/convenience/atom_util.h"
 #include "kml/convenience/http_client.h"
+#include "kml/dom/atom.h"
+#include "kml/dom/geometry.h"
+#include "kml/dom/kml.h"
 
 namespace kmlconvenience {
 
@@ -39,8 +42,7 @@ static const char* kScope = "http://docs.google.com";
 static const char* kDocListMetaFeedUri = "/feeds/default/private/full";
 
 // static
-GoogleDocList* GoogleDocList::Create(
-    HttpClient* http_client) {
+GoogleDocList* GoogleDocList::Create(HttpClient* http_client) {
   // The HttpClient must exist.
   if (!http_client) {
     return nullptr;
@@ -68,12 +70,11 @@ static string GetScope() {
   return kScope;
 }
 
-const std::__cxx11::string& GoogleDocList::get_scope() const{
-   return scope_;
- }
+const std::__cxx11::string& GoogleDocList::get_scope() const {
+  return scope_;
+}
 
-GoogleDocList::GoogleDocList()
-  : scope_(GetScope()) {
+GoogleDocList::GoogleDocList() : scope_(GetScope()) {
 }
 
 // Keep POI of scoped_ptr<GoogleHttpClient>'s dtor out of .h
@@ -81,8 +82,8 @@ GoogleDocList::~GoogleDocList() {
 }
 
 bool GoogleDocList::GetMetaFeedXml(string* atom_feed) const {
-  return http_client_->SendRequest(HTTP_GET, scope_ + kDocListMetaFeedUri,
-                                   NULL, NULL, atom_feed);
+  return http_client_->SendRequest(HTTP_GET, scope_ + kDocListMetaFeedUri, NULL,
+                                   NULL, atom_feed);
 }
 
 kmldom::AtomFeedPtr GoogleDocList::GetMetaFeed() const {
@@ -101,6 +102,5 @@ bool GoogleDocList::UploadSpreadsheet(const string& spreadsheet,
   return http_client_->SendRequest(HTTP_POST, scope_ + kDocListMetaFeedUri,
                                    &request_headers, &spreadsheet, atom_entry);
 }
-
 
 }  // end namespace kmlconvenience

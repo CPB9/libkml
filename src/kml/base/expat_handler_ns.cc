@@ -24,13 +24,13 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/base/expat_handler_ns.h"
-#include "kml/base/xmlns.h"
 #include "kml/base/expat_parser.h"
+#include "kml/base/xmlns.h"
 
 namespace kmlbase {
 
 ExpatHandlerNs::ExpatHandlerNs(ExpatHandler* expat_handler, const Xmlns* xmlns)
-  : expat_handler_(expat_handler), xmlns_(xmlns) {
+    : expat_handler_(expat_handler), xmlns_(xmlns) {
 }
 
 const string ExpatHandlerNs::TranslatePrefixedName(
@@ -42,13 +42,13 @@ const string ExpatHandlerNs::TranslatePrefixedName(
   }
   // Name is in the default namespace?  Return without the prefix.
   if (xmlns_->get_default() == prefixed_name.substr(0, sep)) {
-    return prefixed_name.substr(sep+1);
+    return prefixed_name.substr(sep + 1);
   }
   // Name is in some other namespace?  Map to the prefix known to the
   // expat_handler as indicated in the Xmlns we were constructed with.
   string prefix = xmlns_->GetKey(prefixed_name.substr(0, sep));
   if (!prefix.empty()) {
-    return prefix + ":" + prefixed_name.substr(sep+1);
+    return prefix + ":" + prefixed_name.substr(sep + 1);
   }
   // This namepace is unknown.  Return the whole name.
   // TODO: grab prefixes down in StartNamespace and use that assuming no
@@ -69,13 +69,12 @@ void ExpatHandlerNs::CharData(const string& s) {
   expat_handler_->CharData(s);
 }
 
-void ExpatHandlerNs::StartNamespace(const string& prefix,
-                                    const string& uri) {
+void ExpatHandlerNs::StartNamespace(const string& prefix, const string& uri) {
 }
 
 void ExpatHandlerNs::EndNamespace(const string& prefix) {
 }
 
-
-ExpatHandlerNs::~ExpatHandlerNs(){}
+ExpatHandlerNs::~ExpatHandlerNs() {
+}
 }  // end namespace kmlbase

@@ -31,8 +31,6 @@
 #include "kml/dom/container.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/schema.h"
-#include "kml/dom/styleselector.h"
 
 namespace kmldom {
 

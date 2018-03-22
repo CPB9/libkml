@@ -27,9 +27,11 @@
 
 #include "kml/engine/clone.h"
 #include <stack>
+#include "kml/base/attributes.h"
+#include "kml/base/color32.h"
 #include "kml/dom/element.h"
-#include "kml/dom/kml_cast.h"
 #include "kml/dom/geometry.h"
+#include "kml/dom/kml_cast.h"
 #include "kml/dom/kml_factory.h"
 #include "kml/dom/serializer.h"
 
@@ -40,8 +42,8 @@ class Attributes;
 using kmlbase::Attributes;
 using kmldom::CoordinatesPtr;
 using kmldom::ElementPtr;
-using kmldom::KmlFactory;
 using kmldom::KmlDomType;
+using kmldom::KmlFactory;
 
 namespace kmlengine {
 
@@ -52,11 +54,11 @@ namespace kmlengine {
 // of the serializer to the input of the parser.
 class ElementReplicator : public kmldom::Serializer {
  public:
-  ElementReplicator()
-    : serializing_unknown_(false) {
+  ElementReplicator() : serializing_unknown_(false) {
   }
 
-  virtual ~ElementReplicator() {}
+  virtual ~ElementReplicator() {
+  }
 
   // Serializer::BeginById() is called at the start of a complex element.
   virtual void BeginById(int type_id, const Attributes& attributes) {

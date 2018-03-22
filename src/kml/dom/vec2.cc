@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the abstract Vec2 element.
@@ -28,6 +28,7 @@
 #include "kml/dom/vec2.h"
 #include "kml/base/attributes.h"
 #include "kml/dom/serializer.h"
+#include "kml/dom/visitor.h"
 #include "kml/dom/xsd.h"
 
 using kmlbase::Attributes;
@@ -35,17 +36,18 @@ using kmlbase::Attributes;
 namespace kmldom {
 
 Vec2::Vec2()
-  : x_(1.0),
-    has_x_(false),
-    y_(1.0),
-    has_y_(false),
-    xunits_(UNITS_FRACTION),
-    has_xunits_(false),
-    yunits_(UNITS_FRACTION),
-    has_yunits_(false) {
+    : x_(1.0),
+      has_x_(false),
+      y_(1.0),
+      has_y_(false),
+      xunits_(UNITS_FRACTION),
+      has_xunits_(false),
+      yunits_(UNITS_FRACTION),
+      has_yunits_(false) {
 }
 
-Vec2::~Vec2() {}
+Vec2::~Vec2() {
+}
 
 static const char kX[] = "x";
 static const char kY[] = "y";
@@ -58,7 +60,7 @@ static const char kYUnits[] = "yunits";
 // NOTE: This would be a general purpose method if any other KML elements
 // had attributes of enum type.
 static bool CutEnumAttr(Attributes* attributes, const string attr_name,
-                            int enum_type, int* enum_val) {
+                        int enum_type, int* enum_val) {
   string attr_val;
   if (attributes->CutValue(attr_name, &attr_val)) {
     int val = Xsd::GetSchema()->EnumId(enum_type, attr_val);
@@ -70,67 +72,85 @@ static bool CutEnumAttr(Attributes* attributes, const string attr_name,
   return false;
 }
 
-void Vec2::clear_yunits(){
-   yunits_ = false;
-   has_yunits_ = false;
- }
+void Vec2::clear_yunits() {
+  yunits_ = false;
+  has_yunits_ = false;
+}
 
-void Vec2::set_yunits(int value){
-   yunits_ = value;
-   has_yunits_ = true;
- }
+void Vec2::set_yunits(int value) {
+  yunits_ = value;
+  has_yunits_ = true;
+}
 
-bool Vec2::has_yunits() const{ return has_yunits_; }
+bool Vec2::has_yunits() const {
+  return has_yunits_;
+}
 
-int Vec2::get_yunits() const{ return yunits_; }
+int Vec2::get_yunits() const {
+  return yunits_;
+}
 
-void Vec2::clear_xunits(){
-   xunits_ = false;
-   has_xunits_ = false;
- }
+void Vec2::clear_xunits() {
+  xunits_ = false;
+  has_xunits_ = false;
+}
 
-void Vec2::set_xunits(int value){
-   xunits_ = value;
-   has_xunits_ = true;
- }
+void Vec2::set_xunits(int value) {
+  xunits_ = value;
+  has_xunits_ = true;
+}
 
-bool Vec2::has_xunits() const{ return has_xunits_; }
+bool Vec2::has_xunits() const {
+  return has_xunits_;
+}
 
-int Vec2::get_xunits() const{ return xunits_; }
+int Vec2::get_xunits() const {
+  return xunits_;
+}
 
-void Vec2::clear_y(){
-   y_ = 1.0;
-   has_y_ = false;
- }
+void Vec2::clear_y() {
+  y_ = 1.0;
+  has_y_ = false;
+}
 
-void Vec2::set_y(double value){
-   y_ = value;
-   has_y_ = true;
- }
+void Vec2::set_y(double value) {
+  y_ = value;
+  has_y_ = true;
+}
 
-bool Vec2::has_y() const{ return has_y_; }
+bool Vec2::has_y() const {
+  return has_y_;
+}
 
-double Vec2::get_y() const{ return y_; }
+double Vec2::get_y() const {
+  return y_;
+}
 
-void Vec2::clear_x(){
-   x_ = 1.0;
-   has_x_ = false;
- }
+void Vec2::clear_x() {
+  x_ = 1.0;
+  has_x_ = false;
+}
 
-void Vec2::set_x(double value){
-   x_ = value;
-   has_x_ = true;
- }
+void Vec2::set_x(double value) {
+  x_ = value;
+  has_x_ = true;
+}
 
-bool Vec2::has_x() const{ return has_x_; }
+bool Vec2::has_x() const {
+  return has_x_;
+}
 
-double Vec2::get_x() const{ return x_; }
+double Vec2::get_x() const {
+  return x_;
+}
 
-bool Vec2::IsA(kmldom::KmlDomType type) const{
-   return type == Type_Vec2;
- }
+bool Vec2::IsA(kmldom::KmlDomType type) const {
+  return type == Type_Vec2;
+}
 
-kmldom::KmlDomType Vec2::Type() const{ return Type_Vec2; }
+kmldom::KmlDomType Vec2::Type() const {
+  return Type_Vec2;
+}
 
 void Vec2::ParseAttributes(Attributes* attributes) {
   if (!attributes) {

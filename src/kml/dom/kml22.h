@@ -300,20 +300,11 @@ typedef enum {
   ALTITUDEMODE_ABSOLUTE
 } AltitudeModeEnum;
 
-typedef enum {
-  COLORMODE_NORMAL = 0,
-  COLORMODE_RANDOM
-} ColorModeEnum;
+typedef enum { COLORMODE_NORMAL = 0, COLORMODE_RANDOM } ColorModeEnum;
 
-typedef enum {
-  DISPLAYMODE_DEFAULT = 0,
-  DISPLAYMODE_HIDE
-} DisplayModeEnum;
+typedef enum { DISPLAYMODE_DEFAULT = 0, DISPLAYMODE_HIDE } DisplayModeEnum;
 
-typedef enum {
-  GRIDORIGIN_LOWERLEFT = 0,
-  GRIDORIGIN_UPPERLEFT
-} GridOriginEnum;
+typedef enum { GRIDORIGIN_LOWERLEFT = 0, GRIDORIGIN_UPPERLEFT } GridOriginEnum;
 
 typedef enum {
   ITEMICONSTATE_OPEN = 0,
@@ -337,22 +328,11 @@ typedef enum {
   REFRESHMODE_ONEXPIRE
 } RefreshModeEnum;
 
-typedef enum {
-  SHAPE_RECTANGLE = 0,
-  SHAPE_CYLINDER,
-  SHAPE_SPHERE
-} ShapeEnum;
+typedef enum { SHAPE_RECTANGLE = 0, SHAPE_CYLINDER, SHAPE_SPHERE } ShapeEnum;
 
-typedef enum {
-  STYLESTATE_NORMAL = 0,
-  STYLESTATE_HIGHLIGHT
-} StyleStateEnum;
+typedef enum { STYLESTATE_NORMAL = 0, STYLESTATE_HIGHLIGHT } StyleStateEnum;
 
-typedef enum {
-  UNITS_FRACTION = 0,
-  UNITS_PIXELS,
-  UNITS_INSETPIXELS
-} UnitsEnum;
+typedef enum { UNITS_FRACTION = 0, UNITS_PIXELS, UNITS_INSETPIXELS } UnitsEnum;
 
 typedef enum {
   VIEWREFRESHMODE_NEVER = 0,
@@ -366,14 +346,9 @@ typedef enum {
   GX_ALTITUDEMODE_RELATIVETOSEAFLOOR
 } GxAltitudeModeEnum;
 
-typedef enum {
-  GX_FLYTOMODE_BOUNCE = 0,
-  GX_FLYTOMODE_SMOOTH
-} GxFlyToModeEnum;
+typedef enum { GX_FLYTOMODE_BOUNCE = 0, GX_FLYTOMODE_SMOOTH } GxFlyToModeEnum;
 
-typedef enum {
-  GX_PLAYMODE_PAUSE = 0
-} GxPlayModeEnum;
+typedef enum { GX_PLAYMODE_PAUSE = 0 } GxPlayModeEnum;
 
 }  // end namespace kmldom
 

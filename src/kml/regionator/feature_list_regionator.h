@@ -27,11 +27,11 @@
 #define KML_REGIONATOR_FEATURE_LIST_REGIONATOR_H__
 
 #include <map>
-#include "kml/dom.h"
 #include "kml/convenience/feature_list.h"
-#include "kml/engine.h"
-#include "kml/regionator/regionator.h"
+#include "kml/dom/kml.h"
+#include "kml/dom/region.h"
 #include "kml/regionator/region_handler.h"
+#include "kml/regionator/regionator.h"
 
 namespace kmlregionator {
 
@@ -58,7 +58,7 @@ class NullProgress {
 //                                                         features_per_node,
 //                                                         &progress,
 //                                                         output_dir);
-template<class ProgressMonitor = NullProgress>
+template <class ProgressMonitor = NullProgress>
 class FeatureListRegionator : public RegionHandler {
  public:
   // RegionHandler::HasData()
@@ -121,11 +121,9 @@ class FeatureListRegionator : public RegionHandler {
     // and terrain).
     // For a deeper discussion of these matters please see:
     // http://code.google.com/apis/kml/documentation/regions.html
-    kmldom::RegionPtr root = kmlconvenience::CreateRegion2d(bbox.get_north(),
-                                                            bbox.get_south(),
-                                                            bbox.get_east(),
-                                                            bbox.get_west(),
-                                                            256, -1);
+    kmldom::RegionPtr root = kmlconvenience::CreateRegion2d(
+        bbox.get_north(), bbox.get_south(), bbox.get_east(), bbox.get_west(),
+        256, -1);
     feature_list->Sort();
     FeatureListRegionator flr(feature_list, max_per, progress_monitor);
     return Regionator::RegionateAligned(flr, root, output_dir);
@@ -134,12 +132,11 @@ class FeatureListRegionator : public RegionHandler {
  private:
   // Use the static Regionate method.
   FeatureListRegionator(kmlconvenience::FeatureList* feature_list,
-                        unsigned int max_per,
-                        ProgressMonitor* progress_monitor)
-   : feature_list_(*feature_list),
-     feature_list_size_(feature_list->Size()),
-     max_per_(max_per),
-     progress_monitor_(progress_monitor) {
+                        unsigned int max_per, ProgressMonitor* progress_monitor)
+      : feature_list_(*feature_list),
+        feature_list_size_(feature_list->Size()),
+        max_per_(max_per),
+        progress_monitor_(progress_monitor) {
   }
 
   kmlconvenience::FeatureList feature_list_;

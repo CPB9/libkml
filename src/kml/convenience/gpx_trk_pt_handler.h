@@ -30,11 +30,12 @@
 
 #include <cstring>  // strcmp
 #include <memory>
-#include "kml/config.h"
-#include "kml/base/attributes.h"
 #include "kml/base/expat_handler.h"
-#include "kml/base/vec3.h"
-#include "kml/base/missing/strtod.h"
+#include "kml/config.h"
+
+namespace kmlbase {
+class Vec3;
+}
 
 namespace kmlconvenience {
 
@@ -49,10 +50,9 @@ namespace kmlconvenience {
 // HandlePoint().
 class KML_EXPORT GpxTrkPtHandler : public kmlbase::ExpatHandler {
  public:
-
   // ExpatHandler::StartElement()
   virtual void StartElement(const string& name,
-                            const std::vector <string>& atts);
+                            const std::vector<string>& atts);
 
   // ExpatHandler::EndElement()
   virtual void EndElement(const string& name);
@@ -61,8 +61,8 @@ class KML_EXPORT GpxTrkPtHandler : public kmlbase::ExpatHandler {
   virtual void CharData(const string& str);
 
   // This is called for each <trkpt>.  This default implemenation does nothing.
-  virtual void HandlePoint(const kmlbase::Vec3& where,
-                           const string& when);;
+  virtual void HandlePoint(const kmlbase::Vec3& where, const string& when);
+  ;
 
  private:
   // A fresh Vec3 is created for each <trkpt>.

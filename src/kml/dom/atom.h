@@ -77,8 +77,12 @@ class KML_EXPORT AtomAuthor : public BasicElement<Type_AtomAuthor> {
 class KML_EXPORT AtomCommon : public Element {
  public:
   // <atom:id>
-  const string& get_id() const { return id_; }
-  bool has_id() const { return has_id_; }
+  const string& get_id() const {
+    return id_;
+  }
+  bool has_id() const {
+    return has_id_;
+  }
   void set_id(const string& value);
   void clear_id();
 

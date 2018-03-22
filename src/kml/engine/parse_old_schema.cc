@@ -5,7 +5,9 @@
 //
 //  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
-//  2. Redistributions in binary form must reproduce the above copyright notice,//     this list of conditions and the following disclaimer in the documentation//     and/or other materials provided with the distribution.
+//  2. Redistributions in binary form must reproduce the above copyright
+//  notice,//     this list of conditions and the following disclaimer in the
+//  documentation//     and/or other materials provided with the distribution.
 //  3. Neither the name of Google Inc. nor the names of its contributors may be
 //     used to endorse or promote products derived from this software without
 //     specific prior written permission.
@@ -26,7 +28,9 @@
 
 #include "kml/engine/parse_old_schema.h"
 #include <map>
-#include "kml/dom.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_funcs.h"
+#include "kml/dom/placemark.h"
 #include "kml/engine/engine_types.h"
 
 using kmldom::PlacemarkPtr;
@@ -48,9 +52,8 @@ bool ConvertOldSchema(const string& input_xml,
   if (gt == string::npos) {
     return false;
   }
-  const string tag_name = input_xml.substr(1, gt-1);
-  string::size_type end_tag =
-      input_xml.find(string("</" + tag_name + ">"));
+  const string tag_name = input_xml.substr(1, gt - 1);
+  string::size_type end_tag = input_xml.find(string("</" + tag_name + ">"));
   if (end_tag == string::npos) {
     return false;
   }
@@ -62,8 +65,8 @@ bool ConvertOldSchema(const string& input_xml,
   // Old <Schema> had a parent= attribute naming the element to extend, but
   // only <Placemark> was ever supported.  (And OGC KML 2.2 <Schema> has no
   // parent=.  Replace <tag>...</tag> with <Placemark>...</Placemark>).
-  *output_xml = "<Placemark>" + input_xml.substr(gt+1, end_tag - gt - 1) +
-      "</Placemark>";
+  *output_xml = "<Placemark>" + input_xml.substr(gt + 1, end_tag - gt - 1) +
+                "</Placemark>";
   return true;
 }
 

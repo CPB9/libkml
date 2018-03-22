@@ -28,33 +28,36 @@
 
 #include "kml/dom/visitor.h"
 
-#include "kml/dom/kmldom.h"
+#include "kml/dom/element.h"
 #include "kml/dom/kml_cast.h"
+#include "kml/dom/visitor.h"
 
 namespace kmldom {
 
-VisitorDriver::VisitorDriver() { }
+VisitorDriver::VisitorDriver() {
+}
 
-VisitorDriver::~VisitorDriver() { }
-
+VisitorDriver::~VisitorDriver() {
+}
 
 SimplePreorderDriver::SimplePreorderDriver(Visitor* visitor)
     : visitor_(visitor) {
 }
 
-SimplePreorderDriver::~SimplePreorderDriver() { }
+SimplePreorderDriver::~SimplePreorderDriver() {
+}
 
 void SimplePreorderDriver::Visit(const ElementPtr& element) {
   element->Accept(visitor_);
   element->AcceptChildren(this);
 }
 
-
 SimplePostorderDriver::SimplePostorderDriver(Visitor* visitor)
     : visitor_(visitor) {
 }
 
-SimplePostorderDriver::~SimplePostorderDriver() { }
+SimplePostorderDriver::~SimplePostorderDriver() {
+}
 
 void SimplePostorderDriver::Visit(const ElementPtr& element) {
   element->AcceptChildren(this);

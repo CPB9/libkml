@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the ExtendedData, SimpleData,
@@ -32,6 +32,7 @@
 #include "kml/dom/kml_cast.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/serializer.h"
+#include "kml/dom/visitor.h"
 #include "kml/dom/xsd.h"
 
 using kmlbase::Attributes;
@@ -39,13 +40,12 @@ using kmlbase::Attributes;
 namespace kmldom {
 
 // <SimpleData>
-SimpleData::SimpleData()
-  : has_name_(false),
-    has_text_(false) {
+SimpleData::SimpleData() : has_name_(false), has_text_(false) {
   set_xmlns(kmlbase::XMLNS_KML22);
 }
 
-SimpleData::~SimpleData() {}
+SimpleData::~SimpleData() {
+}
 
 static const char kSimpleDataName[] = "name";
 
@@ -89,12 +89,12 @@ void SimpleData::Accept(Visitor* visitor) {
 }
 ///////////////////////////////////////////////
 // <GxSimpleArrayData>
-GxSimpleArrayData::GxSimpleArrayData()
-  : has_name_(false) {
+GxSimpleArrayData::GxSimpleArrayData() : has_name_(false) {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxSimpleArrayData::~GxSimpleArrayData() {}
+GxSimpleArrayData::~GxSimpleArrayData() {
+}
 
 static const char kGxSimpleArrayDataName[] = "name";
 
@@ -136,8 +136,7 @@ void GxSimpleArrayData::Accept(Visitor* visitor) {
 }
 
 // <SchemaData>
-SchemaData::SchemaData()
-  : has_schemaurl_(false) {
+SchemaData::SchemaData() : has_schemaurl_(false) {
   set_xmlns(kmlbase::XMLNS_KML22);
 }
 
@@ -198,14 +197,12 @@ void SchemaData::AcceptChildren(VisitorDriver* driver) {
 }
 
 // <Data>
-Data::Data()
-  : has_name_(false),
-    has_displayname_(false),
-    has_value_(false) {
+Data::Data() : has_name_(false), has_displayname_(false), has_value_(false) {
   set_xmlns(kmlbase::XMLNS_KML22);
 }
 
-Data::~Data() {}
+Data::~Data() {
+}
 
 static const char kDataName[] = "name";
 
@@ -308,178 +305,216 @@ void Metadata::Accept(Visitor* visitor) {
   visitor->VisitMetadata(MetadataPtr(this));
 }
 
+const std::__cxx11::string& SimpleData::get_name() const {
+  return name_;
+}
 
-const std::__cxx11::string& SimpleData::get_name() const{ return name_; }
+bool SimpleData::has_name() const {
+  return has_name_;
+}
 
-bool SimpleData::has_name() const{ return has_name_; }
+void SimpleData::set_name(const std::__cxx11::string& value) {
+  name_ = value;
+  has_name_ = true;
+}
 
-void SimpleData::set_name(const std::__cxx11::string& value){
-   name_ = value;
-   has_name_ = true;
- }
+void SimpleData::clear_name() {
+  name_.clear();
+  has_name_ = false;
+}
 
-void SimpleData::clear_name(){
-   name_.clear();
-   has_name_ = false;
- }
+const std::__cxx11::string& SimpleData::get_text() const {
+  return text_;
+}
 
-const std::__cxx11::string& SimpleData::get_text() const{ return text_; }
+bool SimpleData::has_text() const {
+  return has_text_;
+}
 
-bool SimpleData::has_text() const{ return has_text_; }
+void SimpleData::set_text(const std::__cxx11::string& value) {
+  text_ = value;
+  has_text_ = true;
+}
 
-void SimpleData::set_text(const std::__cxx11::string& value){
-   text_ = value;
-   has_text_ = true;
- }
+void SimpleData::clear_text() {
+  text_.clear();
+  has_text_ = false;
+}
 
-void SimpleData::clear_text(){
-   text_.clear();
-   has_text_ = false;
- }
+const std::__cxx11::string& GxSimpleArrayData::get_name() const {
+  return name_;
+}
 
-const std::__cxx11::string& GxSimpleArrayData::get_name() const{ return name_; }
+bool GxSimpleArrayData::has_name() const {
+  return has_name_;
+}
 
-bool GxSimpleArrayData::has_name() const{ return has_name_; }
+void GxSimpleArrayData::set_name(const std::__cxx11::string& value) {
+  name_ = value;
+  has_name_ = true;
+}
 
-void GxSimpleArrayData::set_name(const std::__cxx11::string& value){
-   name_ = value;
-   has_name_ = true;
- }
+void GxSimpleArrayData::clear_name() {
+  name_.clear();
+  has_name_ = false;
+}
 
-void GxSimpleArrayData::clear_name(){
-   name_.clear();
-   has_name_ = false;
- }
+void GxSimpleArrayData::add_gx_value(const std::__cxx11::string& value) {
+  gx_value_array_.push_back(value);
+}
 
-void GxSimpleArrayData::add_gx_value(const std::__cxx11::string& value){
-   gx_value_array_.push_back(value);
- }
+size_t GxSimpleArrayData::get_gx_value_array_size() const {
+  return gx_value_array_.size();
+}
 
-size_t GxSimpleArrayData::get_gx_value_array_size() const{
-   return gx_value_array_.size();
- }
+const std::__cxx11::string& GxSimpleArrayData::get_gx_value_array_at(
+    size_t index) const {
+  return gx_value_array_[index];
+}
 
-const std::__cxx11::string& GxSimpleArrayData::get_gx_value_array_at(size_t index) const{
-   return gx_value_array_[index];
- }
+kmldom::KmlDomType SchemaData::Type() const {
+  return ElementType();
+}
 
-kmldom::KmlDomType SchemaData::Type() const{ return ElementType(); }
+bool SchemaData::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || Object::IsA(type);
+}
 
-bool SchemaData::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || Object::IsA(type);
- }
+kmldom::KmlDomType SchemaData::ElementType() {
+  return Type_SchemaData;
+}
 
-kmldom::KmlDomType SchemaData::ElementType(){ return Type_SchemaData; }
+const std::__cxx11::string& SchemaData::get_schemaurl() const {
+  return schemaurl_;
+}
 
-const std::__cxx11::string& SchemaData::get_schemaurl() const{ return schemaurl_; }
+bool SchemaData::has_schemaurl() const {
+  return has_schemaurl_;
+}
 
-bool SchemaData::has_schemaurl() const{ return has_schemaurl_; }
+void SchemaData::set_schemaurl(const std::__cxx11::string& value) {
+  schemaurl_ = value;
+  has_schemaurl_ = true;
+}
 
-void SchemaData::set_schemaurl(const std::__cxx11::string& value){
-   schemaurl_ = value;
-   has_schemaurl_ = true;
- }
+void SchemaData::clear_schemaurl() {
+  schemaurl_.clear();
+  has_schemaurl_ = false;
+}
 
-void SchemaData::clear_schemaurl(){
-   schemaurl_.clear();
-   has_schemaurl_ = false;
- }
+void SchemaData::add_simpledata(const SimpleDataPtr& simpledata) {
+  AddComplexChild(simpledata, &simpledata_array_);
+}
 
-void SchemaData::add_simpledata(const SimpleDataPtr& simpledata){
-   AddComplexChild(simpledata, &simpledata_array_);
- }
+size_t SchemaData::get_simpledata_array_size() const {
+  return simpledata_array_.size();
+}
 
-size_t SchemaData::get_simpledata_array_size() const{
-   return simpledata_array_.size();
- }
+const SimpleDataPtr& SchemaData::get_simpledata_array_at(size_t index) const {
+  return simpledata_array_[index];
+}
 
-const SimpleDataPtr& SchemaData::get_simpledata_array_at(size_t index) const{
-   return simpledata_array_[index];
- }
+void SchemaData::add_gx_simplearraydata(
+    const GxSimpleArrayDataPtr& gx_simplearraydata) {
+  AddComplexChild(gx_simplearraydata, &gx_simplearraydata_array_);
+}
 
-void SchemaData::add_gx_simplearraydata(const GxSimpleArrayDataPtr& gx_simplearraydata){
-   AddComplexChild(gx_simplearraydata, &gx_simplearraydata_array_);
- }
+size_t SchemaData::get_gx_simplearraydata_array_size() const {
+  return gx_simplearraydata_array_.size();
+}
 
-size_t SchemaData::get_gx_simplearraydata_array_size() const{
-   return gx_simplearraydata_array_.size();
- }
+const GxSimpleArrayDataPtr& SchemaData::get_gx_simplearraydata_array_at(
+    size_t index) const {
+  return gx_simplearraydata_array_[index];
+}
 
-const GxSimpleArrayDataPtr& SchemaData::get_gx_simplearraydata_array_at(size_t index) const{
-   return gx_simplearraydata_array_[index];
- }
+kmldom::KmlDomType Data::Type() const {
+  return ElementType();
+}
 
-kmldom::KmlDomType Data::Type() const{ return ElementType(); }
+bool Data::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || Object::IsA(type);
+}
 
-bool Data::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || Object::IsA(type);
- }
+kmldom::KmlDomType Data::ElementType() {
+  return Type_Data;
+}
 
-kmldom::KmlDomType Data::ElementType(){ return Type_Data; }
+const std::__cxx11::string& Data::get_name() const {
+  return name_;
+}
 
-const std::__cxx11::string& Data::get_name() const{ return name_; }
+bool Data::has_name() const {
+  return has_name_;
+}
 
-bool Data::has_name() const{ return has_name_; }
+void Data::set_name(const std::__cxx11::string& value) {
+  name_ = value;
+  has_name_ = true;
+}
 
-void Data::set_name(const std::__cxx11::string& value){
-   name_ = value;
-   has_name_ = true;
- }
+void Data::clear_name() {
+  name_.clear();
+  has_name_ = false;
+}
 
-void Data::clear_name(){
-   name_.clear();
-   has_name_ = false;
- }
+const std::__cxx11::string& Data::get_displayname() const {
+  return displayname_;
+}
 
-const std::__cxx11::string& Data::get_displayname() const{ return displayname_; }
+bool Data::has_displayname() const {
+  return has_displayname_;
+}
 
-bool Data::has_displayname() const{ return has_displayname_; }
+void Data::set_displayname(const std::__cxx11::string& value) {
+  displayname_ = value;
+  has_displayname_ = true;
+}
 
-void Data::set_displayname(const std::__cxx11::string& value){
-   displayname_ = value;
-   has_displayname_ = true;
- }
+void Data::clear_displayname() {
+  displayname_.clear();
+  has_displayname_ = false;
+}
 
-void Data::clear_displayname(){
-   displayname_.clear();
-   has_displayname_ = false;
- }
+const std::__cxx11::string& Data::get_value() const {
+  return value_;
+}
 
-const std::__cxx11::string& Data::get_value() const{ return value_; }
+bool Data::has_value() const {
+  return has_value_;
+}
 
-bool Data::has_value() const{ return has_value_; }
+void Data::set_value(const std::__cxx11::string& value) {
+  value_ = value;
+  has_value_ = true;
+}
 
-void Data::set_value(const std::__cxx11::string& value){
-   value_ = value;
-   has_value_ = true;
- }
+void Data::clear_value() {
+  value_.clear();
+  has_value_ = false;
+}
 
-void Data::clear_value(){
-   value_.clear();
-   has_value_ = false;
- }
+void ExtendedData::add_data(const DataPtr& data) {
+  AddComplexChild(data, &data_array_);
+}
 
-void ExtendedData::add_data(const DataPtr& data){
-   AddComplexChild(data, &data_array_);
- }
+size_t ExtendedData::get_data_array_size() const {
+  return data_array_.size();
+}
 
-size_t ExtendedData::get_data_array_size() const{
-   return data_array_.size();
- }
+const DataPtr& ExtendedData::get_data_array_at(size_t index) const {
+  return data_array_[index];
+}
 
-const DataPtr& ExtendedData::get_data_array_at(size_t index) const{
-   return data_array_[index];
- }
+void ExtendedData::add_schemadata(const SchemaDataPtr& schemadata) {
+  AddComplexChild(schemadata, &schemadata_array_);
+}
 
-void ExtendedData::add_schemadata(const SchemaDataPtr& schemadata){
-   AddComplexChild(schemadata, &schemadata_array_);
- }
+size_t ExtendedData::get_schemadata_array_size() const {
+  return schemadata_array_.size();
+}
 
-size_t ExtendedData::get_schemadata_array_size() const{
-   return schemadata_array_.size();
- }
-
-const SchemaDataPtr& ExtendedData::get_schemadata_array_at(size_t index) const{
-   return schemadata_array_[index];
- }
+const SchemaDataPtr& ExtendedData::get_schemadata_array_at(size_t index) const {
+  return schemadata_array_[index];
+}
 }  // end namespace kmldom

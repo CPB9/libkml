@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,21 +13,25 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the internal StyleMerger class
 // used in style resolution.
 
 #include "kml/engine/style_merger.h"
-#include "kml/dom.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/style.h"
+#include "kml/dom/stylemap.h"
 #include "kml/engine/engine_constants.h"
 #include "kml/engine/kml_cache.h"
 #include "kml/engine/kml_file.h"
@@ -37,8 +41,8 @@
 using kmldom::FeaturePtr;
 using kmldom::KmlFactory;
 using kmldom::PairPtr;
-using kmldom::StylePtr;
 using kmldom::StyleMapPtr;
+using kmldom::StylePtr;
 using kmldom::StyleSelectorPtr;
 using kmldom::StyleStateEnum;
 
@@ -46,8 +50,7 @@ namespace kmlengine {
 
 // TODO: verify unsigned int to int init of nesting_depth_ ok on MSVC
 StyleMerger::StyleMerger(const SharedStyleMap& shared_style_map,
-                         KmlCache* kml_cache,
-                         const string& base_url,
+                         KmlCache* kml_cache, const string& base_url,
                          StyleStateEnum style_state)
     : shared_style_map_(shared_style_map),
       kml_cache_(kml_cache),
@@ -59,10 +62,8 @@ StyleMerger::StyleMerger(const SharedStyleMap& shared_style_map,
 
 // TODO: verify unsigned int to int init of nesting_depth_ ok on MSVC
 StyleMerger::StyleMerger(const SharedStyleMap& shared_style_map,
-                         KmlCache* kml_cache,
-                         const string& base_url,
-                         StyleStateEnum style_state,
-                         unsigned int nesting_depth)
+                         KmlCache* kml_cache, const string& base_url,
+                         StyleStateEnum style_state, unsigned int nesting_depth)
     : shared_style_map_(shared_style_map),
       kml_cache_(kml_cache),
       base_url_(base_url),
@@ -75,8 +76,7 @@ StyleMerger::StyleMerger(const SharedStyleMap& shared_style_map,
 StyleMerger* StyleMerger::CreateFromKmlFile(
     const KmlFile& kml_file, kmldom::StyleStateEnum style_state) {
   return new StyleMerger(kml_file.get_shared_style_map(),
-                         kml_file.get_kml_cache(),
-                         kml_file.get_url(),
+                         kml_file.get_kml_cache(), kml_file.get_url(),
                          style_state);
 }
 
@@ -162,12 +162,11 @@ void StyleMerger::MergeStyleSelector(const StyleSelectorPtr& styleselector) {
   }
 }
 
+const kmldom::StylePtr& StyleMerger::GetResolvedStyle() const {
+  return resolved_style_;
+}
 
-const kmldom::StylePtr& StyleMerger::GetResolvedStyle() const{
-   return resolved_style_;
- }
-
-int StyleMerger::get_nesting_depth() const{
-   return nesting_depth_;
- }
-}  // endnamespace kmlengine
+int StyleMerger::get_nesting_depth() const {
+  return nesting_depth_;
+}
+}  // namespace kmlengine

@@ -27,7 +27,11 @@
 // VisitFeatureHierarchy() functions.
 
 #include "kml/engine/feature_visitor.h"
-#include "kml/dom.h"
+#include "kml/dom/container.h"
+#include "kml/dom/element.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml.h"
+#include "kml/dom/kml_cast.h"
 
 using kmldom::ContainerPtr;
 using kmldom::ElementPtr;
@@ -58,8 +62,10 @@ void VisitFeatureHierarchy(const FeaturePtr& feature,
   }
 }
 
-void FeatureVisitor::VisitFeature(const kmldom::FeaturePtr& feature){}
+void FeatureVisitor::VisitFeature(const kmldom::FeaturePtr& feature) {
+}
 
-FeatureVisitor::~FeatureVisitor(){}
+FeatureVisitor::~FeatureVisitor() {
+}
 
 }  // end namespace kmlengine

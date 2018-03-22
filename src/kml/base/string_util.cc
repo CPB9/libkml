@@ -26,26 +26,24 @@
 // This file contains the declarations of various string utility functions.
 
 #include "kml/base/string_util.h"
-#include "kml/base/missing/strtod.h"
 #include <stdlib.h>  // malloc, free
 #include <string.h>  // memcpy, strchr
+#include "kml/base/missing/strtod.h"
 
 namespace kmlbase {
 
 void b2a_hex(uint32_t i, char* out) {
-  char map[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                  'a', 'b', 'c', 'd', 'e', 'f'};
+  char map[16] = {'0', '1', '2', '3', '4', '5', '6', '7',
+                  '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
   out[0] = map[(i >> 4) & 0xf];
-  out[1] = map[(i) & 0xf];
+  out[1] = map[(i)&0xf];
 }
 
-string CreateExpandedStrings(const string& in,
-                             const StringMap& string_map,
-                             const string& start,
-                             const string& end) {
+string CreateExpandedStrings(const string& in, const StringMap& string_map,
+                             const string& start, const string& end) {
   string out(in);
   StringMap::const_iterator itr = string_map.begin();
-  for (itr = string_map.begin(); itr != string_map.end(); ++itr)  {
+  for (itr = string_map.begin(); itr != string_map.end(); ++itr) {
     string candidate(start + itr->first + end);
     size_t start_pos = out.find(candidate);
     while (start_pos != string::npos) {
@@ -67,36 +65,35 @@ void SplitStringUsing(const string& input, const string& split_string,
   size_t separator;
   while ((separator = iter.find(split_string)) != string::npos) {
     output->push_back(iter.substr(0, separator));
-    iter = iter.substr(separator+1);
+    iter = iter.substr(separator + 1);
   }
   output->push_back(iter);
 }
 
-template<>
+template <>
 void FromString(const string& str, bool* out) {
   if (out) {
     size_t skip_ws = SkipLeadingWhitespaceString(str);
-    *out = (str.compare(skip_ws, 4, "true") == 0)
-            || (str.compare(skip_ws, 1, "1") == 0);
+    *out = (str.compare(skip_ws, 4, "true") == 0) ||
+           (str.compare(skip_ws, 1, "1") == 0);
   }
 }
 
-
-template<>
+template <>
 void FromString(const string& str, double* out) {
   if (out) {
     *out = kml_strtod(str.c_str(), NULL);
   }
 }
 
-template<>
+template <>
 void FromString(const string& str, int* out) {
   if (out) {
     *out = atoi(str.c_str());
   }
 }
 
-template<>
+template <>
 void FromString(const string& str, string* out) {
   if (out) {
     *out = str;
@@ -115,7 +112,7 @@ bool StringEndsWith(const string& str, const string& end) {
 
 bool StringCaseEqual(const string& a, const string& b) {
 #ifdef WIN32
-# define strncasecmp(s1, s2, n) _strnicmp (s1, s2, n)
+#define strncasecmp(s1, s2, n) _strnicmp(s1, s2, n)
 #endif
   return a.size() == b.size() && strncasecmp(a.data(), b.data(), a.size()) == 0;
 }
@@ -166,7 +163,7 @@ void SplitQuotedUsing(const char* input, size_t nbytes, const char delimiter,
     return;
   }
   // Copy the line to a buffer we can write into.
-  char *copy = (char*)malloc(nbytes + 1);
+  char* copy = (char*)malloc(nbytes + 1);
   memcpy(copy, static_cast<const void*>(input), nbytes);
   copy[nbytes] = 0;
 
@@ -176,10 +173,9 @@ void SplitQuotedUsing(const char* input, size_t nbytes, const char delimiter,
   const char* end_of_line = copy + nbytes;
   for (char* line = copy; line < end_of_line; line++) {
     // Skip leading whitespace, unless said whitespace is the delimiter.
-    while (isspace(*line) && *line != delimiter)
-      ++line;
+    while (isspace(*line) && *line != delimiter) ++line;
 
-    if (*line == '"' && delimiter == ',') {     // Quoted value...
+    if (*line == '"' && delimiter == ',') {  // Quoted value...
       start = ++line;
       end = start;
       for (; *line; line++) {
@@ -199,20 +195,19 @@ void SplitQuotedUsing(const char* input, size_t nbytes, const char delimiter,
       line = strchr(line, delimiter);
       if (!line) line = const_cast<char*>(end_of_line);
       // Skip all trailing whitespace, unless said whitespace is the delimiter.
-      for (end = line;
-           end > start && isspace(end[-1]) && end[-1] != delimiter; --end)
+      for (end = line; end > start && isspace(end[-1]) && end[-1] != delimiter;
+           --end)
         ;
     }
     const bool need_another_column =
-      (*line == delimiter) && (line == end_of_line - 1);
+        (*line == delimiter) && (line == end_of_line - 1);
     *end = '\0';
     cols->push_back(start);
     // If line was something like [paul,] (comma is the last character
     // and is not proceeded by whitespace or quote) then we are about
     // to eliminate the last column (which is empty). This would be
     // incorrect.
-    if (need_another_column)
-      cols->push_back(end);
+    if (need_another_column) cols->push_back(end);
   }
   free(copy);
 }

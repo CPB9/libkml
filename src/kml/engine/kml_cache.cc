@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,20 +13,21 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the KmlCache class.
 
 #include "kml/engine/kml_cache.h"
 #include <memory>
+#include "kml/base/net_cache.h"
 #include "kml/engine/kml_file.h"
 #include "kml/engine/kml_uri_internal.h"
 #include "kml/engine/kmz_cache.h"
@@ -36,6 +37,9 @@ namespace kmlengine {
 KmlCache::KmlCache(kmlbase::NetFetcher* net_fetcher, size_t max_size) {
   kml_file_cache_.reset(new KmlFileNetCache(net_fetcher, max_size));
   kmz_file_cache_.reset(new KmzCache(net_fetcher, max_size));
+}
+
+KmlCache::~KmlCache() {
 }
 
 KmlFilePtr KmlCache::FetchKmlRelative(const string& base,
@@ -73,8 +77,7 @@ KmlFilePtr KmlCache::FetchKmlAbsolute(const string& kml_uri) {
   return FetchKmlRelative(kml_uri, kml_uri);
 }
 
-bool KmlCache::FetchDataRelative(const string& base,
-                                 const string& target,
+bool KmlCache::FetchDataRelative(const string& base, const string& target,
                                  string* data) {
   std::unique_ptr<KmlUri> kml_uri(KmlUri::CreateRelative(base, target));
   // KmzCache::Fetch has NULL pointer check.

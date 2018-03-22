@@ -39,7 +39,7 @@
 #endif
 
 #ifndef DATADIR
-#error *** DATADIR must be defined! ***
+#error*** DATADIR must be defined! ***
 #endif
 
 namespace kmlbase {
@@ -55,9 +55,8 @@ class TestDataNetFetcher : public NetFetcher {
     // If the URI parse succeeds, and a data buffer was provided, and the
     // URI has a path, and the file system read succeeds return true.
     return uri_parser.get() && data && uri_parser->GetPath(&path) &&
-           kmlbase::File::ReadFileToString(kmlbase::File::JoinPaths(DATADIR,
-                                                                    path),
-                                           data);
+           kmlbase::File::ReadFileToString(
+               kmlbase::File::JoinPaths(DATADIR, path), data);
   }
 };
 

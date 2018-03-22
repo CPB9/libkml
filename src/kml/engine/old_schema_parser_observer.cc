@@ -24,29 +24,37 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/engine/old_schema_parser_observer.h"
+#include "kml/dom/container.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/placemark.h"
+#include "kml/engine/parse_old_schema.h"
 
 namespace kmlengine {
 
-OldSchemaParserObserver::OldSchemaParserObserver(const SchemaNameMap& schema_name_map)
-    : schema_name_map_(schema_name_map) {}
-OldSchemaParserObserver::~OldSchemaParserObserver(){}
-
-bool OldSchemaParserObserver::AddChild(const kmldom::ElementPtr& parent, const kmldom::ElementPtr& child){
-   if (kmldom::ContainerPtr container = kmldom::AsContainer(child)) {
-     size_t size = container->get_unknown_elements_array_size();
-     for (size_t i = 0; i < size; ++i) {
-       string errors;
-       // TODO: this can fail if the original pass through had CDATA sections
-       // in <description>, for example, which were stripped going into the
-       // unknown elements array.
-       if (kmldom::PlacemarkPtr placemark = ParseOldSchema(
-           container->get_unknown_elements_array_at(i),
-           schema_name_map_, &errors)) {
-         container->add_feature(placemark);
-         // TODO: container->delete_unknown_elements_array_at(i)
-       }  // TODO: else terminate the parse and emit the error.
-     }
-   }
-   return true;  // Keep parsing.
- }
+OldSchemaParserObserver::OldSchemaParserObserver(
+    const SchemaNameMap& schema_name_map)
+    : schema_name_map_(schema_name_map) {
 }
+OldSchemaParserObserver::~OldSchemaParserObserver() {
+}
+
+bool OldSchemaParserObserver::AddChild(const kmldom::ElementPtr& parent,
+                                       const kmldom::ElementPtr& child) {
+  if (kmldom::ContainerPtr container = kmldom::AsContainer(child)) {
+    size_t size = container->get_unknown_elements_array_size();
+    for (size_t i = 0; i < size; ++i) {
+      string errors;
+      // TODO: this can fail if the original pass through had CDATA sections
+      // in <description>, for example, which were stripped going into the
+      // unknown elements array.
+      if (kmldom::PlacemarkPtr placemark =
+              ParseOldSchema(container->get_unknown_elements_array_at(i),
+                             schema_name_map_, &errors)) {
+        container->add_feature(placemark);
+        // TODO: container->delete_unknown_elements_array_at(i)
+      }  // TODO: else terminate the parse and emit the error.
+    }
+  }
+  return true;  // Keep parsing.
+}
+}  // namespace kmlengine

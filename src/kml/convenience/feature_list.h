@@ -29,9 +29,13 @@
 #define KML_CONVENIENCE_FEATURE_LIST_H__
 
 #include <list>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
-#include "kml/engine.h"
+#include "kml/dom/kml_ptr.h"
+
+namespace kmlengine {
+class Bbox;
+}
 
 namespace kmlconvenience {
 
@@ -41,7 +45,8 @@ KML_EXPORT int GetFeatureScore(kmldom::FeaturePtr feature);
 
 // This sets the value of the "Score" data element as described above.
 // This uses SetExtendedDataValue().
-KML_EXPORT void SetFeatureScore(const string& score, kmldom::FeaturePtr feature);
+KML_EXPORT void SetFeatureScore(const string& score,
+                                kmldom::FeaturePtr feature);
 
 // STL list has constant time erase.
 typedef std::list<kmldom::FeaturePtr> feature_list_t;

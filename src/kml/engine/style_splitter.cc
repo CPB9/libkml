@@ -27,13 +27,20 @@
 // SplitStyles function.
 
 #include "kml/engine/style_splitter.h"
-#include "kml/engine/style_splitter_internal.h"
 #include <map>
 #include "kml/base/string_util.h"
-#include "kml/dom.h"
+#include "kml/dom/document.h"
+#include "kml/dom/element.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/parser.h"
 #include "kml/dom/parser_observer.h"
+#include "kml/dom/style.h"
+#include "kml/dom/stylemap.h"
+#include "kml/dom/styleselector.h"
 #include "kml/engine/engine_types.h"
 #include "kml/engine/merge.h"
+#include "kml/engine/style_splitter_internal.h"
 
 namespace kmlengine {
 
@@ -71,21 +78,19 @@ kmldom::StyleSelectorPtr StyleSplitter::CreateStyleSelector(
 }
 
 bool StyleSplitter::EndElement(const kmldom::ElementPtr& parent,
-                        const kmldom::ElementPtr& child) {
+                               const kmldom::ElementPtr& child) {
   // If we're not in <Update> and the child is a StyleSelector...
   if (!in_update_ && document_ && child->IsA(kmldom::Type_StyleSelector)) {
     // ...and the parent is a Feature, but not a <Document>...
     if (kmldom::FeaturePtr feature = AsNonDocumentFeature(parent)) {
       // ...and the feature does _not_ have a <styleUrl>...
       if (!feature->has_styleurl()) {
-        const string style_id(
-            CreateUniqueId(*shared_style_map_, id_counter_));
+        const string style_id(CreateUniqueId(*shared_style_map_, id_counter_));
         // ...and this id does not collide:
         if (shared_style_map_->find(style_id) == shared_style_map_->end()) {
           ++id_counter_;  // Bump the id counter only if it was used.
           // Create an empty StyleSelector of the child's type and set the id.
-          kmldom::StyleSelectorPtr shared =
-              CreateStyleSelector(child->Type());
+          kmldom::StyleSelectorPtr shared = CreateStyleSelector(child->Type());
           shared->set_id(style_id);
           // Merge the children from child into the new StyleSelector.
           kmlengine::MergeElements(child, shared);
@@ -108,8 +113,7 @@ bool StyleSplitter::EndElement(const kmldom::ElementPtr& parent,
   return true;  // Proceed to add this child to this parent.
 }
 
-kmldom::ElementPtr SplitStyles(const string& input_kml,
-                               string* errors) {
+kmldom::ElementPtr SplitStyles(const string& input_kml, string* errors) {
   SharedStyleMap shared_style_map;
   StyleSplitter style_splitter(&shared_style_map);
   kmldom::Parser parser;

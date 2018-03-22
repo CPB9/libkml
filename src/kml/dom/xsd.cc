@@ -26,8 +26,8 @@
 // This file implements the internal Xsd class specifically for KML 2.2.
 
 #include "kml/dom/xsd.h"
-#include "kml/dom/kml22.h"
 #include "kml/dom/kml22.cc"
+#include "kml/dom/kml22.h"
 
 namespace kmldom {
 
@@ -80,13 +80,12 @@ XsdType Xsd::ElementType(int id) const {
 }
 
 int Xsd::EnumId(int type_id, string enum_value) const {
-  const int size = sizeof(kKml22Enums)/sizeof(XsdSimpleTypeEnum);
+  const int size = sizeof(kKml22Enums) / sizeof(XsdSimpleTypeEnum);
   for (int i = 0; i < size; ++i) {
     XsdSimpleTypeEnum* simple = kKml22Enums + i;
     if (simple->type_id == type_id) {
       for (const char** enum_value_item = simple->enum_value_list;
-           *enum_value_item;
-           ++enum_value_item) {
+           *enum_value_item; ++enum_value_item) {
         if (*enum_value_item == enum_value) {
           // enum id is simple offset into enum_value_list;
           return static_cast<int>(enum_value_item - simple->enum_value_list);
@@ -112,6 +111,5 @@ string Xsd::EnumValue(int type_id, int enum_id) const {
   }
   return string();
 }
-
 
 }  // end namespace kmldom

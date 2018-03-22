@@ -37,15 +37,13 @@ namespace kmlconvenience {
 class OneFileHttpClient : public HttpClient {
  public:
   OneFileHttpClient(const string& fetch_me)
-    : HttpClient("OneFileHttpClient"),
-      fetch_me_(fetch_me) {
+      : HttpClient("OneFileHttpClient"), fetch_me_(fetch_me) {
   }
 
   virtual bool SendRequest(HttpMethodEnum http_method,
                            const string& request_uri,
                            const StringPairVector* request_headers,
-                           const string* post_data,
-                           string* response) const {
+                           const string* post_data, string* response) const {
     return kmlbase::File::ReadFileToString(fetch_me_, response);
   }
 
@@ -65,15 +63,13 @@ typedef std::vector<HttpRequest> HttpRequestVector;
 class LoggingHttpClient : public HttpClient {
  public:
   LoggingHttpClient(HttpRequestVector* request_log)
-    : HttpClient("LoggingHttpClient"),
-      request_log_(request_log) {
+      : HttpClient("LoggingHttpClient"), request_log_(request_log) {
   }
 
   virtual bool SendRequest(HttpMethodEnum http_method,
                            const string& request_uri,
                            const StringPairVector* request_headers,
-                           const string* post_data,
-                           string* response) const {
+                           const string* post_data, string* response) const {
     HttpRequest http_request;
     http_request.http_method_ = http_method;
     http_request.request_uri_ = request_uri;
@@ -95,16 +91,15 @@ class LoggingHttpClient : public HttpClient {
 // reads the testdata file named by the path portion of the URI.
 class TestDataHttpClient : public HttpClient {
  public:
-  TestDataHttpClient()
-    : HttpClient("TestDataHttpClient") {
+  TestDataHttpClient() : HttpClient("TestDataHttpClient") {
   }
   virtual bool SendRequest(HttpMethodEnum http_method,
                            const string& request_uri,
                            const StringPairVector* request_headers,
-                           const string* post_data,
-                           string* response) const {
+                           const string* post_data, string* response) const {
     return test_data_net_fetcher_.FetchUrl(request_uri, response);
   }
+
  private:
   kmlbase::TestDataNetFetcher test_data_net_fetcher_;
 };

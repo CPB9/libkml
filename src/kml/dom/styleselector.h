@@ -27,9 +27,9 @@
 #define KML_DOM_STYLESELECTOR_H__
 
 #include <vector>
-#include "kml/dom/object.h"
-#include "kml/dom/kml22.h"
 #include "kml/base/util.h"
+#include "kml/dom/kml22.h"
+#include "kml/dom/object.h"
 
 namespace kmldom {
 
@@ -48,4 +48,4 @@ class KML_EXPORT StyleSelector : public Object {
 
 }  // end namespace kmldom
 
-#endif // KML_DOM_STYLESELECTOR_H__
+#endif  // KML_DOM_STYLESELECTOR_H__

@@ -33,8 +33,6 @@
 #include "kml/dom/geometry.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/link.h"
-#include "kml/dom/object.h"
 
 namespace kmldom {
 

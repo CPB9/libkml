@@ -31,15 +31,15 @@
 #include <map>
 #include <sstream>
 #include <vector>
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
 typedef std::map<string, string> StringMap;
 typedef std::map<string, string>::value_type StringPair;
 typedef std::vector<string> StringVector;
-typedef std::vector< std::pair<string, string> > StringPairVector;
+typedef std::vector<std::pair<string, string> > StringPairVector;
 
 // Binary-to-ASCII hex conversion.
 void KML_EXPORT b2a_hex(uint32_t i, char* out);
@@ -49,8 +49,7 @@ void KML_EXPORT b2a_hex(uint32_t i, char* out);
 // map presently used internally may be replaced with a hash map, for example.
 class StringMapIterator {
  public:
-  StringMapIterator(const StringMap& map)
-    : map_(map), iter_(map.begin()) {
+  StringMapIterator(const StringMap& map) : map_(map), iter_(map.begin()) {
   }
 
   StringPair Data() const {
@@ -80,16 +79,15 @@ class StringMapIterator {
 // end: "]"
 // replaced string: "this is your cooler string"
 KML_EXPORT string CreateExpandedStrings(const string& in,
-                             const StringMap& string_map,
-                             const string& start,
-                             const string& end);
+                                        const StringMap& string_map,
+                                        const string& start, const string& end);
 
 // This converts from string to any T of int, bool or double.
-template<typename T>
+template <typename T>
 void FromString(const string& in, T* out);
 
 // This converts to string from any T of int, bool or double.
-template<typename T>
+template <typename T>
 inline string ToString(T value) {
   std::stringstream ss;
   ss.precision(15);
@@ -99,8 +97,9 @@ inline string ToString(T value) {
 
 // Split the input string on the split_string saving each string into the
 // output vector.
-KML_EXPORT void SplitStringUsing(const string& input, const string& split_string,
-                      std::vector<string>* output);
+KML_EXPORT void SplitStringUsing(const string& input,
+                                 const string& split_string,
+                                 std::vector<string>* output);
 
 // This processes the given "-escaped string as specified here:
 //   http://www.gdal.org/ogr/drv_csv.html
@@ -108,10 +107,12 @@ KML_EXPORT void SplitStringUsing(const string& input, const string& split_string
 // ["The ""big"" cheese."] -> [The "big" cheese.]
 // ["First point"] -> [First point]
 // ["White Bear Lake, MN, USA"] -> [White Bear Lake, MN, USA]
-KML_EXPORT void SplitQuotedUsing(const char* begin, size_t nbytes,const char split_char,
-                             std::vector<string>* output);
-KML_EXPORT void SplitQuotedUsingFromString(const string& input, const char split_char,
-                             std::vector<string>* output);
+KML_EXPORT void SplitQuotedUsing(const char* begin, size_t nbytes,
+                                 const char split_char,
+                                 std::vector<string>* output);
+KML_EXPORT void SplitQuotedUsingFromString(const string& input,
+                                           const char split_char,
+                                           std::vector<string>* output);
 
 // Returns true if end appears at the end of str.  Returns false if either of
 // str or end are empty or if end is longer than str.

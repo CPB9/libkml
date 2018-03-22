@@ -26,23 +26,20 @@
 #ifndef KML_BASE_FILE_H__
 #define KML_BASE_FILE_H__
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
 class KML_EXPORT File {
  public:
-
   // Reads a file into a string. Returns false if given a bad file descriptor
   // or if the file could not be opened. output is unmodified on failure.
-  static bool ReadFileToString(const string& filename,
-                               string* output);
+  static bool ReadFileToString(const string& filename, string* output);
 
   // Writes a string into a file. Returns false if the target file could
   // not be created and opened for writing.
-  static bool WriteStringToFile(const string& data,
-                                const string& filename);
+  static bool WriteStringToFile(const string& data, const string& filename);
 
   // Returns true if the file exists.
   static bool Exists(const string& full_path);
@@ -66,8 +63,7 @@ class KML_EXPORT File {
   // Splits a path to a filename into its base directory and filename
   // components. E.g. /tom/dick/harry.txt is "/tom/dick" and "harry.txt".
   // Either of the string pointers may be NULL.
-  static void SplitFilePath(const string& filepath,
-                            string* base_directory,
+  static void SplitFilePath(const string& filepath, string* base_directory,
                             string* filename);
 };
 

@@ -26,8 +26,8 @@
 #ifndef KML_BASE_XML_NAMESPACES_H__
 #define KML_BASE_XML_NAMESPACES_H__
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -40,7 +40,7 @@ typedef enum {
   XMLNS_APP,
   XMLNS_ATOM,
   XMLNS_BATCH,  // Google Data
-  XMLNS_DOCS,  // Google Data
+  XMLNS_DOCS,   // Google Data
   XMLNS_EXIF,
   XMLNS_GD,  // Google Data
   XMLNS_GEORSS,

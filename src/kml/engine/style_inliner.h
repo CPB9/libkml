@@ -28,8 +28,9 @@
 #ifndef KML_ENGINE_STYLE_INLINER_H__
 #define KML_ENGINE_STYLE_INLINER_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
 
@@ -37,7 +38,7 @@ namespace kmlengine {
 // Only those shared style selectors which appear before their styleUrl
 // reference are inlined by this function (as is fairly typical in most KML).
 KML_EXPORT kmldom::ElementPtr InlineStyles(const string& input_kml,
-                                string* errors);
+                                           string* errors);
 
 }  // end namespace kmlengine
 

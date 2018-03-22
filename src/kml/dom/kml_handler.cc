@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file implements the KML Parse() function.  The parser uses expat.
@@ -36,9 +36,12 @@
 #include <memory>
 #include "kml/base/attributes.h"
 #include "kml/dom/element.h"
+#include "kml/dom/extendeddata.h"
 #include "kml/dom/kml_cast.h"
 #include "kml/dom/kml_factory.h"
 #include "kml/dom/parser_observer.h"
+#include "kml/dom/placemark.h"
+#include "kml/dom/schema.h"
 #include "kml/dom/xsd.h"
 
 using kmlbase::Attributes;
@@ -56,12 +59,12 @@ kMaxNestingDepth = LIBKML_MAX_NESTING_DEPTH;
 namespace kmldom {
 
 KmlHandler::KmlHandler(parser_observer_vector_t& observers)
-  : kml_factory_(*KmlFactory::GetFactory()),
-    skip_depth_(0),
-    in_description_(0),
-    nesting_depth_(0),
-    in_old_schema_placemark_(false),
-    observers_(observers) {
+    : kml_factory_(*KmlFactory::GetFactory()),
+      skip_depth_(0),
+      in_description_(0),
+      nesting_depth_(0),
+      in_old_schema_placemark_(false),
+      observers_(observers) {
 }
 
 KmlHandler::~KmlHandler() {
@@ -69,8 +72,7 @@ KmlHandler::~KmlHandler() {
   // the reference and potentially freeing the associated storage.
 }
 
-void KmlHandler::StartElement(const string& name,
-                              const StringVector& attrs) {
+void KmlHandler::StartElement(const string& name, const StringVector& attrs) {
   // Check that we're not nested beyond the max permissible depth.
   if (++nesting_depth_ > kMaxNestingDepth) {
     XML_StopParser(get_parser(), XML_TRUE);
@@ -121,7 +123,7 @@ void KmlHandler::StartElement(const string& name,
   ElementPtr element;
 
   KmlDomType type_id =
-    static_cast<KmlDomType>(Xsd::GetSchema()->ElementId(name));
+      static_cast<KmlDomType>(Xsd::GetSchema()->ElementId(name));
 
   // If we're parsing old Schema usage, we force the creation of a Placemark.
   if (!old_schema_name_.empty() && name == old_schema_name_) {
@@ -132,7 +134,6 @@ void KmlHandler::StartElement(const string& name,
   XsdType xsd_type = Xsd::GetSchema()->ElementType(type_id);
   if ((xsd_type == XSD_COMPLEX_TYPE) &&
       (element = kml_factory_.CreateElementById(type_id))) {
-
     // Icon as a child of IconStyle is really IconStyleIcon
     if (element->Type() == Type_Icon) {
       // If there is a parent and it is IconStyle...
@@ -151,8 +152,8 @@ void KmlHandler::StartElement(const string& name,
     element = kml_factory_.CreateFieldById(type_id);
   } else if (xsd_type == XSD_UNKNOWN && !old_schema_name_.empty()) {
     // We might be parsing one of the children of the old schema usage.
-    in_old_schema_placemark_ = ParseOldSchemaChild(name, simplefield_name_vec_,
-                                                   &simpledata_vec_);
+    in_old_schema_placemark_ =
+        ParseOldSchemaChild(name, simplefield_name_vec_, &simpledata_vec_);
     if (in_old_schema_placemark_) {
       return;
     }
@@ -256,10 +257,8 @@ void KmlHandler::EndElement(const string& name) {
 
   child->set_char_data(child_char_data_);
 
-  if (child->Type() == Type_coordinates ||
-      child->Type() == Type_Snippet ||
-      child->Type() == Type_linkSnippet ||
-      child->Type() == Type_SimpleData) {
+  if (child->Type() == Type_coordinates || child->Type() == Type_Snippet ||
+      child->Type() == Type_linkSnippet || child->Type() == Type_SimpleData) {
     // These are effectively complex elements, but with character data.
     child->AddElement(child);  // "Parse yourself"
   }
@@ -351,11 +350,11 @@ void KmlHandler::InsertUnknownStartElement(const string& name,
   string& top = char_data_.top();
   top.append("<");
   top.append(name);
-  for (size_t i = 0; i < atts.size(); i += 2)  {
+  for (size_t i = 0; i < atts.size(); i += 2) {
     top.append(" ");
     top.append(atts.at(i));
     top.append("=\"");
-    top.append(atts.at(i+1));
+    top.append(atts.at(i + 1));
     top.append("\"");
   }
   top.append(">");
@@ -381,8 +380,7 @@ void KmlHandler::FindOldSchemaParentName(const StringVector& attrs,
 
 // Static, private.
 bool KmlHandler::ParseOldSchemaChild(
-    const string& name,
-    const StringVector& simplefield_name_vec,
+    const string& name, const StringVector& simplefield_name_vec,
     std::vector<SimpleDataPtr>* simpledata_vec) {
   // We'll iterate through a vector of possible names (created in
   // EndElement) and check to see if we have a match. If we do, we'll make
@@ -405,10 +403,9 @@ bool KmlHandler::ParseOldSchemaChild(
 }
 
 // Static, private.
-void KmlHandler::HandleOldSchemaEndElement(
-    const SchemaPtr& schema,
-    const string& old_schema_name,
-    StringVector* simplefield_name_vec) {
+void KmlHandler::HandleOldSchemaEndElement(const SchemaPtr& schema,
+                                           const string& old_schema_name,
+                                           StringVector* simplefield_name_vec) {
   if (!simplefield_name_vec) {
     return;
   }
@@ -416,7 +413,7 @@ void KmlHandler::HandleOldSchemaEndElement(
   // TODO: nuke the parent="Placemark" attr.
   for (size_t i = 0; i < schema->get_simplefield_array_size(); i++) {
     if (const SimpleFieldPtr& simplefield =
-        AsSimpleField(schema->get_simplefield_array_at(i))) {
+            AsSimpleField(schema->get_simplefield_array_at(i))) {
       if (simplefield->has_name()) {
         simplefield_name_vec->push_back(simplefield->get_name());
       }
@@ -426,8 +423,7 @@ void KmlHandler::HandleOldSchemaEndElement(
 
 // Static, private.
 void KmlHandler::HandleOldSchemaParentEndElement(
-    const PlacemarkPtr& placemark,
-    const string& old_schema_name,
+    const PlacemarkPtr& placemark, const string& old_schema_name,
     const KmlFactory& kml_factory,
     const std::vector<SimpleDataPtr> simpledata_vec) {
   // We've reached the closing tag of the old placemark substitute
@@ -437,8 +433,7 @@ void KmlHandler::HandleOldSchemaParentEndElement(
   ExtendedDataPtr extendeddata = kml_factory.CreateExtendedData();
   SchemaDataPtr schemadata = kml_factory.CreateSchemaData();
   schemadata->set_schemaurl(old_schema_name + "_id");
-  std::vector<SimpleDataPtr>::const_iterator itr =
-    simpledata_vec.begin();
+  std::vector<SimpleDataPtr>::const_iterator itr = simpledata_vec.begin();
   for (; itr != simpledata_vec.end(); itr++) {
     schemadata->add_simpledata(*itr);
   }
@@ -447,4 +442,3 @@ void KmlHandler::HandleOldSchemaParentEndElement(
 }
 
 }  // end namespace kmldom
-

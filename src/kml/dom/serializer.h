@@ -28,16 +28,16 @@
 #ifndef KML_DOM_SERIALIZER_H__
 #define KML_DOM_SERIALIZER_H__
 
-#include <sstream>
-#include "kml/config.h"
+#include <vector>
 #include "kml/base/string_util.h"
+#include "kml/config.h"
 #include "kml/dom/kml_ptr.h"
 
 namespace kmlbase {
 class Attributes;
 class Color32;
 class Vec3;
-}
+}  // namespace kmlbase
 
 namespace kmldom {
 
@@ -48,7 +48,6 @@ class Xsd;
 // character data content and/or complex child elements.
 class Serializer {
  public:
-
   Serializer();
 
   virtual ~Serializer();
@@ -73,7 +72,8 @@ class Serializer {
   // Save out raw text.  If maybe_quote is true the content is examined
   // for non-XML-valid characters and if so the content is CDATA escaped.
   // If maybe_quote is false the content is emitted directly.
-  virtual void SaveContent(const string& content, bool maybe_quote);;
+  virtual void SaveContent(const string& content, bool maybe_quote);
+  ;
 
   // Save a lon,lat,alt tuple as appears within <coordinates>.
   virtual void SaveVec3(const kmlbase::Vec3& vec3);
@@ -96,7 +96,7 @@ class Serializer {
   void SaveEnum(int type_id, int enum_value);
 
   // Save the given value out as the simple element identified by type_id.
-  template<typename T>
+  template <typename T>
   void SaveFieldById(int type_id, T value) {
     SaveStringFieldById(type_id, kmlbase::ToString(value));
   }
@@ -110,7 +110,7 @@ class Serializer {
 
   // This is common code for saving any element array.  The BeginElementArray
   // and EndElementArray methods are called before/after saving all elements.
-  template<class T>
+  template <class T>
   void SaveElementArray(const std::vector<T>& element_array) {
     if (size_t element_count = element_array.size()) {
       BeginElementArray(element_array[0]->Type(), element_count);
@@ -132,7 +132,7 @@ class Serializer {
   // This is common code for saving any substitution group element array.  The
   // BeginElementArray and EndElementArray methods are called before/after
   // saving all elements.
-  template<class T>
+  template <class T>
   void SaveElementGroupArray(const std::vector<T>& element_array,
                              int group_id) {
     if (size_t element_count = element_array.size()) {
@@ -145,7 +145,7 @@ class Serializer {
   }
 
  protected:
-   const Xsd& xsd_;
+  const Xsd& xsd_;
 };
 
 }  // end namespace kmldom

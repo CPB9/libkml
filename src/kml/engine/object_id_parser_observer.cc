@@ -25,26 +25,30 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/engine/object_id_parser_observer.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/object.h"
 
 namespace kmlengine {
 
-ObjectIdParserObserver::ObjectIdParserObserver(ObjectIdMap* object_id_map, bool strict_parsing)
-    : object_id_map_(object_id_map),
-      strict_parse_(strict_parsing) {}  // TODO: NULL check, or use reference
-ObjectIdParserObserver::~ObjectIdParserObserver(){}
-
-bool ObjectIdParserObserver::NewElement(const kmldom::ElementPtr& element){
-   if (kmldom::ObjectPtr object = kmldom::AsObject(element)) {
-     if (object->has_id()) {
-       if (object_id_map_->find(object->get_id()) != object_id_map_->end()
-           && strict_parse_) {
-         // TODO: create an error message
-         return false;  // Duplicate id, fail parse.
-       }
-       (*object_id_map_)[object->get_id()] = object;  // Last one wins.
-     }
-   }
-   // Not a duplicate id, or strict parsing not enabled, keep parsing.
-   return true;
- }
+ObjectIdParserObserver::ObjectIdParserObserver(ObjectIdMap* object_id_map,
+                                               bool strict_parsing)
+    : object_id_map_(object_id_map), strict_parse_(strict_parsing) {
+}  // TODO: NULL check, or use reference
+ObjectIdParserObserver::~ObjectIdParserObserver() {
 }
+
+bool ObjectIdParserObserver::NewElement(const kmldom::ElementPtr& element) {
+  if (kmldom::ObjectPtr object = kmldom::AsObject(element)) {
+    if (object->has_id()) {
+      if (object_id_map_->find(object->get_id()) != object_id_map_->end() &&
+          strict_parse_) {
+        // TODO: create an error message
+        return false;  // Duplicate id, fail parse.
+      }
+      (*object_id_map_)[object->get_id()] = object;  // Last one wins.
+    }
+  }
+  // Not a duplicate id, or strict parsing not enabled, keep parsing.
+  return true;
+}
+}  // namespace kmlengine

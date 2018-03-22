@@ -28,21 +28,15 @@
 #ifndef KML_ENGINE_KML_FILE_H__
 #define KML_ENGINE_KML_FILE_H__
 
+#include <bmcl/Rc.h>
+#include <memory>
 #include <ostream>
 #include <vector>
-#include <memory>
-#include <bmcl/Rc.h>
-#include "kml/config.h"
-#include "kml/base/attributes.h"
-#include "kml/base/referent.h"
-#include "kml/base/xml_namespaces.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_file.h"
-#include "kml/dom.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/engine/engine_types.h"
-#include "kml/engine/get_link_parents.h"
-#include "kml/engine/object_id_parser_observer.h"
-#include "kml/engine/shared_style_parser_observer.h"
 
 namespace kmlengine {
 
@@ -61,7 +55,7 @@ class KML_EXPORT KmlFile : public kmlbase::XmlFile {
   // and a human readable error message is saved in the supplied string.
   // The caller is responsible for deleting the KmlFile this creates.
   static KmlFile* CreateFromParse(const string& kml_or_kmz_data,
-                                  string *errors);
+                                  string* errors);
 
   // This method is for use with NetCache CacheItem.
   static KmlFile* CreateFromString(const string& kml_or_kmz_data);
@@ -81,10 +75,10 @@ class KML_EXPORT KmlFile : public kmlbase::XmlFile {
   static KmlFile* CreateFromImportLax(const kmldom::ElementPtr& element);
 
   // This returns the root element of this KML file.
-  const kmldom::ElementPtr& get_root() const;
+  kmldom::ElementPtr get_root() const;
 
   // Deprecated.  Use get_root().
-  const kmldom::ElementPtr& root() const;
+  kmldom::ElementPtr root() const;
 
   // This serializes the KML from the root.  The xmlns() value is added to
   // the root element, the set of namespace prefixes to namespaces is added,
@@ -148,8 +142,7 @@ class KML_EXPORT KmlFile : public kmlbase::XmlFile {
   // Only static Create methods can set the KmlCache.
   void set_kml_cache(KmlCache* kml_cache);
   // These are helper functions for CreateFromParse().
-  bool _CreateFromParse(const string& kml_or_kmz_data,
-                        string* errors);
+  bool _CreateFromParse(const string& kml_or_kmz_data, string* errors);
   bool OpenAndParseKmz(const string& kmz_data, string* errors);
   string encoding_;
   // TODO: use XmlElement's id map.

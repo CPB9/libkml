@@ -30,8 +30,9 @@
 #ifndef KML_ENGINE_ID_MAPPER_INTERNAL_H__
 #define KML_ENGINE_ID_MAPPER_INTERNAL_H__
 
-#include "kml/base/string_util.h"
-#include "kml/dom.h"
+#include "kml/base/util.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/dom/serializer.h"
 #include "kml/engine/engine_types.h"
 
@@ -43,8 +44,7 @@ namespace kmlengine {
 class IdMapper : public kmldom::Serializer {
  public:
   IdMapper(ObjectIdMap* object_id_map, ElementVector* dup_id_vector)
-    : object_id_map_(object_id_map),
-      dup_id_vector_(dup_id_vector) {
+      : object_id_map_(object_id_map), dup_id_vector_(dup_id_vector) {
   }
 
   // This is the Serializer method used to recurse on each child element.

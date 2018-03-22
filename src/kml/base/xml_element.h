@@ -29,10 +29,10 @@
 #define KML_BASE_XML_ELEMENT_H__
 
 #include <bmcl/Rc.h>
-#include "kml/config.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_namespaces.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -87,4 +87,4 @@ class KML_EXPORT XmlElement : public Referent {
 
 }  // end namespace kmlbase
 
-#endif // KML_BASE_XML_ELEMENT_H__
+#endif  // KML_BASE_XML_ELEMENT_H__

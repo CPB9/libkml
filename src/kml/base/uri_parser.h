@@ -30,9 +30,9 @@
 #ifndef KML_BASE_URI_PARSER_H__
 #define KML_BASE_URI_PARSER_H__
 
-#include "kml/config.h"
-#include "kml/base/util.h"
 #include <memory>
+#include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -116,8 +116,7 @@ class KML_EXPORT UriParser {
   // "file:///home/libkml/foo.bar".
   // Clients should use FilenameToUri in preference to this to have the path
   // name style handled automatically.
-  static bool UnixFilenameToUri(const string& filename,
-                                string* output);
+  static bool UnixFilenameToUri(const string& filename, string* output);
 
   // Converts a Windows filename to its corresponding URI. Returns false if
   // output is NULL or on any internal error in converting the filename.
@@ -125,8 +124,7 @@ class KML_EXPORT UriParser {
   // output "file:///C:/home/libkml/foo.bar".
   // Clients should use FilenameToUri in preference to this to have the path
   // name style handled automatically.
-  static bool WindowsFilenameToUri(const string& filename,
-                                   string* output);
+  static bool WindowsFilenameToUri(const string& filename, string* output);
 
   // This returns the scheme of the URI if one exists.
   bool GetScheme(string* scheme) const;
@@ -162,4 +160,3 @@ class KML_EXPORT UriParser {
 }  // end namespace kmlbase
 
 #endif  // KML_BASE_URI_PARSER_H__
-

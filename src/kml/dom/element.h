@@ -35,14 +35,14 @@
 #ifndef KML_DOM_ELEMENT_H__
 #define KML_DOM_ELEMENT_H__
 
-#include <vector>
 #include <memory>
+#include <vector>
+#include "kml/base/util.h"
+#include "kml/base/xml_element.h"
 #include "kml/config.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/visitor_driver.h"
-#include "kml/base/util.h"
-#include "kml/base/xml_element.h"
 
 namespace kmlbase {
 class Attributes;
@@ -165,7 +165,7 @@ class KML_EXPORT Element : public kmlbase::XmlElement {
   // The intended usage is to implement the set_child() and clear_child()
   // methods in a concrete element.
   template <class T>
-  bool SetComplexChild(const T& child, T* field){
+  bool SetComplexChild(const T& child, T* field) {
     if (child == nullptr) {
       // TODO: remove child and children from ID maps...
       *field = NULL;  // Assign removes reference and possibly deletes Element.
@@ -179,7 +179,8 @@ class KML_EXPORT Element : public kmlbase::XmlElement {
 
   // This inserts the given complex child into an array in this element.
   template <class T>
-  bool InsertComplexChild(std::size_t pos, const T& child, std::vector<T>* vec) {
+  bool InsertComplexChild(std::size_t pos, const T& child,
+                          std::vector<T>* vec) {
     // NULL child ignored.
     if (child && child->SetParent(this)) {
       vec->insert(vec->begin() + pos, child);
@@ -187,7 +188,6 @@ class KML_EXPORT Element : public kmlbase::XmlElement {
     }
     return false;
   }
-
 
   // This adds the given complex child to an array in this element.
   template <class T>
@@ -260,13 +260,19 @@ class KML_EXPORT ElementSerializer {
 
 // This class template is essentially common code for all elements based
 // directly on Element.
-template<int I>
+template <int I>
 class BasicElement : public Element {
  public:
   // This static method makes the class useable with ElementCast.
-  static KmlDomType ElementType() { return static_cast<KmlDomType>(I); }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const { return type == ElementType(); }
+  static KmlDomType ElementType() {
+    return static_cast<KmlDomType>(I);
+  }
+  virtual KmlDomType Type() const {
+    return ElementType();
+  }
+  virtual bool IsA(KmlDomType type) const {
+    return type == ElementType();
+  }
 };
 
 // A field is generally short lived and holds the element id and character data
@@ -294,7 +300,7 @@ class KML_EXPORT Field : public Element {
 
   // Sets the given double from the character data.  If no val pointer is
   // supplied false is returned, else true is returned and the val is set.
-  bool SetDouble(double *val);
+  bool SetDouble(double* val);
 
   // Sets the given int from the character data.  If no val pointer is
   // supplied false is returned, else true is returned and the val is set.

@@ -31,8 +31,13 @@
 #ifndef KML_CONVENIENCE_ATOM_UTIL_H_
 #define KML_CONVENIENCE_ATOM_UTIL_H_
 
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
+
+namespace kmldom {
+class AtomCommon;
+}
 
 namespace kmlconvenience {
 
@@ -63,8 +68,7 @@ class KML_EXPORT AtomUtil {
   // if these exist.  False is returned if the <atom:entry> has no
   // <atom:content> or if the <atom:content> has no src=.  Passing a NULL
   // src is safe and has no bearing on the return value.
-  static bool GetContentSrc(const kmldom::AtomEntryPtr& entry,
-                            string* src);
+  static bool GetContentSrc(const kmldom::AtomEntryPtr& entry, string* src);
 
   // This returns the first <atom:category> who's scheme= ends with scheme.
   // NULL is returned if no matching <atom:category> is found.
@@ -131,7 +135,6 @@ class KML_EXPORT AtomUtil {
   // Note: the gd:resourceId is a Google Data API extension to Atom.
   static bool GetGdResourceId(const kmldom::AtomEntryPtr& entry,
                               string* resource_id);
-
 };
 
 }  // end namespace kmlconvenience

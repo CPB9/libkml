@@ -28,18 +28,23 @@
 #include "kml/dom/networklink.h"
 #include "kml/base/attributes.h"
 #include "kml/dom/kml_cast.h"
+#include "kml/dom/link.h"
 #include "kml/dom/serializer.h"
+#include "kml/dom/visitor.h"
 
 using kmlbase::Attributes;
 
 namespace kmldom {
 
 NetworkLink::NetworkLink()
-  : refreshvisibility_(false), has_refreshvisibility_(false),
-    flytoview_(false), has_flytoview_(false) {
+    : refreshvisibility_(false),
+      has_refreshvisibility_(false),
+      flytoview_(false),
+      has_flytoview_(false) {
 }
 
-NetworkLink::~NetworkLink() {}
+NetworkLink::~NetworkLink() {
+}
 
 void NetworkLink::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -92,50 +97,63 @@ void NetworkLink::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+kmldom::KmlDomType NetworkLink::Type() const {
+  return Type_NetworkLink;
+}
 
-kmldom::KmlDomType NetworkLink::Type() const{ return Type_NetworkLink; }
+bool NetworkLink::IsA(kmldom::KmlDomType type) const {
+  return type == Type_NetworkLink || Feature::IsA(type);
+}
 
-bool NetworkLink::IsA(kmldom::KmlDomType type) const{
-   return type == Type_NetworkLink || Feature::IsA(type);
- }
+bool NetworkLink::get_refreshvisibility() const {
+  return refreshvisibility_;
+}
 
-bool NetworkLink::get_refreshvisibility() const{ return refreshvisibility_; }
+bool NetworkLink::has_refreshvisibility() const {
+  return has_refreshvisibility_;
+}
 
-bool NetworkLink::has_refreshvisibility() const{ return has_refreshvisibility_; }
+void NetworkLink::set_refreshvisibility(bool value) {
+  refreshvisibility_ = value;
+  has_refreshvisibility_ = true;
+}
 
-void NetworkLink::set_refreshvisibility(bool value){
-   refreshvisibility_ = value;
-   has_refreshvisibility_ = true;
- }
+void NetworkLink::clear_refreshvisibility() {
+  refreshvisibility_ = false;
+  has_refreshvisibility_ = false;
+}
 
-void NetworkLink::clear_refreshvisibility(){
-   refreshvisibility_ = false;
-   has_refreshvisibility_ = false;
- }
+bool NetworkLink::get_flytoview() const {
+  return flytoview_;
+}
 
-bool NetworkLink::get_flytoview() const{ return flytoview_; }
+bool NetworkLink::has_flytoview() const {
+  return has_flytoview_;
+}
 
-bool NetworkLink::has_flytoview() const{ return has_flytoview_; }
+void NetworkLink::set_flytoview(bool value) {
+  flytoview_ = value;
+  has_flytoview_ = true;
+}
 
-void NetworkLink::set_flytoview(bool value){
-   flytoview_ = value;
-   has_flytoview_ = true;
- }
+void NetworkLink::clear_flytoview() {
+  flytoview_ = false;
+  has_flytoview_ = false;
+}
 
-void NetworkLink::clear_flytoview(){
-   flytoview_ = false;
-   has_flytoview_ = false;
- }
+const LinkPtr& NetworkLink::get_link() const {
+  return link_;
+}
 
-const LinkPtr& NetworkLink::get_link() const{ return link_; }
+bool NetworkLink::has_link() const {
+  return link_ != nullptr;
+}
 
-bool NetworkLink::has_link() const{ return link_ != nullptr; }
+void NetworkLink::set_link(const LinkPtr& link) {
+  SetComplexChild(link, &link_);
+}
 
-void NetworkLink::set_link(const LinkPtr& link){
-   SetComplexChild(link, &link_);
- }
-
-void NetworkLink::clear_link(){
-   set_link(NULL);
- }
+void NetworkLink::clear_link() {
+  set_link(NULL);
+}
 }  // end namespace kmldom

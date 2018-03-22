@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,32 +13,32 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the KML URI resolution functions.
 
 #include "kml/engine/kml_uri.h"
-#include "kml/engine/kml_uri_internal.h"
 #include <memory>
 #include "kml/base/uri_parser.h"
+#include "kml/engine/kml_uri_internal.h"
 
 using kmlbase::UriParser;
 
 namespace kmlengine {
 
 KmlUri::KmlUri(const string& base, const string& target)
-  : is_kmz_(false),
-    base_(base),
-    target_(target),
-    target_uri_(kmlbase::UriParser::CreateFromParse(target.c_str())) {
+    : is_kmz_(false),
+      base_(base),
+      target_(target),
+      target_uri_(kmlbase::UriParser::CreateFromParse(target.c_str())) {
 }
 
 // This is required to keep the point of instatiation of the scoped_ptr
@@ -47,8 +47,7 @@ KmlUri::~KmlUri() {
 }
 
 // static
-KmlUri* KmlUri::CreateRelative(const string& base,
-                               const string& target) {
+KmlUri* KmlUri::CreateRelative(const string& base, const string& target) {
   KmlUri* kml_uri = new KmlUri(base, target);
   // To create a valid KmlUri the base must be absolute, the target must be
   // valid and the resolution must succeed.  If any of these are false then
@@ -57,12 +56,10 @@ KmlUri* KmlUri::CreateRelative(const string& base,
   // TODO: streamline UriParser::CreateFromParse, ResolveUri, GetFetchableUri,
   // and KmzSplit, possibly push all of KmlUri into kmlbase::UriParser.
   string fetchable_url;
-  if (kml_uri->target_uri_.get() &&
-      ResolveUri(base, target, &kml_uri->url_) &&
+  if (kml_uri->target_uri_.get() && ResolveUri(base, target, &kml_uri->url_) &&
       GetFetchableUri(kml_uri->url_, &fetchable_url)) {
-    kml_uri->is_kmz_ = KmzSplit(fetchable_url,
-                                &kml_uri->kmz_url_,
-                                &kml_uri->path_in_kmz_);
+    kml_uri->is_kmz_ =
+        KmzSplit(fetchable_url, &kml_uri->kmz_url_, &kml_uri->path_in_kmz_);
     return kml_uri;
   }
   // KmlCache NULL or base or target invalid.
@@ -70,11 +67,9 @@ KmlUri* KmlUri::CreateRelative(const string& base,
   return nullptr;
 }
 
-
 // Note that this is implemented in terms of the 3rd party uriparser library
 // which is fully encapsulated here.
-bool ResolveUri(const string& base, const string& relative,
-                string* result) {
+bool ResolveUri(const string& base, const string& relative, string* result) {
   std::unique_ptr<UriParser> uri_parser(
       UriParser::CreateResolvedUri(base.c_str(), relative.c_str()));
   return uri_parser.get() && uri_parser->ToString(result);
@@ -122,9 +117,8 @@ bool FilenameToUri(const string& filename, string* output) {
 // Note that RFC 3986 does not define the structure of a query.  However,
 // the uriparser library does implement a name-value pair splitter and
 // assembler which can be front-ended in a future libkml function.
-bool SplitUri(const string& uri, string* scheme, string* host,
-              string* port, string* path, string* query,
-              string* fragment) {
+bool SplitUri(const string& uri, string* scheme, string* host, string* port,
+              string* path, string* query, string* fragment) {
   std::unique_ptr<UriParser> uri_parser(
       UriParser::CreateFromParse(uri.c_str()));
   if (!uri_parser.get()) {
@@ -174,13 +168,13 @@ bool GetFetchableUri(const string& uri, string* fetchable_uri) {
   uri_parser->GetHost(&host);
 
   if (!scheme.empty() && !host.empty()) {
-    fetchable_uri->append(scheme).append("://",3).append(host);
+    fetchable_uri->append(scheme).append("://", 3).append(host);
     string port;
     uri_parser->GetPort(&port);
     if (!port.empty()) {
-      fetchable_uri->append(":",1).append(port);
+      fetchable_uri->append(":", 1).append(port);
     }
-    fetchable_uri->append("/",1);
+    fetchable_uri->append("/", 1);
   }
 
   string path;
@@ -191,8 +185,7 @@ bool GetFetchableUri(const string& uri, string* fetchable_uri) {
   return true;
 }
 
-bool KmzSplit(const string& kml_url, string* kmz_url,
-              string* kmz_path) {
+bool KmzSplit(const string& kml_url, string* kmz_url, string* kmz_path) {
   size_t kmz = kml_url.find(".kmz");
   if (kmz == string::npos) {
     return false;
@@ -209,10 +202,8 @@ bool KmzSplit(const string& kml_url, string* kmz_url,
   return true;
 }
 
-bool ResolveModelTargetHref(const string& base_url,
-                            const string& geometry_href,
-                            const string& target_href,
-                            string* result) {
+bool ResolveModelTargetHref(const string& base_url, const string& geometry_href,
+                            const string& target_href, string* result) {
   if (!result) {
     return false;
   }
@@ -231,29 +222,29 @@ bool ResolveModelTargetHref(const string& base_url,
   return true;
 }
 
-void KmlUri::set_path_in_kmz(const std::__cxx11::string path_in_kmz){
-   path_in_kmz_ = path_in_kmz;
-   url_ = kmz_url_ + "/" + path_in_kmz;
- }
+void KmlUri::set_path_in_kmz(const std::__cxx11::string path_in_kmz) {
+  path_in_kmz_ = path_in_kmz;
+  url_ = kmz_url_ + "/" + path_in_kmz;
+}
 
-const std::__cxx11::string& KmlUri::get_path_in_kmz() const{
-   return path_in_kmz_;
- }
+const std::__cxx11::string& KmlUri::get_path_in_kmz() const {
+  return path_in_kmz_;
+}
 
-const std::__cxx11::string& KmlUri::get_kmz_url() const{
-   return kmz_url_;
- }
+const std::__cxx11::string& KmlUri::get_kmz_url() const {
+  return kmz_url_;
+}
 
-const std::__cxx11::string& KmlUri::get_url() const{
-   return url_;
- }
+const std::__cxx11::string& KmlUri::get_url() const {
+  return url_;
+}
 
-const std::__cxx11::string& KmlUri::get_target() const{
-   return target_;
- }
+const std::__cxx11::string& KmlUri::get_target() const {
+  return target_;
+}
 
-bool KmlUri::is_kmz() const{
-   return is_kmz_;
- }
+bool KmlUri::is_kmz() const {
+  return is_kmz_;
+}
 
 }  // end namespace kmlengine

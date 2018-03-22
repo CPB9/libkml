@@ -28,8 +28,11 @@
 #include "kml/dom/gx_tour.h"
 #include "kml/base/attributes.h"
 #include "kml/base/xml_namespaces.h"
+#include "kml/dom/abstractview.h"
 #include "kml/dom/kml_cast.h"
+#include "kml/dom/networklinkcontrol.h"
 #include "kml/dom/serializer.h"
+#include "kml/dom/visitor.h"
 
 using kmlbase::Attributes;
 
@@ -41,7 +44,8 @@ GxTour::GxTour() {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxTour::~GxTour() {}
+GxTour::~GxTour() {
+}
 
 void GxTour::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -79,7 +83,8 @@ GxPlaylist::GxPlaylist() {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxPlaylist::~GxPlaylist() {}
+GxPlaylist::~GxPlaylist() {
+}
 
 void GxPlaylist::add_gx_tourprimitive(
     const GxTourPrimitivePtr& gx_tourprimitive) {
@@ -90,8 +95,8 @@ size_t GxPlaylist::get_gx_tourprimitive_array_size() const {
   return gx_tourprimitive_array_.size();
 }
 
-const GxTourPrimitivePtr&
-    GxPlaylist::get_gx_tourprimitive_array_at(size_t index) const{
+const GxTourPrimitivePtr& GxPlaylist::get_gx_tourprimitive_array_at(
+    size_t index) const {
   return gx_tourprimitive_array_[index];
 }
 
@@ -145,7 +150,8 @@ GxAnimatedUpdate::GxAnimatedUpdate() {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxAnimatedUpdate::~GxAnimatedUpdate() {}
+GxAnimatedUpdate::~GxAnimatedUpdate() {
+}
 
 void GxAnimatedUpdate::AddElement(const ElementPtr& element) {
   if (UpdatePtr update = AsUpdate(element)) {
@@ -177,11 +183,12 @@ void GxAnimatedUpdate::AcceptChildren(VisitorDriver* driver) {
 // <gx:FlyTo>
 
 GxFlyTo::GxFlyTo()
-  : gx_flytomode_(GX_FLYTOMODE_BOUNCE), has_gx_flytomode_(false) {
+    : gx_flytomode_(GX_FLYTOMODE_BOUNCE), has_gx_flytomode_(false) {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxFlyTo::~GxFlyTo() {}
+GxFlyTo::~GxFlyTo() {
+}
 
 void GxFlyTo::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -226,7 +233,8 @@ GxWait::GxWait() {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxWait::~GxWait() {}
+GxWait::~GxWait() {
+}
 
 void GxWait::Serialize(Serializer& serializer) const {
   ElementSerializer element_serializer(*this, serializer);
@@ -239,12 +247,12 @@ void GxWait::Accept(Visitor* visitor) {
 
 // <gx:SoundCue>
 
-GxSoundCue::GxSoundCue()
-  : has_href_(false) {
+GxSoundCue::GxSoundCue() : has_href_(false) {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxSoundCue::~GxSoundCue() {}
+GxSoundCue::~GxSoundCue() {
+}
 
 void GxSoundCue::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -272,11 +280,12 @@ void GxSoundCue::Accept(Visitor* visitor) {
 // <gx:TourControl>
 
 GxTourControl::GxTourControl()
-  : gx_playmode_(GX_PLAYMODE_PAUSE), has_gx_playmode_(false) {
+    : gx_playmode_(GX_PLAYMODE_PAUSE), has_gx_playmode_(false) {
   set_xmlns(kmlbase::XMLNS_GX22);
 }
 
-GxTourControl::~GxTourControl() {}
+GxTourControl::~GxTourControl() {
+}
 
 void GxTourControl::AddElement(const ElementPtr& element) {
   if (!element) {
@@ -301,195 +310,226 @@ void GxTourControl::Accept(Visitor* visitor) {
   visitor->VisitGxTourControl(GxTourControlPtr(this));
 }
 
+kmldom::KmlDomType GxTour::ElementType() {
+  return Type_GxTour;
+}
 
-kmldom::KmlDomType GxTour::ElementType(){
-   return Type_GxTour;
- }
+kmldom::KmlDomType GxTour::Type() const {
+  return ElementType();
+}
 
-kmldom::KmlDomType GxTour::Type() const{ return ElementType(); }
+bool GxTour::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || Feature::IsA(type);
+}
 
-bool GxTour::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || Feature::IsA(type);
- }
+const GxPlaylistPtr& GxTour::get_gx_playlist() const {
+  return gx_playlist_;
+}
 
-const GxPlaylistPtr& GxTour::get_gx_playlist() const{ return gx_playlist_; }
+bool GxTour::has_gx_playlist() const {
+  return gx_playlist_ != nullptr;
+}
 
-bool GxTour::has_gx_playlist() const{ return gx_playlist_ != nullptr; }
+void GxTour::set_gx_playlist(const GxPlaylistPtr& gx_playlist) {
+  SetComplexChild(gx_playlist, &gx_playlist_);
+}
 
-void GxTour::set_gx_playlist(const GxPlaylistPtr& gx_playlist){
-   SetComplexChild(gx_playlist, &gx_playlist_);
- }
+void GxTour::clear_gx_playlist() {
+  set_gx_playlist(NULL);
+}
 
-void GxTour::clear_gx_playlist(){
-   set_gx_playlist(NULL);
- }
+kmldom::KmlDomType GxPlaylist::ElementType() {
+  return Type_GxPlaylist;
+}
 
-kmldom::KmlDomType GxPlaylist::ElementType(){
-   return Type_GxPlaylist;
- }
+kmldom::KmlDomType GxPlaylist::Type() const {
+  return ElementType();
+}
 
-kmldom::KmlDomType GxPlaylist::Type() const{ return ElementType(); }
+bool GxPlaylist::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || Object::IsA(type);
+}
 
-bool GxPlaylist::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || Object::IsA(type);
- }
+kmldom::KmlDomType GxTourPrimitive::ElementType() {
+  return static_cast<KmlDomType>(Type_GxTourPrimitive);
+}
 
-kmldom::KmlDomType GxTourPrimitive::ElementType(){
-   return static_cast<KmlDomType>(Type_GxTourPrimitive);
- }
+kmldom::KmlDomType GxTourPrimitive::Type() const {
+  return ElementType();
+}
 
-kmldom::KmlDomType GxTourPrimitive::Type() const{ return ElementType(); }
+bool GxTourPrimitive::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || Object::IsA(type);
+}
 
-bool GxTourPrimitive::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || Object::IsA(type);
- }
+GxTourPrimitive::GxTourPrimitive() {
+}
 
-GxTourPrimitive::GxTourPrimitive(){}
+double GxTourPrimitiveCommon::get_gx_duration() const {
+  return gx_duration_;
+}
 
-double GxTourPrimitiveCommon::get_gx_duration() const{
-   return gx_duration_;
- }
+bool GxTourPrimitiveCommon::has_gx_duration() const {
+  return has_gx_duration_;
+}
 
-bool GxTourPrimitiveCommon::has_gx_duration() const{
-   return has_gx_duration_;
- }
+void GxTourPrimitiveCommon::set_gx_duration(double gx_duration) {
+  gx_duration_ = gx_duration;
+  has_gx_duration_ = true;
+}
 
-void GxTourPrimitiveCommon::set_gx_duration(double gx_duration){
-   gx_duration_ = gx_duration;
-   has_gx_duration_ = true;
- }
-
-void GxTourPrimitiveCommon::clear_gx_duration(){
-   gx_duration_ = 0.0;
-   has_gx_duration_ = false;
- }
+void GxTourPrimitiveCommon::clear_gx_duration() {
+  gx_duration_ = 0.0;
+  has_gx_duration_ = false;
+}
 
 GxTourPrimitiveCommon::GxTourPrimitiveCommon()
-    : has_gx_duration_(false), gx_duration_(0.0){
- }
+    : has_gx_duration_(false), gx_duration_(0.0) {
+}
 
-kmldom::KmlDomType GxAnimatedUpdate::ElementType(){
-   return Type_GxAnimatedUpdate;
- }
+kmldom::KmlDomType GxAnimatedUpdate::ElementType() {
+  return Type_GxAnimatedUpdate;
+}
 
-kmldom::KmlDomType GxAnimatedUpdate::Type() const{ return ElementType(); }
+kmldom::KmlDomType GxAnimatedUpdate::Type() const {
+  return ElementType();
+}
 
-bool GxAnimatedUpdate::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || GxTourPrimitive::IsA(type);
- }
+bool GxAnimatedUpdate::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || GxTourPrimitive::IsA(type);
+}
 
-const UpdatePtr& GxAnimatedUpdate::get_update() const{ return update_; }
+const UpdatePtr& GxAnimatedUpdate::get_update() const {
+  return update_;
+}
 
-bool GxAnimatedUpdate::has_update() const{ return update_ != nullptr; }
+bool GxAnimatedUpdate::has_update() const {
+  return update_ != nullptr;
+}
 
-void GxAnimatedUpdate::set_update(const UpdatePtr& update){
-   SetComplexChild(update, &update_);
- }
+void GxAnimatedUpdate::set_update(const UpdatePtr& update) {
+  SetComplexChild(update, &update_);
+}
 
-void GxAnimatedUpdate::clear_update(){
-   set_update(NULL);
- }
+void GxAnimatedUpdate::clear_update() {
+  set_update(NULL);
+}
 
-kmldom::KmlDomType GxFlyTo::ElementType(){
-   return Type_GxFlyTo;
- }
+kmldom::KmlDomType GxFlyTo::ElementType() {
+  return Type_GxFlyTo;
+}
 
-kmldom::KmlDomType GxFlyTo::Type() const{ return ElementType(); }
+kmldom::KmlDomType GxFlyTo::Type() const {
+  return ElementType();
+}
 
-bool GxFlyTo::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || GxTourPrimitive::IsA(type);
- }
+bool GxFlyTo::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || GxTourPrimitive::IsA(type);
+}
 
-int GxFlyTo::get_gx_flytomode() const{ return gx_flytomode_; }
+int GxFlyTo::get_gx_flytomode() const {
+  return gx_flytomode_;
+}
 
-bool GxFlyTo::has_gx_flytomode() const{ return has_gx_flytomode_; }
+bool GxFlyTo::has_gx_flytomode() const {
+  return has_gx_flytomode_;
+}
 
-void GxFlyTo::set_gx_flytomode(int value){
-   gx_flytomode_ = value;
-   has_gx_flytomode_ = true;
- }
+void GxFlyTo::set_gx_flytomode(int value) {
+  gx_flytomode_ = value;
+  has_gx_flytomode_ = true;
+}
 
-void GxFlyTo::clear_gx_flytomode(){
-   gx_flytomode_ = kmldom::GX_FLYTOMODE_BOUNCE;
-   has_gx_flytomode_ = false;
- }
+void GxFlyTo::clear_gx_flytomode() {
+  gx_flytomode_ = kmldom::GX_FLYTOMODE_BOUNCE;
+  has_gx_flytomode_ = false;
+}
 
-const AbstractViewPtr& GxFlyTo::get_abstractview() const{ return abstractview_; }
+const AbstractViewPtr& GxFlyTo::get_abstractview() const {
+  return abstractview_;
+}
 
-bool GxFlyTo::has_abstractview() const{ return abstractview_ != nullptr; }
+bool GxFlyTo::has_abstractview() const {
+  return abstractview_ != nullptr;
+}
 
-void GxFlyTo::set_abstractview(const AbstractViewPtr& abstractview){
-   SetComplexChild(abstractview, &abstractview_);
- }
+void GxFlyTo::set_abstractview(const AbstractViewPtr& abstractview) {
+  SetComplexChild(abstractview, &abstractview_);
+}
 
-void GxFlyTo::clear_abstractview(){
-   set_abstractview(NULL);
- }
+void GxFlyTo::clear_abstractview() {
+  set_abstractview(NULL);
+}
 
-kmldom::KmlDomType GxWait::ElementType(){
-   return Type_GxWait;
- }
+kmldom::KmlDomType GxWait::ElementType() {
+  return Type_GxWait;
+}
 
-kmldom::KmlDomType GxWait::Type() const{ return ElementType(); }
+kmldom::KmlDomType GxWait::Type() const {
+  return ElementType();
+}
 
-bool GxWait::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || GxTourPrimitive::IsA(type);
- }
+bool GxWait::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || GxTourPrimitive::IsA(type);
+}
 
-kmldom::KmlDomType GxSoundCue::ElementType(){
-   return Type_GxSoundCue;
- }
+kmldom::KmlDomType GxSoundCue::ElementType() {
+  return Type_GxSoundCue;
+}
 
-kmldom::KmlDomType GxSoundCue::Type() const{ return ElementType(); }
+kmldom::KmlDomType GxSoundCue::Type() const {
+  return ElementType();
+}
 
-bool GxSoundCue::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || GxTourPrimitive::IsA(type);
- }
+bool GxSoundCue::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || GxTourPrimitive::IsA(type);
+}
 
-const std::__cxx11::string& GxSoundCue::get_href() const{
-   return href_;
- }
+const std::__cxx11::string& GxSoundCue::get_href() const {
+  return href_;
+}
 
-bool GxSoundCue::has_href() const{
-   return has_href_;
- }
+bool GxSoundCue::has_href() const {
+  return has_href_;
+}
 
-void GxSoundCue::set_href(const std::__cxx11::string& href){
-   href_ = href;
-   has_href_ = true;
- }
+void GxSoundCue::set_href(const std::__cxx11::string& href) {
+  href_ = href;
+  has_href_ = true;
+}
 
-void GxSoundCue::clear_href(){
-   href_.clear();
-   has_href_ = false;
- }
+void GxSoundCue::clear_href() {
+  href_.clear();
+  has_href_ = false;
+}
 
-kmldom::KmlDomType GxTourControl::ElementType(){
-   return Type_GxTourControl;
- }
+kmldom::KmlDomType GxTourControl::ElementType() {
+  return Type_GxTourControl;
+}
 
-kmldom::KmlDomType GxTourControl::Type() const{ return ElementType(); }
+kmldom::KmlDomType GxTourControl::Type() const {
+  return ElementType();
+}
 
-bool GxTourControl::IsA(kmldom::KmlDomType type) const{
-   return type == ElementType() || GxTourPrimitive::IsA(type);
- }
+bool GxTourControl::IsA(kmldom::KmlDomType type) const {
+  return type == ElementType() || GxTourPrimitive::IsA(type);
+}
 
-int GxTourControl::get_gx_playmode() const{
-   return gx_playmode_;
- }
+int GxTourControl::get_gx_playmode() const {
+  return gx_playmode_;
+}
 
-bool GxTourControl::has_gx_playmode() const{
-   return has_gx_playmode_;
- }
+bool GxTourControl::has_gx_playmode() const {
+  return has_gx_playmode_;
+}
 
-void GxTourControl::set_gx_playmode(int value){
-   gx_playmode_ = value;
-   has_gx_playmode_ = true;
- }
+void GxTourControl::set_gx_playmode(int value) {
+  gx_playmode_ = value;
+  has_gx_playmode_ = true;
+}
 
-void GxTourControl::clear_gx_playmode(){
-   gx_playmode_ = GX_PLAYMODE_PAUSE;
-   has_gx_playmode_ = false;
- }
+void GxTourControl::clear_gx_playmode() {
+  gx_playmode_ = GX_PLAYMODE_PAUSE;
+  has_gx_playmode_ = false;
+}
 }  // end namespace kmldom
-

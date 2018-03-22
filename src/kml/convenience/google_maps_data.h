@@ -35,8 +35,9 @@
 
 #include <exception>
 #include <memory>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 
 // TODO: move Bbox to kmlbase
 namespace kmlengine {
@@ -121,8 +122,7 @@ class KML_EXPORT GoogleMapsData {
                          string* atom_feed) const;
 
   // This calls GetFeatureFeedXml and returns the parsed result.
-  kmldom::AtomFeedPtr GetFeatureFeedByUri(
-      const string& feature_feed_uri) const;
+  kmldom::AtomFeedPtr GetFeatureFeedByUri(const string& feature_feed_uri) const;
 
   // Return the KML Feature child of the Atom <entry>'s <content>.  This
   // returns NULL if the <entry>'s <content> has no KML Feature.
@@ -144,8 +144,7 @@ class KML_EXPORT GoogleMapsData {
   // string is supplied the <atom:entry> for the new feature is saved there.
   // http://code.google.com/apis/maps/documentation/mapsdata/developers_guide_protocol.html#CreatingFeatures
   bool AddFeature(const string& feature_feed_post_uri,
-                  const kmldom::FeaturePtr& feature,
-                  string* feature_entry_xml);
+                  const kmldom::FeaturePtr& feature, string* feature_entry_xml);
 
   // This is a convenience utility based on AddFeature.  This calls AddFeature
   // on each <Placemark> in the given feature hierarchy.  The total count of
@@ -165,8 +164,7 @@ class KML_EXPORT GoogleMapsData {
   // Construct the search_parameters using AppendBoxParameter(), etc.
   // http://code.google.com/apis/maps/documentation/mapsdata/developers_guide_protocol.html#Search
   bool GetSearchFeed(const string& search_feed_uri,
-                     const string& search_parameters,
-                     string* atom_feed);
+                     const string& search_parameters, string* atom_feed);
 
   // This returns the search feed URI for the given map.
   static bool GetSearchFeedUri(const kmldom::AtomEntryPtr& map_entry,
@@ -213,10 +211,8 @@ class KML_EXPORT GoogleMapsData {
   // an error may be saved to the passed error string if one is supplied.
   // At present Google Maps Data API supports CSV and KML.  Use of the
   // PostCsv() and PostKml() are the recommended methods.
-  kmldom::AtomEntryPtr PostMedia(const string& slug,
-                                 const string& content_type,
-                                 const string& data,
-                                 string* errors);
+  kmldom::AtomEntryPtr PostMedia(const string& slug, const string& content_type,
+                                 const string& data, string* errors);
 
   static bool GetKmlUri(const kmldom::AtomEntryPtr& map_entry, string* kml_uri);
 

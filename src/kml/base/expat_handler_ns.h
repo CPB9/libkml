@@ -28,9 +28,9 @@
 #ifndef KML_BASE_EXPAT_HANDLER_NS_H__
 #define KML_BASE_EXPAT_HANDLER_NS_H__
 
-#include "kml/config.h"
 #include "kml/base/expat_handler.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -56,7 +56,7 @@ class Xmlns;
 // ExpatHandlerNs expat_handler_ns(&your_expat_handler, xmlns);
 // bool status = ExpatParser(xml_data, &expat_handler_ns, errors, true);
 class KML_EXPORT ExpatHandlerNs : public ExpatHandler {
-public:
+ public:
   // The given ExpatHandler is a prefix-aware but namespace-unaware handler.
   // The Xmlns describes the prefixes implemented by the handler.  For example,
   // if the ExpatHandler implements "atom:name" then Xmlns should have a
@@ -67,8 +67,7 @@ public:
   virtual ~ExpatHandlerNs();
   // This translates an expat-generated namespace qualified name into a
   // name with a prefix known to the Xmlns passed to the constructor.
-  const string TranslatePrefixedName(
-      const string prefixed_name) const;
+  const string TranslatePrefixedName(const string prefixed_name) const;
   virtual void StartElement(const string& namespaced_named,
                             const StringVector& atts);
   virtual void EndElement(const string& namespaced_name);
@@ -76,7 +75,7 @@ public:
   virtual void StartNamespace(const string& prefix, const string& uri);
   virtual void EndNamespace(const string& prefix);
 
-private:
+ private:
   ExpatHandler* expat_handler_;
   const Xmlns* xmlns_;
 };

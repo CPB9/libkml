@@ -24,18 +24,20 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml/convenience/element_counter.h"
+#include "kml/dom/element.h"
 
 namespace kmlconvenience {
 
-bool ElementCounter::NewElement(const kmldom::ElementPtr& element){
-   if (element_count_map_.find(element->Type()) == element_count_map_.end()) {
-     element_count_map_[element->Type()] = 1;
-   } else {
-     element_count_map_[element->Type()] += 1;
-   }
-   return true;  // Always return true to keep parsing.
- }
+bool ElementCounter::NewElement(const kmldom::ElementPtr& element) {
+  if (element_count_map_.find(element->Type()) == element_count_map_.end()) {
+    element_count_map_[element->Type()] = 1;
+  } else {
+    element_count_map_[element->Type()] += 1;
+  }
+  return true;  // Always return true to keep parsing.
+}
 
-ElementCounter::ElementCounter(ElementCountMap* element_count_map) : element_count_map_(*element_count_map){}
+ElementCounter::ElementCounter(ElementCountMap* element_count_map)
+    : element_count_map_(*element_count_map) {
+}
 }  // end namespace kmlconvenience
-

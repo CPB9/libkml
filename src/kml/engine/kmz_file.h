@@ -28,12 +28,13 @@
 #ifndef KML_ENGINE_KMZ_FILE_H__
 #define KML_ENGINE_KMZ_FILE_H__
 
-#include <vector>
 #include <bmcl/Rc.h>
 #include <memory>
-#include "kml/config.h"
+#include <vector>
 #include "kml/base/referent.h"
+#include "kml/base/string_util.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 #include "kml/engine/kml_file.h"
 
 // ZipFile hides the implementation details of the underlying zip library from

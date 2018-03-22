@@ -33,10 +33,10 @@
 #ifndef KML_BASE_EXPAT_PARSER_H__
 #define KML_BASE_EXPAT_PARSER_H__
 
+#include <expat.h>
 #include <map>
-#include "expat.h"
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 
 namespace kmlbase {
 
@@ -52,8 +52,7 @@ class KML_EXPORT ExpatHandlerSet {
   ExpatHandlerSet();
   ~ExpatHandlerSet();
 
-  void set_handler(const string& xml_namespace,
-                  ExpatHandler* expat_handler);
+  void set_handler(const string& xml_namespace, ExpatHandler* expat_handler);
 
   // TODO: this is a hack.  only the instance document has a concept of a
   // default namespace (which may have no default namespace at all).
@@ -100,8 +99,7 @@ class KML_EXPORT ExpatParser {
   // Parse a chunk of XML data. The input does not have to be split on element
   // boundaries. The is_final flag indicates to expat if it should consider
   // this buffer the end of the content.
-  bool ParseBuffer(const string& input, string* errors,
-                   bool is_final);
+  bool ParseBuffer(const string& input, string* errors, bool is_final);
 
  private:
   ExpatHandler* expat_handler_;
@@ -111,7 +109,6 @@ class KML_EXPORT ExpatParser {
   void ReportError(XML_Parser parser, string* errors);
 };
 
-
-}  // end namespace kmldom
+}  // namespace kmlbase
 
 #endif  // KML_BASE_EXPAT_PARSER_H__

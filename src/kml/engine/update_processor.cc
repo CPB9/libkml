@@ -32,6 +32,12 @@
 
 #include "kml/engine/update_processor.h"
 #include "kml/base/string_util.h"
+#include "kml/dom/container.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/networklinkcontrol.h"
+#include "kml/dom/object.h"
 #include "kml/engine/clone.h"
 #include "kml/engine/kml_file.h"
 #include "kml/engine/merge.h"
@@ -51,14 +57,14 @@ using kmldom::DeletePtr;
 using kmldom::FeaturePtr;
 using kmldom::KmlPtr;
 using kmldom::ObjectPtr;
-using kmldom::UpdatePtr;
 using kmldom::UpdateOperationPtr;
+using kmldom::UpdatePtr;
 
 namespace kmlengine {
 
-UpdateProcessor::UpdateProcessor(const KmlFile& kml_file, const kmlbase::StringMap* id_map)
-  : kml_file_(kml_file),
-    id_map_(id_map) {
+UpdateProcessor::UpdateProcessor(const KmlFile& kml_file,
+                                 const kmlbase::StringMap* id_map)
+    : kml_file_(kml_file), id_map_(id_map) {
 }
 
 void UpdateProcessor::ProcessUpdate(const UpdatePtr& update) {
@@ -102,7 +108,7 @@ void UpdateProcessor::ProcessUpdateCreate(const CreatePtr& create) {
     string targetid;
     if (GetTargetId(source_container, &targetid)) {
       if (ContainerPtr target_container =
-          AsContainer(kml_file_.GetObjectById(targetid))) {
+              AsContainer(kml_file_.GetObjectById(targetid))) {
         CopyFeatures(source_container, target_container);
       }
     }
@@ -136,7 +142,7 @@ FeaturePtr UpdateProcessor::DeleteFeatureById(const string& id) {
 // This is a key reason for this class: to remap the targetId against
 // the supplied id map (if one is supplied).
 bool UpdateProcessor::GetTargetId(const kmldom::ObjectPtr& object,
-                 string* targetid) const {
+                                  string* targetid) const {
   if (!object->has_targetid()) {
     return false;
   }

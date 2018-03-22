@@ -27,57 +27,62 @@
 
 namespace kmldom {
 
-void StatsSerializer::BeginById(int type_id, const kmlbase::Attributes& attributes){
-   ++begin_count_;
- }
+void StatsSerializer::BeginById(int type_id,
+                                const kmlbase::Attributes& attributes) {
+  ++begin_count_;
+}
 
-void StatsSerializer::End(){
-   ++end_count_;
- }
+void StatsSerializer::End() {
+  ++end_count_;
+}
 
-void StatsSerializer::SaveStringFieldById(int type_id, std::__cxx11::string value){
-   ++field_count_;
- }
+void StatsSerializer::SaveStringFieldById(int type_id,
+                                          std::__cxx11::string value) {
+  ++field_count_;
+}
 
-void StatsSerializer::SaveContent(const std::__cxx11::string& content, bool maybe_quote){
-   ++content_count_;
- }
+void StatsSerializer::SaveContent(const std::__cxx11::string& content,
+                                  bool maybe_quote) {
+  ++content_count_;
+}
 
-void StatsSerializer::SaveElement(const ElementPtr& element){
-   ++element_count_;
-   Serializer::SaveElement(element);
- }
+void StatsSerializer::SaveElement(const ElementPtr& element) {
+  ++element_count_;
+  Serializer::SaveElement(element);
+}
 
-void StatsSerializer::SaveElementGroup(const ElementPtr& element, int group_id){
-   ++element_group_count_;
-   SaveElement(element);  // To count elements and recurse.
- }
+void StatsSerializer::SaveElementGroup(const ElementPtr& element,
+                                       int group_id) {
+  ++element_group_count_;
+  SaveElement(element);  // To count elements and recurse.
+}
 
-int StatsSerializer::get_begin_count() const{
-   return begin_count_;
- }
+int StatsSerializer::get_begin_count() const {
+  return begin_count_;
+}
 
-int StatsSerializer::get_end_count() const{
-   return end_count_;
- }
+int StatsSerializer::get_end_count() const {
+  return end_count_;
+}
 
-int StatsSerializer::get_field_count() const{
-   return field_count_;
- }
+int StatsSerializer::get_field_count() const {
+  return field_count_;
+}
 
-int StatsSerializer::get_element_count() const{
-   return element_count_;
- }
+int StatsSerializer::get_element_count() const {
+  return element_count_;
+}
 
-int StatsSerializer::get_element_group_count() const{
-   return element_group_count_;
- }
+int StatsSerializer::get_element_group_count() const {
+  return element_group_count_;
+}
 
 StatsSerializer::StatsSerializer()
-      : begin_count_(0),
-        end_count_(0),
-        field_count_(0),
-        element_count_(0),
-        element_group_count_(0),
-        content_count_(0){}
+    : begin_count_(0),
+      end_count_(0),
+      field_count_(0),
+      element_count_(0),
+      element_group_count_(0),
+      content_count_(0) {
+}
 }  // end namespace kmldom

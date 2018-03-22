@@ -30,14 +30,17 @@
 #ifndef KML_DOM_XML_SERIALIZER_H__
 #define KML_DOM_XML_SERIALIZER_H__
 
+#include <memory>
 #include <ostream>
 #include <stack>
 #include <vector>
 #include "kml/base/attributes.h"
+#include "kml/base/color32.h"
 #include "kml/base/vec3.h"
+#include "kml/dom/element.h"
 #include "kml/dom/serializer.h"
+#include "kml/dom/xml_serializer.h"
 #include "kml/dom/xsd.h"
-#include "kml/dom.h"
 
 namespace kmldom {
 
@@ -45,8 +48,7 @@ namespace kmldom {
 // qualified string.  See base/util.h for more info about string vs std::string.
 class StringAdapter {
  public:
-  StringAdapter(string* str)
-    : str_(str) {
+  StringAdapter(string* str) : str_(str) {
   }
 
   void write(const char* s, size_t n) {
@@ -56,6 +58,7 @@ class StringAdapter {
   void put(char c) {
     str_->append(1, c);
   }
+
  private:
   string* str_;
 };
@@ -67,18 +70,18 @@ class StringAdapter {
 //   void put(char c);
 // };
 // C++ std::ostream matches T
-template<class T>
+template <class T>
 class XmlSerializer : public Serializer {
  public:
   static void Serialize(const ElementPtr& root, const char* newline,
                         const char* indent, T* output) {
-   if (!root || !newline || !indent || !output) {
-     return;
-   }
-   std::unique_ptr<XmlSerializer> xml_ostream_serializer(
-       new XmlSerializer(newline, indent, output));
-   root->Serialize(*xml_ostream_serializer);
- }
+    if (!root || !newline || !indent || !output) {
+      return;
+    }
+    std::unique_ptr<XmlSerializer> xml_ostream_serializer(
+        new XmlSerializer(newline, indent, output));
+    root->Serialize(*xml_ostream_serializer);
+  }
 
   // Construct a serializer with the given strings for line breaks and
   // indentation.  The indent string is used once for each level of
@@ -86,13 +89,14 @@ class XmlSerializer : public Serializer {
   // primarily for unit testing.  Use SerializePrettyToBase whenever
   // possible.  Use kmldom::SerializeToBase() external client code.
   XmlSerializer(const char* newline, const char* indent, T* output)
-    : newline_(newline),
-      indent_(indent),
-      output_(output),
-      start_pending_(false) {
+      : newline_(newline),
+        indent_(indent),
+        output_(output),
+        start_pending_(false) {
   }
 
-  virtual ~XmlSerializer() {}
+  virtual ~XmlSerializer() {
+  }
 
   // Emit the start tag of the given element: <Placemark id="pm123">.
   virtual void BeginById(int type_id, const kmlbase::Attributes& attributes) {

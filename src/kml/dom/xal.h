@@ -52,12 +52,12 @@
 #define KML_DOM_XAL_H__
 
 #include "kml/dom/element.h"
-#include "kml/base/attributes.h"
 
 namespace kmldom {
 
 // <xal:AddressDetails>
-class KML_EXPORT XalAddressDetails : public BasicElement<Type_XalAddressDetails> {
+class KML_EXPORT XalAddressDetails
+    : public BasicElement<Type_XalAddressDetails> {
  public:
   virtual ~XalAddressDetails();
 
@@ -78,7 +78,8 @@ class KML_EXPORT XalAddressDetails : public BasicElement<Type_XalAddressDetails>
 };
 
 // <xal:AdministrativeArea>
-class KML_EXPORT XalAdministrativeArea : public BasicElement<Type_XalAdministrativeArea> {
+class KML_EXPORT XalAdministrativeArea
+    : public BasicElement<Type_XalAdministrativeArea> {
  public:
   virtual ~XalAdministrativeArea();
 
@@ -184,7 +185,8 @@ class KML_EXPORT XalLocality : public BasicElement<Type_XalLocality> {
 // <xal:PostalCode>
 class KML_EXPORT XalPostalCode : public BasicElement<Type_XalPostalCode> {
  public:
-  virtual ~XalPostalCode() {}
+  virtual ~XalPostalCode() {
+  }
 
   // <xal:PostalCodeNumber>
   const string& get_postalcodenumber() const;
@@ -204,8 +206,8 @@ class KML_EXPORT XalPostalCode : public BasicElement<Type_XalPostalCode> {
 };
 
 // <xal:SubAdministrativeArea>
-class KML_EXPORT XalSubAdministrativeArea :
-    public BasicElement<Type_XalSubAdministrativeArea> {
+class KML_EXPORT XalSubAdministrativeArea
+    : public BasicElement<Type_XalSubAdministrativeArea> {
  public:
   virtual ~XalSubAdministrativeArea();
 

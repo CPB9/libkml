@@ -30,9 +30,9 @@
 
 #include <map>
 #include <memory>
-#include "kml/config.h"
 #include "kml/base/memory_file.h"
 #include "kml/base/net_cache.h"
+#include "kml/config.h"
 #include "kml/engine/kmz_file.h"
 
 namespace kmlengine {
@@ -45,6 +45,7 @@ class KmlUri;
 // NOTE: Applications should generally use KmlCache.
 class KML_EXPORT KmzCache : public kmlbase::NetCache<KmzFile> {
   typedef kmlbase::NetCache<kmlbase::MemoryFile> MemoryFileCache;
+
  public:
   // This creates a KmzCache to hold up to the given number of KmzFiles.
   // This same size is used for an internal cache of MemoryFile's of fetched

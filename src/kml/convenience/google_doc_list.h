@@ -32,11 +32,14 @@
 #ifndef KML_CONVENIENCE_GOOGLE_DOC_LIST_H_
 #define KML_CONVENIENCE_GOOGLE_DOC_LIST_H_
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
+#include "kml/base/util.h"
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_funcs.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlconvenience {
 
@@ -86,8 +89,7 @@ class KML_EXPORT GoogleDocList {
   kmldom::AtomFeedPtr GetMetaFeed() const;
 
   // http://code.google.com/apis/documents/docs/3.0/developers_guide_protocol.html#UploadingDocs
-  bool UploadSpreadsheet(const string& spreadsheet,
-                         const string& mimetype,
+  bool UploadSpreadsheet(const string& spreadsheet, const string& mimetype,
                          string* atom_entry);
 
  private:

@@ -26,20 +26,25 @@
 #include "kml/regionator/feature_list_region_handler.h"
 #include <map>
 #include "kml/base/file.h"
-#include "kml/dom.h"
-#include "kml/engine.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/folder.h"
+#include "kml/dom/kml.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/kml_funcs.h"
+#include "kml/dom/placemark.h"
+#include "kml/dom/region.h"
 #include "kml/regionator/region_handler.h"
 #include "kml/regionator/regionator.h"
 #include "kml/regionator/regionator_qid.h"
 #include "kml/regionator/regionator_util.h"
 
+using kmlconvenience::FeatureList;
 using kmldom::FeaturePtr;
 using kmldom::FolderPtr;
-using kmldom::KmlPtr;
 using kmldom::KmlFactory;
+using kmldom::KmlPtr;
 using kmldom::PlacemarkPtr;
 using kmldom::RegionPtr;
-using kmlconvenience::FeatureList;
 using kmlengine::Bbox;
 using kmlregionator::RegionHandler;
 using kmlregionator::Regionator;
@@ -49,8 +54,10 @@ namespace kmlregionator {
 // This is the maximum number of features per region.
 static const int kMaxPer = 10;
 
-FeatureListRegionHandler::FeatureListRegionHandler(kmlconvenience::FeatureList* feature_list)
-      : feature_list_(*feature_list) {}
+FeatureListRegionHandler::FeatureListRegionHandler(
+    kmlconvenience::FeatureList* feature_list)
+    : feature_list_(*feature_list) {
+}
 bool FeatureListRegionHandler::HasData(const RegionPtr& region) {
   FeatureList this_region;
   if (feature_list_.RegionSplit(region, kMaxPer, &this_region) > 0) {

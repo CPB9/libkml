@@ -1,9 +1,9 @@
 // Copyright 2008, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,20 +13,26 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementatio of the EntityMapper class and the
 // CreateExpandedEntities function.
 
 #include "kml/engine/entity_mapper.h"
+#include "kml/dom/extendeddata.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_ptr.h"
+#include "kml/dom/schema.h"
+#include "kml/dom/snippet.h"
 #include "kml/dom/xsd.h"  // TODO: should be Xsd class be public?
 #include "kml/engine/kml_uri.h"
 
@@ -46,15 +52,18 @@ namespace kmlengine {
 static const char kDisplayNamePfx[] = "/displayName";
 
 EntityMapper::EntityMapper(const KmlFilePtr& kml_file, StringMap* string_map)
-    : kml_file_(kml_file), entity_map_(string_map),
-      alt_markup_map_(NULL) {}
+    : kml_file_(kml_file), entity_map_(string_map), alt_markup_map_(NULL) {
+}
 
 EntityMapper::EntityMapper(const KmlFilePtr& kml_file, StringMap* string_map,
                            StringPairVector* alt_markup_map)
-    : kml_file_(kml_file), entity_map_(string_map),
-      alt_markup_map_(alt_markup_map) {}
+    : kml_file_(kml_file),
+      entity_map_(string_map),
+      alt_markup_map_(alt_markup_map) {
+}
 
-EntityMapper::~EntityMapper() {}
+EntityMapper::~EntityMapper() {
+}
 
 void EntityMapper::GetEntityFields(const FeaturePtr& feature) {
   GatherObjectFields(feature);
@@ -82,22 +91,22 @@ void EntityMapper::GatherFeatureFields(const FeaturePtr& feature) {
   // <name>...
   if (feature->has_name()) {
     (*entity_map_)[Xsd::GetSchema()->ElementName(kmldom::Type_name)] =
-      feature->get_name();
+        feature->get_name();
   }
   // <address>...
   if (feature->has_address()) {
     (*entity_map_)[Xsd::GetSchema()->ElementName(kmldom::Type_address)] =
-      feature->get_address();
+        feature->get_address();
   }
   // <Snippet>...
   if (feature->has_snippet()) {
     (*entity_map_)[Xsd::GetSchema()->ElementName(kmldom::Type_Snippet)] =
-      feature->get_snippet()->get_text();
+        feature->get_snippet()->get_text();
   }
   // <description>...
   if (feature->has_description()) {
     (*entity_map_)[Xsd::GetSchema()->ElementName(kmldom::Type_description)] =
-      feature->get_description();
+        feature->get_description();
   }
 }
 
@@ -122,7 +131,7 @@ void EntityMapper::GatherDataFields(const DataPtr& data) {
     // If <ExtendedData><Data name="..."><displayName>...
     if (data->has_displayname()) {
       (*entity_map_)[data->get_name() + kDisplayNamePfx] =
-        data->get_displayname();
+          data->get_displayname();
     }
   }
   if (alt_markup_map_ && data->has_name()) {
@@ -150,8 +159,7 @@ void EntityMapper::GatherSchemaDataFields(const SchemaDataPtr& schemadata) {
         // Now walk all SimpleFields in schema building concatenations of
         // Schema_name/SimpleField_name/displayName (if we have displayName).
         for (size_t i = 0; i < schema->get_simplefield_array_size(); ++i) {
-          GatherSimpleFieldFields(schema->get_simplefield_array_at(i),
-                                  schema);
+          GatherSimpleFieldFields(schema->get_simplefield_array_at(i), schema);
         }
         schemadata_prefix_ = schema->get_name() + schemadata_prefix_;
         if (alt_markup_map_) {
@@ -172,8 +180,7 @@ void EntityMapper::GatherSimpleFieldFields(const SimpleFieldPtr& simplefield,
                                            const SchemaPtr& schema) {
   if (simplefield->has_name() && simplefield->has_displayname()) {
     (*entity_map_)[schema->get_name() + "/" + simplefield->get_name() +
-                  kDisplayNamePfx] =
-      simplefield->get_displayname();
+                   kDisplayNamePfx] = simplefield->get_displayname();
   }
 }
 
@@ -181,7 +188,7 @@ void EntityMapper::GatherSimpleFieldFields(const SimpleFieldPtr& simplefield,
 void EntityMapper::GatherSimpleDataFields(const SimpleDataPtr& simpledata) {
   if (simpledata->has_name()) {  // Required.
     (*entity_map_)[schemadata_prefix_ + simpledata->get_name()] =
-      simpledata->get_text();
+        simpledata->get_text();
   }
   // If there is a schemaUrl, the names we will use for display are in
   // the populated map. If there isn't, the map is empty and we'll use the
@@ -202,22 +209,20 @@ void EntityMapper::GatherSimpleDataFields(const SimpleDataPtr& simpledata) {
 void EntityMapper::PopulateSimpleFieldNameMap(const SchemaPtr& schema) {
   for (size_t i = 0; i < schema->get_simplefield_array_size(); ++i) {
     SimpleFieldPtr simplefield =
-      kmldom::AsSimpleField(schema->get_simplefield_array_at(i));
+        kmldom::AsSimpleField(schema->get_simplefield_array_at(i));
     if (simplefield->has_name()) {
       if (simplefield->has_displayname()) {
         simplefield_name_map_[simplefield->get_name()] =
-          schema->get_name() + ":" + simplefield->get_displayname();
+            schema->get_name() + ":" + simplefield->get_displayname();
       } else {
         simplefield_name_map_[simplefield->get_name()] =
-          schema->get_name() + ":" + simplefield->get_name();
+            schema->get_name() + ":" + simplefield->get_name();
       }
     }
   }
 }
 
-
-string CreateExpandedEntities(const string & in,
-                                   const StringMap& entity_map) {
+string CreateExpandedEntities(const string& in, const StringMap& entity_map) {
   // TODO: $[geDirections].
   return kmlbase::CreateExpandedStrings(in, entity_map, "$[", "]");
 }

@@ -26,9 +26,11 @@
 // This file contains the implementation of the GooglePicasaWeb class.
 
 #include "kml/convenience/google_picasa_web.h"
-
 #include "kml/convenience/atom_util.h"
 #include "kml/convenience/http_client.h"
+#include "kml/dom/atom.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_funcs.h"
 
 namespace kmlconvenience {
 
@@ -41,8 +43,7 @@ static const char* kPicasaWebMetaFeedUri = "/data/feed/api/user/default";
 static const char* kGdataVersion = "2";
 
 // static
-GooglePicasaWeb* GooglePicasaWeb::Create(
-    HttpClient* http_client) {
+GooglePicasaWeb* GooglePicasaWeb::Create(HttpClient* http_client) {
   // The HttpClient must exist.
   if (!http_client) {
     return nullptr;
@@ -70,12 +71,11 @@ static string GetScope() {
   return kScope;
 }
 
-const std::__cxx11::string& GooglePicasaWeb::get_scope() const{
-   return scope_;
- }
+const std::__cxx11::string& GooglePicasaWeb::get_scope() const {
+  return scope_;
+}
 
-GooglePicasaWeb::GooglePicasaWeb()
-  : scope_(GetScope()) {
+GooglePicasaWeb::GooglePicasaWeb() : scope_(GetScope()) {
 }
 
 // Keep POI of scoped_ptr<GoogleHttpClient>'s dtor out of .h

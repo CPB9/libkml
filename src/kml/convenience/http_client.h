@@ -30,10 +30,10 @@
 #ifndef KML_CONVENIENCE_HTTP_CLIENT_H_
 #define KML_CONVENIENCE_HTTP_CLIENT_H_
 
-#include <vector>
 #include <memory>
-#include "kml/config.h"
+#include <vector>
 #include "kml/base/net_cache.h"
+#include "kml/config.h"
 
 namespace kmlconvenience {
 
@@ -64,9 +64,10 @@ enum HttpMethodEnum {
 class KML_EXPORT HttpClient : kmlbase::NetFetcher {
  public:
   // The application_name is used in the HTTP User-Agent.
-  HttpClient(const string &application_name);
+  HttpClient(const string& application_name);
 
-  virtual ~HttpClient() {}
+  virtual ~HttpClient() {
+  }
 
   // These virtuals are the core of the HttpClient interface.
 
@@ -74,14 +75,13 @@ class KML_EXPORT HttpClient : kmlbase::NetFetcher {
   // http://code.google.com/apis/gdata/auth.html#ClientLogin
   // Derived classes typically are not expected to implement this.  This is
   // virtual primarily for testing.
-  virtual bool Login(const string& service_name,
-                     const string& email, const string& password);
+  virtual bool Login(const string& service_name, const string& email,
+                     const string& password);
 
   // Adds the given field name and value to the set of headers used in every
   // request.  This is a simple append.  No provision is made for overwriting
   // a header field of the same name.
-  void AddHeader(const string& field_name,
-                 const string& field_value);
+  void AddHeader(const string& field_name, const string& field_value);
 
   // All I/O goes through this method.  See HttpMethodEnum for valid
   // http_method values.  See RFC 2616, Section 5.1.2 Request-URI for
@@ -95,8 +95,7 @@ class KML_EXPORT HttpClient : kmlbase::NetFetcher {
   virtual bool SendRequest(HttpMethodEnum http_method,
                            const string& request_uri,
                            const StringPairVector* request_headers,
-                           const string* post_data,
-                           string* response) const;
+                           const string* post_data, string* response) const;
 
   // kmlbase::NetFetcher::FetchUrl()
   // The HttpClient implementation of this sends all fetches to SendRequest.
@@ -112,8 +111,7 @@ class KML_EXPORT HttpClient : kmlbase::NetFetcher {
   // If the given headers have a field of the given name return true.  If
   // an output field_value string is supplied the value is saved there.
   static bool FindHeader(const string& field_name,
-                         const StringPairVector& headers,
-                         string* field_value);
+                         const StringPairVector& headers, string* field_value);
 
   // This returns the given name-value pair formatted properly for use in an
   // HTTP request.
@@ -123,8 +121,7 @@ class KML_EXPORT HttpClient : kmlbase::NetFetcher {
   // appear in the field_name or field_value.  This function appends the
   // given field_name and field_value to the given headers vector.  If the
   // headers vector is NULL this function does nothing.
-  static void PushHeader(const string& field_name,
-                         const string& field_value,
+  static void PushHeader(const string& field_name, const string& field_value,
                          StringPairVector* headers);
 
   // The following methods return internal information about the state of

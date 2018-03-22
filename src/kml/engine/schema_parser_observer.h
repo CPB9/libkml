@@ -31,7 +31,7 @@
 #include <map>
 #include <string>
 #include "kml/config.h"
-#include "kml/dom.h"
+#include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
 

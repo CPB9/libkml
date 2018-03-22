@@ -29,12 +29,13 @@
 #ifndef KML_DOM_VISITOR_DRIVER_H__
 #define KML_DOM_VISITOR_DRIVER_H__
 
-#include "kml/config.h"
 #include "kml/base/util.h"
+#include "kml/config.h"
 #include "kml/dom/kml_ptr.h"
-#include "kml/dom/visitor.h"
 
 namespace kmldom {
+
+class Visitor;
 
 // A visitor driver controls the flow of a visitation over the dom element
 // hierarchy. There is typically expected to be only a single driver for each
@@ -73,7 +74,6 @@ class KML_EXPORT SimplePreorderDriver : public VisitorDriver {
   Visitor* visitor_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(SimplePreorderDriver);
 };
-
 
 // A simple driver implementation that invokes a single visitor in post-order
 // traversal of an element hierarchy. The visitor will visit each element in a

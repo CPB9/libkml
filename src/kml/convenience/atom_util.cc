@@ -1,9 +1,9 @@
 // Copyright 2009, Google Inc. All rights reserved.
 //
-// Redistribution and use in source and binary forms, with or without 
+// Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are met:
 //
-//  1. Redistributions of source code must retain the above copyright notice, 
+//  1. Redistributions of source code must retain the above copyright notice,
 //     this list of conditions and the following disclaimer.
 //  2. Redistributions in binary form must reproduce the above copyright notice,
 //     this list of conditions and the following disclaimer in the documentation
@@ -13,14 +13,14 @@
 //     specific prior written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
-// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+// WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 // MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+// EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
 // SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
 // PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 // OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR 
-// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+// OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This file contains the implementation of the Atom utility functions.
@@ -31,7 +31,13 @@
 
 #include "kml/base/string_util.h"
 #include "kml/convenience/http_client.h"
-#include "kml/dom.h"
+#include "kml/dom/atom.h"
+#include "kml/dom/container.h"
+#include "kml/dom/element.h"
+#include "kml/dom/feature.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/kml_factory.h"
+#include "kml/dom/kml_funcs.h"
 #include "kml/engine/clone.h"
 
 using kmldom::AtomContentPtr;
@@ -55,8 +61,7 @@ AtomEntryPtr AtomUtil::CreateBasicEntry(const string& title,
 }
 
 // static
-AtomLinkPtr AtomUtil::CreateBasicLink(const string& href,
-                                      const string& rel,
+AtomLinkPtr AtomUtil::CreateBasicLink(const string& href, const string& rel,
                                       const string& type) {
   AtomLinkPtr link = KmlFactory::GetFactory()->CreateAtomLink();
   link->set_href(href);
@@ -71,8 +76,8 @@ kmldom::AtomEntryPtr AtomUtil::CreateEntryForFeature(
   if (!feature.get()) {
     return nullptr;
   }
-  AtomEntryPtr entry = CreateBasicEntry(feature->get_name(),
-                                        feature->get_description());
+  AtomEntryPtr entry =
+      CreateBasicEntry(feature->get_name(), feature->get_description());
   AtomContentPtr content = KmlFactory::GetFactory()->CreateAtomContent();
   ElementPtr element = content;
   // There is no public API for programmatically adding an unknown or
@@ -99,7 +104,7 @@ bool AtomUtil::GetContentSrc(const AtomEntryPtr& entry, string* src) {
 bool AtomUtil::LinkIsOfRel(const kmldom::AtomLinkPtr& link,
                            const string& rel_type) {
   return link.get() && !rel_type.empty() &&
-      kmlbase::StringEndsWith(link->get_rel(), rel_type);
+         kmlbase::StringEndsWith(link->get_rel(), rel_type);
 }
 
 // static
@@ -153,7 +158,7 @@ FeaturePtr AtomUtil::GetEntryFeature(const AtomEntryPtr& entry) {
   if (entry.get() && entry->has_content() &&
       entry->get_content()->get_misplaced_elements_array_size() > 0) {
     return kmldom::AsFeature(
-             entry->get_content()->get_misplaced_elements_array_at(0));
+        entry->get_content()->get_misplaced_elements_array_at(0));
   }
   return nullptr;
 }

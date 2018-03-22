@@ -27,17 +27,21 @@
 
 namespace kmlbase {
 
-ExpatHandler::~ExpatHandler(){}
+ExpatHandler::~ExpatHandler() {
+}
 
-void ExpatHandler::StartNamespace(const std::__cxx11::string& prefix, const std::__cxx11::string& uri){}
+void ExpatHandler::StartNamespace(const std::__cxx11::string& prefix,
+                                  const std::__cxx11::string& uri) {
+}
 
-void ExpatHandler::EndNamespace(const std::__cxx11::string& prefix){}
+void ExpatHandler::EndNamespace(const std::__cxx11::string& prefix) {
+}
 
-void ExpatHandler::set_parser(XML_Parser parser){
+void ExpatHandler::set_parser(XML_Parser parser) {
   parser_ = parser;
 }
 
-XML_Parser ExpatHandler::get_parser(){
+XML_Parser ExpatHandler::get_parser() {
   return parser_;
 }
 }  // end namespace kmlbase

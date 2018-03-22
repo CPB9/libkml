@@ -28,10 +28,10 @@
 #ifndef KML_DOM_OBJECT_H__
 #define KML_DOM_OBJECT_H__
 
+#include "kml/base/util.h"
 #include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
-#include "kml/base/util.h"
 
 namespace kmlbase {
 class Attributes;

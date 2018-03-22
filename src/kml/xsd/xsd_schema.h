@@ -30,16 +30,19 @@
 
 #include <bmcl/Rc.h>
 #include <memory>
-#include "kml/config.h"
-#include "kml/base/attributes.h"
 #include "kml/base/referent.h"
 #include "kml/base/xmlns.h"
+#include "kml/config.h"
+
+namespace kmldom {
+class Attributes;
+}
 
 namespace kmlxsd {
 
 // XsdSchema corresponds to <xs:schema ... >
 class KML_EXPORT XsdSchema : public kmlbase::Referent {
-public:
+ public:
   ~XsdSchema();
   // Create an XsdSchema from the given attributes.  The attributes must
   // include both a targetNamespace="tns" and xmlns:prefix="tns".  All xmlns:'s

@@ -28,10 +28,10 @@
 #ifndef KML_DOM_BALLOONSTYLE_H__
 #define KML_DOM_BALLOONSTYLE_H__
 
-#include "kml/config.h"
 #include "kml/base/color32.h"
-#include "kml/dom/substyle.h"
+#include "kml/config.h"
 #include "kml/dom/kml22.h"
+#include "kml/dom/substyle.h"
 
 namespace kmldom {
 
@@ -90,4 +90,4 @@ class KML_EXPORT BalloonStyle : public SubStyle {
 
 }  // end namespace kmldom
 
-#endif // KML_DOM_BALLOONSTYLE_H__
+#endif  // KML_DOM_BALLOONSTYLE_H__

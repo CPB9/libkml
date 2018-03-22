@@ -62,8 +62,8 @@ class KML_EXPORT Bbox {
   bool ContainedByBbox(const Bbox& b) const;
 
   // This returns true of this Bbox is contained with the given bounds.
-  bool ContainedByBox(double north, double south,
-                      double east, double west) const;
+  bool ContainedByBox(double north, double south, double east,
+                      double west) const;
 
   // This returns true if the bbox contains the given latitude,longitude.
   bool Contains(double latitude, double longitude) const;

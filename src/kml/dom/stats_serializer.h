@@ -31,8 +31,8 @@
 #define KML_DOM_STATS_SERIALIZER_H__
 
 #include "kml/config.h"
-#include "kml/dom/serializer.h"
 #include "kml/dom/kml_ptr.h"
+#include "kml/dom/serializer.h"
 
 namespace kmlbase {
 class Attributes;
@@ -68,4 +68,4 @@ class KML_EXPORT StatsSerializer : public Serializer {
 
 }  // end namespace kmldom
 
-#endif // KML_DOM_STATS_SERIALIZER_H__
+#endif  // KML_DOM_STATS_SERIALIZER_H__

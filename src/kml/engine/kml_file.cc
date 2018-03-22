@@ -26,12 +26,19 @@
 // This file contains the implementation of the KmlFile class methods.
 
 #include "kml/engine/kml_file.h"
+#include "kml/base/attributes.h"
 #include "kml/base/xml_namespaces.h"
+#include "kml/dom/document.h"
+#include "kml/dom/kml_cast.h"
+#include "kml/dom/parser.h"
+#include "kml/dom/styleselector.h"
+#include "kml/dom/xml_serializer.h"
 #include "kml/engine/find_xml_namespaces.h"
+#include "kml/engine/get_link_parents.h"
 #include "kml/engine/id_mapper.h"
 #include "kml/engine/kmz_file.h"
-#include "kml/dom.h"
-#include "kml/dom/xml_serializer.h"
+#include "kml/engine/object_id_parser_observer.h"
+#include "kml/engine/shared_style_parser_observer.h"
 
 using kmlbase::FindXmlNamespaceAndPrefix;
 using kmlbase::XmlnsId;
@@ -68,8 +75,7 @@ KmlFile* KmlFile::CreateFromStringWithUrl(const string& kml_data,
 
 // private
 // This is an internal helper function used in CreateFromParse().
-bool KmlFile::_CreateFromParse(const string& kml_or_kmz_data,
-                               string* errors) {
+bool KmlFile::_CreateFromParse(const string& kml_or_kmz_data, string* errors) {
   // Here our focus is on deciding KML vs KMZ.
   if (kmlengine::KmzFile::IsKmz(kml_or_kmz_data)) {
     return OpenAndParseKmz(kml_or_kmz_data, errors);
@@ -80,12 +86,11 @@ bool KmlFile::_CreateFromParse(const string& kml_or_kmz_data,
 // private
 // The caller is expected to have called KmzFile::IsKmz on this, thus the return
 // status represents file handling errors.
-bool KmlFile::OpenAndParseKmz(const string& kmz_data,
-                              string* errors) {
+bool KmlFile::OpenAndParseKmz(const string& kmz_data, string* errors) {
   string kml_data;
   KmzFilePtr kmz_file = kmlengine::KmzFile::OpenFromString(kmz_data);
   if (!kmz_file || !kmz_file->ReadKml(&kml_data)) {
-      return false;
+    return false;
   }
   return ParseFromString(kml_data, errors);
 }
@@ -93,9 +98,7 @@ bool KmlFile::OpenAndParseKmz(const string& kmz_data,
 // private
 // TODO: push strict parsing out as a Create() method arg
 KmlFile::KmlFile()
-  : encoding_(kDefaultEncoding),
-    kml_cache_(NULL),
-    strict_parse_(false) {
+    : encoding_(kDefaultEncoding), kml_cache_(NULL), strict_parse_(false) {
 }
 
 // private
@@ -186,8 +189,8 @@ bool KmlFile::SerializeToOstream(std::ostream* xml_output) const {
   FindAndInsertXmlNamespaces(get_root());
 
   // Append the serialization to the XML header.
-  kmldom::XmlSerializer<std::ostream>::Serialize(get_root(), "\n",
-                                                         "  ", xml_output);
+  kmldom::XmlSerializer<std::ostream>::Serialize(get_root(), "\n", "  ",
+                                                 xml_output);
   return true;
 }
 
@@ -213,54 +216,54 @@ bool KmlFile::SerializeToString(string* xml_output) const {
 
 kmldom::ObjectPtr KmlFile::GetObjectById(const string& id) const {
   ObjectIdMap::const_iterator find = object_id_map_.find(id);
-  return find != object_id_map_.end() ? kmldom::AsObject(find->second) : nullptr;
+  return find != object_id_map_.end() ? kmldom::AsObject(find->second)
+                                      : nullptr;
 }
 
-kmldom::StyleSelectorPtr KmlFile::GetSharedStyleById(
-    const string& id) const {
+kmldom::StyleSelectorPtr KmlFile::GetSharedStyleById(const string& id) const {
   SharedStyleMap::const_iterator find = shared_style_map_.find(id);
   return find != shared_style_map_.end() ? find->second : nullptr;
 }
 
+kmlengine::KmlFile* KmlFile::CreateFromString(
+    const std::__cxx11::string& kml_or_kmz_data) {
+  // Internal KML fetch/parse (styleUrl, etc) errors are quietly ignored.
+  return CreateFromParse(kml_or_kmz_data, NULL);
+}
 
-kmlengine::KmlFile* KmlFile::CreateFromString(const std::__cxx11::string& kml_or_kmz_data){
-   // Internal KML fetch/parse (styleUrl, etc) errors are quietly ignored.
-   return CreateFromParse(kml_or_kmz_data, NULL);
- }
+kmldom::ElementPtr KmlFile::get_root() const {
+  return kmldom::AsElement(XmlFile::get_root());
+}
 
-const kmldom::ElementPtr& KmlFile::get_root() const{
-   return kmldom::AsElement(XmlFile::get_root());
- }
+kmldom::ElementPtr KmlFile::root() const {
+  return get_root();
+}
 
-const kmldom::ElementPtr& KmlFile::root() const{
-   return get_root();
- }
+void KmlFile::set_encoding(const std::__cxx11::string& encoding) {
+  encoding_ = encoding;
+}
 
-void KmlFile::set_encoding(const std::__cxx11::string& encoding){
-   encoding_ = encoding;
- }
+const std::__cxx11::string& KmlFile::get_encoding() const {
+  return encoding_;
+}
 
-const std::__cxx11::string& KmlFile::get_encoding() const{
-   return encoding_;
- }
+const SharedStyleMap& KmlFile::get_shared_style_map() const {
+  return shared_style_map_;
+}
 
-const SharedStyleMap& KmlFile::get_shared_style_map() const{
-   return shared_style_map_;
- }
+const ElementVector& KmlFile::get_link_parent_vector() const {
+  return link_parent_vector_;
+}
 
-const ElementVector& KmlFile::get_link_parent_vector() const{
-   return link_parent_vector_;
- }
+KmlCache* KmlFile::get_kml_cache() const {
+  return kml_cache_;
+}
 
-KmlCache* KmlFile::get_kml_cache() const{
-   return kml_cache_;
- }
+void KmlFile::set_strict_parse(bool val) {
+  strict_parse_ = val;
+}
 
-void KmlFile::set_strict_parse(bool val){
-   strict_parse_ = val;
- }
-
-void KmlFile::set_kml_cache(KmlCache* kml_cache){
-   kml_cache_ = kml_cache;
- }
+void KmlFile::set_kml_cache(KmlCache* kml_cache) {
+  kml_cache_ = kml_cache;
+}
 }  // end namespace kmlengine

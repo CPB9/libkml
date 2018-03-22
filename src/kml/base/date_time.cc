@@ -26,9 +26,9 @@
 // This file contains the implementation of the DateTime class.
 
 #include "kml/base/date_time.h"
-#include "kml/base/missing/strptime.h"
-#include <memory>
 #include <stdlib.h>
+#include <memory>
+#include "kml/base/missing/strptime.h"
 
 namespace kmlbase {
 
@@ -59,9 +59,9 @@ static bool is_leap(int year) {
 time_t DateTime::GetTimeT() const {
   // Always return time as GMT; disregard local time, unlike  mktime(3).
   // Faster (and less "obviously correct") implementations are possible.
-  static const unsigned ndays[2][12] ={
-    {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
-    {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
+  static const unsigned ndays[2][12] = {
+      {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+      {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}};
   time_t res = 0;
 
   // This and is_leap() base from 1970, the epoch of a time_t.
@@ -81,7 +81,7 @@ time_t DateTime::GetTimeT() const {
   return res;
 }
 
-template<int N>
+template <int N>
 string DateTime::DoStrftime(const char* format) const {
   char buf[N];
   strftime(buf, N, format, &tm_);
@@ -106,7 +106,8 @@ DateTime::DateTime() {
 
 // private
 bool DateTime::ParseXsdDateTime(const string& xsd_date_time) {
-  return kml_strptime(xsd_date_time.c_str(), "%Y-%m-%dT%H:%M:%SZ", &tm_) != NULL;
+  return kml_strptime(xsd_date_time.c_str(), "%Y-%m-%dT%H:%M:%SZ", &tm_) !=
+         NULL;
 }
 
 }  // end namespace kmlbase
