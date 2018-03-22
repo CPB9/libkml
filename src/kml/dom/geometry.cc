@@ -887,11 +887,11 @@ size_t GxTrack::get_when_array_size() {
   return when_array_.size();
 }
 
-void GxTrack::add_when(const std::__cxx11::string& when) {
+void GxTrack::add_when(const string& when) {
   when_array_.push_back(when);
 }
 
-const std::__cxx11::string& GxTrack::get_when_array_at(size_t index) const {
+const string& GxTrack::get_when_array_at(size_t index) const {
   return when_array_[index];
 }
 
@@ -1183,7 +1183,7 @@ bool Alias::IsA(kmldom::KmlDomType type) const {
   return type == Type_Alias || Object::IsA(type);
 }
 
-const std::__cxx11::string& Alias::get_targethref() const {
+const string& Alias::get_targethref() const {
   return targethref_;
 }
 
@@ -1191,7 +1191,7 @@ bool Alias::has_targethref() const {
   return has_targethref_;
 }
 
-void Alias::set_targethref(const std::__cxx11::string& targethref) {
+void Alias::set_targethref(const string& targethref) {
   targethref_ = targethref;
   has_targethref_ = true;
 }
@@ -1201,7 +1201,7 @@ void Alias::clear_targethref() {
   has_targethref_ = false;
 }
 
-const std::__cxx11::string& Alias::get_sourcehref() const {
+const string& Alias::get_sourcehref() const {
   return sourcehref_;
 }
 
@@ -1209,7 +1209,7 @@ bool Alias::has_sourcehref() const {
   return has_sourcehref_;
 }
 
-void Alias::set_sourcehref(const std::__cxx11::string& sourcehref) {
+void Alias::set_sourcehref(const string& sourcehref) {
   sourcehref_ = sourcehref;
   has_sourcehref_ = true;
 }

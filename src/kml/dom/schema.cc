@@ -158,7 +158,7 @@ void Schema::AcceptChildren(VisitorDriver* driver) {
                                                  driver);
 }
 
-const std::__cxx11::string& SimpleField::get_type() const {
+const string& SimpleField::get_type() const {
   return type_;
 }
 
@@ -166,7 +166,7 @@ bool SimpleField::has_type() const {
   return has_type_;
 }
 
-void SimpleField::set_type(const std::__cxx11::string& value) {
+void SimpleField::set_type(const string& value) {
   type_ = value;
   has_type_ = true;
 }
@@ -176,7 +176,7 @@ void SimpleField::clear_type() {
   has_type_ = false;
 }
 
-const std::__cxx11::string& SimpleField::get_name() const {
+const string& SimpleField::get_name() const {
   return name_;
 }
 
@@ -184,7 +184,7 @@ bool SimpleField::has_name() const {
   return has_name_;
 }
 
-void SimpleField::set_name(const std::__cxx11::string& value) {
+void SimpleField::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }
@@ -194,7 +194,7 @@ void SimpleField::clear_name() {
   has_name_ = false;
 }
 
-const std::__cxx11::string& SimpleField::get_displayname() const {
+const string& SimpleField::get_displayname() const {
   return displayname_;
 }
 
@@ -202,7 +202,7 @@ bool SimpleField::has_displayname() const {
   return has_displayname_;
 }
 
-void SimpleField::set_displayname(const std::__cxx11::string& value) {
+void SimpleField::set_displayname(const string& value) {
   displayname_ = value;
   has_displayname_ = true;
 }
@@ -228,7 +228,7 @@ bool Schema::IsA(kmldom::KmlDomType type) const {
   return type == Type_Schema || Object::IsA(type);
 }
 
-const std::__cxx11::string& Schema::get_name() const {
+const string& Schema::get_name() const {
   return name_;
 }
 
@@ -236,7 +236,7 @@ bool Schema::has_name() const {
   return has_name_;
 }
 
-void Schema::set_name(const std::__cxx11::string& value) {
+void Schema::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }

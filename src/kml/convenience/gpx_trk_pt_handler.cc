@@ -33,8 +33,8 @@
 namespace kmlconvenience {
 
 void GpxTrkPtHandler::StartElement(
-    const std::__cxx11::string& name,
-    const std::vector<std::__cxx11::string>& atts) {
+    const string& name,
+    const std::vector<string>& atts) {
   if (name.compare("trkpt") == 0) {
     // <trkpt lat="-33.911973070" lon="18.422974152">
     // If both lat and lon exist and are sane doubles create a Vec3 for
@@ -58,7 +58,7 @@ void GpxTrkPtHandler::StartElement(
   }
 }
 
-void GpxTrkPtHandler::EndElement(const std::__cxx11::string& name) {
+void GpxTrkPtHandler::EndElement(const string& name) {
   if (name.compare("trkpt") == 0) {
     // </trkpt>
     // If a Vec3 was created for this element call the handler.
@@ -76,13 +76,13 @@ void GpxTrkPtHandler::EndElement(const std::__cxx11::string& name) {
   }
 }
 
-void GpxTrkPtHandler::CharData(const std::__cxx11::string& str) {
+void GpxTrkPtHandler::CharData(const string& str) {
   if (gather_char_data_) {
     char_data_.append(str);
   }
 }
 
 void GpxTrkPtHandler::HandlePoint(const kmlbase::Vec3& where,
-                                  const std::__cxx11::string& when) {
+                                  const string& when) {
 }
 }  // end namespace kmlconvenience

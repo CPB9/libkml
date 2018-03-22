@@ -165,7 +165,7 @@ void AbstractLink::clear_httpquery() {
   has_httpquery_ = false;
 }
 
-void AbstractLink::set_httpquery(const std::__cxx11::string& httpquery) {
+void AbstractLink::set_httpquery(const string& httpquery) {
   httpquery_ = httpquery;
   has_httpquery_ = true;
 }
@@ -174,7 +174,7 @@ bool AbstractLink::has_httpquery() const {
   return has_httpquery_;
 }
 
-const std::__cxx11::string& AbstractLink::get_httpquery() const {
+const string& AbstractLink::get_httpquery() const {
   return httpquery_;
 }
 
@@ -183,7 +183,7 @@ void AbstractLink::clear_viewformat() {
   has_viewformat_ = false;
 }
 
-void AbstractLink::set_viewformat(const std::__cxx11::string& viewformat) {
+void AbstractLink::set_viewformat(const string& viewformat) {
   viewformat_ = viewformat;
   has_viewformat_ = true;
 }
@@ -192,7 +192,7 @@ bool AbstractLink::has_viewformat() const {
   return has_viewformat_;
 }
 
-const std::__cxx11::string& AbstractLink::get_viewformat() const {
+const string& AbstractLink::get_viewformat() const {
   return viewformat_;
 }
 
@@ -291,7 +291,7 @@ void BasicLink::clear_href() {
   has_href_ = false;
 }
 
-void BasicLink::set_href(const std::__cxx11::string& href) {
+void BasicLink::set_href(const string& href) {
   href_ = href;
   has_href_ = true;
 }
@@ -300,7 +300,7 @@ bool BasicLink::has_href() const {
   return has_href_;
 }
 
-const std::__cxx11::string& BasicLink::get_href() const {
+const string& BasicLink::get_href() const {
   return href_;
 }
 

@@ -185,7 +185,7 @@ void ItemIcon::clear_state() {
   has_state_ = false;
 }
 
-const std::__cxx11::string& ItemIcon::get_href() const {
+const string& ItemIcon::get_href() const {
   return href_;
 }
 
@@ -193,7 +193,7 @@ bool ItemIcon::has_href() const {
   return has_href_;
 }
 
-void ItemIcon::set_href(const std::__cxx11::string& href) {
+void ItemIcon::set_href(const string& href) {
   href_ = href;
   has_href_ = true;
 }

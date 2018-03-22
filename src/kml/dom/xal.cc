@@ -286,7 +286,7 @@ void XalAddressDetails::clear_country() {
 XalAdministrativeArea::~XalAdministrativeArea() {
 }
 
-const std::__cxx11::string& XalAdministrativeArea::get_administrativeareaname()
+const string& XalAdministrativeArea::get_administrativeareaname()
     const {
   return administrativeareaname_;
 }
@@ -296,7 +296,7 @@ bool XalAdministrativeArea::has_administrativeareaname() const {
 }
 
 void XalAdministrativeArea::set_administrativeareaname(
-    const std::__cxx11::string& value) {
+    const string& value) {
   administrativeareaname_ = value;
   has_administrativeareaname_ = true;
 }
@@ -343,7 +343,7 @@ void XalAdministrativeArea::clear_subadministrativearea() {
 XalCountry::~XalCountry() {
 }
 
-const std::__cxx11::string& XalCountry::get_countrynamecode() const {
+const string& XalCountry::get_countrynamecode() const {
   return countrynamecode_;
 }
 
@@ -351,7 +351,7 @@ bool XalCountry::has_countrynamecode() const {
   return has_countrynamecode_;
 }
 
-void XalCountry::set_countrynamecode(const std::__cxx11::string& value) {
+void XalCountry::set_countrynamecode(const string& value) {
   countrynamecode_ = value;
   has_countrynamecode_ = true;
 }
@@ -381,7 +381,7 @@ void XalCountry::clear_administrativearea() {
 XalLocality::~XalLocality() {
 }
 
-const std::__cxx11::string& XalLocality::get_localityname() const {
+const string& XalLocality::get_localityname() const {
   return localityname_;
 }
 
@@ -389,7 +389,7 @@ bool XalLocality::has_localityname() const {
   return has_localityname_;
 }
 
-void XalLocality::set_localityname(const std::__cxx11::string& value) {
+void XalLocality::set_localityname(const string& value) {
   localityname_ = value;
   has_localityname_ = true;
 }
@@ -431,7 +431,7 @@ void XalLocality::clear_postalcode() {
   set_postalcode(NULL);
 }
 
-const std::__cxx11::string& XalPostalCode::get_postalcodenumber() const {
+const string& XalPostalCode::get_postalcodenumber() const {
   return postalcodenumber_;
 }
 
@@ -439,7 +439,7 @@ bool XalPostalCode::has_postalcodenumber() const {
   return has_postalcodenumber_;
 }
 
-void XalPostalCode::set_postalcodenumber(const std::__cxx11::string& value) {
+void XalPostalCode::set_postalcodenumber(const string& value) {
   postalcodenumber_ = value;
   has_postalcodenumber_ = true;
 }
@@ -452,7 +452,7 @@ void XalPostalCode::clear_postalcodenumber() {
 XalSubAdministrativeArea::~XalSubAdministrativeArea() {
 }
 
-const std::__cxx11::string&
+const string&
 XalSubAdministrativeArea::get_subadministrativeareaname() const {
   return subadministrativeareaname_;
 }
@@ -462,7 +462,7 @@ bool XalSubAdministrativeArea::has_subadministrativeareaname() const {
 }
 
 void XalSubAdministrativeArea::set_subadministrativeareaname(
-    const std::__cxx11::string& value) {
+    const string& value) {
   subadministrativeareaname_ = value;
   has_subadministrativeareaname_ = true;
 }
@@ -491,7 +491,7 @@ void XalSubAdministrativeArea::clear_locality() {
 XalThoroughfare::~XalThoroughfare() {
 }
 
-const std::__cxx11::string& XalThoroughfare::get_thoroughfarename() const {
+const string& XalThoroughfare::get_thoroughfarename() const {
   return thoroughfarename_;
 }
 
@@ -499,7 +499,7 @@ bool XalThoroughfare::has_thoroughfarename() const {
   return has_thoroughfarename_;
 }
 
-void XalThoroughfare::set_thoroughfarename(const std::__cxx11::string& value) {
+void XalThoroughfare::set_thoroughfarename(const string& value) {
   thoroughfarename_ = value;
   has_thoroughfarename_ = true;
 }
@@ -509,7 +509,7 @@ void XalThoroughfare::clear_thoroughfarename() {
   has_thoroughfarename_ = false;
 }
 
-const std::__cxx11::string& XalThoroughfare::get_thoroughfarenumber() const {
+const string& XalThoroughfare::get_thoroughfarenumber() const {
   return thoroughfarenumber_;
 }
 
@@ -518,7 +518,7 @@ bool XalThoroughfare::has_thoroughfarenumber() const {
 }
 
 void XalThoroughfare::set_thoroughfarenumber(
-    const std::__cxx11::string& value) {
+    const string& value) {
   thoroughfarenumber_ = value;
   has_thoroughfarenumber_ = true;
 }

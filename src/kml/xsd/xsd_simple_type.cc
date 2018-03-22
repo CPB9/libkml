@@ -53,23 +53,23 @@ bool XsdSimpleType::is_complex() const {
   return false;
 }
 
-const std::__cxx11::string XsdSimpleType::get_name() const {
+const string XsdSimpleType::get_name() const {
   return name_;
 }
 
-const std::__cxx11::string XsdSimpleType::get_base() const {
+const string XsdSimpleType::get_base() const {
   return restriction_base_;
 }
 
-void XsdSimpleType::set_restriction_base(const std::__cxx11::string& base) {
+void XsdSimpleType::set_restriction_base(const string& base) {
   restriction_base_ = base;
 }
 
-const std::__cxx11::string& XsdSimpleType::get_restriction_base() const {
+const string& XsdSimpleType::get_restriction_base() const {
   return restriction_base_;
 }
 
-void XsdSimpleType::add_enumeration(const std::__cxx11::string& value) {
+void XsdSimpleType::add_enumeration(const string& value) {
   enumeration_.push_back(value);
 }
 
@@ -77,7 +77,7 @@ size_t XsdSimpleType::get_enumeration_size() const {
   return enumeration_.empty() ? 0 : enumeration_.size();
 }
 
-const std::__cxx11::string& XsdSimpleType::get_enumeration_at(
+const string& XsdSimpleType::get_enumeration_at(
     size_t index) const {
   return enumeration_[index];
 }

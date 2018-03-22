@@ -37,11 +37,11 @@ void StatsSerializer::End() {
 }
 
 void StatsSerializer::SaveStringFieldById(int type_id,
-                                          std::__cxx11::string value) {
+                                          string value) {
   ++field_count_;
 }
 
-void StatsSerializer::SaveContent(const std::__cxx11::string& content,
+void StatsSerializer::SaveContent(const string& content,
                                   bool maybe_quote) {
   ++content_count_;
 }

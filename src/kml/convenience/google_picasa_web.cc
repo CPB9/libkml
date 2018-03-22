@@ -71,7 +71,7 @@ static string GetScope() {
   return kScope;
 }
 
-const std::__cxx11::string& GooglePicasaWeb::get_scope() const {
+const string& GooglePicasaWeb::get_scope() const {
   return scope_;
 }
 

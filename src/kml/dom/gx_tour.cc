@@ -485,7 +485,7 @@ bool GxSoundCue::IsA(kmldom::KmlDomType type) const {
   return type == ElementType() || GxTourPrimitive::IsA(type);
 }
 
-const std::__cxx11::string& GxSoundCue::get_href() const {
+const string& GxSoundCue::get_href() const {
   return href_;
 }
 
@@ -493,7 +493,7 @@ bool GxSoundCue::has_href() const {
   return has_href_;
 }
 
-void GxSoundCue::set_href(const std::__cxx11::string& href) {
+void GxSoundCue::set_href(const string& href) {
   href_ = href;
   has_href_ = true;
 }

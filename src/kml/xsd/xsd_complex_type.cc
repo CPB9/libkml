@@ -63,20 +63,20 @@ bool XsdComplexType::is_complex() const {
   return true;
 }
 
-const std::__cxx11::string XsdComplexType::get_name() const {
+const string XsdComplexType::get_name() const {
   return name_;
 }
 
-const std::__cxx11::string XsdComplexType::get_base() const {
+const string XsdComplexType::get_base() const {
   return extension_base_;
 }
 
 void XsdComplexType::set_extension_base(
-    const std::__cxx11::string& extension_base) {
+    const string& extension_base) {
   extension_base_ = extension_base;
 }
 
-const std::__cxx11::string& XsdComplexType::get_extension_base() const {
+const string& XsdComplexType::get_extension_base() const {
   return extension_base_;
 }
 

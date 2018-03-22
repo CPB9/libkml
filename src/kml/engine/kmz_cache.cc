@@ -158,7 +158,7 @@ bool KmzCache::FetchFromCache(KmlUri* kml_uri, string* content) const {
   return false;
 }
 
-bool KmzCache::DoFetch(KmlUri* kml_uri, std::__cxx11::string* content) {
+bool KmzCache::DoFetch(KmlUri* kml_uri, string* content) {
   return DoFetchAndReturnUrl(kml_uri, content, NULL);
 }
 }  // end namespace kmlengine

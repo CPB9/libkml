@@ -37,12 +37,12 @@ kmlbase::Xmlns* Xmlns::Create(const Attributes& attributes) {
   return nullptr;
 }
 
-const std::__cxx11::string& Xmlns::get_default() const {
+const string& Xmlns::get_default() const {
   return default_;
 }
 
-const std::__cxx11::string Xmlns::GetNamespace(
-    const std::__cxx11::string& prefix) const {
+const string Xmlns::GetNamespace(
+    const string& prefix) const {
   string name_space;
   if (prefix_map_.get()) {
     prefix_map_->GetValue(prefix, &name_space);
@@ -50,8 +50,8 @@ const std::__cxx11::string Xmlns::GetNamespace(
   return name_space;
 }
 
-const std::__cxx11::string Xmlns::GetKey(
-    const std::__cxx11::string& value) const {
+const string Xmlns::GetKey(
+    const string& value) const {
   string key;
   if (prefix_map_.get()) {
     prefix_map_->FindKey(value, &key);
@@ -60,7 +60,7 @@ const std::__cxx11::string Xmlns::GetKey(
 }
 
 void Xmlns::GetPrefixes(
-    std::vector<std::__cxx11::string>* prefix_vector) const {
+    std::vector<string>* prefix_vector) const {
   if (prefix_map_.get()) {
     prefix_map_->GetAttrNames(prefix_vector);
   }

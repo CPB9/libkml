@@ -70,7 +70,7 @@ void Href::Parse(const string& href) {
 Href::Href() {
 }
 
-Href::Href(const std::__cxx11::string& href) {
+Href::Href(const string& href) {
   Parse(href);
 }
 
@@ -86,7 +86,7 @@ bool Href::IsFragmentOnly() const {
   return has_fragment() && !has_scheme() && !has_net_loc() && !has_path();
 }
 
-const std::__cxx11::string& Href::get_scheme() const {
+const string& Href::get_scheme() const {
   return scheme_;
 }
 
@@ -94,7 +94,7 @@ bool Href::has_scheme() const {
   return !scheme_.empty();
 }
 
-void Href::set_scheme(const std::__cxx11::string& scheme) {
+void Href::set_scheme(const string& scheme) {
   scheme_ = scheme;
 }
 
@@ -102,7 +102,7 @@ void Href::clear_scheme() {
   scheme_.clear();
 }
 
-const std::__cxx11::string& Href::get_net_loc() const {
+const string& Href::get_net_loc() const {
   return net_loc_;
 }
 
@@ -110,7 +110,7 @@ bool Href::has_net_loc() const {
   return !net_loc_.empty();
 }
 
-void Href::set_net_loc(const std::__cxx11::string& net_loc) {
+void Href::set_net_loc(const string& net_loc) {
   net_loc_ = net_loc;
 }
 
@@ -118,7 +118,7 @@ void Href::clear_net_loc() {
   net_loc_.clear();
 }
 
-const std::__cxx11::string& Href::get_path() const {
+const string& Href::get_path() const {
   return path_;
 }
 
@@ -126,7 +126,7 @@ bool Href::has_path() const {
   return !path_.empty();
 }
 
-void Href::set_path(const std::__cxx11::string& path) {
+void Href::set_path(const string& path) {
   path_ = path;
 }
 
@@ -134,7 +134,7 @@ void Href::clear_path() {
   path_.clear();
 }
 
-const std::__cxx11::string& Href::get_fragment() const {
+const string& Href::get_fragment() const {
   return fragment_;
 }
 
@@ -142,7 +142,7 @@ bool Href::has_fragment() const {
   return !fragment_.empty();
 }
 
-void Href::set_fragment(const std::__cxx11::string& fragment) {
+void Href::set_fragment(const string& fragment) {
   fragment_ = fragment;
 }
 

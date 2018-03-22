@@ -305,7 +305,7 @@ void Metadata::Accept(Visitor* visitor) {
   visitor->VisitMetadata(MetadataPtr(this));
 }
 
-const std::__cxx11::string& SimpleData::get_name() const {
+const string& SimpleData::get_name() const {
   return name_;
 }
 
@@ -313,7 +313,7 @@ bool SimpleData::has_name() const {
   return has_name_;
 }
 
-void SimpleData::set_name(const std::__cxx11::string& value) {
+void SimpleData::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }
@@ -323,7 +323,7 @@ void SimpleData::clear_name() {
   has_name_ = false;
 }
 
-const std::__cxx11::string& SimpleData::get_text() const {
+const string& SimpleData::get_text() const {
   return text_;
 }
 
@@ -331,7 +331,7 @@ bool SimpleData::has_text() const {
   return has_text_;
 }
 
-void SimpleData::set_text(const std::__cxx11::string& value) {
+void SimpleData::set_text(const string& value) {
   text_ = value;
   has_text_ = true;
 }
@@ -341,7 +341,7 @@ void SimpleData::clear_text() {
   has_text_ = false;
 }
 
-const std::__cxx11::string& GxSimpleArrayData::get_name() const {
+const string& GxSimpleArrayData::get_name() const {
   return name_;
 }
 
@@ -349,7 +349,7 @@ bool GxSimpleArrayData::has_name() const {
   return has_name_;
 }
 
-void GxSimpleArrayData::set_name(const std::__cxx11::string& value) {
+void GxSimpleArrayData::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }
@@ -359,7 +359,7 @@ void GxSimpleArrayData::clear_name() {
   has_name_ = false;
 }
 
-void GxSimpleArrayData::add_gx_value(const std::__cxx11::string& value) {
+void GxSimpleArrayData::add_gx_value(const string& value) {
   gx_value_array_.push_back(value);
 }
 
@@ -367,7 +367,7 @@ size_t GxSimpleArrayData::get_gx_value_array_size() const {
   return gx_value_array_.size();
 }
 
-const std::__cxx11::string& GxSimpleArrayData::get_gx_value_array_at(
+const string& GxSimpleArrayData::get_gx_value_array_at(
     size_t index) const {
   return gx_value_array_[index];
 }
@@ -384,7 +384,7 @@ kmldom::KmlDomType SchemaData::ElementType() {
   return Type_SchemaData;
 }
 
-const std::__cxx11::string& SchemaData::get_schemaurl() const {
+const string& SchemaData::get_schemaurl() const {
   return schemaurl_;
 }
 
@@ -392,7 +392,7 @@ bool SchemaData::has_schemaurl() const {
   return has_schemaurl_;
 }
 
-void SchemaData::set_schemaurl(const std::__cxx11::string& value) {
+void SchemaData::set_schemaurl(const string& value) {
   schemaurl_ = value;
   has_schemaurl_ = true;
 }
@@ -440,7 +440,7 @@ kmldom::KmlDomType Data::ElementType() {
   return Type_Data;
 }
 
-const std::__cxx11::string& Data::get_name() const {
+const string& Data::get_name() const {
   return name_;
 }
 
@@ -448,7 +448,7 @@ bool Data::has_name() const {
   return has_name_;
 }
 
-void Data::set_name(const std::__cxx11::string& value) {
+void Data::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }
@@ -458,7 +458,7 @@ void Data::clear_name() {
   has_name_ = false;
 }
 
-const std::__cxx11::string& Data::get_displayname() const {
+const string& Data::get_displayname() const {
   return displayname_;
 }
 
@@ -466,7 +466,7 @@ bool Data::has_displayname() const {
   return has_displayname_;
 }
 
-void Data::set_displayname(const std::__cxx11::string& value) {
+void Data::set_displayname(const string& value) {
   displayname_ = value;
   has_displayname_ = true;
 }
@@ -476,7 +476,7 @@ void Data::clear_displayname() {
   has_displayname_ = false;
 }
 
-const std::__cxx11::string& Data::get_value() const {
+const string& Data::get_value() const {
   return value_;
 }
 
@@ -484,7 +484,7 @@ bool Data::has_value() const {
   return has_value_;
 }
 
-void Data::set_value(const std::__cxx11::string& value) {
+void Data::set_value(const string& value) {
   value_ = value;
   has_value_ = true;
 }

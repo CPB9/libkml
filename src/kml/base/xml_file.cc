@@ -27,7 +27,7 @@
 
 namespace kmlbase {
 
-const std::__cxx11::string& XmlFile::get_url() const {
+const string& XmlFile::get_url() const {
   return url_;
 }
 
@@ -35,7 +35,7 @@ const XmlElementPtr& XmlFile::get_root() const {
   return root_;
 }
 
-void XmlFile::set_url(const std::__cxx11::string& url) {
+void XmlFile::set_url(const string& url) {
   url_ = url;
 }
 
@@ -44,7 +44,7 @@ bool XmlFile::set_root(const XmlElementPtr& element) {
 }
 
 XmlElementPtr XmlFile::FindXmlElementById(
-    const std::__cxx11::string& id) const {
+    const string& id) const {
   XmlElementIdMap::const_iterator find = id_map_.find(id);
   return find != id_map_.end() ? find->second : nullptr;
 }

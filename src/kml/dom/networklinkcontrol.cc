@@ -387,7 +387,7 @@ const ObjectPtr& Change::get_object_array_at(size_t index) const {
   return object_array_[index];
 }
 
-const std::__cxx11::string& Update::get_targethref() const {
+const string& Update::get_targethref() const {
   return targethref_;
 }
 
@@ -395,7 +395,7 @@ bool Update::has_targethref() const {
   return has_targethref_;
 }
 
-void Update::set_targethref(const std::__cxx11::string& targethref) {
+void Update::set_targethref(const string& targethref) {
   targethref_ = targethref;
   has_targethref_ = true;
 }
@@ -454,7 +454,7 @@ void NetworkLinkControl::clear_maxsessionlength() {
   has_maxsessionlength_ = false;
 }
 
-const std::__cxx11::string& NetworkLinkControl::get_cookie() const {
+const string& NetworkLinkControl::get_cookie() const {
   return cookie_;
 }
 
@@ -462,7 +462,7 @@ bool NetworkLinkControl::has_cookie() const {
   return has_cookie_;
 }
 
-void NetworkLinkControl::set_cookie(const std::__cxx11::string& cookie) {
+void NetworkLinkControl::set_cookie(const string& cookie) {
   cookie_ = cookie;
   has_cookie_ = true;
 }
@@ -472,7 +472,7 @@ void NetworkLinkControl::clear_cookie() {
   has_cookie_ = false;
 }
 
-const std::__cxx11::string& NetworkLinkControl::get_message() const {
+const string& NetworkLinkControl::get_message() const {
   return message_;
 }
 
@@ -480,7 +480,7 @@ bool NetworkLinkControl::has_message() const {
   return has_message_;
 }
 
-void NetworkLinkControl::set_message(const std::__cxx11::string& message) {
+void NetworkLinkControl::set_message(const string& message) {
   message_ = message;
   has_message_ = true;
 }
@@ -490,7 +490,7 @@ void NetworkLinkControl::clear_message() {
   has_message_ = false;
 }
 
-const std::__cxx11::string& NetworkLinkControl::get_linkname() const {
+const string& NetworkLinkControl::get_linkname() const {
   return linkname_;
 }
 
@@ -498,7 +498,7 @@ bool NetworkLinkControl::has_linkname() const {
   return has_linkname_;
 }
 
-void NetworkLinkControl::set_linkname(const std::__cxx11::string& linkname) {
+void NetworkLinkControl::set_linkname(const string& linkname) {
   linkname_ = linkname;
   has_linkname_ = true;
 }
@@ -508,7 +508,7 @@ void NetworkLinkControl::clear_linkname() {
   has_linkname_ = false;
 }
 
-const std::__cxx11::string& NetworkLinkControl::get_linkdescription() const {
+const string& NetworkLinkControl::get_linkdescription() const {
   return linkdescription_;
 }
 
@@ -517,7 +517,7 @@ bool NetworkLinkControl::has_linkdescription() const {
 }
 
 void NetworkLinkControl::set_linkdescription(
-    const std::__cxx11::string& linkdescription) {
+    const string& linkdescription) {
   linkdescription_ = linkdescription;
   has_linkdescription_ = true;
 }
@@ -543,7 +543,7 @@ void NetworkLinkControl::clear_linksnippet() {
   set_linksnippet(NULL);
 }
 
-const std::__cxx11::string& NetworkLinkControl::get_expires() const {
+const string& NetworkLinkControl::get_expires() const {
   return expires_;
 }
 
@@ -551,7 +551,7 @@ bool NetworkLinkControl::has_expires() const {
   return has_expires_;
 }
 
-void NetworkLinkControl::set_expires(const std::__cxx11::string& expires) {
+void NetworkLinkControl::set_expires(const string& expires) {
   expires_ = expires;
   has_expires_ = true;
 }

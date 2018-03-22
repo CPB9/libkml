@@ -147,7 +147,7 @@ void Pair::clear_key() {
   has_key_ = false;
 }
 
-const std::__cxx11::string& Pair::get_styleurl() const {
+const string& Pair::get_styleurl() const {
   return styleurl_;
 }
 
@@ -155,7 +155,7 @@ bool Pair::has_styleurl() const {
   return has_styleurl_;
 }
 
-void Pair::set_styleurl(const std::__cxx11::string& styleurl) {
+void Pair::set_styleurl(const string& styleurl) {
   styleurl_ = styleurl;
   has_styleurl_ = true;
 }

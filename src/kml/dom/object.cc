@@ -78,7 +78,7 @@ bool Object::IsA(kmldom::KmlDomType type) const {
   return type == Type_Object;
 }
 
-const std::__cxx11::string& Object::get_id() const {
+const string& Object::get_id() const {
   return id_;
 }
 
@@ -86,7 +86,7 @@ bool Object::has_id() const {
   return has_id_;
 }
 
-void Object::set_id(const std::__cxx11::string& value) {
+void Object::set_id(const string& value) {
   id_ = value;
   has_id_ = true;
 }
@@ -96,7 +96,7 @@ void Object::clear_id() {
   has_id_ = false;
 }
 
-const std::__cxx11::string& Object::get_targetid() const {
+const string& Object::get_targetid() const {
   return targetid_;
 }
 
@@ -104,7 +104,7 @@ bool Object::has_targetid() const {
   return has_targetid_;
 }
 
-void Object::set_targetid(const std::__cxx11::string& targetid) {
+void Object::set_targetid(const string& targetid) {
   targetid_ = targetid;
   has_targetid_ = true;
 }

@@ -37,16 +37,16 @@ kmlxsd::XsdSchema* XsdSchema::Create(const kmlbase::Attributes& attributes) {
   return nullptr;
 }
 
-const std::__cxx11::string& XsdSchema::get_target_namespace() const {
+const string& XsdSchema::get_target_namespace() const {
   return target_namespace_;
 }
 
-const std::__cxx11::string& XsdSchema::get_target_namespace_prefix() const {
+const string& XsdSchema::get_target_namespace_prefix() const {
   return target_namespace_prefix_;
 }
 
-bool XsdSchema::SplitNsName(const std::__cxx11::string& ns_name,
-                            std::__cxx11::string* name) const {
+bool XsdSchema::SplitNsName(const string& ns_name,
+                            string* name) const {
   size_t prefix_size = target_namespace_prefix_.size();
   if (ns_name.size() > prefix_size + 1 &&
       ns_name.compare(0, prefix_size + 1, target_namespace_prefix_ + ":") ==

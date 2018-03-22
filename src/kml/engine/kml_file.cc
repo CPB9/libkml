@@ -226,7 +226,7 @@ kmldom::StyleSelectorPtr KmlFile::GetSharedStyleById(const string& id) const {
 }
 
 kmlengine::KmlFile* KmlFile::CreateFromString(
-    const std::__cxx11::string& kml_or_kmz_data) {
+    const string& kml_or_kmz_data) {
   // Internal KML fetch/parse (styleUrl, etc) errors are quietly ignored.
   return CreateFromParse(kml_or_kmz_data, NULL);
 }
@@ -239,11 +239,11 @@ kmldom::ElementPtr KmlFile::root() const {
   return get_root();
 }
 
-void KmlFile::set_encoding(const std::__cxx11::string& encoding) {
+void KmlFile::set_encoding(const string& encoding) {
   encoding_ = encoding;
 }
 
-const std::__cxx11::string& KmlFile::get_encoding() const {
+const string& KmlFile::get_encoding() const {
   return encoding_;
 }
 

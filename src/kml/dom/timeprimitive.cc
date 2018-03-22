@@ -127,7 +127,7 @@ bool TimeSpan::IsA(kmldom::KmlDomType type) const {
   return type == Type_TimeSpan || TimePrimitive::IsA(type);
 }
 
-const std::__cxx11::string& TimeSpan::get_begin() const {
+const string& TimeSpan::get_begin() const {
   return begin_;
 }
 
@@ -135,7 +135,7 @@ bool TimeSpan::has_begin() const {
   return has_begin_;
 }
 
-void TimeSpan::set_begin(const std::__cxx11::string& value) {
+void TimeSpan::set_begin(const string& value) {
   begin_ = value;
   has_begin_ = true;
 }
@@ -145,7 +145,7 @@ void TimeSpan::clear_begin() {
   has_begin_ = false;
 }
 
-const std::__cxx11::string& TimeSpan::get_end() const {
+const string& TimeSpan::get_end() const {
   return end_;
 }
 
@@ -153,7 +153,7 @@ bool TimeSpan::has_end() const {
   return has_end_;
 }
 
-void TimeSpan::set_end(const std::__cxx11::string& value) {
+void TimeSpan::set_end(const string& value) {
   end_ = value;
   has_end_ = true;
 }
@@ -171,7 +171,7 @@ bool TimeStamp::IsA(kmldom::KmlDomType type) const {
   return type == Type_TimeStamp || TimePrimitive::IsA(type);
 }
 
-const std::__cxx11::string& TimeStamp::get_when() const {
+const string& TimeStamp::get_when() const {
   return when_;
 }
 
@@ -179,7 +179,7 @@ bool TimeStamp::has_when() const {
   return has_when_;
 }
 
-void TimeStamp::set_when(const std::__cxx11::string& value) {
+void TimeStamp::set_when(const string& value) {
   when_ = value;
   has_when_ = true;
 }

@@ -152,6 +152,6 @@ void XsdHandler::EndElement(const string& xs_element_name) {
 XsdHandler::~XsdHandler() {
 }
 
-void XsdHandler::CharData(const std::__cxx11::string& s) {
+void XsdHandler::CharData(const string& s) {
 }
 }  // end namespace kmlxsd

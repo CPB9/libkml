@@ -73,7 +73,7 @@ XsdPrimitiveType::TypeId XsdPrimitiveType::GetTypeId(const string& type_name) {
 }
 
 kmlxsd::XsdPrimitiveType* XsdPrimitiveType::Create(
-    const std::__cxx11::string& type_name) {
+    const string& type_name) {
   TypeId type_id = GetTypeId(type_name);
   if (type_id != XSD_INVALID) {
     return new XsdPrimitiveType(type_id);
@@ -89,11 +89,11 @@ bool XsdPrimitiveType::is_complex() const {
   return false;
 }
 
-const std::__cxx11::string XsdPrimitiveType::get_name() const {
+const string XsdPrimitiveType::get_name() const {
   return GetTypeName(type_id_);
 }
 
-const std::__cxx11::string XsdPrimitiveType::get_base() const {
+const string XsdPrimitiveType::get_base() const {
   return "xsd:primitive";
 }
 }  // end namespace kmlxsd

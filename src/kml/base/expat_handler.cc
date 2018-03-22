@@ -30,11 +30,11 @@ namespace kmlbase {
 ExpatHandler::~ExpatHandler() {
 }
 
-void ExpatHandler::StartNamespace(const std::__cxx11::string& prefix,
-                                  const std::__cxx11::string& uri) {
+void ExpatHandler::StartNamespace(const string& prefix,
+                                  const string& uri) {
 }
 
-void ExpatHandler::EndNamespace(const std::__cxx11::string& prefix) {
+void ExpatHandler::EndNamespace(const string& prefix) {
 }
 
 void ExpatHandler::set_parser(XML_Parser parser) {

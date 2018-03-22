@@ -222,24 +222,24 @@ bool ResolveModelTargetHref(const string& base_url, const string& geometry_href,
   return true;
 }
 
-void KmlUri::set_path_in_kmz(const std::__cxx11::string path_in_kmz) {
+void KmlUri::set_path_in_kmz(const string path_in_kmz) {
   path_in_kmz_ = path_in_kmz;
   url_ = kmz_url_ + "/" + path_in_kmz;
 }
 
-const std::__cxx11::string& KmlUri::get_path_in_kmz() const {
+const string& KmlUri::get_path_in_kmz() const {
   return path_in_kmz_;
 }
 
-const std::__cxx11::string& KmlUri::get_kmz_url() const {
+const string& KmlUri::get_kmz_url() const {
   return kmz_url_;
 }
 
-const std::__cxx11::string& KmlUri::get_url() const {
+const string& KmlUri::get_url() const {
   return url_;
 }
 
-const std::__cxx11::string& KmlUri::get_target() const {
+const string& KmlUri::get_target() const {
   return target_;
 }
 

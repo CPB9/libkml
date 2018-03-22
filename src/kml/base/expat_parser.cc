@@ -74,7 +74,7 @@ static void XMLCALL entityDeclHandler(
 }
 
 ExpatHandler *ExpatHandlerSet::get_handler(
-    const std::__cxx11::string &xmlns) const {
+    const string &xmlns) const {
   ExpatHandlerMap::const_iterator iter = expat_handler_map_.find(xmlns);
   return iter == expat_handler_map_.end() ? nullptr : iter->second;
 }
@@ -83,7 +83,7 @@ ExpatHandler *ExpatHandlerSet::get_default_handler() const {
   return default_;
 }
 
-void ExpatHandlerSet::set_handler(const std::__cxx11::string &xml_namespace,
+void ExpatHandlerSet::set_handler(const string &xml_namespace,
                                   ExpatHandler *expat_handler) {
   if (!default_) {  // TODO: hack
     default_ = expat_handler;

@@ -231,11 +231,11 @@ bool Element::IsA(kmldom::KmlDomType type) const {
   return type == type_id_;
 }
 
-const std::__cxx11::string& Element::get_char_data() const {
+const string& Element::get_char_data() const {
   return char_data_;
 }
 
-void Element::set_char_data(const std::__cxx11::string& char_data) {
+void Element::set_char_data(const string& char_data) {
   char_data_ = char_data;
 }
 
@@ -246,7 +246,7 @@ size_t Element::get_unknown_elements_array_size() const {
   return unknown_elements_array_.size();
 }
 
-const std::__cxx11::string& Element::get_unknown_elements_array_at(
+const string& Element::get_unknown_elements_array_at(
     size_t i) const {
   return unknown_elements_array_[i];
 }
@@ -283,7 +283,7 @@ bool Element::SetEnum(int* val) {
   return false;
 }
 
-bool Element::SetString(std::__cxx11::string* val) {
+bool Element::SetString(string* val) {
   return false;
 }
 

@@ -251,7 +251,7 @@ bool KmzFile::CreateFromKmlFile(const KmlFilePtr& kml_file,
 }
 
 kmlengine::KmzFile* KmzFile::CreateFromString(
-    const std::__cxx11::string& kmz_data) {
+    const string& kmz_data) {
   return OpenFromString(kmz_data);
 }
 }  // end namespace kmlengine

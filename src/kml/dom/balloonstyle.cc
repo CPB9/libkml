@@ -138,7 +138,7 @@ void BalloonStyle::clear_textcolor() {
   has_textcolor_ = false;
 }
 
-const std::__cxx11::string& BalloonStyle::get_text() const {
+const string& BalloonStyle::get_text() const {
   return text_;
 }
 
@@ -146,7 +146,7 @@ bool BalloonStyle::has_text() const {
   return has_text_;
 }
 
-void BalloonStyle::set_text(const std::__cxx11::string& text) {
+void BalloonStyle::set_text(const string& text) {
   text_ = text;
   has_text_ = true;
 }

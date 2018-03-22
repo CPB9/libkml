@@ -230,7 +230,7 @@ bool Feature::IsA(kmldom::KmlDomType type) const {
   return type == Type_Feature || Object::IsA(type);
 }
 
-const std::__cxx11::string& Feature::get_name() const {
+const string& Feature::get_name() const {
   return name_;
 }
 
@@ -238,7 +238,7 @@ bool Feature::has_name() const {
   return has_name_;
 }
 
-void Feature::set_name(const std::__cxx11::string& value) {
+void Feature::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }
@@ -312,7 +312,7 @@ void Feature::set_atomlink(const AtomLinkPtr& atomlink) {
   SetComplexChild(atomlink, &atomlink_);
 }
 
-const std::__cxx11::string& Feature::get_address() const {
+const string& Feature::get_address() const {
   return address_;
 }
 
@@ -320,7 +320,7 @@ bool Feature::has_address() const {
   return has_address_;
 }
 
-void Feature::set_address(const std::__cxx11::string& value) {
+void Feature::set_address(const string& value) {
   address_ = value;
   has_address_ = true;
 }
@@ -347,7 +347,7 @@ void Feature::clear_xaladdressdetails() {
   set_xaladdressdetails(NULL);
 }
 
-const std::__cxx11::string& Feature::get_phonenumber() const {
+const string& Feature::get_phonenumber() const {
   return phonenumber_;
 }
 
@@ -355,7 +355,7 @@ bool Feature::has_phonenumber() const {
   return has_phonenumber_;
 }
 
-void Feature::set_phonenumber(const std::__cxx11::string& value) {
+void Feature::set_phonenumber(const string& value) {
   phonenumber_ = value;
   has_phonenumber_ = true;
 }
@@ -381,7 +381,7 @@ void Feature::clear_snippet() {
   set_snippet(NULL);
 }
 
-const std::__cxx11::string& Feature::get_description() const {
+const string& Feature::get_description() const {
   return description_;
 }
 
@@ -389,7 +389,7 @@ bool Feature::has_description() const {
   return has_description_;
 }
 
-void Feature::set_description(const std::__cxx11::string& value) {
+void Feature::set_description(const string& value) {
   description_ = value;
   has_description_ = true;
 }
@@ -431,11 +431,11 @@ void Feature::clear_timeprimitive() {
   set_timeprimitive(NULL);
 }
 
-const std::__cxx11::string& Feature::get_styleurl() const {
+const string& Feature::get_styleurl() const {
   return styleurl_;
 }
 
-std::__cxx11::string& Feature::styleurl() {
+string& Feature::styleurl() {
   return styleurl_;
 }
 
@@ -443,7 +443,7 @@ bool Feature::has_styleurl() const {
   return has_styleurl_;
 }
 
-void Feature::set_styleurl(const std::__cxx11::string& value) {
+void Feature::set_styleurl(const string& value) {
   styleurl_ = value;
   has_styleurl_ = true;
 }

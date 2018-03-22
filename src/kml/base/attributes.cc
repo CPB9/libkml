@@ -155,23 +155,23 @@ Attributes* Attributes::SplitByPrefix(const string& prefix) {
   return split;
 }
 
-void Attributes::SetString(const std::__cxx11::string& attr_name,
-                           const std::__cxx11::string& attr_val) {
+void Attributes::SetString(const string& attr_name,
+                           const string& attr_val) {
   SetValue(attr_name, attr_val);
 }
 
-bool Attributes::GetDouble(const std::__cxx11::string& attr_name,
+bool Attributes::GetDouble(const string& attr_name,
                            double* attr_val) const {
   return GetValue(attr_name, attr_val);
 }
 
-bool Attributes::GetBool(const std::__cxx11::string& attr_name,
+bool Attributes::GetBool(const string& attr_name,
                          bool* attr_val) const {
   return GetValue(attr_name, attr_val);
 }
 
-bool Attributes::GetString(const std::__cxx11::string& attr_name,
-                           std::__cxx11::string* attr_val) const {
+bool Attributes::GetString(const string& attr_name,
+                           string* attr_val) const {
   return GetValue(attr_name, attr_val);
 }
 

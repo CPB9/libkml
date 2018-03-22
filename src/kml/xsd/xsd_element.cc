@@ -72,19 +72,19 @@ bool XsdElement::is_abstract() const {
   return abstract_;
 }
 
-const std::__cxx11::string& XsdElement::get_default() const {
+const string& XsdElement::get_default() const {
   return default_;
 }
 
-const std::__cxx11::string& XsdElement::get_name() const {
+const string& XsdElement::get_name() const {
   return name_;
 }
 
-const std::__cxx11::string& XsdElement::get_substitution_group() const {
+const string& XsdElement::get_substitution_group() const {
   return substitution_group_;
 }
 
-const std::__cxx11::string& XsdElement::get_type() const {
+const string& XsdElement::get_type() const {
   return type_;
 }
 

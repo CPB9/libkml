@@ -100,7 +100,7 @@ bool SnippetCommon::IsA(kmldom::KmlDomType type) const {
   return type == Type_Snippet;
 }
 
-const std::__cxx11::string& SnippetCommon::get_text() const {
+const string& SnippetCommon::get_text() const {
   return text_;
 }
 
@@ -108,7 +108,7 @@ bool SnippetCommon::has_text() const {
   return has_text_;
 }
 
-void SnippetCommon::set_text(const std::__cxx11::string& value) {
+void SnippetCommon::set_text(const string& value) {
   text_ = value;
   has_text_ = true;
 }

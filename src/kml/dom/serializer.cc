@@ -63,11 +63,11 @@ void Serializer::SaveColor(int type_id, const kmlbase::Color32& color) {
 void Serializer::Indent() {
 }
 
-void Serializer::SaveContent(const std::__cxx11::string& content,
+void Serializer::SaveContent(const string& content,
                              bool maybe_quote) {
 }
 
-void Serializer::SaveStringFieldById(int type_id, std::__cxx11::string value) {
+void Serializer::SaveStringFieldById(int type_id, string value) {
 }
 
 void Serializer::SaveElementGroup(const ElementPtr& element, int group_id) {

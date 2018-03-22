@@ -339,7 +339,7 @@ void AtomLink::Serialize(Serializer& serializer) const {
   ElementSerializer element_serializer(*this, serializer);
 }
 
-const std::__cxx11::string& AtomAuthor::get_name() const {
+const string& AtomAuthor::get_name() const {
   return name_;
 }
 
@@ -347,7 +347,7 @@ bool AtomAuthor::has_name() const {
   return has_name_;
 }
 
-void AtomAuthor::set_name(const std::__cxx11::string& value) {
+void AtomAuthor::set_name(const string& value) {
   name_ = value;
   has_name_ = true;
 }
@@ -357,7 +357,7 @@ void AtomAuthor::clear_name() {
   has_name_ = false;
 }
 
-const std::__cxx11::string& AtomAuthor::get_uri() const {
+const string& AtomAuthor::get_uri() const {
   return uri_;
 }
 
@@ -365,12 +365,12 @@ bool AtomAuthor::has_uri() const {
   return has_uri_;
 }
 
-void AtomAuthor::set_uri(const std::__cxx11::string& value) {
+void AtomAuthor::set_uri(const string& value) {
   uri_ = value;
   has_uri_ = true;
 }
 
-const std::__cxx11::string& AtomAuthor::get_email() const {
+const string& AtomAuthor::get_email() const {
   return email_;
 }
 
@@ -378,7 +378,7 @@ bool AtomAuthor::has_email() const {
   return has_email_;
 }
 
-void AtomAuthor::set_email(const std::__cxx11::string& value) {
+void AtomAuthor::set_email(const string& value) {
   email_ = value;
   has_email_ = true;
 }
@@ -393,7 +393,7 @@ void AtomAuthor::clear_uri() {
   has_uri_ = false;
 }
 
-void AtomCommon::set_id(const std::__cxx11::string& value) {
+void AtomCommon::set_id(const string& value) {
   id_ = value;
   has_id_ = true;
 }
@@ -403,7 +403,7 @@ void AtomCommon::clear_id() {
   has_id_ = false;
 }
 
-const std::__cxx11::string& AtomCommon::get_title() const {
+const string& AtomCommon::get_title() const {
   return title_;
 }
 
@@ -411,7 +411,7 @@ bool AtomCommon::has_title() const {
   return has_title_;
 }
 
-void AtomCommon::set_title(const std::__cxx11::string& value) {
+void AtomCommon::set_title(const string& value) {
   title_ = value;
   has_title_ = true;
 }
@@ -421,7 +421,7 @@ void AtomCommon::clear_title() {
   has_title_ = false;
 }
 
-const std::__cxx11::string& AtomCommon::get_updated() const {
+const string& AtomCommon::get_updated() const {
   return updated_;
 }
 
@@ -429,7 +429,7 @@ bool AtomCommon::has_updated() const {
   return has_updated_;
 }
 
-void AtomCommon::set_updated(const std::__cxx11::string& value) {
+void AtomCommon::set_updated(const string& value) {
   updated_ = value;
   has_updated_ = true;
 }
@@ -455,7 +455,7 @@ const AtomLinkPtr& AtomCommon::get_link_array_at(size_t index) const {
   return link_array_[index];
 }
 
-const std::__cxx11::string& AtomCategory::get_term() const {
+const string& AtomCategory::get_term() const {
   return term_;
 }
 
@@ -463,7 +463,7 @@ bool AtomCategory::has_term() const {
   return has_term_;
 }
 
-void AtomCategory::set_term(const std::__cxx11::string& value) {
+void AtomCategory::set_term(const string& value) {
   term_ = value;
   has_term_ = true;
 }
@@ -473,7 +473,7 @@ void AtomCategory::clear_term() {
   has_term_ = false;
 }
 
-const std::__cxx11::string& AtomCategory::get_scheme() const {
+const string& AtomCategory::get_scheme() const {
   return scheme_;
 }
 
@@ -481,7 +481,7 @@ bool AtomCategory::has_scheme() const {
   return has_scheme_;
 }
 
-void AtomCategory::set_scheme(const std::__cxx11::string& value) {
+void AtomCategory::set_scheme(const string& value) {
   scheme_ = value;
   has_scheme_ = true;
 }
@@ -491,7 +491,7 @@ void AtomCategory::clear_scheme() {
   has_scheme_ = false;
 }
 
-const std::__cxx11::string& AtomCategory::get_label() const {
+const string& AtomCategory::get_label() const {
   return label_;
 }
 
@@ -499,7 +499,7 @@ bool AtomCategory::has_label() const {
   return has_label_;
 }
 
-void AtomCategory::set_label(const std::__cxx11::string& value) {
+void AtomCategory::set_label(const string& value) {
   label_ = value;
   has_label_ = true;
 }
@@ -509,7 +509,7 @@ void AtomCategory::clear_label() {
   has_label_ = false;
 }
 
-const std::__cxx11::string& AtomContent::get_src() const {
+const string& AtomContent::get_src() const {
   return src_;
 }
 
@@ -517,7 +517,7 @@ bool AtomContent::has_src() const {
   return has_src_;
 }
 
-void AtomContent::set_src(const std::__cxx11::string& value) {
+void AtomContent::set_src(const string& value) {
   src_ = value;
   has_src_ = true;
 }
@@ -527,7 +527,7 @@ void AtomContent::clear_src() {
   has_src_ = false;
 }
 
-const std::__cxx11::string& AtomContent::get_type() const {
+const string& AtomContent::get_type() const {
   return type_;
 }
 
@@ -535,7 +535,7 @@ bool AtomContent::has_type() const {
   return has_type_;
 }
 
-void AtomContent::set_type(const std::__cxx11::string& value) {
+void AtomContent::set_type(const string& value) {
   type_ = value;
   has_type_ = true;
 }
@@ -557,7 +557,7 @@ kmldom::KmlDomType AtomEntry::ElementType() {
   return static_cast<KmlDomType>(Type_AtomEntry);
 }
 
-const std::__cxx11::string& AtomEntry::get_summary() const {
+const string& AtomEntry::get_summary() const {
   return summary_;
 }
 
@@ -565,7 +565,7 @@ bool AtomEntry::has_summary() const {
   return has_summary_;
 }
 
-void AtomEntry::set_summary(const std::__cxx11::string& value) {
+void AtomEntry::set_summary(const string& value) {
   summary_ = value;
   has_summary_ = true;
 }
@@ -611,7 +611,7 @@ const AtomEntryPtr& AtomFeed::get_entry_array_at(size_t index) const {
   return entry_array_[index];
 }
 
-const std::__cxx11::string& AtomLink::get_href() const {
+const string& AtomLink::get_href() const {
   return href_;
 }
 
@@ -619,7 +619,7 @@ bool AtomLink::has_href() const {
   return has_href_;
 }
 
-void AtomLink::set_href(const std::__cxx11::string& value) {
+void AtomLink::set_href(const string& value) {
   href_ = value;
   has_href_ = true;
 }
@@ -629,7 +629,7 @@ void AtomLink::clear_href() {
   has_href_ = false;
 }
 
-const std::__cxx11::string& AtomLink::get_rel() const {
+const string& AtomLink::get_rel() const {
   return rel_;
 }
 
@@ -637,7 +637,7 @@ bool AtomLink::has_rel() const {
   return has_rel_;
 }
 
-void AtomLink::set_rel(const std::__cxx11::string& value) {
+void AtomLink::set_rel(const string& value) {
   rel_ = value;
   has_rel_ = true;
 }
@@ -647,7 +647,7 @@ void AtomLink::clear_rel() {
   has_rel_ = false;
 }
 
-const std::__cxx11::string& AtomLink::get_type() const {
+const string& AtomLink::get_type() const {
   return type_;
 }
 
@@ -655,7 +655,7 @@ bool AtomLink::has_type() const {
   return has_type_;
 }
 
-void AtomLink::set_type(const std::__cxx11::string& value) {
+void AtomLink::set_type(const string& value) {
   type_ = value;
   has_type_ = true;
 }
@@ -665,7 +665,7 @@ void AtomLink::clear_type() {
   has_type_ = false;
 }
 
-const std::__cxx11::string& AtomLink::get_hreflang() const {
+const string& AtomLink::get_hreflang() const {
   return hreflang_;
 }
 
@@ -673,7 +673,7 @@ bool AtomLink::has_hreflang() const {
   return has_hreflang_;
 }
 
-void AtomLink::set_hreflang(const std::__cxx11::string& value) {
+void AtomLink::set_hreflang(const string& value) {
   hreflang_ = value;
   has_hreflang_ = true;
 }
@@ -683,7 +683,7 @@ void AtomLink::clear_hreflang() {
   has_hreflang_ = false;
 }
 
-const std::__cxx11::string& AtomLink::get_title() const {
+const string& AtomLink::get_title() const {
   return title_;
 }
 
@@ -691,7 +691,7 @@ bool AtomLink::has_title() const {
   return has_title_;
 }
 
-void AtomLink::set_title(const std::__cxx11::string& value) {
+void AtomLink::set_title(const string& value) {
   title_ = value;
   has_title_ = true;
 }

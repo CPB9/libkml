@@ -98,7 +98,7 @@ void Kml::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
-const std::__cxx11::string& Kml::get_hint() {
+const string& Kml::get_hint() {
   return hint_;
 }
 
@@ -106,7 +106,7 @@ bool Kml::has_hint() const {
   return has_hint_;
 }
 
-void Kml::set_hint(const std::__cxx11::string& hint) {
+void Kml::set_hint(const string& hint) {
   hint_ = hint;
   has_hint_ = true;
 }
