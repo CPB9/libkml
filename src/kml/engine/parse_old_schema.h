@@ -26,6 +26,7 @@
 #ifndef KML_ENGINE_PARSE_OLD_SCHEMA_H__
 #define KML_ENGINE_PARSE_OLD_SCHEMA_H__
 
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/engine/engine_types.h"
 
@@ -66,13 +67,13 @@ namespace kmlengine {
 
 // If the input_xml is an element whose name is in the SchemaNameMap then
 // this returns a converted <Placemark> to the given output buffer.
-bool ConvertOldSchema(const string& input_xml,
+KML_EXPORT bool ConvertOldSchema(const string& input_xml,
                       const SchemaNameMap& schema_name_map,
                       string* output_xml);
 
 // This uses ConvertOldSchema() to convert and parse the input.  If anything
 // fails NULL is returned and errors are saved to the given error buffer.
-kmldom::PlacemarkPtr ParseOldSchema(const string& xml,
+KML_EXPORT kmldom::PlacemarkPtr ParseOldSchema(const string& xml,
                                     const SchemaNameMap& schema_name_map,
                                     string* errors);
 

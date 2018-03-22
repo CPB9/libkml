@@ -35,13 +35,11 @@ namespace kmldom {
 
 // OGC KML 2.2 Standard: 12.1 kml:AbstractStyleSelectorGroup
 // OGC KML 2.2 XSD: <element name="AbstractStyleSelectorGroup"...
-class StyleSelector : public Object {
+class KML_EXPORT StyleSelector : public Object {
  public:
   virtual ~StyleSelector();
-  virtual KmlDomType Type() const { return Type_StyleSelector; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_StyleSelector || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
  protected:
   // StyleSelector is abstract.

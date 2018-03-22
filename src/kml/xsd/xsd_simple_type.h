@@ -28,6 +28,7 @@
 
 #include <vector>
 #include <bmcl/Rc.h>
+#include "kml/config.h"
 #include "kml/base/attributes.h"
 #include "kml/xsd/xsd_type.h"
 
@@ -38,74 +39,43 @@ class XsdSimpleType;
 typedef bmcl::Rc<XsdSimpleType> XsdSimpleTypePtr;
 
 // Corresponds to <xs:simpleType>.
-class XsdSimpleType : public XsdType {
+class KML_EXPORT XsdSimpleType : public XsdType {
  public:
-  static XsdSimpleType* Create(const kmlbase::Attributes& attributes) {
-    string name;
-    if (attributes.GetString("name", &name)) {
-      return new XsdSimpleType(name);
-    }
-    return nullptr;
-  }
+  ~XsdSimpleType();
+  static XsdSimpleType* Create(const kmlbase::Attributes& attributes);
 
-  static XsdSimpleTypePtr AsSimpleType(const XsdTypePtr& xsd_type) {
-    if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_SIMPLE) {
-      return bmcl::static_pointer_cast<XsdSimpleType>(xsd_type);
-    }
-    return nullptr;
-  }
+  static XsdSimpleTypePtr AsSimpleType(const XsdTypePtr& xsd_type);
 
-  virtual XsdTypeEnum get_xsd_type_id() const {
-    return XSD_TYPE_SIMPLE;
-  }
+  virtual XsdTypeEnum get_xsd_type_id() const;
 
-  virtual bool is_complex() const {
-    return false;
-  }
+  virtual bool is_complex() const;
 
   // <xs:simpleType name="NAME"/>
-  virtual const string get_name() const {
-    return name_;
-  }
+  virtual const string get_name() const;
 
-  virtual const string get_base() const {
-    return restriction_base_;
-  }
+  virtual const string get_base() const;
 
   // <xs:restriction base="BASE"/>
-  void set_restriction_base(const string& base) {
-    restriction_base_ = base;
-  }
-  const string& get_restriction_base() const {
-    return restriction_base_;
-  }
+  void set_restriction_base(const string& base);
+  const string& get_restriction_base() const;
 
   // <xs:enumeration value="VALUE"/>
-  void add_enumeration(const string& value) {
-    enumeration_.push_back(value);
-  }
+  void add_enumeration(const string& value);
 
   // Return the number of <xs:enumeration value="..."/>'s.
-  size_t get_enumeration_size() const {
-    return enumeration_.empty() ? 0 : enumeration_.size();
-  }
+  size_t get_enumeration_size() const;
 
   // Return the index'th <xs:enumeration value="..."/>.  The order is preserved
   // as added in add_enumeration_value().
-  const string& get_enumeration_at(size_t index) const {
-    return enumeration_[index];
-  }
+  const string& get_enumeration_at(size_t index) const;
 
   // Returns true if this is an enumerated type.
-  bool IsEnumeration() const {
-    return restriction_base_ == "string" && !enumeration_.empty();
-  }
+  bool IsEnumeration() const;
 
  private:
   // Client code should use Create().
-  XsdSimpleType(const string& name)
-    : name_(name) {
-  }
+  XsdSimpleType(const string& name);
+
   const string name_;
   string restriction_base_;
   std::vector<string> enumeration_;

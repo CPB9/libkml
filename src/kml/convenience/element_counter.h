@@ -27,6 +27,7 @@
 #define KML_CONVENIENCE_ELEMENT_COUNTER_H__
 
 #include <map>
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlconvenience {
@@ -36,21 +37,12 @@ typedef std::map<kmldom::KmlDomType, int> ElementCountMap;
 
 // This ParserObserver uses the NewElement() method to count the number of
 // ocurrences of each element.
-class ElementCounter : public kmldom::ParserObserver {
+class KML_EXPORT ElementCounter : public kmldom::ParserObserver {
  public:
-  ElementCounter(ElementCountMap* element_count_map)
-    : element_count_map_(*element_count_map) {
-  }
+  ElementCounter(ElementCountMap* element_count_map);
 
   // ParserObserver::NewElement()
-  virtual bool NewElement(const kmldom::ElementPtr& element) {
-    if (element_count_map_.find(element->Type()) == element_count_map_.end()) {
-      element_count_map_[element->Type()] = 1;
-    } else {
-      element_count_map_[element->Type()] += 1;
-    }
-    return true;  // Always return true to keep parsing.
-  }
+  virtual bool NewElement(const kmldom::ElementPtr& element);
 
  private:
   ElementCountMap& element_count_map_;

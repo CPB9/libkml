@@ -28,13 +28,14 @@
 #ifndef KML_ENGINE_CLONE_H__
 #define KML_ENGINE_CLONE_H__
 
-#include "kml/dom.h"
+#include "kml/config.h"
+#include "kml/dom/kml_ptr.h"
 
 namespace kmlengine {
 
 // This returns a "deep" clone of the given element.  All child elements and
 // fields are copied.
-kmldom::ElementPtr Clone(const kmldom::ElementPtr& element);
+KML_EXPORT kmldom::ElementPtr Clone(const kmldom::ElementPtr& element);
 
 }  // end namespace kmlengine
 

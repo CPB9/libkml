@@ -26,6 +26,7 @@
 #ifndef KML_DOM_LABELSTYLE_H__
 #define KML_DOM_LABELSTYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/colorstyle.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -34,29 +35,17 @@ namespace kmldom {
 
 class Visitor;
 
-class LabelStyle : public ColorStyle {
+class KML_EXPORT LabelStyle : public ColorStyle {
  public:
   virtual ~LabelStyle();
-  virtual KmlDomType Type() const { return Type_LabelStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LabelStyle || ColorStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <scale>
-  double get_scale() const {
-    return scale_;
-  }
-  bool has_scale() const {
-    return has_scale_;
-  }
-  void set_scale(double scale) {
-    scale_ = scale;
-    has_scale_ = true;
-  }
-  void clear_scale() {
-    scale_ = 1.0;
-    has_scale_ = false;
-  }
+  double get_scale() const;
+  bool has_scale() const;
+  void set_scale(double scale);
+  void clear_scale();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

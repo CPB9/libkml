@@ -70,6 +70,68 @@ static bool CutEnumAttr(Attributes* attributes, const string attr_name,
   return false;
 }
 
+void Vec2::clear_yunits(){
+   yunits_ = false;
+   has_yunits_ = false;
+ }
+
+void Vec2::set_yunits(int value){
+   yunits_ = value;
+   has_yunits_ = true;
+ }
+
+bool Vec2::has_yunits() const{ return has_yunits_; }
+
+int Vec2::get_yunits() const{ return yunits_; }
+
+void Vec2::clear_xunits(){
+   xunits_ = false;
+   has_xunits_ = false;
+ }
+
+void Vec2::set_xunits(int value){
+   xunits_ = value;
+   has_xunits_ = true;
+ }
+
+bool Vec2::has_xunits() const{ return has_xunits_; }
+
+int Vec2::get_xunits() const{ return xunits_; }
+
+void Vec2::clear_y(){
+   y_ = 1.0;
+   has_y_ = false;
+ }
+
+void Vec2::set_y(double value){
+   y_ = value;
+   has_y_ = true;
+ }
+
+bool Vec2::has_y() const{ return has_y_; }
+
+double Vec2::get_y() const{ return y_; }
+
+void Vec2::clear_x(){
+   x_ = 1.0;
+   has_x_ = false;
+ }
+
+void Vec2::set_x(double value){
+   x_ = value;
+   has_x_ = true;
+ }
+
+bool Vec2::has_x() const{ return has_x_; }
+
+double Vec2::get_x() const{ return x_; }
+
+bool Vec2::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Vec2;
+ }
+
+kmldom::KmlDomType Vec2::Type() const{ return Type_Vec2; }
+
 void Vec2::ParseAttributes(Attributes* attributes) {
   if (!attributes) {
     return;

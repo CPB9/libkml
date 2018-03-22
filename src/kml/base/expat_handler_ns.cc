@@ -76,4 +76,6 @@ void ExpatHandlerNs::StartNamespace(const string& prefix,
 void ExpatHandlerNs::EndNamespace(const string& prefix) {
 }
 
+
+ExpatHandlerNs::~ExpatHandlerNs(){}
 }  // end namespace kmlbase

@@ -28,6 +28,7 @@
 #ifndef KML_BASE_CSV_SPLITTER_H__
 #define KML_BASE_CSV_SPLITTER_H__
 
+#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/base/util.h"
 
@@ -42,7 +43,7 @@ namespace kmlbase {
 //    csv_line.clear();
 //  }
 // Note that the methods are virtual to permit overriding in a subclass.
-class CsvSplitter {
+class KML_EXPORT CsvSplitter {
  public:
   CsvSplitter(const string& csv_data);
 

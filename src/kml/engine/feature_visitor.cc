@@ -58,4 +58,8 @@ void VisitFeatureHierarchy(const FeaturePtr& feature,
   }
 }
 
+void FeatureVisitor::VisitFeature(const kmldom::FeaturePtr& feature){}
+
+FeatureVisitor::~FeatureVisitor(){}
+
 }  // end namespace kmlengine

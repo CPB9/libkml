@@ -75,6 +75,7 @@
 #define KML_DOM_KML_HANDLER_H__
 
 #include <stack>
+#include "kml/config.h"
 #include "kml/base/expat_handler.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml_ptr.h"
@@ -86,7 +87,7 @@ class KmlFactory;
 
 // This class implements the expat handlers for parsing KML.  This class is
 // handed to expat in the ExpatParser() function.
-class KmlHandler : public kmlbase::ExpatHandler {
+class KML_EXPORT KmlHandler : public kmlbase::ExpatHandler {
 public:
   KmlHandler(parser_observer_vector_t& observers);
   ~KmlHandler();

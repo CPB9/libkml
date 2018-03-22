@@ -153,4 +153,122 @@ void ListStyle::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<ItemIconPtr>(&itemicon_array_, driver);
 }
 
+
+kmldom::KmlDomType ItemIcon::Type() const{ return Type_ItemIcon; }
+
+bool ItemIcon::IsA(kmldom::KmlDomType type) const{
+   return type == Type_ItemIcon || Object::IsA(type);
+ }
+
+int ItemIcon::get_state_array_at(size_t index) const{
+   return state_array_[index];
+ }
+
+size_t ItemIcon::get_state_array_size() const{
+   return state_array_.size();
+ }
+
+bool ItemIcon::has_state() const{
+   return has_state_;
+ }
+
+void ItemIcon::add_state(int state){
+   state_array_.push_back(state);
+   has_state_ = true;
+ }
+
+void ItemIcon::clear_state(){
+   state_array_.clear();
+   has_state_ = false;
+ }
+
+const std::__cxx11::string& ItemIcon::get_href() const{
+   return href_;
+ }
+
+bool ItemIcon::has_href() const{
+   return has_href_;
+ }
+
+void ItemIcon::set_href(const std::__cxx11::string& href){
+   href_ = href;
+   has_href_ = true;
+ }
+
+void ItemIcon::clear_href(){
+   href_.clear();
+   has_href_ = false;
+ }
+
+kmldom::KmlDomType ListStyle::Type() const{ return Type_ListStyle; }
+
+bool ListStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_ListStyle || SubStyle::IsA(type);
+ }
+
+int ListStyle::get_listitemtype() const{
+   return listitemtype_;
+ }
+
+bool ListStyle::has_listitemtype() const{
+   return has_listitemtype_;
+ }
+
+void ListStyle::set_listitemtype(int listitemtype){
+   listitemtype_ = listitemtype;
+   has_listitemtype_ = true;
+ }
+
+void ListStyle::clear_listitemtype(){
+   listitemtype_ = LISTITEMTYPE_CHECK;
+   has_listitemtype_ = false;
+ }
+
+const kmlbase::Color32& ListStyle::get_bgcolor() const{
+   return bgcolor_;
+ }
+
+bool ListStyle::has_bgcolor() const{
+   return has_bgcolor_;
+ }
+
+void ListStyle::set_bgcolor(const kmlbase::Color32& bgcolor){
+   bgcolor_ = bgcolor;
+   has_bgcolor_ = true;
+ }
+
+void ListStyle::clear_bgcolor(){
+   bgcolor_ = kmlbase::Color32(0xffffffff);
+   has_bgcolor_ = false;
+ }
+
+void ListStyle::add_itemicon(const ItemIconPtr& itemicon){
+   AddComplexChild(itemicon, &itemicon_array_);
+ }
+
+size_t ListStyle::get_itemicon_array_size() const{
+   return itemicon_array_.size();
+ }
+
+const ItemIconPtr& ListStyle::get_itemicon_array_at(size_t index) const{
+   return itemicon_array_[index];
+ }
+
+int ListStyle::get_maxsnippetlines() const{
+   return maxsnippetlines_;
+ }
+
+bool ListStyle::has_maxsnippetlines() const{
+   return has_maxsnippetlines_;
+ }
+
+void ListStyle::set_maxsnippetlines(int maxsnippetlines){
+   maxsnippetlines_ = maxsnippetlines;
+   has_maxsnippetlines_ = true;
+ }
+
+void ListStyle::clear_maxsnippetlines(){
+   maxsnippetlines_ = 2;
+   has_maxsnippetlines_ = false;
+ }
 }  // end namespace kmldom

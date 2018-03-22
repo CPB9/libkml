@@ -75,4 +75,10 @@ KmlStream* KmlStream::ParseFromIstream(
   return kml_stream;
 }
 
+
+const kmldom::ElementPtr KmlStream::get_root() const{
+   return kmldom::AsElement(XmlFile::get_root());
+ }
+
+KmlStream::KmlStream(){}
 }  // end namespace kmlengine

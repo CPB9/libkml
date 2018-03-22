@@ -73,6 +73,7 @@
 #define KML_DOM_GEOMETRY_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/util.h"
 #include "kml/base/vec3.h"
 #include "kml/dom/extendeddata.h"
@@ -88,50 +89,30 @@ class Visitor;
 class VisitorDriver;
 
 // <coordinates>
-class Coordinates : public BasicElement<Type_coordinates> {
+class KML_EXPORT Coordinates : public BasicElement<Type_coordinates> {
  public:
   virtual ~Coordinates();
 
   // The main KML-specific API
-  void add_latlngalt(double latitude, double longitude, double altitude) {
-    coordinates_array_.push_back(kmlbase::Vec3(longitude, latitude, altitude));
-  }
+  void add_latlngalt(double latitude, double longitude, double altitude);
 
-  void add_latlng(double latitude, double longitude) {
-    coordinates_array_.push_back(kmlbase::Vec3(longitude, latitude));
-  }
+  void add_latlng(double latitude, double longitude);
 
-  void insert_latlng(std::size_t index, double latitude, double longitude) {
-    coordinates_array_.insert(coordinates_array_.begin() + index, kmlbase::Vec3(longitude, latitude));
-  }
+  void insert_latlng(std::size_t index, double latitude, double longitude);
 
-  void remove_at(std::size_t index) {
-    coordinates_array_.erase(coordinates_array_.begin() + index);
-  }
+  void remove_at(std::size_t index);
 
-  void add_vec3(const kmlbase::Vec3& vec3) {
-    coordinates_array_.push_back(vec3);
-  }
+  void add_vec3(const kmlbase::Vec3& vec3);
 
-  size_t get_coordinates_array_size() const {
-    return coordinates_array_.size();
-  }
+  size_t get_coordinates_array_size() const;
 
-  const kmlbase::Vec3& get_coordinates_array_at(size_t index) const {
-    return coordinates_array_[index];
-  }
+  const kmlbase::Vec3& get_coordinates_array_at(size_t index) const;
 
-  kmlbase::Vec3& get_coordinates_array_at(size_t index) {
-    return coordinates_array_[index];
-  }
+  kmlbase::Vec3& get_coordinates_array_at(size_t index);
 
-  void erase_coordinates_array_at(size_t index) {
-    coordinates_array_.erase(coordinates_array_.begin() + index);
-  }
+  void erase_coordinates_array_at(size_t index);
 
-  void set_coordinates_array_at(const kmlbase::Vec3& vec, size_t index) {
-    coordinates_array_[index] = vec;
-  }
+  void set_coordinates_array_at(const kmlbase::Vec3& vec, size_t index);
 
   // Internal methods used in parser.  Public for unittest purposes.
   // See .cc for more details.
@@ -139,9 +120,7 @@ class Coordinates : public BasicElement<Type_coordinates> {
   static bool ParseVec3(const char* coords, char** nextp, kmlbase::Vec3* vec);
 
   // This clears the internal coordinates array.
-  void Clear() {
-    coordinates_array_.clear();
-  }
+  void Clear();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -160,13 +139,11 @@ class Coordinates : public BasicElement<Type_coordinates> {
 
 // OGC KML 2.2 Standard: 10.1 kml:AbstractGeometryGroup
 // OGC KML 2.2 XSD: <element name="AbstractGeometryGroup"...
-class Geometry : public Object {
+class KML_EXPORT Geometry : public Object {
  public:
   virtual ~Geometry();
-  virtual KmlDomType Type() const { return Type_Geometry; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Geometry || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
  protected:
   // Geometry is abstract.
@@ -178,7 +155,7 @@ class Geometry : public Object {
 
 // Internal convenience class for any Geometry with <altitudeMode>.
 // This is not in the KML standard, hence there is no type info.
-class AltitudeGeometryCommon : public Geometry {
+class KML_EXPORT AltitudeGeometryCommon : public Geometry {
  public:
   virtual ~AltitudeGeometryCommon();
 
@@ -187,28 +164,16 @@ class AltitudeGeometryCommon : public Geometry {
 
  public:
   // <altitudeMode>
-  int get_altitudemode() const { return altitudemode_; }
-  bool has_altitudemode() const { return has_altitudemode_; }
-  void set_altitudemode(int value) {
-    altitudemode_ = value;
-    has_altitudemode_ = true;
-  }
-  void clear_altitudemode() {
-    altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
-    has_altitudemode_ = false;
-  }
+  int get_altitudemode() const;
+  bool has_altitudemode() const;
+  void set_altitudemode(int value);
+  void clear_altitudemode();
 
   // <gx:altitudeMode>
-  int get_gx_altitudemode() const { return gx_altitudemode_; }
-  bool has_gx_altitudemode() const { return has_gx_altitudemode_; }
-  void set_gx_altitudemode(int value) {
-    gx_altitudemode_ = value;
-    has_gx_altitudemode_ = true;
-  }
-  void clear_gx_altitudemode() {
-    gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
-    has_gx_altitudemode_ = false;
-  }
+  int get_gx_altitudemode() const;
+  bool has_gx_altitudemode() const;
+  void set_gx_altitudemode(int value);
+  void clear_gx_altitudemode();
 
   virtual void AddElement(const ElementPtr& element);
 
@@ -222,21 +187,15 @@ class AltitudeGeometryCommon : public Geometry {
 
 // Internal convenience class for any Geometry with <altitudeMode> + <extrude>
 // This is not in the KML standard, hence there is no type info.
-class ExtrudeGeometryCommon : public AltitudeGeometryCommon {
+class KML_EXPORT ExtrudeGeometryCommon : public AltitudeGeometryCommon {
  public:
   virtual ~ExtrudeGeometryCommon();
 
   // <extrude>
-  bool get_extrude() const { return extrude_; }
-  bool has_extrude() const { return has_extrude_; }
-  void set_extrude(bool value) {
-    extrude_ = value;
-    has_extrude_ = true;
-  }
-  void clear_extrude() {
-    extrude_ = false;
-    has_extrude_ = false;
-  }
+  bool get_extrude() const;
+  bool has_extrude() const;
+  void set_extrude(bool value);
+  void clear_extrude();
 
  protected:
   ExtrudeGeometryCommon();
@@ -251,20 +210,16 @@ class ExtrudeGeometryCommon : public AltitudeGeometryCommon {
 // Internal convenience class for any Geometry with
 // <altitudeMode> + <extrude> + <coordinates>.
 // This is not in the KML standard, hence there is no type info.
-class CoordinatesGeometryCommon : public ExtrudeGeometryCommon {
+class KML_EXPORT CoordinatesGeometryCommon : public ExtrudeGeometryCommon {
  public:
   virtual ~CoordinatesGeometryCommon();
 
  public:
   // <coordinates>
-  const CoordinatesPtr& get_coordinates() const { return coordinates_; }
-  bool has_coordinates() const { return coordinates_ != nullptr; }
-  void set_coordinates(const CoordinatesPtr& coordinates) {
-    SetComplexChild(coordinates, &coordinates_);
-  }
-  void clear_coordinates() {
-    set_coordinates(NULL);
-  }
+  const CoordinatesPtr& get_coordinates() const;
+  bool has_coordinates() const;
+  void set_coordinates(const CoordinatesPtr& coordinates);
+  void clear_coordinates();
 
   // Visitor API methods, see visitor.h.
   virtual void AcceptChildren(VisitorDriver* driver);
@@ -280,13 +235,11 @@ class CoordinatesGeometryCommon : public ExtrudeGeometryCommon {
 };
 
 // <Point>
-class Point : public CoordinatesGeometryCommon {
+class KML_EXPORT Point : public CoordinatesGeometryCommon {
  public:
   virtual ~Point();
-  virtual KmlDomType Type() const { return Type_Point; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Point || Geometry::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -301,22 +254,16 @@ class Point : public CoordinatesGeometryCommon {
 
 // Internal convenience class for code common to LineString and LinearRing.
 // This is not in the KML standard, hence there is no type info.
-class LineCommon : public CoordinatesGeometryCommon {
+class KML_EXPORT LineCommon : public CoordinatesGeometryCommon {
  public:
   virtual ~LineCommon();
 
  public:
   // <tessellate>
-  bool get_tessellate() const { return tessellate_; }
-  bool has_tessellate() const { return has_tessellate_; }
-  void set_tessellate(bool value) {
-    tessellate_ = value;
-    has_tessellate_ = true;
-  }
-  void clear_tessellate() {
-    tessellate_ = false;
-    has_tessellate_ = false;
-  }
+  bool get_tessellate() const;
+  bool has_tessellate() const;
+  void set_tessellate(bool value);
+  void clear_tessellate();
 
  protected:
   LineCommon();
@@ -332,13 +279,11 @@ class LineCommon : public CoordinatesGeometryCommon {
 };
 
 // <LineString>
-class LineString : public LineCommon {
+class KML_EXPORT LineString : public LineCommon {
  public:
   virtual ~LineString();
-  virtual KmlDomType Type() const { return Type_LineString; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LineString || Geometry::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -350,13 +295,11 @@ class LineString : public LineCommon {
 };
 
 // <LinearRing>
-class LinearRing : public LineCommon {
+class KML_EXPORT LinearRing : public LineCommon {
  public:
   virtual ~LinearRing();
-  virtual KmlDomType Type() const { return Type_LinearRing; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LinearRing || Geometry::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -369,19 +312,15 @@ class LinearRing : public LineCommon {
 
 // Internal class for code common to OuterBoundaryIs and InnerBoundaryIs.
 // This is not in the KML standard, hence there is no type info.
-class BoundaryCommon : public Element {
+class KML_EXPORT BoundaryCommon : public Element {
  public:
   virtual ~BoundaryCommon();
 
  public:
-  const LinearRingPtr& get_linearring() const { return linearring_; }
-  bool has_linearring() const { return linearring_ != nullptr; }
-  void set_linearring(const LinearRingPtr& linearring) {
-    SetComplexChild(linearring, &linearring_);
-  }
-  void clear_linearring() {
-    set_linearring(NULL);
-  }
+  const LinearRingPtr& get_linearring() const;
+  bool has_linearring() const;
+  void set_linearring(const LinearRingPtr& linearring);
+  void clear_linearring();
 
   // Parser support
   virtual void AddElement(const ElementPtr& element);
@@ -399,13 +338,11 @@ class BoundaryCommon : public Element {
 };
 
 // <outerBoundaryIs>
-class OuterBoundaryIs : public BoundaryCommon {
+class KML_EXPORT OuterBoundaryIs : public BoundaryCommon {
  public:
   virtual ~OuterBoundaryIs();
-  virtual KmlDomType Type() const { return Type_outerBoundaryIs; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_outerBoundaryIs;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -417,13 +354,11 @@ class OuterBoundaryIs : public BoundaryCommon {
 };
 
 // <innerBoundaryIs>
-class InnerBoundaryIs : public BoundaryCommon {
+class KML_EXPORT InnerBoundaryIs : public BoundaryCommon {
  public:
   virtual ~InnerBoundaryIs();
-  virtual KmlDomType Type() const { return Type_innerBoundaryIs; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_innerBoundaryIs;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -435,50 +370,30 @@ class InnerBoundaryIs : public BoundaryCommon {
 };
 
 // <Polygon>
-class Polygon : public ExtrudeGeometryCommon {
+class KML_EXPORT Polygon : public ExtrudeGeometryCommon {
  public:
   virtual ~Polygon();
-  virtual KmlDomType Type() const { return Type_Polygon; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Polygon || Geometry::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <tessellate>
-  bool get_tessellate() const { return tessellate_; }
-  bool has_tessellate() const { return has_tessellate_; }
-  void set_tessellate(bool value) {
-    tessellate_ = value;
-    has_tessellate_ = true;
-  }
-  void clear_tessellate() {
-    tessellate_ = false;
-    has_tessellate_ = false;
-  }
+  bool get_tessellate() const;
+  bool has_tessellate() const;
+  void set_tessellate(bool value);
+  void clear_tessellate();
 
   // <outerBoundaryIs>
-  const OuterBoundaryIsPtr& get_outerboundaryis() const {
-    return outerboundaryis_;
-  }
-  bool has_outerboundaryis() const { return outerboundaryis_ != nullptr; }
-  void set_outerboundaryis(const OuterBoundaryIsPtr& outerboundaryis) {
-    SetComplexChild(outerboundaryis, &outerboundaryis_);
-  }
-  void clear_outerboundaryis() {
-    set_outerboundaryis(NULL);
-  }
+  const OuterBoundaryIsPtr& get_outerboundaryis() const;
+  bool has_outerboundaryis() const;
+  void set_outerboundaryis(const OuterBoundaryIsPtr& outerboundaryis);
+  void clear_outerboundaryis();
 
   // <innerBoundaryIs>
-  void add_innerboundaryis(const InnerBoundaryIsPtr& innerboundaryis) {
-    AddComplexChild(innerboundaryis, &innerboundaryis_array_);
-  }
+  void add_innerboundaryis(const InnerBoundaryIsPtr& innerboundaryis);
 
-  size_t get_innerboundaryis_array_size() const {
-    return innerboundaryis_array_.size();
-  }
+  size_t get_innerboundaryis_array_size() const;
 
-  const InnerBoundaryIsPtr& get_innerboundaryis_array_at(size_t index) {
-    return innerboundaryis_array_[index];
-  }
+  const InnerBoundaryIsPtr& get_innerboundaryis_array_at(size_t index);
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -502,24 +417,18 @@ class Polygon : public ExtrudeGeometryCommon {
 };
 
 // <MultiGeometry>
-class MultiGeometry : public Geometry {
+class KML_EXPORT MultiGeometry : public Geometry {
  public:
   virtual ~MultiGeometry();
-  virtual KmlDomType Type() const { return Type_MultiGeometry; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_MultiGeometry || Geometry::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // The main KML-specific API
   void add_geometry(const GeometryPtr& geometry);
 
-  size_t get_geometry_array_size() const {
-    return geometry_array_.size();
-  }
+  size_t get_geometry_array_size() const;
 
-  const GeometryPtr& get_geometry_array_at(size_t index) const {
-    return geometry_array_[index];
-  }
+  const GeometryPtr& get_geometry_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -537,65 +446,39 @@ class MultiGeometry : public Geometry {
 };
 
 // <gx:Track>
-class GxTrack : public AltitudeGeometryCommon {
+class KML_EXPORT GxTrack : public AltitudeGeometryCommon {
  public:
   virtual ~GxTrack();
-  static KmlDomType ElementType() { return Type_GxTrack; }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Geometry::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <when>
-  size_t get_when_array_size() {
-    return when_array_.size();
-  }
-  void add_when(const string& when) {
-    when_array_.push_back(when);
-  }
-  const string& get_when_array_at(size_t index) const {
-    return when_array_[index];
-  }
+  size_t get_when_array_size();
+  void add_when(const string& when);
+  const string& get_when_array_at(size_t index) const;
 
   // <gx:coord>
-  size_t get_gx_coord_array_size() {
-    return gx_coord_array_.size();
-  }
-  void add_gx_coord(const kmlbase::Vec3& gx_coord) {
-    gx_coord_array_.push_back(gx_coord);
-  }
-  const kmlbase::Vec3& get_gx_coord_array_at(size_t index) const {
-    return gx_coord_array_[index];
-  }
+  size_t get_gx_coord_array_size();
+  void add_gx_coord(const kmlbase::Vec3& gx_coord);
+  const kmlbase::Vec3& get_gx_coord_array_at(size_t index) const;
 
   // <gx:angles>
-  size_t get_gx_angles_array_size() {
-    return gx_angles_array_.size();
-  }
-  void add_gx_angles(const kmlbase::Vec3& gx_angles) {
-    gx_angles_array_.push_back(gx_angles);
-  }
-  const kmlbase::Vec3& get_gx_angles_array_at(size_t index) const {
-    return gx_angles_array_[index];
-  }
+  size_t get_gx_angles_array_size();
+  void add_gx_angles(const kmlbase::Vec3& gx_angles);
+  const kmlbase::Vec3& get_gx_angles_array_at(size_t index) const;
 
   // <Model>
-  const ModelPtr& get_model() const { return model_; }
-  void set_model(const ModelPtr& model) {
-    SetComplexChild(model, &model_);
-  }
-  bool has_model() const { return model_ != nullptr; }
-  void clear_model() { set_model(NULL); }
+  const ModelPtr& get_model() const;
+  void set_model(const ModelPtr& model);
+  bool has_model() const;
+  void clear_model();
 
   // <ExtendedData>
-  const ExtendedDataPtr& get_extendeddata() const { return extendeddata_; }
-  bool has_extendeddata() const { return extendeddata_ != nullptr; }
-  void set_extendeddata(const ExtendedDataPtr& extendeddata) {
-    SetComplexChild(extendeddata, &extendeddata_);
-  }
-  void clear_extendeddata() {
-    set_extendeddata(NULL);
-  }
+  const ExtendedDataPtr& get_extendeddata() const;
+  bool has_extendeddata() const;
+  void set_extendeddata(const ExtendedDataPtr& extendeddata);
+  void clear_extendeddata();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -621,35 +504,23 @@ class GxTrack : public AltitudeGeometryCommon {
 };
 
 // <gx:MultiTrack>
-class GxMultiTrack : public Geometry {
+class KML_EXPORT GxMultiTrack : public Geometry {
  public:
   virtual ~GxMultiTrack();
-  static KmlDomType ElementType() { return Type_GxMultiTrack; }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Geometry::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
-  bool get_gx_interpolate() const { return gx_interpolate_; }
-  bool has_gx_interpolate() const { return has_gx_interpolate_; }
-  void set_gx_interpolate(bool value) {
-    gx_interpolate_ = value;
-    has_gx_interpolate_ = true;
-  }
-  void clear_gx_interpolate() {
-    gx_interpolate_ = false;  // Default <gx:interpolate> is false.
-    has_gx_interpolate_ = false;
-  }
+  bool get_gx_interpolate() const;
+  bool has_gx_interpolate() const;
+  void set_gx_interpolate(bool value);
+  void clear_gx_interpolate();
 
   void add_gx_track(const GxTrackPtr& gx_track);
 
-  size_t get_gx_track_array_size() const {
-    return gx_track_array_.size();
-  }
+  size_t get_gx_track_array_size() const;
 
-  const GxTrackPtr& get_gx_track_array_at(size_t index) const {
-    return gx_track_array_[index];
-  }
+  const GxTrackPtr& get_gx_track_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -677,61 +548,29 @@ class GxMultiTrack : public Geometry {
 // the headers are pure and all implementation is in the .cc files.
 
 // <Location>
-class Location : public Object {
+class KML_EXPORT Location : public Object {
  public:
   virtual ~Location();
-  virtual KmlDomType Type() const { return Type_Location; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Location || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <longitude>
-  double get_longitude() const {
-    return longitude_;
-  }
-  bool has_longitude() const {
-    return has_longitude_;
-  }
-  void set_longitude(double longitude) {
-    longitude_ = longitude;
-    has_longitude_ = true;
-  }
-  void clear_longitude() {
-    longitude_ = 0.0;
-    has_longitude_ = false;
-  }
+  double get_longitude() const;
+  bool has_longitude() const;
+  void set_longitude(double longitude);
+  void clear_longitude();
 
   // <latitude>
-  double get_latitude() const {
-    return latitude_;
-  }
-  bool has_latitude() const {
-    return has_latitude_;
-  }
-  void set_latitude(double latitude) {
-    latitude_ = latitude;
-    has_latitude_ = true;
-  }
-  void clear_latitude() {
-    latitude_ = 0.0;
-    has_latitude_ = false;
-  }
+  double get_latitude() const;
+  bool has_latitude() const;
+  void set_latitude(double latitude);
+  void clear_latitude();
 
   // <altitude>
-  double get_altitude() const {
-    return altitude_;
-  }
-  bool has_altitude() const {
-    return has_altitude_;
-  }
-  void set_altitude(double altitude) {
-    altitude_ = altitude;
-    has_altitude_ = true;
-  }
-  void clear_altitude() {
-    altitude_ = 0.0;
-    has_altitude_ = false;
-  }
+  double get_altitude() const;
+  bool has_altitude() const;
+  void set_altitude(double altitude);
+  void clear_altitude();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -753,61 +592,29 @@ class Location : public Object {
 };
 
 // <Orientation>
-class Orientation : public Object {
+class KML_EXPORT Orientation : public Object {
  public:
   virtual ~Orientation();
-  virtual KmlDomType Type() const { return Type_Orientation; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Orientation || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <heading>
-  double get_heading() const {
-    return heading_;
-  }
-  bool has_heading() const {
-    return has_heading_;
-  }
-  void set_heading(double heading) {
-    heading_ = heading;
-    has_heading_ = true;
-  }
-  void clear_heading() {
-    heading_ = 0.0;
-    has_heading_ = false;
-  }
+  double get_heading() const;
+  bool has_heading() const;
+  void set_heading(double heading);
+  void clear_heading();
 
   // <tilt>
-  double get_tilt() const {
-    return tilt_;
-  }
-  bool has_tilt() const {
-    return has_tilt_;
-  }
-  void set_tilt(double tilt) {
-    tilt_ = tilt;
-    has_tilt_ = true;
-  }
-  void clear_tilt() {
-    tilt_ = 0.0;
-    has_tilt_ = false;
-  }
+  double get_tilt() const;
+  bool has_tilt() const;
+  void set_tilt(double tilt);
+  void clear_tilt();
 
   // <roll>
-  double get_roll() const {
-    return roll_;
-  }
-  bool has_roll() const {
-    return has_roll_;
-  }
-  void set_roll(double roll) {
-    roll_ = roll;
-    has_roll_ = true;
-  }
-  void clear_roll() {
-    roll_ = 0.0;
-    has_roll_ = false;
-  }
+  double get_roll() const;
+  bool has_roll() const;
+  void set_roll(double roll);
+  void clear_roll();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -829,61 +636,29 @@ class Orientation : public Object {
 };
 
 // <Scale>
-class Scale : public Object {
+class KML_EXPORT Scale : public Object {
  public:
   virtual ~Scale();
-  virtual KmlDomType Type() const { return Type_Scale; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Scale || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <x>
-  double get_x() const {
-    return x_;
-  }
-  bool has_x() const {
-    return has_x_;
-  }
-  void set_x(double x) {
-    x_ = x;
-    has_x_ = true;
-  }
-  void clear_x() {
-    x_ = 1.0;
-    has_x_ = false;
-  }
+  double get_x() const;
+  bool has_x() const;
+  void set_x(double x);
+  void clear_x();
 
   // <y>
-  double get_y() const {
-    return y_;
-  }
-  bool has_y() const {
-    return has_y_;
-  }
-  void set_y(double y) {
-    y_ = y;
-    has_y_ = true;
-  }
-  void clear_y() {
-    y_ = 1.0;
-    has_y_ = false;
-  }
+  double get_y() const;
+  bool has_y() const;
+  void set_y(double y);
+  void clear_y();
 
   // <z>
-  double get_z() const {
-    return z_;
-  }
-  bool has_z() const {
-    return has_z_;
-  }
-  void set_z(double z) {
-    z_ = z;
-    has_z_ = true;
-  }
-  void clear_z() {
-    z_ = 1.0;
-    has_z_ = false;
-  }
+  double get_z() const;
+  bool has_z() const;
+  void set_z(double z);
+  void clear_z();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -905,45 +680,23 @@ class Scale : public Object {
 };
 
 // <Alias>
-class Alias : public Object {
+class KML_EXPORT Alias : public Object {
  public:
   virtual ~Alias();
-  virtual KmlDomType Type() const { return Type_Alias; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Alias || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <targetHref>
-  const string& get_targethref() const {
-    return targethref_;
-  }
-  bool has_targethref() const {
-    return has_targethref_;
-  }
-  void set_targethref(const string& targethref) {
-    targethref_ = targethref;
-    has_targethref_ = true;
-  }
-  void clear_targethref() {
-    targethref_.clear();
-    has_targethref_ = false;
-  }
+  const string& get_targethref() const;
+  bool has_targethref() const;
+  void set_targethref(const string& targethref);
+  void clear_targethref();
 
   // <sourceHref>
-  const string& get_sourcehref() const {
-    return sourcehref_;
-  }
-  bool has_sourcehref() const {
-    return has_sourcehref_;
-  }
-  void set_sourcehref(const string& sourcehref) {
-    sourcehref_ = sourcehref;
-    has_sourcehref_ = true;
-  }
-  void clear_sourcehref() {
-    sourcehref_.clear();
-    has_sourcehref_ = false;
-  }
+  const string& get_sourcehref() const;
+  bool has_sourcehref() const;
+  void set_sourcehref(const string& sourcehref);
+  void clear_sourcehref();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -963,23 +716,17 @@ class Alias : public Object {
 };
 
 // <ResourceMap>
-class ResourceMap : public Object {
+class KML_EXPORT ResourceMap : public Object {
  public:
   virtual ~ResourceMap();
-  virtual KmlDomType Type() const { return Type_ResourceMap; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ResourceMap || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   void add_alias(const AliasPtr& alias);
 
-  size_t get_alias_array_size() const {
-    return alias_array_.size();
-  }
+  size_t get_alias_array_size() const;
 
-  const AliasPtr& get_alias_array_at(size_t index) const {
-    return alias_array_[index];
-  }
+  const AliasPtr& get_alias_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -997,63 +744,41 @@ class ResourceMap : public Object {
 };
 
 // <Model>
-class Model : public AltitudeGeometryCommon {
+class KML_EXPORT Model : public AltitudeGeometryCommon {
  public:
   virtual ~Model();
-  virtual KmlDomType Type() const { return Type_Model; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Model || Geometry::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <Location>
-  const LocationPtr& get_location() const { return location_; }
-  bool has_location() const { return location_ != nullptr; }
-  void set_location(const LocationPtr& location) {
-    SetComplexChild(location, &location_);
-  }
-  void clear_location() {
-    set_location(NULL);
-  }
+  const LocationPtr& get_location() const;
+  bool has_location() const;
+  void set_location(const LocationPtr& location);
+  void clear_location();
 
   // <Orientation>
-  const OrientationPtr& get_orientation() const { return orientation_; }
-  bool has_orientation() const { return orientation_ != nullptr; }
-  void set_orientation(const OrientationPtr& orientation) {
-    SetComplexChild(orientation, &orientation_);
-  }
-  void clear_orientation() {
-    set_orientation(NULL);
-  }
+  const OrientationPtr& get_orientation() const;
+  bool has_orientation() const;
+  void set_orientation(const OrientationPtr& orientation);
+  void clear_orientation();
 
   // <Scale>
-  const ScalePtr& get_scale() const { return scale_; }
-  bool has_scale() const { return scale_ != nullptr; }
-  void set_scale(const ScalePtr& scale) {
-    SetComplexChild(scale, &scale_);
-  }
-  void clear_scale() {
-    set_scale(NULL);
-  }
+  const ScalePtr& get_scale() const;
+  bool has_scale() const;
+  void set_scale(const ScalePtr& scale);
+  void clear_scale();
 
   // <Link>
-  const LinkPtr& get_link() const { return link_; }
-  bool has_link() const { return link_ != nullptr; }
-  void set_link(const LinkPtr& link) {
-    SetComplexChild(link, &link_);
-  }
-  void clear_link() {
-    set_link(NULL);
-  }
+  const LinkPtr& get_link() const;
+  bool has_link() const;
+  void set_link(const LinkPtr& link);
+  void clear_link();
 
   // <ResourceMap>
-  const ResourceMapPtr& get_resourcemap() const { return resourcemap_; }
-  bool has_resourcemap() const { return resourcemap_ != nullptr; }
-  void set_resourcemap(const ResourceMapPtr& resourcemap) {
-    SetComplexChild(resourcemap, &resourcemap_);
-  }
-  void clear_resourcemap() {
-    resourcemap_ = NULL;
-  }
+  const ResourceMapPtr& get_resourcemap() const;
+  bool has_resourcemap() const;
+  void set_resourcemap(const ResourceMapPtr& resourcemap);
+  void clear_resourcemap();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

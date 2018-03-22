@@ -29,6 +29,7 @@
 #ifndef KML_DOM_VISITOR_DRIVER_H__
 #define KML_DOM_VISITOR_DRIVER_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/visitor.h"
@@ -39,7 +40,7 @@ namespace kmldom {
 // hierarchy. There is typically expected to be only a single driver for each
 // visitation and currently there is not concept of chaining drivers (though
 // visitors themselves could be chained within a single 'multi driver').
-class VisitorDriver {
+class KML_EXPORT VisitorDriver {
  protected:
   VisitorDriver();
   virtual ~VisitorDriver();
@@ -61,7 +62,7 @@ class VisitorDriver {
 // A simple driver implementation that invokes a single visitor in pre-order
 // traversal of an element hierarchy. The visitor will visit each element in a
 // hierarchy before that element's children are visited.
-class SimplePreorderDriver : public VisitorDriver {
+class KML_EXPORT SimplePreorderDriver : public VisitorDriver {
  public:
   explicit SimplePreorderDriver(Visitor* visitor);
   virtual ~SimplePreorderDriver();
@@ -77,7 +78,7 @@ class SimplePreorderDriver : public VisitorDriver {
 // A simple driver implementation that invokes a single visitor in post-order
 // traversal of an element hierarchy. The visitor will visit each element in a
 // hierarchy after that element's children have been visited.
-class SimplePostorderDriver : public VisitorDriver {
+class KML_EXPORT SimplePostorderDriver : public VisitorDriver {
  public:
   explicit SimplePostorderDriver(Visitor* visitor);
   virtual ~SimplePostorderDriver();

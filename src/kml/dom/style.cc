@@ -115,4 +115,82 @@ void Style::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+kmldom::KmlDomType Style::Type() const{ return Type_Style; }
+
+bool Style::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Style || StyleSelector::IsA(type);
+ }
+
+const IconStylePtr& Style::get_iconstyle() const{ return iconstyle_; }
+
+bool Style::has_iconstyle() const{ return iconstyle_ != nullptr; }
+
+void Style::set_iconstyle(const IconStylePtr& iconstyle){
+   SetComplexChild(iconstyle, &iconstyle_);
+ }
+
+void Style::clear_iconstyle(){
+   set_iconstyle(NULL);
+ }
+
+const LabelStylePtr& Style::get_labelstyle() const{ return labelstyle_; }
+
+bool Style::has_labelstyle() const{ return labelstyle_ != nullptr; }
+
+void Style::set_labelstyle(const LabelStylePtr& labelstyle){
+   SetComplexChild(labelstyle, &labelstyle_);
+ }
+
+void Style::clear_labelstyle(){
+   set_labelstyle(NULL);
+ }
+
+const LineStylePtr& Style::get_linestyle() const{ return linestyle_; }
+
+bool Style::has_linestyle() const{ return linestyle_ != nullptr; }
+
+void Style::set_linestyle(const LineStylePtr& linestyle){
+   SetComplexChild(linestyle, &linestyle_);
+ }
+
+void Style::clear_linestyle(){
+   set_linestyle(NULL);
+ }
+
+const PolyStylePtr& Style::get_polystyle() const{ return polystyle_; }
+
+bool Style::has_polystyle() const{ return polystyle_ != nullptr; }
+
+void Style::set_polystyle(const PolyStylePtr& polystyle){
+   SetComplexChild(polystyle, &polystyle_);
+ }
+
+void Style::clear_polystyle(){
+   set_polystyle(NULL);
+ }
+
+const BalloonStylePtr& Style::get_balloonstyle() const{ return balloonstyle_; }
+
+bool Style::has_balloonstyle() const{ return balloonstyle_ != nullptr; }
+
+void Style::set_balloonstyle(const BalloonStylePtr& balloonstyle){
+   SetComplexChild(balloonstyle, &balloonstyle_);
+ }
+
+void Style::clear_balloonstyle(){
+   set_balloonstyle(NULL);
+ }
+
+const ListStylePtr& Style::get_liststyle() const{ return liststyle_; }
+
+bool Style::has_liststyle() const{ return liststyle_ != nullptr; }
+
+void Style::set_liststyle(const ListStylePtr& liststyle){
+   SetComplexChild(liststyle, &liststyle_);
+ }
+
+void Style::clear_liststyle(){
+   set_liststyle(NULL);
+ }
 }  // end namespace kmldom

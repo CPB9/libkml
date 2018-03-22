@@ -43,57 +43,31 @@ class Visitor;
 
 // OGC KML 2.2 Standard: 16.21 kml:vec2Type
 // OGC KML 2.2 XSD: <complexType name="vec2Type"...
-class Vec2 : public Element {
+class KML_EXPORT Vec2 : public Element {
  public:
   virtual ~Vec2();
-  virtual KmlDomType Type() const { return Type_Vec2; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Vec2;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
-  double get_x() const { return x_; }
-  bool has_x() const { return has_x_; }
-  void set_x(double value) {
-    x_ = value;
-    has_x_ = true;
-  }
-  void clear_x() {
-    x_ = 1.0;
-    has_x_ = false;
-  }
+  double get_x() const;
+  bool has_x() const;
+  void set_x(double value);
+  void clear_x();
 
-  double get_y() const { return y_; }
-  bool has_y() const { return has_y_; }
-  void set_y(double value) {
-    y_ = value;
-    has_y_ = true;
-  }
-  void clear_y() {
-    y_ = 1.0;
-    has_y_ = false;
-  }
+  double get_y() const;
+  bool has_y() const;
+  void set_y(double value);
+  void clear_y();
 
-  int get_xunits() const { return xunits_; }
-  bool has_xunits() const { return has_xunits_; }
-  void set_xunits(int value) {
-    xunits_ = value;
-    has_xunits_ = true;
-  }
-  void clear_xunits() {
-    xunits_ = false;
-    has_xunits_ = false;
-  }
+  int get_xunits() const;
+  bool has_xunits() const;
+  void set_xunits(int value);
+  void clear_xunits();
 
-  int get_yunits() const { return yunits_; }
-  bool has_yunits() const { return has_yunits_; }
-  void set_yunits(int value) {
-    yunits_ = value;
-    has_yunits_ = true;
-  }
-  void clear_yunits() {
-    yunits_ = false;
-    has_yunits_ = false;
-  }
+  int get_yunits() const;
+  bool has_yunits() const;
+  void set_yunits(int value);
+  void clear_yunits();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

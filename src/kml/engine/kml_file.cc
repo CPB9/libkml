@@ -222,4 +222,45 @@ kmldom::StyleSelectorPtr KmlFile::GetSharedStyleById(
   return find != shared_style_map_.end() ? find->second : nullptr;
 }
 
+
+kmlengine::KmlFile* KmlFile::CreateFromString(const std::__cxx11::string& kml_or_kmz_data){
+   // Internal KML fetch/parse (styleUrl, etc) errors are quietly ignored.
+   return CreateFromParse(kml_or_kmz_data, NULL);
+ }
+
+const kmldom::ElementPtr& KmlFile::get_root() const{
+   return kmldom::AsElement(XmlFile::get_root());
+ }
+
+const kmldom::ElementPtr& KmlFile::root() const{
+   return get_root();
+ }
+
+void KmlFile::set_encoding(const std::__cxx11::string& encoding){
+   encoding_ = encoding;
+ }
+
+const std::__cxx11::string& KmlFile::get_encoding() const{
+   return encoding_;
+ }
+
+const SharedStyleMap& KmlFile::get_shared_style_map() const{
+   return shared_style_map_;
+ }
+
+const ElementVector& KmlFile::get_link_parent_vector() const{
+   return link_parent_vector_;
+ }
+
+KmlCache* KmlFile::get_kml_cache() const{
+   return kml_cache_;
+ }
+
+void KmlFile::set_strict_parse(bool val){
+   strict_parse_ = val;
+ }
+
+void KmlFile::set_kml_cache(KmlCache* kml_cache){
+   kml_cache_ = kml_cache;
+ }
 }  // end namespace kmlengine

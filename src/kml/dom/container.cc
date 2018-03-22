@@ -86,4 +86,30 @@ void Container::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<FeaturePtr>(&feature_array_, driver);
 }
 
+
+kmldom::KmlDomType Container::Type() const{ return Type_Container; }
+
+bool Container::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Container || Feature::IsA(type);
+ }
+
+void Container::insert_feature_at(std::size_t at, const FeaturePtr& feature){
+     InsertComplexChild(at, feature, &feature_array_);
+ }
+
+int Container::get_index_of_feature(const FeaturePtr& feature) const{
+   std::vector<FeaturePtr>::const_iterator it = std::find(feature_array_.begin(), feature_array_.end(), feature);
+   if (it == feature_array_.end()) {
+     return -1;
+   }
+   return int(it - feature_array_.begin()); //HACK
+ }
+
+size_t Container::get_feature_array_size() const{
+   return feature_array_.size();
+ }
+
+const FeaturePtr& Container::get_feature_array_at(size_t index) const{
+   return feature_array_[index];
+ }
 }  // end namespace kmldom

@@ -31,6 +31,7 @@
 #ifndef KML_CONVENIENCE_ATOM_UTIL_H_
 #define KML_CONVENIENCE_ATOM_UTIL_H_
 
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlconvenience {
@@ -39,7 +40,7 @@ class HttpClient;
 
 // This class is an API of Atom (RFC 4287) utility functions especially with
 // particular emphasis on wrapping KML.
-class AtomUtil {
+class KML_EXPORT AtomUtil {
  public:
   // This creates an <atom:entry> with the specified values for <atom:title>
   // and <atom:summary>.

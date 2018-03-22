@@ -31,6 +31,7 @@
 #ifndef KML_REGIONATOR_REGIONATOR_UTIL_H__
 #define KML_REGIONATOR_REGIONATOR_UTIL_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 #include "kml/dom.h"
 #include "kml/regionator/regionator_qid.h"
@@ -42,35 +43,35 @@ class Bbox;
 namespace kmlregionator {
 
 // Creates a copy of the given LatLonAltBox.
-kmldom::LatLonAltBoxPtr CloneLatLonAltBox(const kmldom::LatLonAltBoxPtr& orig);
+KML_EXPORT kmldom::LatLonAltBoxPtr CloneLatLonAltBox(const kmldom::LatLonAltBoxPtr& orig);
 
 // Creates a copy of the given Lod.
-kmldom::LodPtr CloneLod(const kmldom::LodPtr& orig);
+KML_EXPORT kmldom::LodPtr CloneLod(const kmldom::LodPtr& orig);
 
 // Creates a deep copy of the given Region.
-kmldom::RegionPtr CloneRegion(const kmldom::RegionPtr& orig);
+KML_EXPORT kmldom::RegionPtr CloneRegion(const kmldom::RegionPtr& orig);
 
 // This sets the bounds of the output aligned_llb to the lowest level node
 // in a quadtree rooted at n=180, s=-180, e=180, w=-180.
-bool CreateAlignedAbstractLatLonBox(const kmldom::AbstractLatLonBoxPtr& llb,
+KML_EXPORT bool CreateAlignedAbstractLatLonBox(const kmldom::AbstractLatLonBoxPtr& llb,
                                     kmldom::AbstractLatLonBoxPtr aligned_llb);
 
 // Creates a Region whose LatLonAltBox is the specified quadrant of
 // that in the parent.  The created Region's Lod is cloned from the parent.
-kmldom::RegionPtr CreateChildRegion(const kmldom::RegionPtr& parent,
+KML_EXPORT kmldom::RegionPtr CreateChildRegion(const kmldom::RegionPtr& parent,
                                     quadrant_t quadrant);
 
 // Create a Placemark with LineString based on the LatLonAltBox in the Region.
-kmldom::PlacemarkPtr CreateLineStringBox(const string& name,
+KML_EXPORT kmldom::PlacemarkPtr CreateLineStringBox(const string& name,
                                          const kmldom::RegionPtr& region);
 
 // Create a NetworkLink to the given URL with a Region cloned from the
 // given Region.
-kmldom::NetworkLinkPtr CreateRegionNetworkLink(const kmldom::RegionPtr& region,
+KML_EXPORT kmldom::NetworkLinkPtr CreateRegionNetworkLink(const kmldom::RegionPtr& region,
                                                const string& href);
 
 // Create a Document with a Region cloned from the given Region.
-kmldom::DocumentPtr CreateRegionDocument(const kmldom::RegionPtr& region);
+KML_EXPORT kmldom::DocumentPtr CreateRegionDocument(const kmldom::RegionPtr& region);
 
 }  // end namespace kmlregionator
 

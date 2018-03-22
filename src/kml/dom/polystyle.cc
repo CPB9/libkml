@@ -72,4 +72,46 @@ void PolyStyle::Accept(Visitor* visitor) {
   visitor->VisitPolyStyle(PolyStylePtr(this));
 }
 
+
+kmldom::KmlDomType PolyStyle::Type() const{ return Type_PolyStyle; }
+
+bool PolyStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_PolyStyle || ColorStyle::IsA(type);
+ }
+
+bool PolyStyle::get_fill() const{
+   return fill_;
+ }
+
+bool PolyStyle::has_fill() const{
+   return has_fill_;
+ }
+
+void PolyStyle::set_fill(bool fill){
+   fill_ = fill;
+   has_fill_ = true;
+ }
+
+void PolyStyle::clear_fill(){
+   fill_ = true;
+   has_fill_ = false;
+ }
+
+bool PolyStyle::get_outline() const{
+   return outline_;
+ }
+
+bool PolyStyle::has_outline() const{
+   return has_outline_;
+ }
+
+void PolyStyle::set_outline(bool outline){
+   outline_ = outline;
+   has_outline_ = true;
+ }
+
+void PolyStyle::clear_outline(){
+   outline_ = true;
+   has_outline_ = false;
+ }
 }  // end namespace kmldom

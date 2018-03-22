@@ -26,6 +26,7 @@
 #ifndef KML_DOM_LINESTYLE_H__
 #define KML_DOM_LINESTYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/colorstyle.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -35,29 +36,17 @@ namespace kmldom {
 class Visitor;
 
 // <LineStyle>
-class LineStyle : public ColorStyle {
+class KML_EXPORT LineStyle : public ColorStyle {
  public:
   virtual ~LineStyle();
-  virtual KmlDomType Type() const { return Type_LineStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LineStyle || ColorStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <width>
-  double get_width() const {
-    return width_;
-  }
-  bool has_width() const {
-    return has_width_;
-  }
-  void set_width(double width) {
-    width_ = width;
-    has_width_ = true;
-  }
-  void clear_width() {
-    width_ = 1.0;
-    has_width_ = false;
-  }
+  double get_width() const;
+  bool has_width() const;
+  void set_width(double width);
+  void clear_width();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

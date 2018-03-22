@@ -28,12 +28,9 @@
 #ifndef KML_ENGINE_BBOX_H__
 #define KML_ENGINE_BBOX_H__
 
-namespace kmlengine {
+#include "kml/config.h"
 
-const double kMinLat = -180.0;
-const double kMaxLat = 180.0;
-const double kMinLon = -180.0;
-const double kMaxLon = 180.0;
+namespace kmlengine {
 
 // This class maintains a simple geographic bounding box.  Example usage:
 //   Bbox bbox;
@@ -47,141 +44,58 @@ const double kMaxLon = 180.0;
 //
 // NOTE: There is no provision for the ante-meridian nor for the validity
 // of any latitude or longitude value.
-class Bbox {
+class KML_EXPORT Bbox {
  public:
   // Construct a default bounding box.  The mininums and maximums are set such
   // that any valid latitude/longitude are handled properly.
-  Bbox() : north_(kMinLat), south_(kMaxLat), east_(kMinLon), west_(kMaxLon) {}
+  Bbox();
 
   // Construct a bounding box of a given extent.  There are no checks for
   // the validity of these parameters.
-  Bbox(double north, double south, double east, double west)
-     : north_(north), south_(south), east_(east), west_(west) {}
+  Bbox(double north, double south, double east, double west);
 
   // This aligns this Bbox within the quadtree specified down to the maximum
   // level specified.
-  void AlignBbox(Bbox* qt, unsigned int max_depth) {
-    if (!qt) {
-      return;
-    }
-    double lat = qt->GetCenterLat();
-    double lon = qt->GetCenterLon();
-    if (ContainedByBox(qt->get_north(), lat, qt->get_east(), lon)) {
-      qt->set_south(lat);
-      qt->set_west(lon);
-    } else if (ContainedByBox(qt->get_north(), lat, lon, qt->get_west())) {
-      qt->set_south(lat);
-      qt->set_east(lon);
-    } else if (ContainedByBox(lat, qt->get_south(), qt->get_east(), lon)) {
-      qt->set_north(lat);
-      qt->set_west(lon);
-    } else if (ContainedByBox(lat, qt->get_south(), lon, qt->get_west())) {
-      qt->set_north(lat);
-      qt->set_east(lon);
-    } else {
-      return;  // target not contained by any child quadrant of qt.
-    }
-    // Fall through from above and recurse.
-    if (max_depth > 0) {
-      AlignBbox(qt, max_depth - 1);
-    }
-  }
+  void AlignBbox(Bbox* qt, unsigned int max_depth);
 
   // This returns true if this Bbox is contained by the given Bbox.
-  bool ContainedByBbox(const Bbox& b) const {
-    return ContainedByBox(b.get_north(), b.get_south(), b.get_east(),
-                          b.get_west());
-  }
+  bool ContainedByBbox(const Bbox& b) const;
 
   // This returns true of this Bbox is contained with the given bounds.
   bool ContainedByBox(double north, double south,
-                      double east, double west) const {
-    return north >= north_ && south <= south_ && east >= east_ && west <= west_;
-  }
+                      double east, double west) const;
 
   // This returns true if the bbox contains the given latitude,longitude.
-  bool Contains(double latitude, double longitude) const {
-    return north_ >= latitude && south_ <= latitude &&
-           east_ >= longitude && west_ <= longitude;
-  }
+  bool Contains(double latitude, double longitude) const;
 
   // This expands this Bbox to contain the given Bbox.
-  void ExpandFromBbox(const Bbox& bbox) {
-    ExpandLatitude(bbox.get_north());
-    ExpandLatitude(bbox.get_south());
-    ExpandLongitude(bbox.get_east());
-    ExpandLongitude(bbox.get_west());
-  }
+  void ExpandFromBbox(const Bbox& bbox);
 
   // This expands the bounding box to include the given latitude.
-  void ExpandLatitude(double latitude) {
-    if (latitude > north_) {
-      north_ = latitude;
-    }
-    if (latitude < south_) {
-      south_ = latitude;
-    }
-  }
+  void ExpandLatitude(double latitude);
 
   // This expands the bounding box to include the given longitude.
-  void ExpandLongitude(double longitude) {
-    if (longitude > east_) {
-      east_ = longitude;
-    }
-    if (longitude < west_) {
-      west_ = longitude;
-    }
-  }
+  void ExpandLongitude(double longitude);
 
   // This expands the bounding box to include the given latitude and longitude.
-  void ExpandLatLon(double latitude, double longitude) {
-    ExpandLatitude(latitude);
-    ExpandLongitude(longitude);
-  }
+  void ExpandLatLon(double latitude, double longitude);
 
-  double get_north() const {
-    return north_;
-  }
-  double get_south() const {
-    return south_;
-  }
-  double get_east() const {
-    return east_;
-  }
-  double get_west() const {
-    return west_;
-  }
+  double get_north() const;
+  double get_south() const;
+  double get_east() const;
+  double get_west() const;
 
   // This returns the center of the bounding box.
-  void GetCenter(double* latitude, double* longitude) const {
-    if (latitude) {
-      *latitude = GetCenterLat();
-    }
-    if (longitude) {
-      *longitude = GetCenterLon();
-    }
-  }
+  void GetCenter(double* latitude, double* longitude) const;
 
-  double GetCenterLat() const {
-    return (north_ + south_)/2.0;
-  }
+  double GetCenterLat() const;
 
-  double GetCenterLon() const {
-    return (east_ + west_)/2.0;
-  }
+  double GetCenterLon() const;
 
-  void set_north(double n) {
-    north_ = n;
-  }
-  void set_south(double s) {
-    south_ = s;
-  }
-  void set_east(double e) {
-    east_ = e;
-  }
-  void set_west(double w) {
-    west_ = w;
-  }
+  void set_north(double n);
+  void set_south(double s);
+  void set_east(double e);
+  void set_west(double w);
 
  private:
   double north_, south_, east_, west_;

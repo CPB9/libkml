@@ -28,6 +28,7 @@
 #ifndef KML_BASE_VERSION_H__
 #define KML_BASE_VERSION_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -41,7 +42,7 @@ namespace kmlbase {
 #define LIBKML_MICRO_VERSION 0
 
 // This API provides the version info this library was compiled with.
-class Version {
+class KML_EXPORT Version {
  public:
   // This returns the major.minor.micro in string form.
   static string GetString();

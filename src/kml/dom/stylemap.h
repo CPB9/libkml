@@ -41,55 +41,29 @@ class Visitor;
 class VisitorDriver;
 
 // <Pair>
-class Pair : public Object {
+class KML_EXPORT Pair : public Object {
  public:
   virtual ~Pair();
-  virtual KmlDomType Type() const { return Type_Pair; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Pair || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <key>
-  int get_key() const {
-    return key_;
-  }
-  bool has_key() const {
-    return has_key_;
-  }
-  void set_key(int key) {
-    key_ = key;
-    has_key_ = true;
-  }
-  void clear_key() {
-    key_ = STYLESTATE_NORMAL;
-    has_key_ = false;
-  }
+  int get_key() const;
+  bool has_key() const;
+  void set_key(int key);
+  void clear_key();
 
   // <styleUrl>
-  const string& get_styleurl() const {
-    return styleurl_;
-  }
-  bool has_styleurl() const {
-    return has_styleurl_;
-  }
-  void set_styleurl(const string& styleurl) {
-    styleurl_ = styleurl;
-    has_styleurl_ = true;
-  }
-  void clear_styleurl() {
-    styleurl_.clear();
-    has_styleurl_ = false;
-  }
+  const string& get_styleurl() const;
+  bool has_styleurl() const;
+  void set_styleurl(const string& styleurl);
+  void clear_styleurl();
 
   // StyleSelector
-  const StyleSelectorPtr& get_styleselector() const { return styleselector_; }
-  bool has_styleselector() const { return styleselector_ != nullptr; }
-  void set_styleselector(const StyleSelectorPtr& styleselector) {
-    SetComplexChild(styleselector, &styleselector_);
-  }
-  void clear_styleselector() {
-    set_styleselector(NULL);
-  }
+  const StyleSelectorPtr& get_styleselector() const;
+  bool has_styleselector() const;
+  void set_styleselector(const StyleSelectorPtr& styleselector);
+  void clear_styleselector();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -111,25 +85,17 @@ class Pair : public Object {
 };
 
 // <StyleMap>
-class StyleMap : public StyleSelector {
+class KML_EXPORT StyleMap : public StyleSelector {
  public:
   virtual ~StyleMap();
-  virtual KmlDomType Type() const { return Type_StyleMap; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_StyleMap || StyleSelector::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
-  void add_pair(const PairPtr& pair) {
-    AddComplexChild(pair, &pair_array_);
-  }
+  void add_pair(const PairPtr& pair);
 
-  size_t get_pair_array_size() const {
-    return pair_array_.size();
-  }
+  size_t get_pair_array_size() const;
 
-  const PairPtr& get_pair_array_at(size_t index) const {
-    return pair_array_[index];
-  }
+  const PairPtr& get_pair_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

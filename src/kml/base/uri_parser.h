@@ -30,6 +30,7 @@
 #ifndef KML_BASE_URI_PARSER_H__
 #define KML_BASE_URI_PARSER_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 #include <memory>
 
@@ -38,7 +39,7 @@ namespace kmlbase {
 class UriParserPrivate;
 
 // This class is a memory-safe wrapper to uriparser's UriUriA.
-class UriParser {
+class KML_EXPORT UriParser {
  public:
   // UriParser is always constructed from one of the following static methods.
   // The main intentended usage of UriParser is within libkml and is restricted

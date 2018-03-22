@@ -30,6 +30,7 @@
 
 #include <map>
 #include <string>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
@@ -42,37 +43,17 @@ namespace kmlengine {
 // terminate when this is used with kmldom::Parse::AddObserver().  If
 // strict_parse is false the "last one wins" on any duplicate.
 // TODO: provide an error log for this latter case.
-class SharedStyleParserObserver : public kmldom::ParserObserver {
+class KML_EXPORT SharedStyleParserObserver : public kmldom::ParserObserver {
  public:
   // A SharedStyleMap must be supplied.
   SharedStyleParserObserver(SharedStyleMap* shared_style_map,
-                            bool strict_parse)
-    : shared_style_map_(shared_style_map),
-      strict_parse_(strict_parse) {}
+                            bool strict_parse);
 
-  virtual ~SharedStyleParserObserver() {}
+  virtual ~SharedStyleParserObserver();
 
   // ParserObserver::AddChild()
   virtual bool AddChild(const kmldom::ElementPtr& parent,
-                        const kmldom::ElementPtr& child) {
-    // A shared style is defined to be a StyleSelector with an id that is
-    // a child of a Document.  If this id already has a mapping return false
-    // to terminate the parse.
-    if (kmldom::DocumentPtr document = kmldom::AsDocument(parent)) {
-      if (kmldom::StyleSelectorPtr ss = kmldom::AsStyleSelector(child)) {
-        if (ss->has_id()) {
-          if (strict_parse_ && shared_style_map_->find(ss->get_id()) !=
-                               shared_style_map_->end()) {
-            // TODO: provide means to send back an and error string with id
-            return false;  // Duplicate id, fail parse.
-          }
-        }
-        // No such mapping so save it, and "last one wins" on non-strict parse.
-        (*shared_style_map_)[ss->get_id()] = ss;
-      }
-    }
-    return true;  // Not a duplicate id, keep parsing.
-  }
+                        const kmldom::ElementPtr& child);
 
  private:
   SharedStyleMap* shared_style_map_;

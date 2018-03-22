@@ -29,6 +29,7 @@
 #define KML_XSD_XST_PARSER_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlxsd {
@@ -43,12 +44,10 @@ class XsdFile;
 //   XstParser xst_parser(&xsd_file);
 //   string xst_data = read_xst_file();
 //   xst_parser.ParseXst(&xst_data);
-class XstParser {
+class KML_EXPORT XstParser {
  public:
   // Construct the XstParser with an XsdFile to write into.
-  XstParser(XsdFile* xsd_file)
-    : xsd_file_(xsd_file) {
-  }
+  XstParser(XsdFile* xsd_file);
 
   // Parse the contents of the XST data into the XsdFile.
   void ParseXst(const string& xst_data);

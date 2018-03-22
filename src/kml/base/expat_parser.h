@@ -35,6 +35,7 @@
 
 #include <map>
 #include "expat.h"
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -46,33 +47,22 @@ class ExpatHandlerNs;
 
 typedef std::map<string, ExpatHandler*> ExpatHandlerMap;
 
-class ExpatHandlerSet {
+class KML_EXPORT ExpatHandlerSet {
  public:
-  ExpatHandlerSet()
-    : default_(nullptr) {
-  }
+  ExpatHandlerSet();
+  ~ExpatHandlerSet();
 
   void set_handler(const string& xml_namespace,
-                  ExpatHandler* expat_handler) {
-    if (!default_) {  // TODO: hack
-      default_ = expat_handler;
-    }
-    expat_handler_map_[xml_namespace] = expat_handler;
-  }
+                  ExpatHandler* expat_handler);
 
   // TODO: this is a hack.  only the instance document has a concept of a
   // default namespace (which may have no default namespace at all).
-  ExpatHandler* get_default_handler() const {
-    return default_;
-  }
+  ExpatHandler* get_default_handler() const;
 
   // TODO: this is how the parser core really looks up the handler for
   // a given namespace.  This returns NULL if no handler is available for
   // the given namespace.
-  ExpatHandler* get_handler(const string& xmlns) const {
-    ExpatHandlerMap::const_iterator iter = expat_handler_map_.find(xmlns);
-    return iter == expat_handler_map_.end() ? nullptr : iter->second;
-  }
+  ExpatHandler* get_handler(const string& xmlns) const;
 
  private:
   ExpatHandler* default_;
@@ -87,7 +77,7 @@ class ExpatHandlerSet {
 // bool status = ExpatParser::ParseString(xml_file_contents, &some_handler,
 //                                        &errors, namespace_aware_bool);
 // State of parse (if any) is held in the class derived from ExpatHandler.
-class ExpatParser {
+class KML_EXPORT ExpatParser {
  public:
   ExpatParser(ExpatHandler* handler, bool namespace_aware);
   ~ExpatParser();

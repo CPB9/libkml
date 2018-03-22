@@ -37,6 +37,7 @@
 
 #include <vector>
 #include <memory>
+#include "kml/config.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/visitor_driver.h"
@@ -55,24 +56,18 @@ class Xsd;
 
 // This is a KML-specific implementation of the somewhat abstracted
 // kmlbase::XmlElement.
-class Element : public kmlbase::XmlElement {
+class KML_EXPORT Element : public kmlbase::XmlElement {
  public:
   virtual ~Element();
-  virtual KmlDomType Type() const { return type_id_; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == type_id_;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // This returns the element of which this is a child (if any).
   ElementPtr GetParent() const;
 
   // This is the concatenation of all character data found parsing this element.
-  const string& get_char_data() const {
-    return char_data_;
-  }
-  void set_char_data(const string& char_data) {
-    char_data_ = char_data;
-  }
+  const string& get_char_data() const;
+  void set_char_data(const string& char_data);
 
   // TODO: AddElement() and ParseAttributes() should really be protected.
 
@@ -98,7 +93,7 @@ class Element : public kmlbase::XmlElement {
 
   // A derived class implements this to use with serialization.  See
   // class Serializer for more information.
-  virtual void Serialize(Serializer& serialize) const {}
+  virtual void Serialize(Serializer& serialize) const;
 
   // A derived class uses this to use with serialization.  The derived
   // class adds its attributes to the given set and passes attributes
@@ -114,20 +109,12 @@ class Element : public kmlbase::XmlElement {
   void SerializeUnknown(Serializer& serializer) const;
 
   // Returns the unknown elements.
-  size_t get_unknown_elements_array_size() const {
-    return unknown_elements_array_.size();
-  }
-  const string& get_unknown_elements_array_at(size_t i) const {
-    return unknown_elements_array_[i];
-  }
+  size_t get_unknown_elements_array_size() const;
+  const string& get_unknown_elements_array_at(size_t i) const;
 
   // Returns the unknown legal (misplaced) elements.
-  size_t get_misplaced_elements_array_size() const {
-    return unknown_legal_elements_array_.size();
-  }
-  const ElementPtr& get_misplaced_elements_array_at(size_t i) const {
-    return unknown_legal_elements_array_[i];
-  }
+  size_t get_misplaced_elements_array_size() const;
+  const ElementPtr& get_misplaced_elements_array_at(size_t i) const;
 
   // Add the given set of attributes to the element's unknown attributes.
   // Element takes ownership of attributes.
@@ -137,18 +124,14 @@ class Element : public kmlbase::XmlElement {
   // attributes for this element found during parse.  This returns NULL if
   // there are no unparsed attributes.  Ownership of the object is retained
   // by the Element class.
-  const kmlbase::Attributes* GetUnknownAttributes() const {
-    return unknown_attributes_.get();
-  }
+  const kmlbase::Attributes* GetUnknownAttributes() const;
 
   // This is the set of xmlns:PREFIX=NAMESPACE attributes on the
   // element if any.  The attribute keys are without the "xmlns:" prefix.
   // The default namespace is merely an "unknown" attribute
   // of "xmlns" in the normal "unknown" attributes list.  Use
   // get_default_xmlns() to access the default namespace for an element.
-  const kmlbase::Attributes* GetXmlns() const {
-    return xmlns_.get();
-  }
+  const kmlbase::Attributes* GetXmlns() const;
 
   // This merges in the given set of prefix/namespace attributes into the
   // the xml namespaces set for this element.  Each prefix is is _just_ the
@@ -157,11 +140,11 @@ class Element : public kmlbase::XmlElement {
   void MergeXmlns(const kmlbase::Attributes& xmlns);
 
   // Permits polymorphic use of Field methods.
-  virtual bool SetBool(bool* val) { return false; }
-  virtual bool SetDouble(double* val) { return false; }
-  virtual bool SetInt(int* val) { return false; }
-  virtual bool SetEnum(int* val) { return false; }
-  virtual bool SetString(string* val) { return false; }
+  virtual bool SetBool(bool* val);
+  virtual bool SetDouble(double* val);
+  virtual bool SetInt(int* val);
+  virtual bool SetEnum(int* val);
+  virtual bool SetString(string* val);
 
   // Accepts the visitor for this element (this must be overridden for each
   // element type).
@@ -171,9 +154,7 @@ class Element : public kmlbase::XmlElement {
   // This needs to be implemented by subclasses with child elements and must
   // call its parent's implementation first. The default implementation does
   // nothing.
-  virtual void AcceptChildren(VisitorDriver* driver) {
-    /* Inlinable for efficiency */
-  }
+  virtual void AcceptChildren(VisitorDriver* driver);
 
  protected:
   // Element is an abstract base class and is never created directly.
@@ -184,7 +165,7 @@ class Element : public kmlbase::XmlElement {
   // The intended usage is to implement the set_child() and clear_child()
   // methods in a concrete element.
   template <class T>
-  bool SetComplexChild(const T& child, T* field) {
+  bool SetComplexChild(const T& child, T* field){
     if (child == nullptr) {
       // TODO: remove child and children from ID maps...
       *field = NULL;  // Assign removes reference and possibly deletes Element.
@@ -267,7 +248,7 @@ class Element : public kmlbase::XmlElement {
 //   // serialize each child element and/or field
 //   // ElementSerializer dtor ends serialization properly.
 // }
-class ElementSerializer {
+class KML_EXPORT ElementSerializer {
  public:
   ElementSerializer(const Element& element, Serializer& serializer);
   ~ElementSerializer();
@@ -299,7 +280,7 @@ class BasicElement : public Element {
 // example, <snippet> is a known element and is parsed initially into a Field,
 // but since no element accepts <snippet> this results in a <snippet> Field in
 // the parent element's misplaced elements list.
-class Field : public Element {
+class KML_EXPORT Field : public Element {
  public:
   Field(KmlDomType type_id);
 

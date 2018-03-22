@@ -29,6 +29,7 @@
 #ifndef KML_DOM_LINK_H__
 #define KML_DOM_LINK_H__
 
+#include "kml/config.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/object.h"
 
@@ -38,29 +39,17 @@ class Visitor;
 
 // OGC KML 2.2 Standard: 12.9 kml:Icon (kml:BasicLinkType)
 // OGC KML 2.2 XSD: <complexType name="BasicLinkType"...
-class BasicLink : public Object {
+class KML_EXPORT BasicLink : public Object {
  public:
   virtual ~BasicLink();
-  virtual KmlDomType Type() const { return Type_BasicLink; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_BasicLink || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <href>
-  const string& get_href() const {
-    return href_;
-  }
-  bool has_href() const {
-    return has_href_;
-  }
-  void set_href(const string& href) {
-    href_ = href;
-    has_href_ = true;
-  }
-  void clear_href() {
-    href_.clear();
-    has_href_ = false;
-  }
+  const string& get_href() const;
+  bool has_href() const;
+  void set_href(const string& href);
+  void clear_href();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -79,121 +68,51 @@ class BasicLink : public Object {
 
 // This is LinkType in the KML 2.2 XSD.  LinkType is the only XSD complexType
 // instantiated as more than one element.
-class AbstractLink : public BasicLink {
+class KML_EXPORT AbstractLink : public BasicLink {
  public:
   virtual ~AbstractLink();
 
   // <refreshMode>
-  int get_refreshmode() const {
-    return refreshmode_;
-  }
-  bool has_refreshmode() const {
-    return has_refreshmode_;
-  }
-  void set_refreshmode(const int refreshmode) {
-    refreshmode_ = refreshmode;
-    has_refreshmode_ = true;
-  }
-  void clear_refreshmode() {
-    refreshmode_ = REFRESHMODE_ONCHANGE;
-    has_refreshmode_ = false;
-  }
+  int get_refreshmode() const;
+  bool has_refreshmode() const;
+  void set_refreshmode(const int refreshmode);
+  void clear_refreshmode();
 
   // <refreshInterval>
-  double get_refreshinterval() const {
-    return refreshinterval_;
-  }
-  bool has_refreshinterval() const {
-    return has_refreshinterval_;
-  }
-  void set_refreshinterval(const double refreshinterval) {
-    refreshinterval_ = refreshinterval;
-    has_refreshinterval_ = true;
-  }
-  void clear_refreshinterval() {
-    refreshinterval_ = 4.0;
-    has_refreshinterval_ = false;
-  }
+  double get_refreshinterval() const;
+  bool has_refreshinterval() const;
+  void set_refreshinterval(const double refreshinterval);
+  void clear_refreshinterval();
 
   // <viewRefreshMode>
-  int get_viewrefreshmode() const {
-    return viewrefreshmode_;
-  }
-  bool has_viewrefreshmode() const {
-    return has_viewrefreshmode_;
-  }
-  void set_viewrefreshmode(const int viewrefreshmode) {
-    viewrefreshmode_ = viewrefreshmode;
-    has_viewrefreshmode_ = true;
-  }
-  void clear_viewrefreshmode() {
-    viewrefreshmode_ = VIEWREFRESHMODE_NEVER;
-    has_viewrefreshmode_ = false;
-  }
+  int get_viewrefreshmode() const;
+  bool has_viewrefreshmode() const;
+  void set_viewrefreshmode(const int viewrefreshmode);
+  void clear_viewrefreshmode();
 
   // <viewRefreshTime>
-  double get_viewrefreshtime() const {
-    return viewrefreshtime_;
-  }
-  bool has_viewrefreshtime() const {
-    return has_viewrefreshtime_;
-  }
-  void set_viewrefreshtime(const double viewrefreshtime) {
-    viewrefreshtime_ = viewrefreshtime;
-    has_viewrefreshtime_ = true;
-  }
-  void clear_viewrefreshtime() {
-    viewrefreshtime_ = 4.0;
-    has_viewrefreshtime_ = false;
-  }
+  double get_viewrefreshtime() const;
+  bool has_viewrefreshtime() const;
+  void set_viewrefreshtime(const double viewrefreshtime);
+  void clear_viewrefreshtime();
 
   // <viewBoundScale>
-  double get_viewboundscale() const {
-    return viewboundscale_;
-  }
-  bool has_viewboundscale() const {
-    return has_viewboundscale_;
-  }
-  void set_viewboundscale(const double viewboundscale) {
-    viewboundscale_ = viewboundscale;
-    has_viewboundscale_ = true;
-  }
-  void clear_viewboundscale() {
-    viewboundscale_ = 1.0;
-    has_viewboundscale_ = false;
-  }
+  double get_viewboundscale() const;
+  bool has_viewboundscale() const;
+  void set_viewboundscale(const double viewboundscale);
+  void clear_viewboundscale();
 
   // <viewFormat>
-  const string& get_viewformat() const {
-    return viewformat_;
-  }
-  bool has_viewformat() const {
-    return has_viewformat_;
-  }
-  void set_viewformat(const string& viewformat) {
-    viewformat_ = viewformat;
-    has_viewformat_ = true;
-  }
-  void clear_viewformat() {
-    viewformat_.clear();
-    has_viewformat_ = false;
-  }
+  const string& get_viewformat() const;
+  bool has_viewformat() const;
+  void set_viewformat(const string& viewformat);
+  void clear_viewformat();
 
   // <httpQuery>
-  const string& get_httpquery() const {
-    return httpquery_;
-  }
-  bool has_httpquery() const {
-    return has_httpquery_;
-  }
-  void set_httpquery(const string& httpquery) {
-    httpquery_ = httpquery;
-    has_httpquery_ = true;
-  }
-  void clear_httpquery() {
-    httpquery_.clear();
-    has_httpquery_ = false;
-  }
+  const string& get_httpquery() const;
+  bool has_httpquery() const;
+  void set_httpquery(const string& httpquery);
+  void clear_httpquery();
 
  protected:
   // Internal class, not for direct instantiation.
@@ -221,13 +140,11 @@ class AbstractLink : public BasicLink {
 };
 
 // <Link> in NetworkLink and Model
-class Link : public AbstractLink {
+class KML_EXPORT Link : public AbstractLink {
  public:
   virtual ~Link();
-  virtual KmlDomType Type() const { return Type_Link; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Link || AbstractLink::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -239,13 +156,11 @@ class Link : public AbstractLink {
 };
 
 // <Icon> in Overlay
-class Icon : public AbstractLink {
+class KML_EXPORT Icon : public AbstractLink {
  public:
   virtual ~Icon();
-  virtual KmlDomType Type() const { return Type_Icon; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Icon || AbstractLink::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -257,13 +172,11 @@ class Icon : public AbstractLink {
 };
 
 // <Url> in NetworkLink
-class Url : public AbstractLink {
+class KML_EXPORT Url : public AbstractLink {
  public:
   virtual ~Url();
-  virtual KmlDomType Type() const { return Type_Url; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Url || AbstractLink::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -279,77 +192,35 @@ class Url : public AbstractLink {
 // of any Overlay is the same as <Link> with all refresh modes, etc.
 // The <Icon> of <IconStyle> is just an <href> to an icon as the
 // derivation from BasicLink suggests.
-class IconStyleIcon : public BasicLink {
+class KML_EXPORT IconStyleIcon : public BasicLink {
  public:
   virtual ~IconStyleIcon();
-  virtual KmlDomType Type() const { return Type_IconStyleIcon; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_IconStyleIcon || BasicLink::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <gx:x>
-  double get_gx_x() const {
-    return gx_x_;
-  }
-  bool has_gx_x() const {
-    return has_gx_x_;
-  }
-  void set_gx_x(const double x) {
-    gx_x_ = x;
-    has_gx_x_= true;
-  }
-  void clear_gx_x() {
-    gx_x_= 0.0;
-    has_gx_x_ = false;
-  }
+  double get_gx_x() const;
+  bool has_gx_x() const;
+  void set_gx_x(const double x);
+  void clear_gx_x();
 
   // <gx:y>
-  double get_gx_y() const {
-    return gx_y_;
-  }
-  bool has_gx_y() const {
-    return has_gx_y_;
-  }
-  void set_gx_y(const double y) {
-    gx_y_ = y;
-    has_gx_y_= true;
-  }
-  void clear_gx_y() {
-    gx_y_= 0.0;
-    has_gx_y_ = false;
-  }
+  double get_gx_y() const;
+  bool has_gx_y() const;
+  void set_gx_y(const double y);
+  void clear_gx_y();
 
   // <gx:w>
-  double get_gx_w() const {
-    return gx_w_;
-  }
-  bool has_gx_w() const {
-    return has_gx_w_;
-  }
-  void set_gx_w(const double w) {
-    gx_w_ = w;
-    has_gx_w_= true;
-  }
-  void clear_gx_w() {
-    gx_w_= 0.0;
-    has_gx_w_ = false;
-  }
+  double get_gx_w() const;
+  bool has_gx_w() const;
+  void set_gx_w(const double w);
+  void clear_gx_w();
 
   // <gx:h>
-  double get_gx_h() const {
-    return gx_h_;
-  }
-  bool has_gx_h() const {
-    return has_gx_h_;
-  }
-  void set_gx_h(const double h) {
-    gx_h_ = h;
-    has_gx_h_= true;
-  }
-  void clear_gx_h() {
-    gx_h_= 0.0;
-    has_gx_h_ = false;
-  }
+  double get_gx_h() const;
+  bool has_gx_h() const;
+  void set_gx_h(const double h);
+  void clear_gx_h();
 
   virtual void AddElement(const ElementPtr& element);
 

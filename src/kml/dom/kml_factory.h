@@ -27,13 +27,14 @@
 #define KML_DOM_KML_FACTORY_H__
 
 #include <string>
+#include "kml/config.h"
 #include "kml/dom/kmldom.h"
 #include "kml/base/util.h"
 
 namespace kmldom {
 
 // A singleton factory class.
-class KmlFactory {
+class KML_EXPORT KmlFactory {
  public:
   static KmlFactory* GetFactory();
 
@@ -139,7 +140,7 @@ class KmlFactory {
   GxWait* CreateGxWait() const;
 
  private:
-  KmlFactory() {};  // Singleton class, use GetFactory().
+  KmlFactory();  // Singleton class, use GetFactory().
   static KmlFactory* factory_;
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmlFactory);
 };

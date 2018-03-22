@@ -33,6 +33,7 @@
 #define KML_CONVENIENCE_GOOGLE_SPREADSHEETS_H_
 
 #include <memory>
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlconvenience {
@@ -56,7 +57,7 @@ class HttpClient;
 //   maps_data->GetMetaFeed(&spreadsheets_feed);
 //   kmldom::ElementPtr root = kmldom::ParseAtom(spreadsheets_feed);
 //   kmlconvenience::AtomUtil... for common Atom inspection.
-class GoogleSpreadsheets {
+class KML_EXPORT GoogleSpreadsheets {
  public:
   // Create a GoogleSpreadsheets object.  The HttpClient must already be logged
   // in.  See http_client.h for more information about authentication.

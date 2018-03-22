@@ -30,6 +30,7 @@
 #define KML_ENGINE_GET_LINKS_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/dom/parser_observer.h"
 
@@ -39,41 +40,14 @@ typedef std::vector<string> href_vector_t;
 
 // This ParserObserver looks for all elements with an "href" and saves the
 // content of each to the passed vector.
-class GetLinksParserObserver : public kmldom::ParserObserver {
+class KML_EXPORT GetLinksParserObserver : public kmldom::ParserObserver {
  public:
-  GetLinksParserObserver(href_vector_t* href_vector)
-      : href_vector_(href_vector) {}
+  GetLinksParserObserver(href_vector_t* href_vector);
 
-  virtual ~GetLinksParserObserver() {}
+  virtual ~GetLinksParserObserver();
 
   virtual bool AddChild(const kmldom::ElementPtr& parent,
-                        const kmldom::ElementPtr& child) {
-    switch (child->Type()) {
-      default:
-        break;
-      case kmldom::Type_href:
-        // NetworkLink/Link/href, Overlay/Icon/href, ItemIcon/href
-        // Model/Link/href, IconStyle/Icon/href
-        href_vector_->push_back(child->get_char_data());
-        break;
-      case kmldom::Type_targetHref:
-        if (kmldom::Type_Alias == parent->Type()) {
-          href_vector_->push_back(child->get_char_data());
-        }
-        break;
-      case kmldom::Type_styleUrl:
-        href_vector_->push_back(child->get_char_data());
-        break;
-      case kmldom::Type_SchemaData:
-        kmldom::SchemaDataPtr schemadata = kmldom::AsSchemaData(child);
-        if (schemadata->has_schemaurl()) {
-          href_vector_->push_back(schemadata->get_schemaurl());
-        }
-      // TODO: HTML links in description and BalloonStyle/text
-        break;
-    }
-    return true;
-  }
+                        const kmldom::ElementPtr& child);
 
  private:
   href_vector_t* href_vector_;
@@ -82,11 +56,11 @@ class GetLinksParserObserver : public kmldom::ParserObserver {
 // This function saves to the vector all href's found in the given KML.
 // This returns false if the vector is NULL or on any parse error. This does
 // not search the balloon text for links.
-bool GetLinks(const string& kml, href_vector_t* href_vector);
+KML_EXPORT bool GetLinks(const string& kml, href_vector_t* href_vector);
 
 // As GetLinks, but considers only those href's that are relative (local) to
 // the given KML. This does not search the balloon text for links.
-bool GetRelativeLinks(const string& kml, href_vector_t* href_vector);
+KML_EXPORT bool GetRelativeLinks(const string& kml, href_vector_t* href_vector);
 
 }  // end namespace kmlengine
 

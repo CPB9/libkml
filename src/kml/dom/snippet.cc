@@ -88,4 +88,50 @@ void LinkSnippet::Accept(Visitor* visitor) {
   visitor->VisitLinkSnippet(LinkSnippetPtr(this));
 }
 
+
+kmldom::KmlDomType SnippetCommon::Type() const{ return Type_Snippet; }
+
+bool SnippetCommon::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Snippet;
+ }
+
+const std::__cxx11::string& SnippetCommon::get_text() const{ return text_; }
+
+bool SnippetCommon::has_text() const{ return has_text_; }
+
+void SnippetCommon::set_text(const std::__cxx11::string& value){
+   text_ = value;
+   has_text_ = true;
+ }
+
+void SnippetCommon::clear_text(){
+   text_.clear();
+   has_text_ = false;
+ }
+
+int SnippetCommon::get_maxlines() const{ return maxlines_; }
+
+bool SnippetCommon::has_maxlines() const{ return has_maxlines_; }
+
+void SnippetCommon::set_maxlines(int value){
+   maxlines_ = value;
+   has_maxlines_ = true;
+ }
+
+void SnippetCommon::clear_maxlines(){
+   maxlines_ = 2;
+   has_maxlines_ = false;
+ }
+
+kmldom::KmlDomType Snippet::Type() const{ return Type_Snippet; }
+
+bool Snippet::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Snippet;
+ }
+
+kmldom::KmlDomType LinkSnippet::Type() const{ return Type_linkSnippet; }
+
+bool LinkSnippet::IsA(kmldom::KmlDomType type) const{
+   return type == Type_linkSnippet;
+ }
 }  // end namespace kmldom

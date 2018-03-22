@@ -101,4 +101,70 @@ void IconStyle::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+kmldom::KmlDomType IconStyle::Type() const{ return Type_IconStyle; }
+
+bool IconStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_IconStyle || ColorStyle::IsA(type);
+ }
+
+double IconStyle::get_scale() const{
+   return scale_;
+ }
+
+bool IconStyle::has_scale() const{
+   return has_scale_;
+ }
+
+void IconStyle::set_scale(double scale){
+   scale_ = scale;
+   has_scale_ = true;
+ }
+
+void IconStyle::clear_scale(){
+   scale_ = 1.0;
+   has_scale_ = false;
+ }
+
+double IconStyle::get_heading() const{
+   return heading_;
+ }
+
+void IconStyle::set_heading(double heading){
+   heading_ = heading;
+   has_heading_ = true;
+ }
+
+bool IconStyle::has_heading() const{
+   return has_heading_;
+ }
+
+void IconStyle::clear_heading(){
+   heading_ = 0.0;
+   has_heading_ = false;
+ }
+
+const IconStyleIconPtr& IconStyle::get_icon() const{ return icon_; }
+
+bool IconStyle::has_icon() const{ return icon_ != nullptr; }
+
+void IconStyle::set_icon(const IconStyleIconPtr& icon){
+   SetComplexChild(icon, &icon_);
+ }
+
+void IconStyle::clear_icon(){
+   set_icon(NULL);
+ }
+
+const HotSpotPtr& IconStyle::get_hotspot() const{ return hotspot_; }
+
+bool IconStyle::has_hotspot() const{ return hotspot_ != nullptr; }
+
+void IconStyle::set_hotspot(const HotSpotPtr& hotspot){
+   SetComplexChild(hotspot, &hotspot_);
+ }
+
+void IconStyle::clear_hotspot(){
+   set_hotspot(NULL);
+ }
 }  // end namespace kmldom

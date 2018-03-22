@@ -343,4 +343,308 @@ void AtomLink::Serialize(Serializer& serializer) const {
   ElementSerializer element_serializer(*this, serializer);
 }
 
+
+const std::__cxx11::string& AtomAuthor::get_name() const{ return name_; }
+
+bool AtomAuthor::has_name() const{ return has_name_; }
+
+void AtomAuthor::set_name(const std::__cxx11::string& value){
+   name_ = value;
+   has_name_ = true;
+ }
+
+void AtomAuthor::clear_name(){
+   name_.clear();
+   has_name_ = false;
+ }
+
+const std::__cxx11::string& AtomAuthor::get_uri() const{ return uri_; }
+
+bool AtomAuthor::has_uri() const{ return has_uri_; }
+
+void AtomAuthor::set_uri(const std::__cxx11::string& value){
+   uri_ = value;
+   has_uri_ = true;
+ }
+
+const std::__cxx11::string& AtomAuthor::get_email() const{ return email_; }
+
+bool AtomAuthor::has_email() const{ return has_email_; }
+
+void AtomAuthor::set_email(const std::__cxx11::string& value){
+   email_ = value;
+   has_email_ = true;
+ }
+
+void AtomAuthor::clear_email(){
+   email_.clear();
+   has_email_ = false;
+ }
+
+void AtomAuthor::clear_uri(){
+   uri_.clear();
+   has_uri_ = false;
+ }
+
+void AtomCommon::set_id(const std::__cxx11::string& value){
+   id_ = value;
+   has_id_ = true;
+ }
+
+void AtomCommon::clear_id(){
+   id_.clear();
+   has_id_ = false;
+ }
+
+const std::__cxx11::string& AtomCommon::get_title() const{ return title_; }
+
+bool AtomCommon::has_title() const{ return has_title_; }
+
+void AtomCommon::set_title(const std::__cxx11::string& value){
+   title_ = value;
+   has_title_ = true;
+ }
+
+void AtomCommon::clear_title(){
+   title_.clear();
+   has_title_ = false;
+ }
+
+const std::__cxx11::string& AtomCommon::get_updated() const{ return updated_; }
+
+bool AtomCommon::has_updated() const{ return has_updated_; }
+
+void AtomCommon::set_updated(const std::__cxx11::string& value){
+   updated_ = value;
+   has_updated_ = true;
+ }
+
+void AtomCommon::clear_updated(){
+   updated_.clear();
+   has_updated_ = false;
+ }
+
+size_t AtomCommon::get_category_array_size() const{
+   return category_array_.size();
+ }
+
+const AtomCategoryPtr& AtomCommon::get_category_array_at(size_t index) const{
+   return category_array_[index];
+ }
+
+size_t AtomCommon::get_link_array_size() const{
+   return link_array_.size();
+ }
+
+const AtomLinkPtr& AtomCommon::get_link_array_at(size_t index) const{
+   return link_array_[index];
+ }
+
+const std::__cxx11::string& AtomCategory::get_term() const{ return term_; }
+
+bool AtomCategory::has_term() const{ return has_term_; }
+
+void AtomCategory::set_term(const std::__cxx11::string& value){
+   term_ = value;
+   has_term_ = true;
+ }
+
+void AtomCategory::clear_term(){
+   term_.clear();
+   has_term_ = false;
+ }
+
+const std::__cxx11::string& AtomCategory::get_scheme() const{ return scheme_; }
+
+bool AtomCategory::has_scheme() const{ return has_scheme_; }
+
+void AtomCategory::set_scheme(const std::__cxx11::string& value){
+   scheme_ = value;
+   has_scheme_ = true;
+ }
+
+void AtomCategory::clear_scheme(){
+   scheme_.clear();
+   has_scheme_ = false;
+ }
+
+const std::__cxx11::string& AtomCategory::get_label() const{ return label_; }
+
+bool AtomCategory::has_label() const{ return has_label_; }
+
+void AtomCategory::set_label(const std::__cxx11::string& value){
+   label_ = value;
+   has_label_ = true;
+ }
+
+void AtomCategory::clear_label(){
+   label_.clear();
+   has_label_ = false;
+ }
+
+const std::__cxx11::string& AtomContent::get_src() const{ return src_; }
+
+bool AtomContent::has_src() const{ return has_src_; }
+
+void AtomContent::set_src(const std::__cxx11::string& value){
+   src_ = value;
+   has_src_ = true;
+ }
+
+void AtomContent::clear_src(){
+   src_.clear();
+   has_src_ = false;
+ }
+
+const std::__cxx11::string& AtomContent::get_type() const{ return type_; }
+
+bool AtomContent::has_type() const{ return has_type_; }
+
+void AtomContent::set_type(const std::__cxx11::string& value){
+   type_ = value;
+   has_type_ = true;
+ }
+
+void AtomContent::clear_type(){
+   type_.clear();
+   has_type_ = false;
+ }
+
+kmldom::KmlDomType AtomEntry::Type() const{ return Type_AtomEntry; }
+
+bool AtomEntry::IsA(kmldom::KmlDomType type) const{
+   return type == Type_AtomEntry;
+ }
+
+kmldom::KmlDomType AtomEntry::ElementType(){
+   return static_cast<KmlDomType>(Type_AtomEntry);
+ }
+
+const std::__cxx11::string& AtomEntry::get_summary() const{ return summary_; }
+
+bool AtomEntry::has_summary() const{ return has_summary_; }
+
+void AtomEntry::set_summary(const std::__cxx11::string& value){
+   summary_ = value;
+   has_summary_ = true;
+ }
+
+void AtomEntry::clear_summary(){
+   summary_.clear();
+   has_summary_ = false;
+ }
+
+const AtomContentPtr& AtomEntry::get_content() const{ return content_; }
+
+bool AtomEntry::has_content() const{ return content_ != nullptr; }
+
+void AtomEntry::set_content(const AtomContentPtr& content){
+   SetComplexChild(content, &content_);
+ }
+
+void AtomEntry::clear_content(){
+   set_content(NULL);
+ }
+
+kmldom::KmlDomType AtomFeed::Type() const{ return Type_AtomFeed; }
+
+bool AtomFeed::IsA(kmldom::KmlDomType type) const{
+   return type == Type_AtomFeed;
+ }
+
+kmldom::KmlDomType AtomFeed::ElementType(){
+   return static_cast<KmlDomType>(Type_AtomFeed);
+ }
+
+size_t AtomFeed::get_entry_array_size() const{
+   return entry_array_.size();
+ }
+
+const AtomEntryPtr& AtomFeed::get_entry_array_at(size_t index) const{
+   return entry_array_[index];
+ }
+
+const std::__cxx11::string& AtomLink::get_href() const{ return href_; }
+
+bool AtomLink::has_href() const{ return has_href_; }
+
+void AtomLink::set_href(const std::__cxx11::string& value){
+   href_ = value;
+   has_href_ = true;
+ }
+
+void AtomLink::clear_href(){
+   href_.clear();
+   has_href_ = false;
+ }
+
+const std::__cxx11::string& AtomLink::get_rel() const{ return rel_; }
+
+bool AtomLink::has_rel() const{ return has_rel_; }
+
+void AtomLink::set_rel(const std::__cxx11::string& value){
+   rel_ = value;
+   has_rel_ = true;
+ }
+
+void AtomLink::clear_rel(){
+   rel_.clear();
+   has_rel_ = false;
+ }
+
+const std::__cxx11::string& AtomLink::get_type() const{ return type_; }
+
+bool AtomLink::has_type() const{ return has_type_; }
+
+void AtomLink::set_type(const std::__cxx11::string& value){
+   type_ = value;
+   has_type_ = true;
+ }
+
+void AtomLink::clear_type(){
+   type_.clear();
+   has_type_ = false;
+ }
+
+const std::__cxx11::string& AtomLink::get_hreflang() const{ return hreflang_; }
+
+bool AtomLink::has_hreflang() const{ return has_hreflang_; }
+
+void AtomLink::set_hreflang(const std::__cxx11::string& value){
+   hreflang_ = value;
+   has_hreflang_ = true;
+ }
+
+void AtomLink::clear_hreflang(){
+   hreflang_.clear();
+   has_hreflang_ = false;
+ }
+
+const std::__cxx11::string& AtomLink::get_title() const{ return title_; }
+
+bool AtomLink::has_title() const{ return has_title_; }
+
+void AtomLink::set_title(const std::__cxx11::string& value){
+   title_ = value;
+   has_title_ = true;
+ }
+
+void AtomLink::clear_title(){
+   title_.clear();
+   has_title_ = false;
+ }
+
+int AtomLink::get_length() const{ return length_; }
+
+bool AtomLink::has_length() const{ return has_length_; }
+
+void AtomLink::set_length(const int value){
+   length_ = value;
+   has_length_ = true;
+ }
+
+void AtomLink::clear_length(){
+   length_ = 0;
+   has_length_ = false;
+ }
 }  // end namespace kmldom

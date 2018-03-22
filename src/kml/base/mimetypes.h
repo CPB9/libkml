@@ -28,12 +28,14 @@
 #ifndef KML_BASE_MIMETYPES_H__
 #define KML_BASE_MIMETYPES_H__
 
+#include "kml/config.h"
+
 namespace kmlbase {
 
-extern const char* kAtomMimeType;
-extern const char* kCsvMimeType;
-extern const char* kKmlMimeType;
-extern const char* kKmzMimeType;
+extern KML_EXPORT const char* kAtomMimeType;
+extern KML_EXPORT const char* kCsvMimeType;
+extern KML_EXPORT const char* kKmlMimeType;
+extern KML_EXPORT const char* kKmzMimeType;
 
 }  // end namespace kmlbase
 

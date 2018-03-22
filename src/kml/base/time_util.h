@@ -26,10 +26,12 @@
 #ifndef KML_BASE_TIME_UTIL_H__
 #define KML_BASE_TIME_UTIL_H__
 
+#include "kml/config.h"
+
 namespace kmlbase {
 
 // This returns the current time as seconds.microseconds.
-double GetMicroTime();
+KML_EXPORT double GetMicroTime();
 
 }  // end namespace kmlbase
 

@@ -29,6 +29,7 @@
 #ifndef KML_DOM_TIMEPRIMITIVE_H__
 #define KML_DOM_TIMEPRIMITIVE_H__
 
+#include "kml/config.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/object.h"
 
@@ -39,13 +40,11 @@ class Visitor;
 
 // OGC KML 2.2 Standard: 15.1 kml:AbstractTimePrimitiveGroup
 // OGC KML 2.2 XSD: <element name="AbstractTimePrimitiveGroup"...
-class TimePrimitive : public Object {
+class KML_EXPORT TimePrimitive : public Object {
  public:
   virtual ~TimePrimitive();
-  virtual KmlDomType Type() const { return Type_TimePrimitive; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_TimePrimitive || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Internal API for parse and serialize.
   virtual void AddElement(const ElementPtr& element);
@@ -59,37 +58,23 @@ class TimePrimitive : public Object {
 };
 
 // <TimeSpan>
-class TimeSpan : public TimePrimitive {
+class KML_EXPORT TimeSpan : public TimePrimitive {
  public:
   virtual ~TimeSpan();
-  virtual KmlDomType Type() const { return Type_TimeSpan; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_TimeSpan || TimePrimitive::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <begin>
-  const string& get_begin() const { return begin_; }
-  bool has_begin() const { return has_begin_; }
-  void set_begin(const string& value) {
-    begin_ = value;
-    has_begin_ = true;
-  }
-  void clear_begin() {
-    begin_.clear();
-    has_begin_ = false;
-  }
+  const string& get_begin() const;
+  bool has_begin() const;
+  void set_begin(const string& value);
+  void clear_begin();
 
   // <end>
-  const string& get_end() const { return end_; }
-  bool has_end() const { return has_end_; }
-  void set_end(const string& value) {
-    end_ = value;
-    has_end_ = true;
-  }
-  void clear_end() {
-    end_.clear();
-    has_end_ = false;
-  }
+  const string& get_end() const;
+  bool has_end() const;
+  void set_end(const string& value);
+  void clear_end();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -111,25 +96,17 @@ class TimeSpan : public TimePrimitive {
 };
 
 // <TimeStamp>
-class TimeStamp : public TimePrimitive {
+class KML_EXPORT TimeStamp : public TimePrimitive {
  public:
   virtual ~TimeStamp();
-  virtual KmlDomType Type() const { return Type_TimeStamp; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_TimeStamp || TimePrimitive::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <when>
-  const string& get_when() const { return when_; }
-  bool has_when() const { return has_when_; }
-  void set_when(const string& value) {
-    when_ = value;
-    has_when_ = true;
-  }
-  void clear_when() {
-    when_.clear();
-    has_when_ = false;
-  }
+  const string& get_when() const;
+  bool has_when() const;
+  void set_when(const string& value);
+  void clear_when();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

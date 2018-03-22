@@ -92,4 +92,82 @@ void BalloonStyle::Accept(Visitor* visitor) {
   visitor->VisitBalloonStyle(BalloonStylePtr(this));
 }
 
+
+kmldom::KmlDomType BalloonStyle::Type() const{ return Type_BalloonStyle; }
+
+bool BalloonStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_BalloonStyle || SubStyle::IsA(type);
+ }
+
+const kmlbase::Color32& BalloonStyle::get_bgcolor() const{
+   return bgcolor_;
+ }
+
+bool BalloonStyle::has_bgcolor() const{
+   return has_bgcolor_;
+ }
+
+void BalloonStyle::set_bgcolor(const kmlbase::Color32& bgcolor){
+   bgcolor_ = bgcolor;
+   has_bgcolor_ = true;
+ }
+
+void BalloonStyle::clear_bgcolor(){
+   bgcolor_ = kmlbase::Color32(0xffffffff);
+   has_bgcolor_ = false;
+ }
+
+const kmlbase::Color32& BalloonStyle::get_textcolor() const{
+   return textcolor_;
+ }
+
+void BalloonStyle::set_textcolor(const kmlbase::Color32& textcolor){
+   textcolor_ = textcolor;
+   has_textcolor_ = true;
+ }
+
+bool BalloonStyle::has_textcolor() const{
+   return has_textcolor_;
+ }
+
+void BalloonStyle::clear_textcolor(){
+   textcolor_ = kmlbase::Color32(0xff000000);
+   has_textcolor_ = false;
+ }
+
+const std::__cxx11::string& BalloonStyle::get_text() const{
+   return text_;
+ }
+
+bool BalloonStyle::has_text() const{
+   return has_text_;
+ }
+
+void BalloonStyle::set_text(const std::__cxx11::string& text){
+   text_ = text;
+   has_text_ = true;
+ }
+
+void BalloonStyle::clear_text(){
+   text_.clear();
+   has_text_ = false;
+ }
+
+int BalloonStyle::get_displaymode() const{
+   return displaymode_;
+ }
+
+bool BalloonStyle::has_displaymode() const{
+   return has_displaymode_;
+ }
+
+void BalloonStyle::set_displaymode(int displaymode){
+   displaymode_ = displaymode;
+   has_displaymode_ = true;
+ }
+
+void BalloonStyle::clear_displaymode(){
+   displaymode_ = DISPLAYMODE_DEFAULT;
+   has_displaymode_ = false;
+ }
 }  // end namespace kmldom

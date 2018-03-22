@@ -30,6 +30,7 @@
 
 #include <map>
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/memory_file.h"
 #include "kml/base/net_cache.h"
 #include "kml/engine/kmz_file.h"
@@ -42,16 +43,13 @@ class KmlUri;
 // is supplied by the caller to implement application-specific networking.
 // See kmlbase::NetCache for more information.
 // NOTE: Applications should generally use KmlCache.
-class KmzCache : public kmlbase::NetCache<KmzFile> {
+class KML_EXPORT KmzCache : public kmlbase::NetCache<KmzFile> {
   typedef kmlbase::NetCache<kmlbase::MemoryFile> MemoryFileCache;
  public:
   // This creates a KmzCache to hold up to the given number of KmzFiles.
   // This same size is used for an internal cache of MemoryFile's of fetched
   // files which are not KMZ.
-  KmzCache(kmlbase::NetFetcher* net_fetcher_, size_t max_size)
-    : kmlbase::NetCache<KmzFile>(net_fetcher_, max_size) {
-    memory_file_cache_.reset(new MemoryFileCache(net_fetcher_, max_size));
-  }
+  KmzCache(kmlbase::NetFetcher* net_fetcher_, size_t max_size);
 
   // This is the main KML Engine internal method to perform a KMZ-aware fetch.
   // KmlUri encodes the fetch base and target.  The data fetched is stored to
@@ -62,9 +60,7 @@ class KmzCache : public kmlbase::NetCache<KmzFile> {
                            string* fetched_url);
 
   // This wrapper is supplied for backwards compat.
-  bool DoFetch(KmlUri* kml_uri, string* content) {
-    return DoFetchAndReturnUrl(kml_uri, content, NULL);
-  }
+  bool DoFetch(KmlUri* kml_uri, string* content);
 
   // This is basically an internal helper method to perform a simple lookup
   // of a file within a KMZ.  If the KmlUri describes a KMZ file in the cache

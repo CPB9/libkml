@@ -117,4 +117,76 @@ void StyleMap::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<PairPtr>(&pair_array_, driver);
 }
 
+
+kmldom::KmlDomType Pair::Type() const{ return Type_Pair; }
+
+bool Pair::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Pair || Object::IsA(type);
+ }
+
+int Pair::get_key() const{
+   return key_;
+ }
+
+bool Pair::has_key() const{
+   return has_key_;
+ }
+
+void Pair::set_key(int key){
+   key_ = key;
+   has_key_ = true;
+ }
+
+void Pair::clear_key(){
+   key_ = STYLESTATE_NORMAL;
+   has_key_ = false;
+ }
+
+const std::__cxx11::string& Pair::get_styleurl() const{
+   return styleurl_;
+ }
+
+bool Pair::has_styleurl() const{
+   return has_styleurl_;
+ }
+
+void Pair::set_styleurl(const std::__cxx11::string& styleurl){
+   styleurl_ = styleurl;
+   has_styleurl_ = true;
+ }
+
+void Pair::clear_styleurl(){
+   styleurl_.clear();
+   has_styleurl_ = false;
+ }
+
+const StyleSelectorPtr& Pair::get_styleselector() const{ return styleselector_; }
+
+bool Pair::has_styleselector() const{ return styleselector_ != nullptr; }
+
+void Pair::set_styleselector(const StyleSelectorPtr& styleselector){
+   SetComplexChild(styleselector, &styleselector_);
+ }
+
+void Pair::clear_styleselector(){
+   set_styleselector(NULL);
+ }
+
+kmldom::KmlDomType StyleMap::Type() const{ return Type_StyleMap; }
+
+bool StyleMap::IsA(kmldom::KmlDomType type) const{
+   return type == Type_StyleMap || StyleSelector::IsA(type);
+ }
+
+void StyleMap::add_pair(const PairPtr& pair){
+   AddComplexChild(pair, &pair_array_);
+ }
+
+size_t StyleMap::get_pair_array_size() const{
+   return pair_array_.size();
+ }
+
+const PairPtr& StyleMap::get_pair_array_at(size_t index) const{
+   return pair_array_[index];
+ }
 }  // end namespace kmldom

@@ -155,4 +155,29 @@ Attributes* Attributes::SplitByPrefix(const string& prefix) {
   return split;
 }
 
+void Attributes::SetString(const std::__cxx11::string& attr_name, const std::__cxx11::string& attr_val){
+  SetValue(attr_name, attr_val);
+}
+
+bool Attributes::GetDouble(const std::__cxx11::string& attr_name, double* attr_val) const{
+  return GetValue(attr_name, attr_val);
+}
+
+bool Attributes::GetBool(const std::__cxx11::string& attr_name, bool* attr_val) const{
+  return GetValue(attr_name, attr_val);
+}
+
+bool Attributes::GetString(const std::__cxx11::string& attr_name, std::__cxx11::string* attr_val) const{
+  return GetValue(attr_name, attr_val);
+}
+
+StringMapIterator Attributes::CreateIterator() const{
+  return StringMapIterator(attributes_map_);
+}
+
+size_t Attributes::GetSize() const{
+  return attributes_map_.size();
+}
+
+Attributes::Attributes(){}
 }  // end namespace kmlbase

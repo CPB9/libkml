@@ -29,6 +29,7 @@
 #ifndef KML_DOM_REGION_H__
 #define KML_DOM_REGION_H__
 
+#include "kml/config.h"
 #include "kml/dom/abstractlatlonbox.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
@@ -41,77 +42,35 @@ class Visitor;
 class VisitorDriver;
 
 // <LatLonAltBox>
-class LatLonAltBox : public AbstractLatLonBox {
+class KML_EXPORT LatLonAltBox : public AbstractLatLonBox {
  public:
   virtual ~LatLonAltBox();
-  virtual KmlDomType Type() const { return Type_LatLonAltBox; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LatLonAltBox || AbstractLatLonBox::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <minAltitude>
-  double get_minaltitude() const {
-    return minaltitude_;
-  }
-  bool has_minaltitude() const {
-    return has_minaltitude_;
-  }
-  void set_minaltitude(double minaltitude) {
-    minaltitude_ = minaltitude;
-    has_minaltitude_ = true;
-  }
-  void clear_minaltitude() {
-    minaltitude_ = 0.0;
-    has_minaltitude_ = false;
-  }
+  double get_minaltitude() const;
+  bool has_minaltitude() const;
+  void set_minaltitude(double minaltitude);
+  void clear_minaltitude();
 
   // <maxAltitude>
-  double get_maxaltitude() const {
-    return maxaltitude_;
-  }
-  bool has_maxaltitude() const {
-    return has_maxaltitude_;
-  }
-  void set_maxaltitude(double maxaltitude) {
-    maxaltitude_ = maxaltitude;
-    has_maxaltitude_ = true;
-  }
-  void clear_maxaltitude() {
-    maxaltitude_ = 0.0;
-    has_maxaltitude_ = false;
-  }
+  double get_maxaltitude() const;
+  bool has_maxaltitude() const;
+  void set_maxaltitude(double maxaltitude);
+  void clear_maxaltitude();
 
   // <altitudeMode>
-  int get_altitudemode() const {
-    return altitudemode_;
-  }
-  bool has_altitudemode() const {
-    return has_altitudemode_;
-  }
-  void set_altitudemode(int altitudemode) {
-    altitudemode_ = altitudemode;
-    has_altitudemode_ = true;
-  }
-  void clear_altitudemode() {
-    altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
-    has_altitudemode_ = false;
-  }
+  int get_altitudemode() const;
+  bool has_altitudemode() const;
+  void set_altitudemode(int altitudemode);
+  void clear_altitudemode();
 
   // <gx:altitudeMode>
-  int get_gx_altitudemode() const {
-    return gx_altitudemode_;
-  }
-  bool has_gx_altitudemode() const {
-    return has_gx_altitudemode_;
-  }
-  void set_gx_altitudemode(int gx_altitudemode) {
-    gx_altitudemode_ = gx_altitudemode;
-    has_gx_altitudemode_ = true;
-  }
-  void clear_gx_altitudemode() {
-    gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
-    has_gx_altitudemode_ = false;
-  }
+  int get_gx_altitudemode() const;
+  bool has_gx_altitudemode() const;
+  void set_gx_altitudemode(int gx_altitudemode);
+  void clear_gx_altitudemode();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -135,77 +94,35 @@ class LatLonAltBox : public AbstractLatLonBox {
 };
 
 // <Lod>
-class Lod : public Object {
+class KML_EXPORT Lod : public Object {
  public:
   virtual ~Lod();
-  virtual KmlDomType Type() const { return Type_Lod; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Lod || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <minLodPixels>
-  double get_minlodpixels() const {
-    return minlodpixels_;
-  }
-  bool has_minlodpixels() const {
-    return has_minlodpixels_;
-  }
-  void set_minlodpixels(double minlodpixels) {
-    minlodpixels_ = minlodpixels;
-    has_minlodpixels_ = true;
-  }
-  void clear_minlodpixels() {
-    minlodpixels_ = 0.0;
-    has_minlodpixels_ = false;
-  }
+  double get_minlodpixels() const;
+  bool has_minlodpixels() const;
+  void set_minlodpixels(double minlodpixels);
+  void clear_minlodpixels();
 
   // <maxLodPixels>
-  double get_maxlodpixels() const {
-    return maxlodpixels_;
-  }
-  bool has_maxlodpixels() const {
-    return has_maxlodpixels_;
-  }
-  void set_maxlodpixels(double minlodpixels) {
-    maxlodpixels_ = minlodpixels;
-    has_maxlodpixels_ = true;
-  }
-  void clear_maxlodpixels() {
-    maxlodpixels_ = -1.0;
-    has_maxlodpixels_ = false;
-  }
+  double get_maxlodpixels() const;
+  bool has_maxlodpixels() const;
+  void set_maxlodpixels(double minlodpixels);
+  void clear_maxlodpixels();
 
   // <minFadeExtent>
-  double get_minfadeextent() const {
-    return minfadeextent_;
-  }
-  bool has_minfadeextent() const {
-    return has_minfadeextent_;
-  }
-  void set_minfadeextent(double minlodpixels) {
-    minfadeextent_ = minlodpixels;
-    has_minfadeextent_ = true;
-  }
-  void clear_minfadeextent() {
-    minfadeextent_ = 0.0;
-    has_minfadeextent_ = false;
-  }
+  double get_minfadeextent() const;
+  bool has_minfadeextent() const;
+  void set_minfadeextent(double minlodpixels);
+  void clear_minfadeextent();
 
   // <maxFadeExtent>
-  double get_maxfadeextent() const {
-    return maxfadeextent_;
-  }
-  bool has_maxfadeextent() const {
-    return has_maxfadeextent_;
-  }
-  void set_maxfadeextent(double maxlodpixels) {
-    maxfadeextent_ = maxlodpixels;
-    has_maxfadeextent_ = true;
-  }
-  void clear_maxfadeextent() {
-    maxfadeextent_ = 0.0;
-    has_maxfadeextent_ = false;
-  }
+  double get_maxfadeextent() const;
+  bool has_maxfadeextent() const;
+  void set_maxfadeextent(double maxlodpixels);
+  void clear_maxfadeextent();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -229,33 +146,23 @@ class Lod : public Object {
 };
 
 // <Region>
-class Region : public Object {
+class KML_EXPORT Region : public Object {
  public:
   virtual ~Region();
-  virtual KmlDomType Type() const { return Type_Region; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Region || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <LatLonAltBox>
-  const LatLonAltBoxPtr& get_latlonaltbox() const { return latlonaltbox_; }
-  bool has_latlonaltbox() const { return latlonaltbox_ != nullptr; }
-  void set_latlonaltbox(const LatLonAltBoxPtr& latlonaltbox) {
-    SetComplexChild(latlonaltbox, &latlonaltbox_);
-  }
-  void clear_latlonaltbox() {
-    set_latlonaltbox(NULL);
-  }
+  const LatLonAltBoxPtr& get_latlonaltbox() const;
+  bool has_latlonaltbox() const;
+  void set_latlonaltbox(const LatLonAltBoxPtr& latlonaltbox);
+  void clear_latlonaltbox();
 
   // <Lod>
-  const LodPtr& get_lod() const { return lod_; }
-  bool has_lod() const { return lod_ != nullptr; }
-  void set_lod(const LodPtr& lod) {
-    SetComplexChild(lod, &lod_);
-  }
-  void clear_lod() {
-    set_lod(NULL);
-  }
+  const LodPtr& get_lod() const;
+  bool has_lod() const;
+  void set_lod(const LodPtr& lod);
+  void clear_lod();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

@@ -32,6 +32,7 @@
 
 #include <map>
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/regionator/region_handler.h"
 #include "kml/regionator/regionator_qid.h"
@@ -41,7 +42,7 @@ namespace kmlregionator {
 typedef std::vector<kmldom::RegionPtr> region_vector_t;
 
 // The Regionator class is the API to the "regionator" algorithm.
-class Regionator {
+class KML_EXPORT Regionator {
 public:
   // A Regionator instance is created with a class derived from
   // RegionHandler and a root Region.
@@ -72,14 +73,12 @@ public:
   // By default, the resulting root filename will be "1.kml".  Provide an
   // override for that name with this method.  This file is also added as the
   // <atom:link> of every descendent kml.
-  void SetRootFilename(const char *filename) { root_filename_ = filename; }
+  void SetRootFilename(const char *filename);
 
   // This <Region>'s <LatLonAltBox> is used as the basis for the <LookAt>
   // added to the root node of the generated hierarchy.  Without this there
   // is no explicit <LookAt>.
-  void SetNaturalRegion(const kmldom::RegionPtr& region) {
-    natural_region_ = region;
-  }
+  void SetNaturalRegion(const kmldom::RegionPtr& region);
 
 private:
   kmldom::RegionPtr root_region_;

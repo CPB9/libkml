@@ -29,6 +29,7 @@
 #define KML_CONVENIENCE_CONVENIENCE_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/vec3.h"
 #include "kml/dom.h"
 
@@ -44,71 +45,71 @@ namespace kmlconvenience {
 // This creates a Data element with the given name and value and appends
 // this to the Feature's ExtendedData.  An ExtendedData is created in the
 // Feature if one does not already exist.
-void AddExtendedDataValue(const string& name, const string& value,
+KML_EXPORT void AddExtendedDataValue(const string& name, const string& value,
                           kmldom::FeaturePtr feature);
 
 // Creates a <gx:AnimatedUpdate> with a <Change> to a Point Placemark of
 // the specified target_id and coordinates as specified by vec3.
-kmldom::GxAnimatedUpdatePtr CreateAnimatedUpdateChangePoint(
+KML_EXPORT kmldom::GxAnimatedUpdatePtr CreateAnimatedUpdateChangePoint(
     const string& target_id, const kmlbase::Vec3& vec3, double duration);
 
 // Creates a simple Polygon Placemark from a LinearRing.
-kmldom::PlacemarkPtr CreateBasicPolygonPlacemark(
+KML_EXPORT kmldom::PlacemarkPtr CreateBasicPolygonPlacemark(
     const kmldom::LinearRingPtr& lr);
 
 // Creates a <Camera> element with the specified fields.
-kmldom::CameraPtr CreateCamera(double latitude, double longitude,
+KML_EXPORT kmldom::CameraPtr CreateCamera(double latitude, double longitude,
                                double altitude, double heading, double tilt,
                                double roll, int altitudemode);
 
 // Creates a <coordinates> element filled with the lng, lat[, alt] tuples
 // describing a great circle of radius around a point lat, lng. The
 // antemeridian is not considered here.
-kmldom::CoordinatesPtr CreateCoordinatesCircle(double lat, double lng,
+KML_EXPORT kmldom::CoordinatesPtr CreateCoordinatesCircle(double lat, double lng,
                                                double radius, size_t segments);
 
 // This creates a Data element with the name and value specified:
 // <Data name="NAME><value>VALUE</value></Data>
-kmldom::DataPtr CreateDataNameValue(const string& name,
+KML_EXPORT kmldom::DataPtr CreateDataNameValue(const string& name,
                                     const string& value);
 
 // Creates a <LookAt> element from the specified fields.
-kmldom::LookAtPtr CreateLookAt(double latitude, double longitude,
+KML_EXPORT kmldom::LookAtPtr CreateLookAt(double latitude, double longitude,
                                double altitude, double heading, double tilt,
                                double range, int altitudemode);
 
 // If the atts contains both a double "lat" and double "lon" then create
 // a KML <Point> with <coordinates> set from these attributes.
-kmldom::PointPtr CreatePointFromLatLonAtts(const char** atts);
+KML_EXPORT kmldom::PointPtr CreatePointFromLatLonAtts(const char** atts);
 
 // Create a <Point> with <coordinates> from the given Vec3.
-kmldom::PointPtr CreatePointFromVec3(const kmlbase::Vec3& vec);
+KML_EXPORT kmldom::PointPtr CreatePointFromVec3(const kmlbase::Vec3& vec);
 
 // This creates a Point coordinates set as indicated.
-kmldom::PointPtr CreatePointLatLon(double lat, double lon);
+KML_EXPORT kmldom::PointPtr CreatePointLatLon(double lat, double lon);
 
 // This is a convenience function to create a Point Placemark.
-kmldom::PlacemarkPtr CreatePointPlacemark(const string& name,
+KML_EXPORT kmldom::PlacemarkPtr CreatePointPlacemark(const string& name,
                                           double lat, double lon);
 
 // Create a <Placemark> with the given <Point>, DateTime and <styleUrl>.
 // A <TimeStamp> is created from the DateTime and <ExtendedData> fields are
 // created for date and time.
-kmldom::PlacemarkPtr CreatePointPlacemarkWithTimeStamp(
+KML_EXPORT kmldom::PlacemarkPtr CreatePointPlacemarkWithTimeStamp(
     const kmldom::PointPtr& point, const kmlbase::DateTime& date_time,
     const char* style_id);
 
 // Create a Region with LatLonAltBox set to the given bounds and Lod
 // set to the given values.  This is a "2D" Region because no altitude
 // mode is set which defaults the LatLonAltBox to clampToGround.
-kmldom::RegionPtr CreateRegion2d(double north, double south,
+KML_EXPORT kmldom::RegionPtr CreateRegion2d(double north, double south,
                                  double east, double west,
                                  double minlodpixels, double maxlodpixels);
 
 
 // Creates a <gx:FlyTo> element which has the specified <gx:duration> and the
 // specified AbstractView.
-kmldom::GxFlyToPtr CreateFlyTo(const kmldom::AbstractViewPtr& abstractview,
+KML_EXPORT kmldom::GxFlyToPtr CreateFlyTo(const kmldom::AbstractViewPtr& abstractview,
                                double duration);
 
 // Creates a <gx:FlyTo> element which has the specified <gx:duration> and a
@@ -119,23 +120,23 @@ kmldom::GxFlyToPtr CreateFlyTo(const kmldom::AbstractViewPtr& abstractview,
 // AbstractView and none can be computed.
 // See kmlengine::ComputeFeatureLookAt for details of how the LookAt is
 // generated.
-kmldom::GxFlyToPtr CreateFlyToForFeature(const kmldom::FeaturePtr& feature,
+KML_EXPORT kmldom::GxFlyToPtr CreateFlyToForFeature(const kmldom::FeaturePtr& feature,
                                          double duration);
 
 // Creates a <gx:Wait> with a <gx:duration> of the specified value.
-kmldom::GxWaitPtr CreateWait(double duration);
+KML_EXPORT kmldom::GxWaitPtr CreateWait(double duration);
 
 // This gets the value of the given name from the ExtendedData/Data as
 // described above.  If there is no ExtendedData or no Data element with
 // the given name false is returned.
-bool GetExtendedDataValue(const kmldom::FeaturePtr& feature,
+KML_EXPORT bool GetExtendedDataValue(const kmldom::FeaturePtr& feature,
                           const string& name,
                           string* value);
 
 // This sets the ExtendedData element of the feature to hold the given name
 // value as a Data element as described above.  NOTE: Any previous ExtendedData
 // is delete from this feature.
-void SetExtendedDataValue(const string& name, const string& value,
+KML_EXPORT void SetExtendedDataValue(const string& name, const string& value,
                           kmldom::FeaturePtr feature);
 
 // Returns a simplification of coordinates elements. merge_tolerance specifies
@@ -152,7 +153,7 @@ void SetExtendedDataValue(const string& name, const string& value,
 // tolerance of 160000 the points at (5,5,5 6,6,6) will also be elided and the
 // returned coordinates will be:
 // (0,0,0 2,2,2 5,5,5 9,9,9)
-void SimplifyCoordinates(const kmldom::CoordinatesPtr& src,
+KML_EXPORT void SimplifyCoordinates(const kmldom::CoordinatesPtr& src,
                          kmldom::CoordinatesPtr dest, double merge_tolerance);
 
 }  // end namespace kmlconvenience

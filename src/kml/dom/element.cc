@@ -223,4 +223,58 @@ bool Field::SetString(string* val) {
   return ret;
 }
 
+
+kmldom::KmlDomType Element::Type() const{ return type_id_; }
+
+bool Element::IsA(kmldom::KmlDomType type) const{
+   return type == type_id_;
+ }
+
+const std::__cxx11::string& Element::get_char_data() const{
+   return char_data_;
+ }
+
+void Element::set_char_data(const std::__cxx11::string& char_data){
+   char_data_ = char_data;
+ }
+
+void Element::Serialize(Serializer& serialize) const{}
+
+size_t Element::get_unknown_elements_array_size() const{
+   return unknown_elements_array_.size();
+ }
+
+const std::__cxx11::string& Element::get_unknown_elements_array_at(size_t i) const{
+   return unknown_elements_array_[i];
+ }
+
+size_t Element::get_misplaced_elements_array_size() const{
+   return unknown_legal_elements_array_.size();
+ }
+
+const ElementPtr& Element::get_misplaced_elements_array_at(size_t i) const{
+   return unknown_legal_elements_array_[i];
+ }
+
+const kmlbase::Attributes* Element::GetUnknownAttributes() const{
+   return unknown_attributes_.get();
+ }
+
+const kmlbase::Attributes* Element::GetXmlns() const{
+   return xmlns_.get();
+ }
+
+bool Element::SetBool(bool* val){ return false; }
+
+bool Element::SetDouble(double* val){ return false; }
+
+bool Element::SetInt(int* val){ return false; }
+
+bool Element::SetEnum(int* val){ return false; }
+
+bool Element::SetString(std::__cxx11::string* val){ return false; }
+
+void Element::AcceptChildren(VisitorDriver* driver){
+   /* Inlinable for efficiency */
+ }
 }  // namespace kmldom

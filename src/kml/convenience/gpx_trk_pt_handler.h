@@ -30,6 +30,7 @@
 
 #include <cstring>  // strcmp
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/attributes.h"
 #include "kml/base/expat_handler.h"
 #include "kml/base/vec3.h"
@@ -46,66 +47,22 @@ namespace kmlconvenience {
 // Each <trkpt> results in a call to HandlePoint().
 // Overall usage: Derive a class from GpxTrkPtHandler with an implementation of
 // HandlePoint().
-class GpxTrkPtHandler : public kmlbase::ExpatHandler {
+class KML_EXPORT GpxTrkPtHandler : public kmlbase::ExpatHandler {
  public:
 
   // ExpatHandler::StartElement()
   virtual void StartElement(const string& name,
-                            const std::vector <string>& atts) {
-    if (name.compare("trkpt") == 0) {
-      // <trkpt lat="-33.911973070" lon="18.422974152">
-      // If both lat and lon exist and are sane doubles create a Vec3 for
-      // the point.
-      std::unique_ptr<kmlbase::Attributes> attributes(
-          kmlbase::Attributes::Create(atts));
-      if (attributes.get()) {
-        double latitude;
-        double longitude;
-        if (attributes->GetDouble("lat", &latitude) &&
-            attributes->GetDouble("lon", &longitude)) {
-          vec3_.reset(new kmlbase::Vec3(longitude, latitude));
-        }
-      }
-      time_.clear();
-    } else if (name.compare("time") == 0  ||
-               name.compare("ele") == 0) {
-      // <time>2008-10-11T14:55:41Z</time>
-      // <ele>4.943848</ele>
-      gather_char_data_ = true;
-      char_data_.clear();
-    }
-  }
+                            const std::vector <string>& atts);
 
   // ExpatHandler::EndElement()
-  virtual void EndElement(const string& name) {
-    if (name.compare("trkpt") == 0) {
-      // </trkpt>
-      // If a Vec3 was created for this element call the handler.
-      if (vec3_.get()) {
-        HandlePoint(*vec3_, time_);
-      }
-    } else if (name.compare("time") == 0) {
-      // <time>2008-10-11T14:55:41Z</time>
-      time_ = char_data_;
-    } else if (name.compare("ele") == 0) {
-      // <ele>4.943848</ele>
-      if (vec3_.get()) {
-        vec3_->set_altitude(kml_strtod(char_data_.c_str(), NULL));
-      }
-    }
-  }
+  virtual void EndElement(const string& name);
 
   // ExpatHandler::CharData()
-  virtual void CharData(const string& str) {
-    if (gather_char_data_) {
-      char_data_.append(str);
-    }
-  }
+  virtual void CharData(const string& str);
 
   // This is called for each <trkpt>.  This default implemenation does nothing.
   virtual void HandlePoint(const kmlbase::Vec3& where,
-                           const string& when) {
-  };
+                           const string& when);;
 
  private:
   // A fresh Vec3 is created for each <trkpt>.

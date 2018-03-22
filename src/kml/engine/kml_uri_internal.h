@@ -31,6 +31,7 @@
 #define KML_ENGINE_KML_URI_INTERNAL_H__
 
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 // Forward declare to avoid including uri_parser.h in app code.
@@ -50,7 +51,7 @@ namespace kmlengine {
 // NOTE: This is an internal class.  Do not use in application code.
 // Applications should use KmlFile (where the API provides the means to pass
 // a base URI and target URI for relative fetches).
-class KmlUri {
+class KML_EXPORT KmlUri {
  public:
   // The base is a full absolute URI including scheme.  The base is typically
   // the URI of a KML file as maintained in KmlFile::get_url().  For example,
@@ -66,32 +67,19 @@ class KmlUri {
 
   ~KmlUri();
 
-  bool is_kmz() const {
-    return is_kmz_;
-  }
+  bool is_kmz() const;
 
-  const string& get_target() const {
-    return target_;
-  }
+  const string& get_target() const;
 
-  const string& get_url() const {
-    return url_;
-  }
+  const string& get_url() const;
 
-  const string& get_kmz_url() const {
-    return kmz_url_;
-  }
+  const string& get_kmz_url() const;
 
-  const string& get_path_in_kmz() const {
-    return path_in_kmz_;
-  }
+  const string& get_path_in_kmz() const;
 
   // TODO Ideally this class has no non-const methods.  No module should alter
   // a KmlUri.  Instead a new one should be created as needed.
-  void set_path_in_kmz(const string path_in_kmz) {
-    path_in_kmz_ = path_in_kmz;
-    url_ = kmz_url_ + "/" + path_in_kmz;
-  }
+  void set_path_in_kmz(const string path_in_kmz);
 
  private:
   // Private constructor.  Use static Create() method.

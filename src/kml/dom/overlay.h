@@ -31,6 +31,7 @@
 #ifndef KML_DOM_OVERLAY_H__
 #define KML_DOM_OVERLAY_H__
 
+#include "kml/config.h"
 #include "kml/base/color32.h"
 #include "kml/dom/abstractlatlonbox.h"
 #include "kml/dom/feature.h"
@@ -52,52 +53,26 @@ class VisitorDriver;
 class Overlay : public Feature {
  public:
   virtual ~Overlay();
-  virtual KmlDomType Type() const { return Type_Overlay; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Overlay || Feature::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <color>
-  const kmlbase::Color32& get_color() const {
-    return color_;
-  }
-  bool has_color() const {
-    return has_color_;
-  }
-  void set_color(const kmlbase::Color32& color) {
-    color_ = color;
-    has_color_ = true;
-  }
-  void clear_color() {
-    color_ = kmlbase::Color32(0xffffffff);
-    has_color_ = false;
-  }
+  const kmlbase::Color32& get_color() const;
+  bool has_color() const;
+  void set_color(const kmlbase::Color32& color);
+  void clear_color();
 
   // <drawOrder>
-  int get_draworder() const {
-    return draworder_;
-  }
-  bool has_draworder() const {
-    return has_draworder_;
-  }
-  void set_draworder(int draworder) {
-    draworder_ = draworder;
-    has_draworder_ = true;
-  }
-  void clear_draworder() {
-    draworder_ = 0;
-    has_draworder_ = false;
-  }
+  int get_draworder() const;
+  bool has_draworder() const;
+  void set_draworder(int draworder);
+  void clear_draworder();
 
   // <Icon>
-  const IconPtr& get_icon() const { return icon_; }
-  bool has_icon() const { return icon_ != nullptr; }
-  void set_icon(const IconPtr& icon) {
-    SetComplexChild(icon, &icon_);
-  }
-  void clear_icon() {
-    set_icon(NULL);
-  }
+  const IconPtr& get_icon() const;
+  bool has_icon() const;
+  void set_icon(const IconPtr& icon);
+  void clear_icon();
 
   // Visitor API methods, see visitor.h.
   virtual void AcceptChildren(VisitorDriver* driver);
@@ -118,29 +93,17 @@ class Overlay : public Feature {
 };
 
 // <LatLonBox>
-class LatLonBox : public AbstractLatLonBox {
+class KML_EXPORT LatLonBox : public AbstractLatLonBox {
  public:
   virtual ~LatLonBox();
-  virtual KmlDomType Type() const { return Type_LatLonBox; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LatLonBox || AbstractLatLonBox::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <rotation>
-  double get_rotation() const {
-    return rotation_;
-  }
-  bool has_rotation() const {
-    return has_rotation_;
-  }
-  void set_rotation(double rotation) {
-    rotation_ = rotation;
-    has_rotation_ = true;
-  }
-  void clear_rotation() {
-    rotation_ = 0.0;
-    has_rotation_ = false;
-  }
+  double get_rotation() const;
+  bool has_rotation() const;
+  void set_rotation(double rotation);
+  void clear_rotation();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -161,24 +124,18 @@ class LatLonBox : public AbstractLatLonBox {
 };
 
 // <gx:LatLonQuad>
-class GxLatLonQuad : public Object {
+class KML_EXPORT GxLatLonQuad : public Object {
  public:
   virtual ~GxLatLonQuad();
-  static KmlDomType ElementType() { return Type_GxLatLonQuad; }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Object::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <coordinates>
-  const CoordinatesPtr& get_coordinates() const { return coordinates_; }
-  bool has_coordinates() const { return coordinates_ != nullptr; }
-  void set_coordinates(const CoordinatesPtr& coordinates) {
-    SetComplexChild(coordinates, &coordinates_);
-  }
-  void clear_coordinates() {
-    set_coordinates(NULL);
-  }
+  const CoordinatesPtr& get_coordinates() const;
+  bool has_coordinates() const;
+  void set_coordinates(const CoordinatesPtr& coordinates);
+  void clear_coordinates();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -196,81 +153,41 @@ class GxLatLonQuad : public Object {
 };
 
 // <GroundOverlay>
-class GroundOverlay : public Overlay {
+class KML_EXPORT GroundOverlay : public Overlay {
  public:
   virtual ~GroundOverlay();
-  virtual KmlDomType Type() const { return Type_GroundOverlay; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_GroundOverlay || Overlay::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <altitude>
-  double get_altitude() const {
-    return altitude_;
-  }
-  bool has_altitude() const {
-    return has_altitude_;
-  }
-  void set_altitude(double altitude) {
-    altitude_ = altitude;
-    has_altitude_ = true;
-  }
-  void clear_altitude() {
-    altitude_ = 0.0;
-    has_altitude_ = false;
-  }
+  double get_altitude() const;
+  bool has_altitude() const;
+  void set_altitude(double altitude);
+  void clear_altitude();
 
   // <altitudeMode>
-  int get_altitudemode() const {
-    return altitudemode_;
-  }
-  bool has_altitudemode() const {
-    return has_altitudemode_;
-  }
-  void set_altitudemode(int altitudemode) {
-    altitudemode_ = altitudemode;
-    has_altitudemode_ = true;
-  }
-  void clear_altitudemode() {
-    altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
-    has_altitudemode_ = false;
-  }
+  int get_altitudemode() const;
+  bool has_altitudemode() const;
+  void set_altitudemode(int altitudemode);
+  void clear_altitudemode();
 
   // <gx:altitudeMode>
-  int get_gx_altitudemode() const {
-    return gx_altitudemode_;
-  }
-  bool has_gx_altitudemode() const {
-    return has_gx_altitudemode_;
-  }
-  void set_gx_altitudemode(int gx_altitudemode) {
-    gx_altitudemode_ = gx_altitudemode;
-    has_gx_altitudemode_ = true;
-  }
-  void clear_gx_altitudemode() {
-    gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
-    has_gx_altitudemode_ = false;
-  }
+  int get_gx_altitudemode() const;
+  bool has_gx_altitudemode() const;
+  void set_gx_altitudemode(int gx_altitudemode);
+  void clear_gx_altitudemode();
 
   // <LatLonBox>
-  const LatLonBoxPtr& get_latlonbox() const { return latlonbox_; }
-  bool has_latlonbox() const { return latlonbox_ != nullptr; }
-  void set_latlonbox(const LatLonBoxPtr& latlonbox) {
-    SetComplexChild(latlonbox, &latlonbox_);
-  }
-  void clear_latlonbox() {
-    set_latlonbox(NULL);
-  }
+  const LatLonBoxPtr& get_latlonbox() const;
+  bool has_latlonbox() const;
+  void set_latlonbox(const LatLonBoxPtr& latlonbox);
+  void clear_latlonbox();
 
   // <gx:LatLonQuad>
-  const GxLatLonQuadPtr& get_gx_latlonquad() const { return gx_latlonquad_; }
-  bool has_gx_latlonquad() const { return gx_latlonquad_ != nullptr; }
-  void set_gx_latlonquad(const GxLatLonQuadPtr& gx_latlonquad) {
-    SetComplexChild(gx_latlonquad, &gx_latlonquad_);
-  }
-  void clear_gx_latlonquad() {
-    set_gx_latlonquad(NULL);
-  }
+  const GxLatLonQuadPtr& get_gx_latlonquad() const;
+  bool has_gx_latlonquad() const;
+  void set_gx_latlonquad(const GxLatLonQuadPtr& gx_latlonquad);
+  void clear_gx_latlonquad();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -297,13 +214,11 @@ class GroundOverlay : public Overlay {
 };
 
 // <overlayXY>
-class OverlayXY : public Vec2 {
+class KML_EXPORT OverlayXY : public Vec2 {
  public:
   virtual ~OverlayXY();
-  virtual KmlDomType Type() const { return Type_overlayXY; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_overlayXY || Vec2::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -315,13 +230,11 @@ class OverlayXY : public Vec2 {
 };
 
 // <screenXY>
-class ScreenXY : public Vec2 {
+class KML_EXPORT ScreenXY : public Vec2 {
  public:
   virtual ~ScreenXY();
-  virtual KmlDomType Type() const { return Type_screenXY; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_screenXY || Vec2::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -333,13 +246,11 @@ class ScreenXY : public Vec2 {
 };
 
 // <rotationXY>
-class RotationXY : public Vec2 {
+class KML_EXPORT RotationXY : public Vec2 {
  public:
   virtual ~RotationXY();
-  virtual KmlDomType Type() const { return Type_rotationXY; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_rotationXY || Vec2::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -351,13 +262,11 @@ class RotationXY : public Vec2 {
 };
 
 // <size>
-class Size : public Vec2 {
+class KML_EXPORT Size : public Vec2 {
  public:
   virtual ~Size();
-  virtual KmlDomType Type() const { return Type_size; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_size || Vec2::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -369,69 +278,41 @@ class Size : public Vec2 {
 };
 
 // <ScreenOverlay>
-class ScreenOverlay : public Overlay {
+class KML_EXPORT ScreenOverlay : public Overlay {
  public:
   virtual ~ScreenOverlay();
-  virtual KmlDomType Type() const { return Type_ScreenOverlay; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ScreenOverlay || Overlay::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <overlayXY>
-  const OverlayXYPtr& get_overlayxy() const { return overlayxy_; }
-  bool has_overlayxy() const { return overlayxy_ != nullptr; }
-  void set_overlayxy(const OverlayXYPtr& overlayxy) {
-    SetComplexChild(overlayxy, &overlayxy_);
-  }
-  void clear_overlayxy() {
-    set_overlayxy(NULL);
-  }
+  const OverlayXYPtr& get_overlayxy() const;
+  bool has_overlayxy() const;
+  void set_overlayxy(const OverlayXYPtr& overlayxy);
+  void clear_overlayxy();
 
   // <screenXY>
-  const ScreenXYPtr& get_screenxy() const { return screenxy_; }
-  bool has_screenxy() const { return screenxy_ != nullptr; }
-  void set_screenxy(const ScreenXYPtr& screenxy) {
-    SetComplexChild(screenxy, &screenxy_);
-  }
-  void clear_screenxy() {
-    set_screenxy(NULL);
-  }
+  const ScreenXYPtr& get_screenxy() const;
+  bool has_screenxy() const;
+  void set_screenxy(const ScreenXYPtr& screenxy);
+  void clear_screenxy();
 
   // <rotationXY>
-  const RotationXYPtr& get_rotationxy() const { return rotationxy_; }
-  bool has_rotationxy() const { return rotationxy_ != nullptr; }
-  void set_rotationxy(const RotationXYPtr& rotationxy) {
-    SetComplexChild(rotationxy, &rotationxy_);
-  }
-  void clear_rotationxy() {
-    set_rotationxy(NULL);
-  }
+  const RotationXYPtr& get_rotationxy() const;
+  bool has_rotationxy() const;
+  void set_rotationxy(const RotationXYPtr& rotationxy);
+  void clear_rotationxy();
 
   // <size>
-  const SizePtr& get_size() const { return size_; }
-  bool has_size() const { return size_ != nullptr; }
-  void set_size(const SizePtr& size) {
-    SetComplexChild(size, &size_);
-  }
-  void clear_size() {
-    set_size(NULL);
-  }
+  const SizePtr& get_size() const;
+  bool has_size() const;
+  void set_size(const SizePtr& size);
+  void clear_size();
 
   // <rotation>
-  double get_rotation() const {
-    return rotation_;
-  }
-  bool has_rotation() const {
-    return has_rotation_;
-  }
-  void set_rotation(double rotation) {
-    rotation_ = rotation;
-    has_rotation_ = true;
-  }
-  void clear_rotation() {
-    rotation_ = 0.0;
-    has_rotation_ = false;
-  }
+  double get_rotation() const;
+  bool has_rotation() const;
+  void set_rotation(double rotation);
+  void clear_rotation();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -454,93 +335,41 @@ class ScreenOverlay : public Overlay {
 };
 
 // <ViewVolume>
-class ViewVolume : public Object {
+class KML_EXPORT ViewVolume : public Object {
  public:
   virtual ~ViewVolume();
-  virtual KmlDomType Type() const { return Type_ViewVolume; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ViewVolume || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <leftFov>
-  double get_leftfov() const {
-    return leftfov_;
-  }
-  bool has_leftfov() const {
-    return has_leftfov_;
-  }
-  void set_leftfov(double leftfov) {
-    leftfov_ = leftfov;
-    has_leftfov_ = true;
-  }
-  void clear_leftfov() {
-    leftfov_ = 0.0;
-    has_leftfov_ = false;
-  }
+  double get_leftfov() const;
+  bool has_leftfov() const;
+  void set_leftfov(double leftfov);
+  void clear_leftfov();
 
   // <rightFov>
-  double get_rightfov() const {
-    return rightfov_;
-  }
-  bool has_rightfov() const {
-    return has_rightfov_;
-  }
-  void set_rightfov(double rightfov) {
-    rightfov_ = rightfov;
-    has_rightfov_ = true;
-  }
-  void clear_rightfov() {
-    rightfov_ = 0.0;
-    has_rightfov_ = false;
-  }
+  double get_rightfov() const;
+  bool has_rightfov() const;
+  void set_rightfov(double rightfov);
+  void clear_rightfov();
 
   // <bottomFov>
-  double get_bottomfov() const {
-    return bottomfov_;
-  }
-  bool has_bottomfov() const {
-    return has_bottomfov_;
-  }
-  void set_bottomfov(double altitude) {
-    bottomfov_ = altitude;
-    has_bottomfov_ = true;
-  }
-  void clear_bottomfov() {
-    bottomfov_ = 0.0;
-    has_bottomfov_ = false;
-  }
+  double get_bottomfov() const;
+  bool has_bottomfov() const;
+  void set_bottomfov(double altitude);
+  void clear_bottomfov();
 
   // <topFov>
-  double get_topfov() const {
-    return topfov_;
-  }
-  bool has_topfov() const {
-    return has_topfov_;
-  }
-  void set_topfov(double topfov) {
-    topfov_ = topfov;
-    has_topfov_ = true;
-  }
-  void clear_topfov() {
-    topfov_ = 0.0;
-    has_topfov_ = false;
-  }
+  double get_topfov() const;
+  bool has_topfov() const;
+  void set_topfov(double topfov);
+  void clear_topfov();
 
   // <near>
-  double get_near() const {
-    return near_;
-  }
-  bool has_near() const {
-    return has_near_;
-  }
-  void set_near(double val) {
-    near_ = val;
-    has_near_ = true;
-  }
-  void clear_near() {
-    near_ = 0.0;
-    has_near_ = false;
-  }
+  double get_near() const;
+  bool has_near() const;
+  void set_near(double val);
+  void clear_near();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -566,77 +395,35 @@ class ViewVolume : public Object {
 };
 
 // <ImagePyramid>
-class ImagePyramid : public Object {
+class KML_EXPORT ImagePyramid : public Object {
  public:
   virtual ~ImagePyramid();
-  virtual KmlDomType Type() const { return Type_ImagePyramid; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ImagePyramid || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <tileSize>
-  int get_tilesize() const {
-    return tilesize_;
-  }
-  bool has_tilesize() const {
-    return has_tilesize_;
-  }
-  void set_tilesize(int tilesize) {
-    tilesize_ = tilesize;
-    has_tilesize_ = true;
-  }
-  void clear_tilesize() {
-    tilesize_ = 256;
-    has_tilesize_ = false;
-  }
+  int get_tilesize() const;
+  bool has_tilesize() const;
+  void set_tilesize(int tilesize);
+  void clear_tilesize();
 
   // <maxWidth>
-  int get_maxwidth() const {
-    return maxwidth_;
-  }
-  bool has_maxwidth() const {
-    return has_maxwidth_;
-  }
-  void set_maxwidth(int maxwidth) {
-    maxwidth_ = maxwidth;
-    has_maxwidth_ = true;
-  }
-  void clear_maxwidth() {
-    maxwidth_ = 0;
-    has_maxwidth_ = false;
-  }
+  int get_maxwidth() const;
+  bool has_maxwidth() const;
+  void set_maxwidth(int maxwidth);
+  void clear_maxwidth();
 
   // <maxHeight>
-  int get_maxheight() const {
-    return maxheight_;
-  }
-  bool has_maxheight() const {
-    return has_maxheight_;
-  }
-  void set_maxheight(int altitude) {
-    maxheight_ = altitude;
-    has_maxheight_ = true;
-  }
-  void clear_maxheight() {
-    maxheight_ = 0;
-    has_maxheight_ = false;
-  }
+  int get_maxheight() const;
+  bool has_maxheight() const;
+  void set_maxheight(int altitude);
+  void clear_maxheight();
 
   // <gridOrigin>
-  int get_gridorigin() const {
-    return gridorigin_;
-  }
-  bool has_gridorigin() const {
-    return has_gridorigin_;
-  }
-  void set_gridorigin(int gridorigin) {
-    gridorigin_ = gridorigin;
-    has_gridorigin_ = true;
-  }
-  void clear_gridorigin() {
-    gridorigin_ = GRIDORIGIN_LOWERLEFT;
-    has_gridorigin_ = false;
-  }
+  int get_gridorigin() const;
+  bool has_gridorigin() const;
+  void set_gridorigin(int gridorigin);
+  void clear_gridorigin();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -660,75 +447,41 @@ class ImagePyramid : public Object {
 };
 
 // <PhotoOverlay>
-class PhotoOverlay : public Overlay {
+class KML_EXPORT PhotoOverlay : public Overlay {
  public:
   virtual ~PhotoOverlay();
-  virtual KmlDomType Type() const { return Type_PhotoOverlay; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_PhotoOverlay || Overlay::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <rotation>
-  double get_rotation() const {
-    return rotation_;
-  }
-  bool has_rotation() const {
-    return has_rotation_;
-  }
-  void set_rotation(double rotation) {
-    rotation_ = rotation;
-    has_rotation_ = true;
-  }
-  void clear_rotation() {
-    rotation_ = 0.0;
-    has_rotation_ = false;
-  }
+  double get_rotation() const;
+  bool has_rotation() const;
+  void set_rotation(double rotation);
+  void clear_rotation();
 
   // <ViewVolume>
-  const ViewVolumePtr& get_viewvolume() const { return viewvolume_; }
-  bool has_viewvolume() const { return viewvolume_ != nullptr; }
-  void set_viewvolume(const ViewVolumePtr& viewvolume) {
-    SetComplexChild(viewvolume, &viewvolume_);
-  }
-  void clear_viewvolume() {
-    set_viewvolume(NULL);
-  }
+  const ViewVolumePtr& get_viewvolume() const;
+  bool has_viewvolume() const;
+  void set_viewvolume(const ViewVolumePtr& viewvolume);
+  void clear_viewvolume();
 
   // <ImagePyramid>
-  const ImagePyramidPtr& get_imagepyramid() const { return imagepyramid_; }
-  bool has_imagepyramid() const { return imagepyramid_ != nullptr; }
-  void set_imagepyramid(const ImagePyramidPtr& imagepyramid) {
-    SetComplexChild(imagepyramid, &imagepyramid_);
-  }
-  void clear_imagepyramid() {
-    set_imagepyramid(NULL);
-  }
+  const ImagePyramidPtr& get_imagepyramid() const;
+  bool has_imagepyramid() const;
+  void set_imagepyramid(const ImagePyramidPtr& imagepyramid);
+  void clear_imagepyramid();
 
   // <Point>
-  const PointPtr& get_point() const { return point_; }
-  bool has_point() const { return point_ != nullptr; }
-  void set_point(const PointPtr& point) {
-    SetComplexChild(point, &point_);
-  }
-  void clear_point() {
-    set_point(NULL);
-  }
+  const PointPtr& get_point() const;
+  bool has_point() const;
+  void set_point(const PointPtr& point);
+  void clear_point();
 
   // <shape>
-  int get_shape() const {
-    return shape_;
-  }
-  bool has_shape() const {
-    return has_shape_;
-  }
-  void set_shape(int shape) {
-    shape_ = shape;
-    has_shape_ = true;
-  }
-  void clear_shape() {
-    shape_ = SHAPE_RECTANGLE;
-    has_shape_ = false;
-  }
+  int get_shape() const;
+  bool has_shape() const;
+  void set_shape(int shape);
+  void clear_shape();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

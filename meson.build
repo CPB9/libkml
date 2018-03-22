@@ -3,6 +3,9 @@ project('libkml', ['c', 'cpp'], default_options : ['cpp_std=c++11', 'c_std=c99']
 zlib_mod = subproject('zlib')
 zlib_dep = zlib_mod.get_variable('zlib_dep')
 
+expat_mod = subproject('expat')
+expat_dep = expat_mod.get_variable('expat_dep')
+
 bmcl_mod = subproject('bmcl', default_options: ['build_tests=false'])
 bmcl_dep = bmcl_mod.get_variable('bmcl_dep')
 

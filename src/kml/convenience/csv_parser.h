@@ -28,6 +28,7 @@
 #ifndef KML_CONVENIENCE_CSV_PARSER_H_
 #define KML_CONVENIENCE_CSV_PARSER_H_
 
+#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/dom.h"
 
@@ -49,9 +50,9 @@ enum CsvParserStatus {
 // This class is used as the output and error reporting mechanism for the
 // CsvParser.  Application code should subclass this and implement HandleLine.
 // This "default" implementation acts as a data sink.
-class CsvParserHandler {
+class KML_EXPORT CsvParserHandler {
  public:
-  virtual ~CsvParserHandler() {}
+  virtual ~CsvParserHandler();
 
   // This method is called for each line in the CSV data.  The line is the line
   // number of the CSV.  The status indicates the success of creating
@@ -63,9 +64,7 @@ class CsvParserHandler {
   // to the next line in the file.  Returning false immediately halts all
   // further processing of the CsvParse.
   virtual bool HandleLine(int line, CsvParserStatus status,
-                          kmldom::PlacemarkPtr placemark) {
-    return true;  // Always continue to the next line.
-  }
+                          kmldom::PlacemarkPtr placemark);
 };
 
 // This class converts CSV data to KML.  Overall usage:
@@ -80,7 +79,7 @@ class CsvParserHandler {
 //  };
 //  YourCsvParserHandler your_csv_parser_handler;
 //  CsvParser::ParseCsv(&csv_splitter, &your_csv_parser_handler);
-class CsvParser {
+class KML_EXPORT CsvParser {
  public:
   // This method uses CsvSplitter to split each line which CsvParser converts
   // to KML which is handed to the CsvParserHandler.
@@ -95,9 +94,7 @@ class CsvParser {
 
   // This gets the internal CSV schema.
   typedef std::map<int, string> CsvSchema;
-  const CsvSchema& GetSchema() const {
-    return csv_schema_;
-  }
+  const CsvSchema& GetSchema() const;
 
   // This internal method sets the schema for subsequent lines of CSV data.
   // This sets the mappings from column to field.  Here is how the data for

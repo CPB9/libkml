@@ -29,6 +29,7 @@
 #ifndef KML_ENGINE_FIND_XML_NAMESPACES_H__
 #define KML_ENGINE_FIND_XML_NAMESPACES_H__
 
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlbase {
@@ -41,7 +42,7 @@ namespace kmlengine {
 // the hierarchy rooted at the given element.  The namespaces must be in the
 // kmlbase::XmlnsId list and the prefix and xml_namespace is as is found by
 // kmlbase::FindXmlNamespaceAndPrefix.  Unknown namespaces are ignored.
-void FindXmlNamespaces(const kmldom::ElementPtr& element,
+KML_EXPORT void FindXmlNamespaces(const kmldom::ElementPtr& element,
                        kmlbase::Attributes* xmlns_attributes);
 
 // This calls FindXmlNamespaces() and inserts the resulting xmlns
@@ -49,7 +50,7 @@ void FindXmlNamespaces(const kmldom::ElementPtr& element,
 // namespace (xmlns="...") if any KML elements are present.  All other
 // namespaces are prefixed with the libkml-standard prefixes (see
 // kmlbase::FindXmlNamespaceAndPrefix().
-void FindAndInsertXmlNamespaces(kmldom::ElementPtr element);
+KML_EXPORT void FindAndInsertXmlNamespaces(kmldom::ElementPtr element);
 
 }  // end namespace kmlengine
 

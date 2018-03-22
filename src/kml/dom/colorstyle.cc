@@ -66,4 +66,46 @@ void ColorStyle::Serialize(Serializer& serializer) const {
   }
 }
 
+
+kmldom::KmlDomType ColorStyle::Type() const{ return Type_ColorStyle; }
+
+bool ColorStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_ColorStyle || SubStyle::IsA(type);
+ }
+
+const kmlbase::Color32& ColorStyle::get_color() const{
+   return color_;
+ }
+
+bool ColorStyle::has_color() const{
+   return has_color_;
+ }
+
+void ColorStyle::set_color(const kmlbase::Color32& color){
+   color_ = color;
+   has_color_ = true;
+ }
+
+void ColorStyle::clear_color(){
+   color_ = kmlbase::Color32(0xffffffff);
+   has_color_ = false;
+ }
+
+int ColorStyle::get_colormode() const{
+   return colormode_;
+ }
+
+bool ColorStyle::has_colormode() const{
+   return has_colormode_;
+ }
+
+void ColorStyle::set_colormode(int colormode){
+   colormode_ = colormode;
+   has_colormode_ = true;
+ }
+
+void ColorStyle::clear_colormode(){
+   colormode_ = COLORMODE_NORMAL;
+   has_colormode_ = false;
+ }
 }  // end namespace kmldom

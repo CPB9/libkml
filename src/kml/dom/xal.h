@@ -57,17 +57,15 @@
 namespace kmldom {
 
 // <xal:AddressDetails>
-class XalAddressDetails : public BasicElement<Type_XalAddressDetails> {
+class KML_EXPORT XalAddressDetails : public BasicElement<Type_XalAddressDetails> {
  public:
-  virtual ~XalAddressDetails() {}
+  virtual ~XalAddressDetails();
 
   // <xal:Country>
-  const XalCountryPtr& get_country() const { return country_; }
-  bool has_country() const { return country_ != nullptr; }
-  void set_country(const XalCountryPtr& country) {
-    SetComplexChild(country, &country_);
-  }
-  void clear_country() { set_country(NULL); }
+  const XalCountryPtr& get_country() const;
+  bool has_country() const;
+  void set_country(const XalCountryPtr& country);
+  void clear_country();
 
  private:
   XalAddressDetails();
@@ -80,46 +78,28 @@ class XalAddressDetails : public BasicElement<Type_XalAddressDetails> {
 };
 
 // <xal:AdministrativeArea>
-class XalAdministrativeArea : public BasicElement<Type_XalAdministrativeArea> {
+class KML_EXPORT XalAdministrativeArea : public BasicElement<Type_XalAdministrativeArea> {
  public:
-  virtual ~XalAdministrativeArea() {}
+  virtual ~XalAdministrativeArea();
 
   // <xal:AdministrativeAreaName>
-  const string& get_administrativeareaname() const {
-    return administrativeareaname_;
-  }
-  bool has_administrativeareaname() const {
-    return has_administrativeareaname_;
-  }
-  void set_administrativeareaname(const string& value) {
-    administrativeareaname_ = value;
-    has_administrativeareaname_ = true;
-  }
-  void clear_administrativeareaname() {
-    administrativeareaname_.clear();
-    has_administrativeareaname_ = false;
-  }
+  const string& get_administrativeareaname() const;
+  bool has_administrativeareaname() const;
+  void set_administrativeareaname(const string& value);
+  void clear_administrativeareaname();
 
   // <xal:Locality>
-  const XalLocalityPtr& get_locality() const { return locality_; }
-  bool has_locality() const { return locality_ != nullptr; }
-  void set_locality(const XalLocalityPtr& locality) {
-    SetComplexChild(locality, &locality_);
-  }
+  const XalLocalityPtr& get_locality() const;
+  bool has_locality() const;
+  void set_locality(const XalLocalityPtr& locality);
 
-  void clear_locality() { set_locality(NULL); }
+  void clear_locality();
   // <xal:SubAdministrativeArea>
-  const XalSubAdministrativeAreaPtr& get_subadministrativearea() const {
-    return subadministrativearea_;
-  }
-  bool has_subadministrativearea() const {
-    return subadministrativearea_ != nullptr;
-  }
+  const XalSubAdministrativeAreaPtr& get_subadministrativearea() const;
+  bool has_subadministrativearea() const;
   void set_subadministrativearea(
-      const XalSubAdministrativeAreaPtr& subadministrativearea) {
-    SetComplexChild(subadministrativearea, &subadministrativearea_);
-  }
-  void clear_subadministrativearea() { set_subadministrativearea(NULL); }
+      const XalSubAdministrativeAreaPtr& subadministrativearea);
+  void clear_subadministrativearea();
 
  private:
   XalAdministrativeArea();
@@ -135,32 +115,22 @@ class XalAdministrativeArea : public BasicElement<Type_XalAdministrativeArea> {
 };
 
 // <xal:Country>
-class XalCountry : public BasicElement<Type_XalCountry> {
+class KML_EXPORT XalCountry : public BasicElement<Type_XalCountry> {
  public:
-  virtual ~XalCountry() {}
+  virtual ~XalCountry();
 
   // <xal:CountryNameCode>, ISO 3166-1
-  const string& get_countrynamecode() const { return countrynamecode_; }
-  bool has_countrynamecode() const { return has_countrynamecode_; }
-  void set_countrynamecode(const string& value) {
-    countrynamecode_ = value;
-    has_countrynamecode_ = true;
-  }
-  void clear_countrynamecode() {
-    countrynamecode_.clear();
-    has_countrynamecode_ = false;
-  }
+  const string& get_countrynamecode() const;
+  bool has_countrynamecode() const;
+  void set_countrynamecode(const string& value);
+  void clear_countrynamecode();
 
   // <xal:AdministrativeArea>
-  const XalAdministrativeAreaPtr& get_administrativearea() const {
-    return administrativearea_;
-  }
-  bool has_administrativearea() const { return administrativearea_ != nullptr; }
+  const XalAdministrativeAreaPtr& get_administrativearea() const;
+  bool has_administrativearea() const;
   void set_administrativearea(
-      const XalAdministrativeAreaPtr& administrativearea) {
-    SetComplexChild(administrativearea, &administrativearea_);
-  }
-  void clear_administrativearea() { set_administrativearea(NULL); }
+      const XalAdministrativeAreaPtr& administrativearea);
+  void clear_administrativearea();
 
  private:
   XalCountry();
@@ -176,41 +146,27 @@ class XalCountry : public BasicElement<Type_XalCountry> {
 };
 
 // <xal:Locality>
-class XalLocality : public BasicElement<Type_XalLocality> {
+class KML_EXPORT XalLocality : public BasicElement<Type_XalLocality> {
  public:
-  virtual ~XalLocality() {}
+  virtual ~XalLocality();
 
   // <xal:LocalityName>
-  const string& get_localityname() const {
-    return localityname_;
-  }
-  bool has_localityname() const {
-    return has_localityname_;
-  }
-  void set_localityname(const string& value) {
-    localityname_ = value;
-    has_localityname_ = true;
-  }
-  void clear_localityname() {
-    localityname_.clear();
-    has_localityname_ = false;
-  }
+  const string& get_localityname() const;
+  bool has_localityname() const;
+  void set_localityname(const string& value);
+  void clear_localityname();
 
   // <xal:Thoroughfare>
-  const XalThoroughfarePtr& get_thoroughfare() const { return thoroughfare_; }
-  bool has_thoroughfare() const { return thoroughfare_ != nullptr; }
-  void set_thoroughfare(const XalThoroughfarePtr& thoroughfare) {
-    SetComplexChild(thoroughfare, &thoroughfare_);
-  }
-  void clear_thoroughfare() { set_thoroughfare(NULL); }
+  const XalThoroughfarePtr& get_thoroughfare() const;
+  bool has_thoroughfare() const;
+  void set_thoroughfare(const XalThoroughfarePtr& thoroughfare);
+  void clear_thoroughfare();
 
   // <xal:PostalCode>
-  const XalPostalCodePtr& get_postalcode() const { return postalcode_; }
-  bool has_postalcode() const { return postalcode_ != nullptr; }
-  void set_postalcode(const XalPostalCodePtr& postalcode) {
-    SetComplexChild(postalcode, &postalcode_);
-  }
-  void clear_postalcode() { set_postalcode(NULL); }
+  const XalPostalCodePtr& get_postalcode() const;
+  bool has_postalcode() const;
+  void set_postalcode(const XalPostalCodePtr& postalcode);
+  void clear_postalcode();
 
  private:
   XalLocality();
@@ -226,25 +182,15 @@ class XalLocality : public BasicElement<Type_XalLocality> {
 };
 
 // <xal:PostalCode>
-class XalPostalCode : public BasicElement<Type_XalPostalCode> {
+class KML_EXPORT XalPostalCode : public BasicElement<Type_XalPostalCode> {
  public:
   virtual ~XalPostalCode() {}
 
   // <xal:PostalCodeNumber>
-  const string& get_postalcodenumber() const {
-    return postalcodenumber_;
-  }
-  bool has_postalcodenumber() const {
-    return has_postalcodenumber_;
-  }
-  void set_postalcodenumber(const string& value) {
-    postalcodenumber_ = value;
-    has_postalcodenumber_ = true;
-  }
-  void clear_postalcodenumber() {
-    postalcodenumber_.clear();
-    has_postalcodenumber_ = false;
-  }
+  const string& get_postalcodenumber() const;
+  bool has_postalcodenumber() const;
+  void set_postalcodenumber(const string& value);
+  void clear_postalcodenumber();
 
  private:
   XalPostalCode();
@@ -258,34 +204,22 @@ class XalPostalCode : public BasicElement<Type_XalPostalCode> {
 };
 
 // <xal:SubAdministrativeArea>
-class XalSubAdministrativeArea :
+class KML_EXPORT XalSubAdministrativeArea :
     public BasicElement<Type_XalSubAdministrativeArea> {
  public:
-  virtual ~XalSubAdministrativeArea() {}
+  virtual ~XalSubAdministrativeArea();
 
   // <xal:SubAdministrativeAreaName>
-  const string& get_subadministrativeareaname() const {
-    return subadministrativeareaname_;
-  }
-  bool has_subadministrativeareaname() const {
-    return has_subadministrativeareaname_;
-  }
-  void set_subadministrativeareaname(const string& value) {
-    subadministrativeareaname_ = value;
-    has_subadministrativeareaname_ = true;
-  }
-  void clear_subadministrativeareaname() {
-    subadministrativeareaname_.clear();
-    has_subadministrativeareaname_ = false;
-  }
+  const string& get_subadministrativeareaname() const;
+  bool has_subadministrativeareaname() const;
+  void set_subadministrativeareaname(const string& value);
+  void clear_subadministrativeareaname();
 
   // <xal:Locality>
-  const XalLocalityPtr& get_locality() const { return locality_; }
-  bool has_locality() const { return locality_ != nullptr; }
-  void set_locality(const XalLocalityPtr& locality) {
-    SetComplexChild(locality, &locality_);
-  }
-  void clear_locality() { set_locality(NULL); }
+  const XalLocalityPtr& get_locality() const;
+  bool has_locality() const;
+  void set_locality(const XalLocalityPtr& locality);
+  void clear_locality();
 
  private:
   XalSubAdministrativeArea();
@@ -300,41 +234,21 @@ class XalSubAdministrativeArea :
 };
 
 // <xal:Thoroughfare>
-class XalThoroughfare : public BasicElement<Type_XalThoroughfare> {
+class KML_EXPORT XalThoroughfare : public BasicElement<Type_XalThoroughfare> {
  public:
-  virtual ~XalThoroughfare() {}
+  virtual ~XalThoroughfare();
 
   // <xal:ThoroughfareName>
-  const string& get_thoroughfarename() const {
-    return thoroughfarename_;
-  }
-  bool has_thoroughfarename() const {
-    return has_thoroughfarename_;
-  }
-  void set_thoroughfarename(const string& value) {
-    thoroughfarename_ = value;
-    has_thoroughfarename_ = true;
-  }
-  void clear_thoroughfarename() {
-    thoroughfarename_.clear();
-    has_thoroughfarename_ = false;
-  }
+  const string& get_thoroughfarename() const;
+  bool has_thoroughfarename() const;
+  void set_thoroughfarename(const string& value);
+  void clear_thoroughfarename();
 
   // <xal:ThoroughfareNumber>
-  const string& get_thoroughfarenumber() const {
-    return thoroughfarenumber_;
-  }
-  bool has_thoroughfarenumber() const {
-    return has_thoroughfarenumber_;
-  }
-  void set_thoroughfarenumber(const string& value) {
-    thoroughfarenumber_ = value;
-    has_thoroughfarenumber_ = true;
-  }
-  void clear_thoroughfarenumber() {
-    thoroughfarenumber_.clear();
-    has_thoroughfarenumber_ = false;
-  }
+  const string& get_thoroughfarenumber() const;
+  bool has_thoroughfarenumber() const;
+  void set_thoroughfarenumber(const string& value);
+  void clear_thoroughfarenumber();
 
  private:
   XalThoroughfare();

@@ -213,4 +213,230 @@ void Feature::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+kmldom::KmlDomType Feature::Type() const{ return Type_Feature; }
+
+bool Feature::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Feature || Object::IsA(type);
+ }
+
+const std::__cxx11::string& Feature::get_name() const{ return name_; }
+
+bool Feature::has_name() const{ return has_name_; }
+
+void Feature::set_name(const std::__cxx11::string& value){
+   name_ = value;
+   has_name_ = true;
+ }
+
+void Feature::clear_name(){
+   name_.clear();
+   has_name_ = false;
+ }
+
+bool Feature::get_visibility() const{ return visibility_; }
+
+bool Feature::has_visibility() const{ return has_visibility_; }
+
+void Feature::set_visibility(bool value){
+   visibility_ = value;
+   has_visibility_ = true;
+ }
+
+void Feature::clear_visibility(){
+   visibility_ = true;  // Default <visibility> is true.
+   has_visibility_ = false;
+ }
+
+bool Feature::get_open() const{ return open_; }
+
+bool Feature::has_open() const{ return has_open_; }
+
+void Feature::set_open(bool value){
+   open_ = value;
+   has_open_ = true;
+ }
+
+void Feature::clear_open(){
+   open_ = false;
+   has_open_ = false;
+ }
+
+const AtomAuthorPtr& Feature::get_atomauthor() const{ return atomauthor_; }
+
+bool Feature::has_atomauthor() const{ return atomauthor_ != nullptr; }
+
+void Feature::set_atomauthor(const AtomAuthorPtr& atomauthor){
+   SetComplexChild(atomauthor, &atomauthor_);
+ }
+
+void Feature::clear_atomauthor(){
+   set_atomauthor(NULL);
+ }
+
+const AtomLinkPtr& Feature::get_atomlink() const{ return atomlink_; }
+
+bool Feature::has_atomlink() const{ return atomlink_ != nullptr; }
+
+void Feature::set_atomlink(const AtomLinkPtr& atomlink){
+   SetComplexChild(atomlink, &atomlink_);
+ }
+
+const std::__cxx11::string& Feature::get_address() const{ return address_; }
+
+bool Feature::has_address() const{ return has_address_; }
+
+void Feature::set_address(const std::__cxx11::string& value){
+   address_ = value;
+   has_address_ = true;
+ }
+
+void Feature::clear_address(){
+   address_.clear();
+   has_address_ = false;
+ }
+
+const XalAddressDetailsPtr& Feature::get_xaladdressdetails() const{
+   return xaladdressdetails_;
+ }
+
+bool Feature::has_xaladdressdetails() const{ return xaladdressdetails_ != nullptr; }
+
+void Feature::set_xaladdressdetails(const XalAddressDetailsPtr& xaladdressdetails){
+   SetComplexChild(xaladdressdetails, &xaladdressdetails_);
+ }
+
+void Feature::clear_xaladdressdetails(){
+   set_xaladdressdetails(NULL);
+ }
+
+const std::__cxx11::string& Feature::get_phonenumber() const{ return phonenumber_; }
+
+bool Feature::has_phonenumber() const{ return has_phonenumber_; }
+
+void Feature::set_phonenumber(const std::__cxx11::string& value){
+   phonenumber_ = value;
+   has_phonenumber_ = true;
+ }
+
+void Feature::clear_phonenumber(){
+   phonenumber_.clear();
+   has_phonenumber_ = false;
+ }
+
+const SnippetPtr& Feature::get_snippet() const{ return snippet_; }
+
+bool Feature::has_snippet() const{ return snippet_ != nullptr; }
+
+void Feature::set_snippet(const SnippetPtr& snippet){
+   SetComplexChild(snippet, &snippet_);
+ }
+
+void Feature::clear_snippet(){
+   set_snippet(NULL);
+ }
+
+const std::__cxx11::string& Feature::get_description() const{ return description_; }
+
+bool Feature::has_description() const{ return has_description_; }
+
+void Feature::set_description(const std::__cxx11::string& value){
+   description_ = value;
+   has_description_ = true;
+ }
+
+void Feature::clear_description(){
+   description_.clear();
+   has_description_ = false;
+ }
+
+const AbstractViewPtr& Feature::get_abstractview() const{ return abstractview_; }
+
+bool Feature::has_abstractview() const{ return abstractview_ != nullptr; }
+
+void Feature::set_abstractview(const AbstractViewPtr& abstractview){
+   SetComplexChild(abstractview, &abstractview_);
+ }
+
+void Feature::clear_abstractview(){
+   set_abstractview(NULL);
+ }
+
+const TimePrimitivePtr& Feature::get_timeprimitive() const{ return timeprimitive_; }
+
+bool Feature::has_timeprimitive() const{ return timeprimitive_ != nullptr; }
+
+void Feature::set_timeprimitive(const TimePrimitivePtr& timeprimitive){
+   SetComplexChild(timeprimitive, &timeprimitive_);
+ }
+
+void Feature::clear_timeprimitive(){
+   set_timeprimitive(NULL);
+ }
+
+const std::__cxx11::string& Feature::get_styleurl() const{ return styleurl_; }
+
+std::__cxx11::string& Feature::styleurl(){ return styleurl_; }
+
+bool Feature::has_styleurl() const{ return has_styleurl_; }
+
+void Feature::set_styleurl(const std::__cxx11::string& value){
+   styleurl_ = value;
+   has_styleurl_ = true;
+ }
+
+void Feature::clear_styleurl(){
+   styleurl_.clear();
+   has_styleurl_ = false;
+ }
+
+const StyleSelectorPtr& Feature::get_styleselector() const{ return styleselector_; }
+
+bool Feature::has_styleselector() const{ return styleselector_ != nullptr; }
+
+void Feature::set_styleselector(const StyleSelectorPtr& styleselector){
+   SetComplexChild(styleselector, &styleselector_);
+ }
+
+void Feature::clear_styleselector(){
+   set_styleselector(NULL);
+ }
+
+const RegionPtr& Feature::get_region() const{ return region_; }
+
+bool Feature::has_region() const{ return region_ != nullptr; }
+
+void Feature::set_region(const RegionPtr& region){
+   SetComplexChild(region, &region_);
+ }
+
+void Feature::clear_region(){
+   set_region(NULL);
+ }
+
+const ExtendedDataPtr& Feature::get_extendeddata() const{ return extendeddata_; }
+
+bool Feature::has_extendeddata() const{ return extendeddata_ != nullptr; }
+
+void Feature::set_extendeddata(const ExtendedDataPtr& extendeddata){
+   SetComplexChild(extendeddata, &extendeddata_);
+ }
+
+void Feature::clear_extendeddata(){
+   set_extendeddata(NULL);
+ }
+
+bool Feature::get_gx_balloonvisibility() const{ return gx_balloonvisibility_; }
+
+bool Feature::has_gx_balloonvisibility() const{ return has_gx_balloonvisibility_; }
+
+void Feature::set_gx_balloonvisibility(bool value){
+   gx_balloonvisibility_ = value;
+   has_gx_balloonvisibility_ = true;
+ }
+
+void Feature::clear_gx_balloonvisibility(){
+   gx_balloonvisibility_ = false;
+   has_gx_balloonvisibility_ = false;
+ }
 }  // namespace kmldom

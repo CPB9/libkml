@@ -44,31 +44,20 @@ typedef std::map<string, XmlElementPtr> XmlElementIdMap;
 // a set of xml ID to XmlElement mappings.
 class XmlFile : public Referent {
  public:
-  const string& get_url() const {
-    return url_;
-  }
+  const string& get_url() const;
 
-  const XmlElementPtr& get_root() const {
-    return root_;
-  }
+  const XmlElementPtr& get_root() const;
 
  protected:
-  void set_url(const string& url) {
-    url_ = url;
-  }
+  void set_url(const string& url);
 
-  bool set_root(const XmlElementPtr& element) {
-    return root_ ? false : (root_ = element, true);
-  }
+  bool set_root(const XmlElementPtr& element);
 
-  XmlElementPtr FindXmlElementById(const string& id) const {
-    XmlElementIdMap::const_iterator find = id_map_.find(id);
-    return find != id_map_.end() ? find->second : nullptr;
-  }
+  XmlElementPtr FindXmlElementById(const string& id) const;
 
  protected:
   // This is an abstract base class and is never created directly.
-  XmlFile() {}
+  XmlFile();
 
  private:
   // TODO: use a typedef for URL and/or URL string

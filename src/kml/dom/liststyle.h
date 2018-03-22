@@ -29,6 +29,7 @@
 #define KML_DOM_LISTSTYLE_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/color32.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
@@ -45,10 +46,8 @@ class VisitorDriver;
 class ItemIcon : public Object {
  public:
   virtual ~ItemIcon();
-  virtual KmlDomType Type() const { return Type_ItemIcon; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ItemIcon || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <state>
   // Note that <state> within <ItemIcon> is an oddity within KML. It is the
@@ -64,41 +63,19 @@ class ItemIcon : public Object {
   //
   // State enumerations must be space-delimited. New lines, tabs, etc. are not
   // supported. This is consistent with the use of xsd:list in the KML schema.
-  int get_state_array_at(size_t index) const {
-    return state_array_[index];
-  }
-  size_t get_state_array_size() const {
-    return state_array_.size();
-  }
-  bool has_state() const {
-    return has_state_;
-  }
-  void add_state(int state) {
-    state_array_.push_back(state);
-    has_state_ = true;
-  }
+  int get_state_array_at(size_t index) const;
+  size_t get_state_array_size() const;
+  bool has_state() const;
+  void add_state(int state);
   // Note that clear_state will empty ALL stored state enums and thus does
   // not return the element to its default value of <state>open</state>.
-  void clear_state() {
-    state_array_.clear();
-    has_state_ = false;
-  }
+  void clear_state();
 
   // <href>
-  const string& get_href() const {
-    return href_;
-  }
-  bool has_href() const {
-    return has_href_;
-  }
-  void set_href(const string& href) {
-    href_ = href;
-    has_href_ = true;
-  }
-  void clear_href() {
-    href_.clear();
-    has_href_ = false;
-  }
+  const string& get_href() const;
+  bool has_href() const;
+  void set_href(const string& href);
+  void clear_href();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -118,74 +95,36 @@ class ItemIcon : public Object {
 };
 
 // <ListStyle>
-class ListStyle : public SubStyle {
+class KML_EXPORT ListStyle : public SubStyle {
  public:
   virtual ~ListStyle();
-  virtual KmlDomType Type() const { return Type_ListStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ListStyle || SubStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <listItemType>
-  int get_listitemtype() const {
-    return listitemtype_;
-  }
-  bool has_listitemtype() const {
-    return has_listitemtype_;
-  }
-  void set_listitemtype(int listitemtype) {
-    listitemtype_ = listitemtype;
-    has_listitemtype_ = true;
-  }
-  void clear_listitemtype() {
-    listitemtype_ = LISTITEMTYPE_CHECK;
-    has_listitemtype_ = false;
-  }
+  int get_listitemtype() const;
+  bool has_listitemtype() const;
+  void set_listitemtype(int listitemtype);
+  void clear_listitemtype();
 
   // <bgColor>
-  const kmlbase::Color32& get_bgcolor() const {
-    return bgcolor_;
-  }
-  bool has_bgcolor() const {
-    return has_bgcolor_;
-  }
-  void set_bgcolor(const kmlbase::Color32& bgcolor) {
-    bgcolor_ = bgcolor;
-    has_bgcolor_ = true;
-  }
-  void clear_bgcolor() {
-    bgcolor_ = kmlbase::Color32(0xffffffff);
-    has_bgcolor_ = false;
-  }
+  const kmlbase::Color32& get_bgcolor() const;
+  bool has_bgcolor() const;
+  void set_bgcolor(const kmlbase::Color32& bgcolor);
+  void clear_bgcolor();
 
   // <ItemIcon>
-  void add_itemicon(const ItemIconPtr& itemicon) {
-    AddComplexChild(itemicon, &itemicon_array_);
-  }
+  void add_itemicon(const ItemIconPtr& itemicon);
 
-  size_t get_itemicon_array_size() const {
-    return itemicon_array_.size();
-  }
+  size_t get_itemicon_array_size() const;
 
-  const ItemIconPtr& get_itemicon_array_at(size_t index) const {
-    return itemicon_array_[index];
-  }
+  const ItemIconPtr& get_itemicon_array_at(size_t index) const;
 
   // <maxSnippetLines>
-  int get_maxsnippetlines() const {
-    return maxsnippetlines_;
-  }
-  bool has_maxsnippetlines() const {
-    return has_maxsnippetlines_;
-  }
-  void set_maxsnippetlines(int maxsnippetlines) {
-    maxsnippetlines_ = maxsnippetlines;
-    has_maxsnippetlines_ = true;
-  }
-  void clear_maxsnippetlines() {
-    maxsnippetlines_ = 2;
-    has_maxsnippetlines_ = false;
-  }
+  int get_maxsnippetlines() const;
+  bool has_maxsnippetlines() const;
+  void set_maxsnippetlines(int maxsnippetlines);
+  void clear_maxsnippetlines();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

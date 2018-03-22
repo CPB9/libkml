@@ -26,6 +26,7 @@
 #ifndef KML_DOM_HOTSPOT_H__
 #define KML_DOM_HOTSPOT_H__
 
+#include "kml/config.h"
 #include "kml/dom/vec2.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -35,13 +36,11 @@ namespace kmldom {
 class Serializer;
 
 // <hotSpot>
-class HotSpot : public Vec2 {
+class KML_EXPORT HotSpot : public Vec2 {
  public:
   virtual ~HotSpot();
-  virtual KmlDomType Type() const { return Type_hotSpot; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_hotSpot || Vec2::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
  private:
   friend class KmlFactory;

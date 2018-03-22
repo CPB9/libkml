@@ -29,6 +29,7 @@
 #ifndef KML_ENGINE_KML_URI_H__
 #define KML_ENGINE_KML_URI_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlengine {
@@ -79,26 +80,26 @@ namespace kmlengine {
 // "http://host.com/dir/model.kmz".  Note that it is perfectly valid for a
 // relative reference with a KMZ to refer "up and out" of the KMZ to
 // either a file within another KMZ or a single file.
-bool ResolveUri(const string& base, const string& relative,
+KML_EXPORT bool ResolveUri(const string& base, const string& relative,
                 string* result);
 
 // Performs a syntax-based normalization of uri as per RFC 3986 6.2.2. False is
 // returned if result is NULL or upon any internal error.
-bool NormalizeUri(const string& uri, string* result);
+KML_EXPORT bool NormalizeUri(const string& uri, string* result);
 
 // Performs a syntax-based normalization of href as per RFC 3986 6.2.2. False
 // is returned if result is NULL or upon any internal error.
-bool NormalizeHref(const string& href, string* result);
+KML_EXPORT bool NormalizeHref(const string& href, string* result);
 
 // Converts a URI to its corresponding filename. The implementation
 // is platform-specific. Returns false if output is NULL or on any internal
 // error in converting the uri.
-bool UriToFilename(const string& uri, string* output);
+KML_EXPORT bool UriToFilename(const string& uri, string* output);
 
 // Converts a filename to its corresponding URI. The implementation is
 // platform-specific. Returns false if output is NULL or on any internal
 // error in converting the uri.
-bool FilenameToUri(const string& filename, string* output);
+KML_EXPORT bool FilenameToUri(const string& filename, string* output);
 
 // This function splits out the various components of a URI:
 // uri = scheme://host:port/path?query#fragment
@@ -106,29 +107,29 @@ bool FilenameToUri(const string& filename, string* output);
 // The return value reflects the validity of the uri.  Each desired output
 // string should be inspected using empty() to discover if the uri has
 // the particular component.
-bool SplitUri(const string& uri, string* scheme, string* host,
+KML_EXPORT bool SplitUri(const string& uri, string* scheme, string* host,
               string* port, string* path, string* query,
               string* fragment);
 
 // This function returns true if the given uri is valid and has a fragment.
 // If it has a fragment and a string pointer is supplied it is saved there
 // (without the #).
-bool SplitUriFragment(const string& uri, string* fragment);
+KML_EXPORT bool SplitUriFragment(const string& uri, string* fragment);
 
 // This function returns true if the given uri is valid and has a path.
 // If is has a path and the string pointer is supplied it is saved there.
-bool SplitUriPath(const string& uri, string* path);
+KML_EXPORT bool SplitUriPath(const string& uri, string* path);
 
 // This function returns true if the given uri is valid.  If the fetchable_uri
 // output string is supplied a uri w/o the fragment is stored there.
-bool GetFetchableUri(const string& uri, string* fetchable_uri);
+KML_EXPORT bool GetFetchableUri(const string& uri, string* fetchable_uri);
 
 // Given a url of the form scheme:authority/path/file.kmz/file/in/kmz this
 // function splits out the fetchable subfile in the KMZ archive, writing the
 // fetchable KMZ URL to kmz_url and the archived file to kmz_path. If the
 // fetchable URL does not end in .kmz it returns false. If there is no subfile
 // to split out, it sets kmz_path to an empty string.
-bool KmzSplit(const string& kml_url, string* kmz_url,
+KML_EXPORT bool KmzSplit(const string& kml_url, string* kmz_url,
               string* kmz_path);
 
 // Resolve the URL to the Model's targetHref.  The base is the URL
@@ -136,7 +137,7 @@ bool KmzSplit(const string& kml_url, string* kmz_url,
 // of the Model's Link/href.  The target_href is the value of one of the
 // Model's ResourceMap/Alias/targetHref's.  Note that the result URL may
 // be into a KMZ and hence might be used with KmzSplit.
-bool ResolveModelTargetHref(const string& base,
+KML_EXPORT bool ResolveModelTargetHref(const string& base,
                             const string& geometry_href,
                             const string& target,
                             string* result);

@@ -177,4 +177,10 @@ bool Regionator::RegionateAligned(RegionHandler& rhandler,
   return regionator->Regionate(output_directory);
 }
 
+
+void Regionator::SetRootFilename(const char* filename){ root_filename_ = filename; }
+
+void Regionator::SetNaturalRegion(const kmldom::RegionPtr& region){
+   natural_region_ = region;
+ }
 }  // end namespace kmlregionator

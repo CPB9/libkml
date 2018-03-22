@@ -50,9 +50,9 @@ namespace kmlregionator {
 //   regionator.Regionate(NULL);  // Or supply a specific output directory.
 //   // All "regionated" KML is now available wherever MyRegionHandler
 //   // saved each file passed in to SaveKml().
-class RegionHandler {
+class KML_EXPORT RegionHandler {
  public:
-  virtual ~RegionHandler() {};  // Silence compiler warning.
+  virtual ~RegionHandler();  // Silence compiler warning.
 
   // This method is the first one called for a given Region.  The implementation
   // of this method should return true if there is data in this Region and/or

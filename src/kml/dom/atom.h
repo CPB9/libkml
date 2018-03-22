@@ -29,50 +29,33 @@
 #ifndef KML_DOM_ATOM_H__
 #define KML_DOM_ATOM_H__
 
+#include "kml/config.h"
 #include "kml/dom/element.h"
 
 namespace kmldom {
 
 // <atom:author>, RFC 4287 4.2.1, and 3.2 (atomPersonConstruct)
-class AtomAuthor : public BasicElement<Type_AtomAuthor> {
+class KML_EXPORT AtomAuthor : public BasicElement<Type_AtomAuthor> {
  public:
   virtual ~AtomAuthor();
 
   // <atom:name>
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
   // <atom:uri>, RFC 3987
-  const string& get_uri() const { return uri_; }
-  bool has_uri() const { return has_uri_; }
-  void set_uri(const string& value) {
-    uri_ = value;
-    has_uri_ = true;
-  }
-  void clear_uri() {
-    uri_.clear();
-    has_uri_ = false;
-  }
+  const string& get_uri() const;
+  bool has_uri() const;
+  void set_uri(const string& value);
+  void clear_uri();
 
   // <atom:email>, RFC 2822
-  const string& get_email() const { return email_; }
-  bool has_email() const { return has_email_; }
-  void set_email(const string& value) {
-    email_ = value;
-    has_email_ = true;
-  }
-  void clear_email() {
-    email_.clear();
-    has_email_ = false;
-  }
+  const string& get_email() const;
+  bool has_email() const;
+  void set_email(const string& value);
+  void clear_email();
 
  private:
   bool has_name_;
@@ -91,61 +74,35 @@ class AtomAuthor : public BasicElement<Type_AtomAuthor> {
 };
 
 // Elements common to <atom:feed> and <atom:entry>.
-class AtomCommon : public Element {
+class KML_EXPORT AtomCommon : public Element {
  public:
   // <atom:id>
   const string& get_id() const { return id_; }
   bool has_id() const { return has_id_; }
-  void set_id(const string& value) {
-    id_ = value;
-    has_id_ = true;
-  }
-  void clear_id() {
-    id_.clear();
-    has_id_ = false;
-  }
+  void set_id(const string& value);
+  void clear_id();
 
   // <atom:title>
-  const string& get_title() const { return title_; }
-  bool has_title() const { return has_title_; }
-  void set_title(const string& value) {
-    title_ = value;
-    has_title_ = true;
-  }
-  void clear_title() {
-    title_.clear();
-    has_title_ = false;
-  }
+  const string& get_title() const;
+  bool has_title() const;
+  void set_title(const string& value);
+  void clear_title();
 
   // <atom:updated>
-  const string& get_updated() const { return updated_; }
-  bool has_updated() const { return has_updated_; }
-  void set_updated(const string& value) {
-    updated_ = value;
-    has_updated_ = true;
-  }
-  void clear_updated() {
-    updated_.clear();
-    has_updated_ = false;
-  }
+  const string& get_updated() const;
+  bool has_updated() const;
+  void set_updated(const string& value);
+  void clear_updated();
 
   // <atom:category>...
   void add_category(const AtomCategoryPtr& entry);
-  size_t get_category_array_size() const {
-    return category_array_.size();
-  }
-  const AtomCategoryPtr& get_category_array_at(size_t index) const {
-    return category_array_[index];
-  }
+  size_t get_category_array_size() const;
+  const AtomCategoryPtr& get_category_array_at(size_t index) const;
 
   // <atom:link>...
   void add_link(const AtomLinkPtr& entry);
-  size_t get_link_array_size() const {
-    return link_array_.size();
-  }
-  const AtomLinkPtr& get_link_array_at(size_t index) const {
-    return link_array_[index];
-  }
+  size_t get_link_array_size() const;
+  const AtomLinkPtr& get_link_array_at(size_t index) const;
 
  protected:
   AtomCommon();
@@ -169,45 +126,27 @@ class AtomCommon : public Element {
 
 // <atom:category scheme="..." term="..." label=..."/>, RFC 4287 4.2.2
 // NOTE: This element is not part of the OGC KML 2.2 standard.
-class AtomCategory : public BasicElement<Type_AtomCategory> {
+class KML_EXPORT AtomCategory : public BasicElement<Type_AtomCategory> {
  public:
   virtual ~AtomCategory();
 
   // term=
-  const string& get_term() const { return term_; }
-  bool has_term() const { return has_term_; }
-  void set_term(const string& value) {
-    term_ = value;
-    has_term_ = true;
-  }
-  void clear_term() {
-    term_.clear();
-    has_term_ = false;
-  }
+  const string& get_term() const;
+  bool has_term() const;
+  void set_term(const string& value);
+  void clear_term();
 
   // scheme=
-  const string& get_scheme() const { return scheme_; }
-  bool has_scheme() const { return has_scheme_; }
-  void set_scheme(const string& value) {
-    scheme_ = value;
-    has_scheme_ = true;
-  }
-  void clear_scheme() {
-    scheme_.clear();
-    has_scheme_ = false;
-  }
+  const string& get_scheme() const;
+  bool has_scheme() const;
+  void set_scheme(const string& value);
+  void clear_scheme();
 
   // label=
-  const string& get_label() const { return label_; }
-  bool has_label() const { return has_label_; }
-  void set_label(const string& value) {
-    label_ = value;
-    has_label_ = true;
-  }
-  void clear_label() {
-    label_.clear();
-    has_label_ = false;
-  }
+  const string& get_label() const;
+  bool has_label() const;
+  void set_label(const string& value);
+  void clear_label();
 
  private:
   friend class KmlFactory;
@@ -229,33 +168,21 @@ class AtomCategory : public BasicElement<Type_AtomCategory> {
 
 // <atom:content src="..."  type="...">, RFC 4287 4.1.3
 // NOTE: This element is not part of the OGC KML 2.2 standard.
-class AtomContent : public BasicElement<Type_AtomContent> {
+class KML_EXPORT AtomContent : public BasicElement<Type_AtomContent> {
  public:
   virtual ~AtomContent();
 
   // src=
-  const string& get_src() const { return src_; }
-  bool has_src() const { return has_src_; }
-  void set_src(const string& value) {
-    src_ = value;
-    has_src_ = true;
-  }
-  void clear_src() {
-    src_.clear();
-    has_src_ = false;
-  }
+  const string& get_src() const;
+  bool has_src() const;
+  void set_src(const string& value);
+  void clear_src();
 
   // type=
-  const string& get_type() const { return type_; }
-  bool has_type() const { return has_type_; }
-  void set_type(const string& value) {
-    type_ = value;
-    has_type_ = true;
-  }
-  void clear_type() {
-    type_.clear();
-    has_type_ = false;
-  }
+  const string& get_type() const;
+  bool has_type() const;
+  void set_type(const string& value);
+  void clear_type();
 
  private:
   friend class KmlFactory;
@@ -274,39 +201,25 @@ class AtomContent : public BasicElement<Type_AtomContent> {
 
 // <atom:entry>, RFC 4287 4.1.2
 // NOTE: This element is not part of the OGC KML 2.2 standard.
-class AtomEntry : public AtomCommon {
+class KML_EXPORT AtomEntry : public AtomCommon {
  public:
   virtual ~AtomEntry();
-  virtual KmlDomType Type() const { return Type_AtomEntry; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_AtomEntry;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
   // This static method makes the class useable with ElementCast.
-  static KmlDomType ElementType() {
-    return static_cast<KmlDomType>(Type_AtomEntry);
-  }
+  static KmlDomType ElementType();
 
   // <atom:summary>
-  const string& get_summary() const { return summary_; }
-  bool has_summary() const { return has_summary_; }
-  void set_summary(const string& value) {
-    summary_ = value;
-    has_summary_ = true;
-  }
-  void clear_summary() {
-    summary_.clear();
-    has_summary_ = false;
-  }
+  const string& get_summary() const;
+  bool has_summary() const;
+  void set_summary(const string& value);
+  void clear_summary();
 
   // <atom:content>
-  const AtomContentPtr& get_content() const { return content_; }
-  bool has_content() const { return content_ != nullptr; }
-  void set_content(const AtomContentPtr& content) {
-    SetComplexChild(content, &content_);
-  }
-  void clear_content() {
-    set_content(NULL);
-  }
+  const AtomContentPtr& get_content() const;
+  bool has_content() const;
+  void set_content(const AtomContentPtr& content);
+  void clear_content();
 
  private:
   friend class KmlFactory;
@@ -323,26 +236,18 @@ class AtomEntry : public AtomCommon {
 
 // <atom:feed>, RFC 4287 4.1.1
 // NOTE: This element is not part of the OGC KML 2.2 standard.
-class AtomFeed : public AtomCommon {
+class KML_EXPORT AtomFeed : public AtomCommon {
  public:
   virtual ~AtomFeed();
-  virtual KmlDomType Type() const { return Type_AtomFeed; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_AtomFeed;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
   // This static method makes the class useable with ElementCast.
-  static KmlDomType ElementType() {
-    return static_cast<KmlDomType>(Type_AtomFeed);
-  }
+  static KmlDomType ElementType();
 
   // <atom:entry>...
   void add_entry(const AtomEntryPtr& entry);
-  size_t get_entry_array_size() const {
-    return entry_array_.size();
-  }
-  const AtomEntryPtr& get_entry_array_at(size_t index) const {
-    return entry_array_[index];
-  }
+  size_t get_entry_array_size() const;
+  const AtomEntryPtr& get_entry_array_at(size_t index) const;
 
  private:
   friend class KmlFactory;
@@ -356,81 +261,45 @@ class AtomFeed : public AtomCommon {
 };
 
 // <atom:link>, RFC 4287 4.2.7
-class AtomLink : public BasicElement<Type_AtomLink> {
+class KML_EXPORT AtomLink : public BasicElement<Type_AtomLink> {
  public:
   virtual ~AtomLink();
 
   // href=, RFC 4287 4.2.7.1, RFC 3987
-  const string& get_href() const { return href_; }
-  bool has_href() const { return has_href_; }
-  void set_href(const string& value) {
-    href_ = value;
-    has_href_ = true;
-  }
-  void clear_href() {
-    href_.clear();
-    has_href_ = false;
-  }
+  const string& get_href() const;
+  bool has_href() const;
+  void set_href(const string& value);
+  void clear_href();
 
   // rel=, RFC 4287 4.2.7.2, RFC 3987
-  const string& get_rel() const { return rel_; }
-  bool has_rel() const { return has_rel_; }
-  void set_rel(const string& value) {
-    rel_ = value;
-    has_rel_ = true;
-  }
-  void clear_rel() {
-    rel_.clear();
-    has_rel_ = false;
-  }
+  const string& get_rel() const;
+  bool has_rel() const;
+  void set_rel(const string& value);
+  void clear_rel();
 
   // type=, RFC 4287 4.2.7.3, MIME
-  const string& get_type() const { return type_; }
-  bool has_type() const { return has_type_; }
-  void set_type(const string& value) {
-    type_ = value;
-    has_type_ = true;
-  }
-  void clear_type() {
-    type_.clear();
-    has_type_ = false;
-  }
+  const string& get_type() const;
+  bool has_type() const;
+  void set_type(const string& value);
+  void clear_type();
 
   // hreflang=, RFC 4287 4.2.7.4, RFC 3066
-  const string& get_hreflang() const { return hreflang_; }
-  bool has_hreflang() const { return has_hreflang_; }
-  void set_hreflang(const string& value) {
-    hreflang_ = value;
-    has_hreflang_ = true;
-  }
-  void clear_hreflang() {
-    hreflang_.clear();
-    has_hreflang_ = false;
-  }
+  const string& get_hreflang() const;
+  bool has_hreflang() const;
+  void set_hreflang(const string& value);
+  void clear_hreflang();
 
   // title=, RFC 4287 4.2.7.5
-  const string& get_title() const { return title_; }
-  bool has_title() const { return has_title_; }
-  void set_title(const string& value) {
-    title_ = value;
-    has_title_ = true;
-  }
-  void clear_title() {
-    title_.clear();
-    has_title_ = false;
-  }
+  const string& get_title() const;
+  bool has_title() const;
+  void set_title(const string& value);
+  void clear_title();
 
   // length=, RFC 4287 4.2.7.6
-  int get_length() const { return length_; }
-  bool has_length() const { return has_length_; }
-  void set_length(const int value) {
-    length_ = value;
-    has_length_ = true;
-  }
-  void clear_length() {
-    length_ = 0;
-    has_length_ = false;
-  }
+  int get_length() const;
+  bool has_length() const;
+  void set_length(const int value);
+  void clear_length();
 
  private:
   bool has_href_;

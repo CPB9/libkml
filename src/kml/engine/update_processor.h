@@ -30,6 +30,7 @@
 #ifndef KML_ENGINE_UPDATE_PROCESSOR_H__
 #define KML_ENGINE_UPDATE_PROCESSOR_H__
 
+#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/dom/kml_ptr.h"
 
@@ -37,16 +38,13 @@ namespace kmlengine {
 
 class KmlFile;
 
-class UpdateProcessor {
+class KML_EXPORT UpdateProcessor {
  public:
   // Create an UpdateProcessor for a given KmlFile.  If an id_map is supplied
   // then all targetId='s in all Update operations are looked up there to find
   // the id=' used in the KmlFile.  The id='s found inside the KmlFile are never
   // changed by this class.
-  UpdateProcessor(const KmlFile& kml_file, const kmlbase::StringMap* id_map)
-    : kml_file_(kml_file),
-      id_map_(id_map) {
-  }
+  UpdateProcessor(const KmlFile& kml_file, const kmlbase::StringMap* id_map);
 
   // Process the given <Update> against the KmlFile associated with this
   // UpdateProcessor.  The <targetHref> is NOT examined.

@@ -29,6 +29,7 @@
 #define KML_DOM_PARSER_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom/kml_ptr.h"
 #include "kml/dom/parser_observer.h"
 #include "kml/base/util.h"
@@ -50,9 +51,9 @@ namespace kmldom {
 //   ...
 //   string errors;
 //   ElementPtr root = parser.Parse(kml, &errors);
-class Parser {
+class KML_EXPORT Parser {
  public:
-  Parser() {}
+  Parser();
   // This method calls the parser with the given KML string.  If there are
   // any errors NULL is returned and if error's is non-NULL a human readable
   // diagnostic is stored there.  If there are no parse errors the root

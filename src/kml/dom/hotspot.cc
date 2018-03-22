@@ -31,4 +31,10 @@ HotSpot::HotSpot() {}
 
 HotSpot::~HotSpot() {}
 
+
+kmldom::KmlDomType HotSpot::Type() const{ return Type_hotSpot; }
+
+bool HotSpot::IsA(kmldom::KmlDomType type) const{
+   return type == Type_hotSpot || Vec2::IsA(type);
+ }
 }  // end namespace kmldom

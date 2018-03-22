@@ -27,6 +27,7 @@
 #define KML_DOM_SCHEMA_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/object.h"
 #include "kml/dom/kml22.h"
@@ -42,42 +43,24 @@ class Visitor;
 class VisitorDriver;
 
 // <SimpleField>
-class SimpleField : public BasicElement<Type_SimpleField> {
+class KML_EXPORT SimpleField : public BasicElement<Type_SimpleField> {
  public:
   virtual ~SimpleField();
 
-  const string& get_type() const { return type_; }
-  bool has_type() const { return has_type_; }
-  void set_type(const string& value) {
-    type_ = value;
-    has_type_ = true;
-  }
-  void clear_type() {
-    type_.clear();
-    has_type_ = false;
-  }
+  const string& get_type() const;
+  bool has_type() const;
+  void set_type(const string& value);
+  void clear_type();
 
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
-  const string& get_displayname() const { return displayname_; }
-  bool has_displayname() const { return has_displayname_; }
-  void set_displayname(const string& value) {
-    displayname_ = value;
-    has_displayname_ = true;
-  }
-  void clear_displayname() {
-    displayname_.clear();
-    has_displayname_ = false;
-  }
+  const string& get_displayname() const;
+  bool has_displayname() const;
+  void set_displayname(const string& value);
+  void clear_displayname();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -103,13 +86,11 @@ class SimpleField : public BasicElement<Type_SimpleField> {
 };
 
 // <gx:SimpleArrayField>
-class GxSimpleArrayField : public SimpleField {
+class KML_EXPORT GxSimpleArrayField : public SimpleField {
  public:
   virtual ~GxSimpleArrayField();
-  virtual KmlDomType Type() const { return Type_GxSimpleArrayField; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_GxSimpleArrayField || SimpleField::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -124,50 +105,30 @@ class GxSimpleArrayField : public SimpleField {
 // <Schema>
 // Note: in the XSD Schema is not an Object. We inherit from Object here
 // so it appears in the parsed object map and is easily accessible.
-class Schema : public Object {
+class KML_EXPORT Schema : public Object {
  public:
   virtual ~Schema();
-  virtual KmlDomType Type() const { return Type_Schema; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Schema || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
-  void add_simplefield(const SimpleFieldPtr& simplefield) {
-    AddComplexChild(simplefield, &simplefield_array_);
-  }
+  void add_simplefield(const SimpleFieldPtr& simplefield);
 
-  size_t get_simplefield_array_size() const {
-    return simplefield_array_.size();
-  }
+  size_t get_simplefield_array_size() const;
 
-  const SimpleFieldPtr& get_simplefield_array_at(size_t index) const {
-    return simplefield_array_[index];
-  }
+  const SimpleFieldPtr& get_simplefield_array_at(size_t index) const;
 
   void add_gx_simplearrayfield(
-      const GxSimpleArrayFieldPtr& gx_simplearrayfield) {
-    AddComplexChild(gx_simplearrayfield, &gx_simplearrayfield_array_);
-  }
+      const GxSimpleArrayFieldPtr& gx_simplearrayfield);
 
-  size_t get_gx_simplearrayfield_array_size() const {
-    return gx_simplearrayfield_array_.size();
-  }
+  size_t get_gx_simplearrayfield_array_size() const;
 
   const GxSimpleArrayFieldPtr& get_gx_simplearrayfield_array_at(
-      size_t index) const {
-    return gx_simplearrayfield_array_[index];
-  }
+      size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

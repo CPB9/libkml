@@ -26,6 +26,7 @@
 #ifndef KML_DOM_SNIPPET_H__
 #define KML_DOM_SNIPPET_H__
 
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -43,34 +44,20 @@ class Visitor;
 class SnippetCommon : public Element {
  public:
   virtual ~SnippetCommon();
-  virtual KmlDomType Type() const { return Type_Snippet; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Snippet;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // This is the character data content of <Snippet>
-  const string& get_text() const { return text_; }
-  bool has_text() const { return has_text_; }
-  void set_text(const string& value) {
-    text_ = value;
-    has_text_ = true;
-  }
-  void clear_text() {
-    text_.clear();
-    has_text_ = false;
-  }
+  const string& get_text() const;
+  bool has_text() const;
+  void set_text(const string& value);
+  void clear_text();
 
   // maxlines=
-  int get_maxlines() const { return maxlines_; }
-  bool has_maxlines() const { return has_maxlines_; }
-  void set_maxlines(int value) {
-    maxlines_ = value;
-    has_maxlines_ = true;
-  }
-  void clear_maxlines() {
-    maxlines_ = 2;
-    has_maxlines_ = false;
-  }
+  int get_maxlines() const;
+  bool has_maxlines() const;
+  void set_maxlines(int value);
+  void clear_maxlines();
 
  protected:
   SnippetCommon();
@@ -88,13 +75,11 @@ class SnippetCommon : public Element {
 };
 
 // <Snippet>
-class Snippet : public SnippetCommon {
+class KML_EXPORT Snippet : public SnippetCommon {
  public:
   virtual ~Snippet();
-  virtual KmlDomType Type() const { return Type_Snippet; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Snippet;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -106,13 +91,11 @@ class Snippet : public SnippetCommon {
 };
 
 // <linkSnippet>
-class LinkSnippet : public SnippetCommon {
+class KML_EXPORT LinkSnippet : public SnippetCommon {
  public:
   virtual ~LinkSnippet();
-  virtual KmlDomType Type() const { return Type_linkSnippet; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_linkSnippet;
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

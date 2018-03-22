@@ -30,6 +30,7 @@
 #define KML_DOM_KML_FUNCS_H__
 
 #include <ostream>
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml_ptr.h"
 
@@ -38,41 +39,41 @@ namespace kmldom {
 // Parse the KML in the given memory buffer.  On success this returns an
 // Element* to the root of the KML.  On failure 0 is returned and a human
 // readable error string is stored to errors if such is supplied.
-ElementPtr Parse(const string& xml, string* errors);
+KML_EXPORT ElementPtr Parse(const string& xml, string* errors);
 
 // As Parse(), but invokes the underlying XML parser's namespace-aware mode.
-ElementPtr ParseNS(const string& xml, string* errors);
+KML_EXPORT ElementPtr ParseNS(const string& xml, string* errors);
 
 // As Parse(), but invokes the underlying XML parser's namespace-aware mode
 // such that both prefixed and non-prefixed Atom is recognized as the root.
 // Use this to parse "<feed xmlns='http://www.w3.org/2005/Atom'>...", or
 // "<atom:feed xmlns:atom='http://www.w3.org/2005/Atom'>...".  The Atom
 // namespace MUST be supplied.
-ElementPtr ParseAtom(const string& atom, string* errors);
+KML_EXPORT ElementPtr ParseAtom(const string& atom, string* errors);
 
 // This is a simplified interface for the benefit of SWIG.
-ElementPtr ParseKml(const string& xml);
+KML_EXPORT ElementPtr ParseKml(const string& xml);
 
 // This function is the public API for generating "pretty" XML for the KML
 // hierarchy rooted at the given Element.  "pretty" is 2 space indent for
 // each level of XML depth.
-string SerializePretty(const ElementPtr& root);
+KML_EXPORT string SerializePretty(const ElementPtr& root);
 
 // This function is the public API for generating "raw" XML for the KML
 // hierarchy rooted at the given Element.  "raw" is no indentation white space
 // and no newlines.
-string SerializeRaw(const ElementPtr& root);
+KML_EXPORT string SerializeRaw(const ElementPtr& root);
 
 // This function is the public API for emitting the XML of an element
 // hierarchy.  The comments for SerializePretty() vs SerializeRaw() describe
 // the behavior of the "pretty" flag.  If root or xml are null this method
 // does nothing and immediately returns.
-void SerializeToOstream(const ElementPtr& root, bool pretty, std::ostream* xml);
+KML_EXPORT void SerializeToOstream(const ElementPtr& root, bool pretty, std::ostream* xml);
 
 // This function is the public API for returning the element's tag name, for
 // example "Placemark" for <Placemark> and "NetworkLink" for <NetworkLink>.
 // If element is NULL or otherwise invalid an empty string is returned.
-string GetElementName(const ElementPtr& element);
+KML_EXPORT string GetElementName(const ElementPtr& element);
 
 }  // end namespace kmldom
 

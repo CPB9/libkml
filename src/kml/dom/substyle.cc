@@ -39,4 +39,10 @@ void SubStyle::Serialize(Serializer& serializer) const {
   Object::Serialize(serializer);
 }
 
+
+kmldom::KmlDomType SubStyle::Type() const{ return Type_SubStyle; }
+
+bool SubStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_SubStyle || Object::IsA(type);
+ }
 }  // end namespace kmldom

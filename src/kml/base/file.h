@@ -26,11 +26,12 @@
 #ifndef KML_BASE_FILE_H__
 #define KML_BASE_FILE_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
 
-class File {
+class KML_EXPORT File {
  public:
 
   // Reads a file into a string. Returns false if given a bad file descriptor

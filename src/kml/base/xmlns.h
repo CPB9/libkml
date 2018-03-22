@@ -31,6 +31,7 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/attributes.h"
 
 namespace kmlbase {
@@ -52,69 +53,36 @@ namespace kmlbase {
 //          xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
 // If there are no "xmlns*" attribute names in the passed attributes Create()
 // returns NULL.
-class Xmlns {
+class KML_EXPORT Xmlns {
  public:
   // The caller owns the created Xmlns object.
-  static Xmlns* Create(const kmlbase::Attributes& attributes) {
-    Xmlns* xmlns = new Xmlns;
-    if (xmlns->Parse(attributes)) {
-      return xmlns;
-    }
-    delete xmlns;
-    return nullptr;
-  }
+  static Xmlns* Create(const kmlbase::Attributes& attributes);
 
   // This returns the URI of the default namespace.  The returned string is
   // empty if there is no default namespace.  A default namespace is the value
   // of an "xmlns" attribute (one with no : and prefix), for example the above
   // sample has this default namespace URI: "http://www.w3.org/2001/XMLSchema".
-  const string& get_default() const {
-    return default_;
-  }
+  const string& get_default() const;
 
   // This returns the URI of the namespace for the given prefix.  The returned
   // string is empty if no such prefix-namespace mapping exists.  In the sample
   // above a prefix of "kml" returns "http://www.opengis.net/kml/2.2".
-  const string GetNamespace(const string& prefix) const {
-    string name_space;
-    if (prefix_map_.get()) {
-      prefix_map_->GetValue(prefix, &name_space);
-    }
-    return name_space;
-  }
+  const string GetNamespace(const string& prefix) const;
 
   // This returns the prefix for the given namespace.  The returned string is
   // empty if no such namespace has a prefix.  In the sample above a namespace
   // of "http://www.opengis.net/kml/2.2" returns "kml".
-  const string GetKey(const string& value) const {
-    string key;
-    if (prefix_map_.get()) {
-      prefix_map_->FindKey(value, &key);
-    }
-    return key;
-  }
+  const string GetKey(const string& value) const;
 
   // This returns a list of all xmlns prefix names.  For example, from the
   // sample above this returns "kml", "atom", "xal".  Order from the original
   // XML is not preserved (XML attributes in general have no order semantics
   // and must each be unique).
-  void GetPrefixes(std::vector<string>* prefix_vector) const {
-    if (prefix_map_.get()) {
-      prefix_map_->GetAttrNames(prefix_vector);
-    }
-  }
+  void GetPrefixes(std::vector<string>* prefix_vector) const;
 
  private:
-  Xmlns() {}
-  bool Parse(const kmlbase::Attributes& attributes) {
-    // Create a copy so that we can use non-const SplitByPrefix.
-    std::unique_ptr<Attributes> clone(attributes.Clone());
-    prefix_map_.reset(clone->SplitByPrefix("xmlns"));
-    attributes.GetValue("xmlns", &default_);
-    // Return true if there is a default xmlns or if there are any
-    // xmlns:prefx="ns" pairs.
-    return !default_.empty() || prefix_map_.get();
-  }
+  Xmlns();
+  bool Parse(const kmlbase::Attributes& attributes);
   string default_;
   std::unique_ptr<Attributes> prefix_map_;
 };

@@ -28,6 +28,7 @@
 
 #include <exception>  // Needed by boost::instrusive_ptr.
 
+#include "kml/config.h"
 #include "kml/base/xml_element.h"
 #include "kml/dom/kmldom.h"
 #include "kml/dom/kml_ptr.h"
@@ -51,100 +52,100 @@ inline const ElementPtr AsElement(const kmlbase::XmlElementPtr& xml_element) {
 }
 
 // Abstract element groups.
-const AbstractLatLonBoxPtr AsAbstractLatLonBox(const ElementPtr element);
-const AbstractViewPtr AsAbstractView(const ElementPtr element);
-const ColorStylePtr AsColorStyle(const ElementPtr element);
-const ContainerPtr AsContainer(const ElementPtr element);
-const FeaturePtr AsFeature(const ElementPtr element);
-const GeometryPtr AsGeometry(const ElementPtr element);
-const ObjectPtr AsObject(const ElementPtr element);
-const OverlayPtr AsOverlay(const ElementPtr element);
-const StyleSelectorPtr AsStyleSelector(const ElementPtr element);
-const SubStylePtr AsSubStyle(const ElementPtr element);
-const TimePrimitivePtr AsTimePrimitive(const ElementPtr element);
+KML_EXPORT const AbstractLatLonBoxPtr AsAbstractLatLonBox(const ElementPtr element);
+KML_EXPORT const AbstractViewPtr AsAbstractView(const ElementPtr element);
+KML_EXPORT const ColorStylePtr AsColorStyle(const ElementPtr element);
+KML_EXPORT const ContainerPtr AsContainer(const ElementPtr element);
+KML_EXPORT const FeaturePtr AsFeature(const ElementPtr element);
+KML_EXPORT const GeometryPtr AsGeometry(const ElementPtr element);
+KML_EXPORT const ObjectPtr AsObject(const ElementPtr element);
+KML_EXPORT const OverlayPtr AsOverlay(const ElementPtr element);
+KML_EXPORT const StyleSelectorPtr AsStyleSelector(const ElementPtr element);
+KML_EXPORT const SubStylePtr AsSubStyle(const ElementPtr element);
+KML_EXPORT const TimePrimitivePtr AsTimePrimitive(const ElementPtr element);
 
 // Concrete elements.
-const AliasPtr AsAlias(const ElementPtr element);
-const BalloonStylePtr AsBalloonStyle(const ElementPtr element);
-const CameraPtr AsCamera(const ElementPtr element);
-const ChangePtr AsChange(const ElementPtr element);
+KML_EXPORT const AliasPtr AsAlias(const ElementPtr element);
+KML_EXPORT const BalloonStylePtr AsBalloonStyle(const ElementPtr element);
+KML_EXPORT const CameraPtr AsCamera(const ElementPtr element);
+KML_EXPORT const ChangePtr AsChange(const ElementPtr element);
 inline const CoordinatesPtr AsCoordinates(const ElementPtr& element) {
   return ElementCast<Coordinates>(element);
 }
-const CreatePtr AsCreate(const ElementPtr element);
-const DataPtr AsData(const ElementPtr element);
-const DeletePtr AsDelete(const ElementPtr element);
-const DocumentPtr AsDocument(const ElementPtr element);
+KML_EXPORT const CreatePtr AsCreate(const ElementPtr element);
+KML_EXPORT const DataPtr AsData(const ElementPtr element);
+KML_EXPORT const DeletePtr AsDelete(const ElementPtr element);
+KML_EXPORT const DocumentPtr AsDocument(const ElementPtr element);
 inline const ExtendedDataPtr AsExtendedData(const ElementPtr& element) {
   return ElementCast<ExtendedData>(element);
 }
-const FolderPtr AsFolder(const ElementPtr element);
-const GroundOverlayPtr AsGroundOverlay(const ElementPtr element);
-const HotSpotPtr AsHotSpot(const ElementPtr element);
-const IconPtr AsIcon(const ElementPtr element);
-const IconStylePtr AsIconStyle(const ElementPtr element);
-const IconStyleIconPtr AsIconStyleIcon(const ElementPtr element);
-const ImagePyramidPtr AsImagePyramid(const ElementPtr element);
-const InnerBoundaryIsPtr AsInnerBoundaryIs(const ElementPtr element);
-const ItemIconPtr AsItemIcon(const ElementPtr element);
+KML_EXPORT const FolderPtr AsFolder(const ElementPtr element);
+KML_EXPORT const GroundOverlayPtr AsGroundOverlay(const ElementPtr element);
+KML_EXPORT const HotSpotPtr AsHotSpot(const ElementPtr element);
+KML_EXPORT const IconPtr AsIcon(const ElementPtr element);
+KML_EXPORT const IconStylePtr AsIconStyle(const ElementPtr element);
+KML_EXPORT const IconStyleIconPtr AsIconStyleIcon(const ElementPtr element);
+KML_EXPORT const ImagePyramidPtr AsImagePyramid(const ElementPtr element);
+KML_EXPORT const InnerBoundaryIsPtr AsInnerBoundaryIs(const ElementPtr element);
+KML_EXPORT const ItemIconPtr AsItemIcon(const ElementPtr element);
 inline const KmlPtr AsKml(const ElementPtr& element) {
   return ElementCast<Kml>(element);
 }
-const LabelStylePtr AsLabelStyle(const ElementPtr element);
-const LatLonAltBoxPtr AsLatLonAltBox(const ElementPtr element);
-const LatLonBoxPtr AsLatLonBox(const ElementPtr element);
-const LineStringPtr AsLineString(const ElementPtr element);
-const LineStylePtr AsLineStyle(const ElementPtr element);
-const LinearRingPtr AsLinearRing(const ElementPtr element);
-const LinkPtr AsLink(const ElementPtr element);
-const LinkSnippetPtr AsLinkSnippet(const ElementPtr element);
-const ListStylePtr AsListStyle(const ElementPtr element);
-const LocationPtr AsLocation(const ElementPtr element);
-const LodPtr AsLod(const ElementPtr element);
-const LookAtPtr AsLookAt(const ElementPtr element);
+KML_EXPORT const LabelStylePtr AsLabelStyle(const ElementPtr element);
+KML_EXPORT const LatLonAltBoxPtr AsLatLonAltBox(const ElementPtr element);
+KML_EXPORT const LatLonBoxPtr AsLatLonBox(const ElementPtr element);
+KML_EXPORT const LineStringPtr AsLineString(const ElementPtr element);
+KML_EXPORT const LineStylePtr AsLineStyle(const ElementPtr element);
+KML_EXPORT const LinearRingPtr AsLinearRing(const ElementPtr element);
+KML_EXPORT const LinkPtr AsLink(const ElementPtr element);
+KML_EXPORT const LinkSnippetPtr AsLinkSnippet(const ElementPtr element);
+KML_EXPORT const ListStylePtr AsListStyle(const ElementPtr element);
+KML_EXPORT const LocationPtr AsLocation(const ElementPtr element);
+KML_EXPORT const LodPtr AsLod(const ElementPtr element);
+KML_EXPORT const LookAtPtr AsLookAt(const ElementPtr element);
 inline const MetadataPtr AsMetadata(const ElementPtr& element) {
   return ElementCast<Metadata>(element);
 }
-const ModelPtr AsModel(const ElementPtr element);
-const MultiGeometryPtr AsMultiGeometry(const ElementPtr element);
-const NetworkLinkPtr AsNetworkLink(const ElementPtr element);
+KML_EXPORT const ModelPtr AsModel(const ElementPtr element);
+KML_EXPORT const MultiGeometryPtr AsMultiGeometry(const ElementPtr element);
+KML_EXPORT const NetworkLinkPtr AsNetworkLink(const ElementPtr element);
 inline const NetworkLinkControlPtr AsNetworkLinkControl(
     const ElementPtr& element) {
   return ElementCast<NetworkLinkControl>(element);
 }
-const OrientationPtr AsOrientation(const ElementPtr element);
-const OuterBoundaryIsPtr AsOuterBoundaryIs(const ElementPtr element);
-const OverlayXYPtr AsOverlayXY(const ElementPtr element);
-const PairPtr AsPair(const ElementPtr element);
-const PhotoOverlayPtr AsPhotoOverlay(const ElementPtr element);
-const PlacemarkPtr AsPlacemark(const ElementPtr element);
-const PointPtr AsPoint(const ElementPtr element);
-const PolyStylePtr AsPolyStyle(const ElementPtr element);
-const PolygonPtr AsPolygon(const ElementPtr element);
-const RegionPtr AsRegion(const ElementPtr element);
-const ResourceMapPtr AsResourceMap(const ElementPtr element);
-const RotationXYPtr AsRotationXY(const ElementPtr element);
-const ScalePtr AsScale(const ElementPtr element);
-const SchemaPtr AsSchema(const ElementPtr element);
-const SchemaDataPtr AsSchemaData(const ElementPtr element);
-const ScreenOverlayPtr AsScreenOverlay(const ElementPtr element);
-const ScreenXYPtr AsScreenXY(const ElementPtr element);
+KML_EXPORT const OrientationPtr AsOrientation(const ElementPtr element);
+KML_EXPORT const OuterBoundaryIsPtr AsOuterBoundaryIs(const ElementPtr element);
+KML_EXPORT const OverlayXYPtr AsOverlayXY(const ElementPtr element);
+KML_EXPORT const PairPtr AsPair(const ElementPtr element);
+KML_EXPORT const PhotoOverlayPtr AsPhotoOverlay(const ElementPtr element);
+KML_EXPORT const PlacemarkPtr AsPlacemark(const ElementPtr element);
+KML_EXPORT const PointPtr AsPoint(const ElementPtr element);
+KML_EXPORT const PolyStylePtr AsPolyStyle(const ElementPtr element);
+KML_EXPORT const PolygonPtr AsPolygon(const ElementPtr element);
+KML_EXPORT const RegionPtr AsRegion(const ElementPtr element);
+KML_EXPORT const ResourceMapPtr AsResourceMap(const ElementPtr element);
+KML_EXPORT const RotationXYPtr AsRotationXY(const ElementPtr element);
+KML_EXPORT const ScalePtr AsScale(const ElementPtr element);
+KML_EXPORT const SchemaPtr AsSchema(const ElementPtr element);
+KML_EXPORT const SchemaDataPtr AsSchemaData(const ElementPtr element);
+KML_EXPORT const ScreenOverlayPtr AsScreenOverlay(const ElementPtr element);
+KML_EXPORT const ScreenXYPtr AsScreenXY(const ElementPtr element);
 inline const SimpleDataPtr AsSimpleData(const ElementPtr& element) {
   return ElementCast<SimpleData>(element);
 }
 inline const SimpleFieldPtr AsSimpleField(const ElementPtr& element) {
   return ElementCast<SimpleField>(element);
 }
-const SizePtr AsSize(const ElementPtr element);
-const SnippetPtr AsSnippet(const ElementPtr element);
-const StylePtr AsStyle(const ElementPtr element);
-const StyleMapPtr AsStyleMap(const ElementPtr element);
-const TimeSpanPtr AsTimeSpan(const ElementPtr element);
-const TimeStampPtr AsTimeStamp(const ElementPtr element);
+KML_EXPORT const SizePtr AsSize(const ElementPtr element);
+KML_EXPORT const SnippetPtr AsSnippet(const ElementPtr element);
+KML_EXPORT const StylePtr AsStyle(const ElementPtr element);
+KML_EXPORT const StyleMapPtr AsStyleMap(const ElementPtr element);
+KML_EXPORT const TimeSpanPtr AsTimeSpan(const ElementPtr element);
+KML_EXPORT const TimeStampPtr AsTimeStamp(const ElementPtr element);
 inline const UpdatePtr AsUpdate(const ElementPtr& element) {
   return ElementCast<Update>(element);
 }
-const ViewVolumePtr AsViewVolume(const ElementPtr element);
+KML_EXPORT const ViewVolumePtr AsViewVolume(const ElementPtr element);
 
 // Atom
 inline const AtomAuthorPtr AsAtomAuthor(const ElementPtr& element) {

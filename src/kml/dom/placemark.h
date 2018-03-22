@@ -37,22 +37,16 @@ namespace kmldom {
 class Visitor;
 class VisitorDriver;
 
-class Placemark : public Feature {
+class KML_EXPORT Placemark : public Feature {
  public:
   virtual ~Placemark();
-  virtual KmlDomType Type() const { return Type_Placemark; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Placemark || Feature::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
-  const GeometryPtr& get_geometry() const { return geometry_; }
-  bool has_geometry() const { return geometry_ != nullptr; }
-  void set_geometry(const GeometryPtr& geometry) {
-    SetComplexChild(geometry, &geometry_);
-  }
-  void clear_geometry() {
-    set_geometry(NULL);
-  }
+  const GeometryPtr& get_geometry() const;
+  bool has_geometry() const;
+  void set_geometry(const GeometryPtr& geometry);
+  void clear_geometry();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

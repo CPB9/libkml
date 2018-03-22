@@ -27,6 +27,7 @@
 #define KML_DOM_DOCUMENT_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom/container.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
@@ -38,47 +39,29 @@ namespace kmldom {
 class Visitor;
 class VisitorDriver;
 
-class Document : public Container {
+class KML_EXPORT Document : public Container {
  public:
   virtual ~Document();
-  virtual KmlDomType Type() const { return Type_Document; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Document || Container::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <Schema>
-  void add_schema(const SchemaPtr& schema) {
-    AddComplexChild(schema, &schema_array_);
-  }
+  void add_schema(const SchemaPtr& schema);
 
-  size_t get_schema_array_size() const {
-    return schema_array_.size();
-  }
+  size_t get_schema_array_size() const;
 
-  const SchemaPtr& get_schema_array_at(size_t index) const {
-    return schema_array_[index];
-  }
+  const SchemaPtr& get_schema_array_at(size_t index) const;
 
-  SchemaPtr DeleteSchemaAt(size_t index) {
-    return Element::DeleteFromArrayAt(&schema_array_, index);
-  }
+  SchemaPtr DeleteSchemaAt(size_t index);
 
   // <Style> and <StyleMap>
-  void add_styleselector(const StyleSelectorPtr& styleselector) {
-    AddComplexChild(styleselector, &styleselector_array_);
-  }
+  void add_styleselector(const StyleSelectorPtr& styleselector);
 
-  size_t get_styleselector_array_size() const {
-    return styleselector_array_.size();
-  }
+  size_t get_styleselector_array_size() const;
 
-  const StyleSelectorPtr& get_styleselector_array_at(size_t index) const {
-    return styleselector_array_[index];
-  }
+  const StyleSelectorPtr& get_styleselector_array_at(size_t index) const;
 
-  StyleSelectorPtr DeleteStyleSelectorAt(size_t index) {
-    return Element::DeleteFromArrayAt(&styleselector_array_, index);
-  }
+  StyleSelectorPtr DeleteStyleSelectorAt(size_t index);
 
   // Note: If Document contains a StyleSelector, it is appended to Document's
   // array of StyleSelectors and is NOT handed up to Feature. The current

@@ -31,6 +31,7 @@
 #include <map>
 #include <sstream>
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -41,7 +42,7 @@ typedef std::vector<string> StringVector;
 typedef std::vector< std::pair<string, string> > StringPairVector;
 
 // Binary-to-ASCII hex conversion.
-void b2a_hex(uint32_t i, char* out);
+void KML_EXPORT b2a_hex(uint32_t i, char* out);
 
 // This permits a class containing a StringMap to export a way to iterate the
 // internal container without exposing it directly.  In the future the STL
@@ -78,7 +79,7 @@ class StringMapIterator {
 // start: "$["
 // end: "]"
 // replaced string: "this is your cooler string"
-string CreateExpandedStrings(const string& in,
+KML_EXPORT string CreateExpandedStrings(const string& in,
                              const StringMap& string_map,
                              const string& start,
                              const string& end);
@@ -98,7 +99,7 @@ inline string ToString(T value) {
 
 // Split the input string on the split_string saving each string into the
 // output vector.
-void SplitStringUsing(const string& input, const string& split_string,
+KML_EXPORT void SplitStringUsing(const string& input, const string& split_string,
                       std::vector<string>* output);
 
 // This processes the given "-escaped string as specified here:
@@ -107,33 +108,33 @@ void SplitStringUsing(const string& input, const string& split_string,
 // ["The ""big"" cheese."] -> [The "big" cheese.]
 // ["First point"] -> [First point]
 // ["White Bear Lake, MN, USA"] -> [White Bear Lake, MN, USA]
-void SplitQuotedUsing(const char* begin, size_t nbytes,const char split_char,
+KML_EXPORT void SplitQuotedUsing(const char* begin, size_t nbytes,const char split_char,
                              std::vector<string>* output);
-void SplitQuotedUsingFromString(const string& input, const char split_char,
+KML_EXPORT void SplitQuotedUsingFromString(const string& input, const char split_char,
                              std::vector<string>* output);
 
 // Returns true if end appears at the end of str.  Returns false if either of
 // str or end are empty or if end is longer than str.
-bool StringEndsWith(const string& str, const string& end);
+KML_EXPORT bool StringEndsWith(const string& str, const string& end);
 
 // This returns true if the two strings are case-insensitively equal.
 // "foo" == "Foo" == "FOO" == "foo" in this regard.
-bool StringCaseEqual(const string& a, const string& b);
+KML_EXPORT bool StringCaseEqual(const string& a, const string& b);
 
 // This converts the string representation of the number to a double.  If the
 // string is not numeric false is returned, else true.  It is safe to pass NULL
 // as the output argument in which case this function becomes a simple "is this
 // a number" check.
-bool StringToDouble(const string& number, double* output);
+KML_EXPORT bool StringToDouble(const string& number, double* output);
 
 // This returns true if number starts with [-][.][0123456789].
-bool IsDecimalDoubleString(const string& number);
+KML_EXPORT bool IsDecimalDoubleString(const string& number);
 
 // This returns the offset to the first non-whitespace character.
-size_t SkipLeadingWhitespace(const char* begin, const char* end);
+KML_EXPORT size_t SkipLeadingWhitespace(const char* begin, const char* end);
 
 // This returns the offset to the first non-whitespace character.
-size_t SkipLeadingWhitespaceString(const string& str);
+KML_EXPORT size_t SkipLeadingWhitespaceString(const string& str);
 
 }  // end namespace kmlbase
 

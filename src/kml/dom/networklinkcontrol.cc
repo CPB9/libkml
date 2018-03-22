@@ -304,4 +304,218 @@ void NetworkLinkControl::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+kmldom::KmlDomType Create::Type() const{ return ElementType(); }
+
+bool Create::IsA(kmldom::KmlDomType type) const{ return type == ElementType(); }
+
+kmldom::KmlDomType Create::ElementType(){ return Type_Create; }
+
+void Create::add_container(const ContainerPtr& container){
+   AddComplexChild(container, &container_array_);
+ }
+
+size_t Create::get_container_array_size() const{
+   return container_array_.size();
+ }
+
+const ContainerPtr& Create::get_container_array_at(size_t index) const{
+   return container_array_[index];
+ }
+
+kmldom::KmlDomType Delete::Type() const{ return ElementType(); }
+
+kmldom::KmlDomType Delete::ElementType(){ return Type_Delete; }
+
+bool Delete::IsA(kmldom::KmlDomType type) const{ return type == ElementType(); }
+
+void Delete::add_feature(const FeaturePtr& feature){
+   AddComplexChild(feature, &feature_array_);
+ }
+
+size_t Delete::get_feature_array_size() const{
+   return feature_array_.size();
+ }
+
+const FeaturePtr& Delete::get_feature_array_at(size_t index) const{
+   return feature_array_[index];
+ }
+
+kmldom::KmlDomType Change::Type() const{ return ElementType(); }
+
+bool Change::IsA(kmldom::KmlDomType type) const{ return type == ElementType(); }
+
+kmldom::KmlDomType Change::ElementType(){ return Type_Change; }
+
+void Change::add_object(const ObjectPtr& object){
+   AddComplexChild(object, &object_array_);
+ }
+
+size_t Change::get_object_array_size() const{
+   return object_array_.size();
+ }
+
+const ObjectPtr& Change::get_object_array_at(size_t index) const{
+   return object_array_[index];
+ }
+
+const std::__cxx11::string& Update::get_targethref() const{ return targethref_; }
+
+bool Update::has_targethref() const{ return has_targethref_; }
+
+void Update::set_targethref(const std::__cxx11::string& targethref){
+   targethref_ = targethref;
+   has_targethref_ = true;
+ }
+
+void Update::clear_targethref(){
+   targethref_.clear();
+   has_targethref_ = false;
+ }
+
+void Update::add_updateoperation(const UpdateOperationPtr& updateoperation){
+   AddComplexChild(updateoperation, &updateoperation_array_);
+ }
+
+size_t Update::get_updateoperation_array_size() const{
+   return updateoperation_array_.size();
+ }
+
+const UpdateOperationPtr& Update::get_updateoperation_array_at(size_t index) const{
+   return updateoperation_array_[index];
+ }
+
+double NetworkLinkControl::get_minrefreshperiod() const{ return minrefreshperiod_; }
+
+bool NetworkLinkControl::has_minrefreshperiod() const{ return has_minrefreshperiod_; }
+
+void NetworkLinkControl::set_minrefreshperiod(double value){
+   minrefreshperiod_ = value;
+   has_minrefreshperiod_ = true;
+ }
+
+void NetworkLinkControl::clear_minrefreshperiod(){
+   minrefreshperiod_ = 0.0;
+   has_minrefreshperiod_ = false;
+ }
+
+double NetworkLinkControl::get_maxsessionlength() const{ return maxsessionlength_; }
+
+bool NetworkLinkControl::has_maxsessionlength() const{ return has_maxsessionlength_; }
+
+void NetworkLinkControl::set_maxsessionlength(double value){
+   maxsessionlength_ = value;
+   has_maxsessionlength_ = true;
+ }
+
+void NetworkLinkControl::clear_maxsessionlength(){
+   maxsessionlength_ = 0.0;
+   has_maxsessionlength_ = false;
+ }
+
+const std::__cxx11::string& NetworkLinkControl::get_cookie() const{ return cookie_; }
+
+bool NetworkLinkControl::has_cookie() const{ return has_cookie_; }
+
+void NetworkLinkControl::set_cookie(const std::__cxx11::string& cookie){
+   cookie_ = cookie;
+   has_cookie_ = true;
+ }
+
+void NetworkLinkControl::clear_cookie(){
+   cookie_.clear();
+   has_cookie_ = false;
+ }
+
+const std::__cxx11::string& NetworkLinkControl::get_message() const{ return message_; }
+
+bool NetworkLinkControl::has_message() const{ return has_message_; }
+
+void NetworkLinkControl::set_message(const std::__cxx11::string& message){
+   message_ = message;
+   has_message_ = true;
+ }
+
+void NetworkLinkControl::clear_message(){
+   message_.clear();
+   has_message_ = false;
+ }
+
+const std::__cxx11::string& NetworkLinkControl::get_linkname() const{ return linkname_; }
+
+bool NetworkLinkControl::has_linkname() const{ return has_linkname_; }
+
+void NetworkLinkControl::set_linkname(const std::__cxx11::string& linkname){
+   linkname_ = linkname;
+   has_linkname_ = true;
+ }
+
+void NetworkLinkControl::clear_linkname(){
+   linkname_.clear();
+   has_linkname_ = false;
+ }
+
+const std::__cxx11::string& NetworkLinkControl::get_linkdescription() const{ return linkdescription_; }
+
+bool NetworkLinkControl::has_linkdescription() const{ return has_linkdescription_; }
+
+void NetworkLinkControl::set_linkdescription(const std::__cxx11::string& linkdescription){
+   linkdescription_ = linkdescription;
+   has_linkdescription_ = true;
+ }
+
+void NetworkLinkControl::clear_linkdescription(){
+   linkdescription_.clear();
+   has_linkdescription_ = false;
+ }
+
+const LinkSnippetPtr& NetworkLinkControl::get_linksnippet() const{ return linksnippet_; }
+
+bool NetworkLinkControl::has_linksnippet() const{ return linksnippet_ != nullptr; }
+
+void NetworkLinkControl::set_linksnippet(LinkSnippetPtr linksnippet){
+   SetComplexChild(linksnippet, &linksnippet_);
+ }
+
+void NetworkLinkControl::clear_linksnippet(){
+   set_linksnippet(NULL);
+ }
+
+const std::__cxx11::string& NetworkLinkControl::get_expires() const{ return expires_; }
+
+bool NetworkLinkControl::has_expires() const{ return has_expires_; }
+
+void NetworkLinkControl::set_expires(const std::__cxx11::string& expires){
+   expires_ = expires;
+   has_expires_ = true;
+ }
+
+void NetworkLinkControl::clear_expires(){
+   expires_.clear();
+   has_expires_ = false;
+ }
+
+const UpdatePtr& NetworkLinkControl::get_update() const{ return update_; }
+
+bool NetworkLinkControl::has_update() const{ return update_ != nullptr; }
+
+void NetworkLinkControl::set_update(const UpdatePtr& update){
+   SetComplexChild(update, &update_);
+ }
+
+void NetworkLinkControl::clear_update(){
+   set_update(NULL);
+ }
+
+const AbstractViewPtr& NetworkLinkControl::get_abstractview() const{ return abstractview_; }
+
+bool NetworkLinkControl::has_abstractview() const{ return abstractview_ != nullptr; }
+
+void NetworkLinkControl::set_abstractview(const AbstractViewPtr& abstractview){
+   SetComplexChild(abstractview, &abstractview_);
+ }
+
+void NetworkLinkControl::clear_abstractview(){
+   set_abstractview(NULL);
+ }
 }  // end namespace kmldom

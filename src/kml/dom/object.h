@@ -28,6 +28,7 @@
 #ifndef KML_DOM_OBJECT_H__
 #define KML_DOM_OBJECT_H__
 
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -40,35 +41,21 @@ namespace kmldom {
 
 // OGC KML 2.2 Standard: 8.1 kml:AbstractObjectGroup
 // OGC KML 2.2 XSD: <element name="AbstractObjectGroup"...
-class Object : public Element {
+class KML_EXPORT Object : public Element {
  public:
   virtual ~Object();
-  KmlDomType Type() const { return Type_Object; }
-  bool IsA(KmlDomType type) const {
-    return type == Type_Object;
-  }
+  KmlDomType Type() const;
+  bool IsA(KmlDomType type) const;
 
-  const string& get_id() const { return id_; }
-  bool has_id() const { return has_id_; }
-  void set_id(const string& value) {
-    id_ = value;
-    has_id_ = true;
-  }
-  void clear_id() {
-    id_.clear();
-    has_id_ = false;
-  }
+  const string& get_id() const;
+  bool has_id() const;
+  void set_id(const string& value);
+  void clear_id();
 
-  const string& get_targetid() const { return targetid_; }
-  bool has_targetid() const { return has_targetid_; }
-  void set_targetid(const string& targetid) {
-    targetid_ = targetid;
-    has_targetid_ = true;
-  }
-  void clear_targetid() {
-    targetid_.clear();
-    has_targetid_ = false;
-  }
+  const string& get_targetid() const;
+  bool has_targetid() const;
+  void set_targetid(const string& targetid);
+  void clear_targetid();
 
  protected:
   // Object is abstract, derived class access only.

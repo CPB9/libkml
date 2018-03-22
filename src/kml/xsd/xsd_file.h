@@ -32,6 +32,7 @@
 #include <stack>
 #include <vector>
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/xmlns.h"
 #include "kml/xsd/xsd_element.h"
 #include "kml/xsd/xsd_complex_type.h"
@@ -56,50 +57,36 @@ typedef std::vector<XsdTypePtr> XsdTypeVector;
 //   xsd_file.GetElementNames(...);
 //   xsd_file.IsComplex(...);
 //   GetChildElementNames(...);
-class XsdFile {
+class KML_EXPORT XsdFile {
  public:
   static XsdFile* CreateFromParse(const string& xsd_data,
                                   string* errors);
 
-  XsdFile() {}  // Use static CreateFromParse().
+  XsdFile();  // Use static CreateFromParse().
+  ~XsdFile();
 
   // Set <xs:schema> info.  The attributes are those of the <schema> element
   // in the XSD file.
-  void set_schema(const XsdSchemaPtr& xsd_schema) {
-    xsd_schema_ = xsd_schema;
-  }
+  void set_schema(const XsdSchemaPtr& xsd_schema);
 
   // Add global <xs:element> info.  A "global" <xs:element> is a child of
   // <xs::schema>.
-  void add_element(const XsdElementPtr& xsd_element) {
-    element_map_[xsd_element->get_name()] = xsd_element;
-  }
+  void add_element(const XsdElementPtr& xsd_element);
 
   // Add a <xs:complexType> or <xs:simpleType>.
-  void add_type(const XsdTypePtr& xsd_type) {
-    type_map_[xsd_type->get_name()] = xsd_type;
-  }
+  void add_type(const XsdTypePtr& xsd_type);
 
-  const string& get_target_namespace() const {
-    return xsd_schema_->get_target_namespace();
-  }
-  const string& get_target_namespace_prefix() const {
-    return xsd_schema_->get_target_namespace_prefix();
-  }
+  const string& get_target_namespace() const;
+  const string& get_target_namespace_prefix() const;
 
   // Create an alias.  For example, "AbstractFeatureGroup" == "Feature".
   void set_alias(const string& real_name,
-                 const string& alias_name) {
-    alias_map_[real_name] = alias_name;
-  }
+                 const string& alias_name);
 
   // Returns the alias for this name or NULL if this name has no alias.  For
   // example, if set_alias("AbstractGeometryGroup", "Geometry") was used then
   // get_alias("AbstractGeometryGroup") returns "Geometry".
-  const string get_alias(const string& real_name) const {
-    XsdAliasMap::const_iterator iter = alias_map_.find(real_name);
-    return iter == alias_map_.end() ? "" : iter->second;
-  }
+  const string get_alias(const string& real_name) const;
 
   // Return all <xs:element> children of <xs:schema>.  Order is not preserved
   // w.r.t. to the XSD file.

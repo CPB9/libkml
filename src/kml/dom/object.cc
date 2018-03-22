@@ -72,4 +72,38 @@ void Object::SerializeAttributes(Attributes* attributes) const {
 }
 
 
+
+kmldom::KmlDomType Object::Type() const{ return Type_Object; }
+
+bool Object::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Object;
+ }
+
+const std::__cxx11::string& Object::get_id() const{ return id_; }
+
+bool Object::has_id() const{ return has_id_; }
+
+void Object::set_id(const std::__cxx11::string& value){
+   id_ = value;
+   has_id_ = true;
+ }
+
+void Object::clear_id(){
+   id_.clear();
+   has_id_ = false;
+ }
+
+const std::__cxx11::string& Object::get_targetid() const{ return targetid_; }
+
+bool Object::has_targetid() const{ return has_targetid_; }
+
+void Object::set_targetid(const std::__cxx11::string& targetid){
+   targetid_ = targetid;
+   has_targetid_ = true;
+ }
+
+void Object::clear_targetid(){
+   targetid_.clear();
+   has_targetid_ = false;
+ }
 }  // namespace kmldom

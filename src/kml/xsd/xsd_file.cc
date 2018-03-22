@@ -273,4 +273,37 @@ void XsdFile::GetElementsOfTypeByName(const string& type_name,
   }
 }
 
+
+XsdFile::XsdFile(){}
+
+void XsdFile::set_schema(const XsdSchemaPtr& xsd_schema){
+   xsd_schema_ = xsd_schema;
+ }
+
+void XsdFile::add_element(const XsdElementPtr& xsd_element){
+   element_map_[xsd_element->get_name()] = xsd_element;
+ }
+
+void XsdFile::add_type(const kmlxsd::XsdTypePtr& xsd_type){
+   type_map_[xsd_type->get_name()] = xsd_type;
+ }
+
+const std::__cxx11::string& XsdFile::get_target_namespace() const{
+   return xsd_schema_->get_target_namespace();
+ }
+
+const std::__cxx11::string& XsdFile::get_target_namespace_prefix() const{
+   return xsd_schema_->get_target_namespace_prefix();
+ }
+
+void XsdFile::set_alias(const std::__cxx11::string& real_name, const std::__cxx11::string& alias_name){
+   alias_map_[real_name] = alias_name;
+ }
+
+const std::__cxx11::string XsdFile::get_alias(const std::__cxx11::string& real_name) const{
+   XsdAliasMap::const_iterator iter = alias_map_.find(real_name);
+   return iter == alias_map_.end() ? "" : iter->second;
+ }
+
+XsdFile::~XsdFile(){}
 }  // end namespace kmlxsd

@@ -68,6 +68,10 @@ static string GetScope() {
   return kScope;
 }
 
+const std::__cxx11::string& GoogleDocList::get_scope() const{
+   return scope_;
+ }
+
 GoogleDocList::GoogleDocList()
   : scope_(GetScope()) {
 }

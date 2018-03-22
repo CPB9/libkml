@@ -31,12 +31,13 @@
 #include <stdlib.h>
 #include <map>
 #include <sstream>
+#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
 
-class Attributes {
+class KML_EXPORT Attributes {
  public:
   // Construct the Attributes instance from a list of name-value pairs
   // as is used in expat's startElement.
@@ -44,23 +45,19 @@ class Attributes {
   static Attributes* Create(const kmlbase::StringVector& attrs);
 
   // Construct the Attributes instance with no initial name-value pairs.
-  Attributes() {}
+  Attributes();
 
   // Creates an exact copy of the Attributes object.
   Attributes* Clone() const;
 
   bool FindValue(const string& key, string* value) const;
   bool FindKey(const string& value, string* key) const;
-  size_t GetSize() const {
-    return attributes_map_.size();
-  }
+  size_t GetSize() const;
 
   // Split prefixed attributes out to a new Attributes.
   Attributes* SplitByPrefix(const string& prefix);
 
-  StringMapIterator CreateIterator() const {
-    return StringMapIterator(attributes_map_);
-  }
+  StringMapIterator CreateIterator() const;
 
   // Get the value of the given attribute as the templated type.  Returns true
   // if an attribute with this name exits.  If no attribute by this name exists
@@ -98,18 +95,10 @@ class Attributes {
 
   // These are deprecated.  Use Get() and Set().
   // TODO: remove usage elsewhere.
-  bool GetString(const string& attr_name, string* attr_val) const {
-    return GetValue(attr_name, attr_val);
-  }
-  bool GetBool(const string& attr_name, bool* attr_val) const {
-    return GetValue(attr_name, attr_val);
-  }
-  bool GetDouble(const string& attr_name, double* attr_val) const {
-    return GetValue(attr_name, attr_val);
-  }
-  void SetString(const string& attr_name, const string& attr_val) {
-    SetValue(attr_name, attr_val);
-  }
+  bool GetString(const string& attr_name, string* attr_val) const;
+  bool GetBool(const string& attr_name, bool* attr_val) const;
+  bool GetDouble(const string& attr_name, double* attr_val) const;
+  void SetString(const string& attr_name, const string& attr_val);
 
   // Serialize the current state of the Attributes instance into the
   // passed string.  This appends to any content previously in the string.

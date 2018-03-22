@@ -171,4 +171,14 @@ bool CsvParser::ParseCsvData() {
   return true;
 }
 
+
+CsvParserHandler::~CsvParserHandler(){}
+
+bool CsvParserHandler::HandleLine(int line, CsvParserStatus status, kmldom::PlacemarkPtr placemark){
+   return true;  // Always continue to the next line.
+ }
+
+const CsvParser::CsvSchema& CsvParser::GetSchema() const{
+   return csv_schema_;
+ }
 }  // end kmlconvenience

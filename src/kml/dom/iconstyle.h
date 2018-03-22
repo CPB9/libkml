@@ -26,6 +26,7 @@
 #ifndef KML_DOM_ICONSTYLE_H__
 #define KML_DOM_ICONSTYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/colorstyle.h"
 #include "kml/dom/hotspot.h"
 #include "kml/dom/kml22.h"
@@ -39,65 +40,35 @@ class Visitor;
 class VisitorDriver;
 
 // <IconStyle>
-class IconStyle : public ColorStyle {
+class KML_EXPORT IconStyle : public ColorStyle {
  public:
   virtual ~IconStyle();
-  virtual KmlDomType Type() const { return Type_IconStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_IconStyle || ColorStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <scale>
-  double get_scale() const {
-    return scale_;
-  }
-  bool has_scale() const {
-    return has_scale_;
-  }
-  void set_scale(double scale) {
-    scale_ = scale;
-    has_scale_ = true;
-  }
-  void clear_scale() {
-    scale_ = 1.0;
-    has_scale_ = false;
-  }
+  double get_scale() const;
+  bool has_scale() const;
+  void set_scale(double scale);
+  void clear_scale();
 
   // <heading>
-  double get_heading() const {
-    return heading_;
-  }
-  bool has_heading() const {
-    return has_heading_;
-  }
-  void set_heading(double heading) {
-    heading_ = heading;
-    has_heading_ = true;
-  }
-  void clear_heading() {
-    heading_ = 0.0;
-    has_heading_ = false;
-  }
+  double get_heading() const;
+  bool has_heading() const;
+  void set_heading(double heading);
+  void clear_heading();
 
   // <Icon> (different than Overlay Icon)
-  const IconStyleIconPtr& get_icon() const { return icon_; }
-  bool has_icon() const { return icon_ != nullptr; }
-  void set_icon(const IconStyleIconPtr& icon) {
-    SetComplexChild(icon, &icon_);
-  }
-  void clear_icon() {
-    set_icon(NULL);
-  }
+  const IconStyleIconPtr& get_icon() const;
+  bool has_icon() const;
+  void set_icon(const IconStyleIconPtr& icon);
+  void clear_icon();
 
   // <hotSpot>
-  const HotSpotPtr& get_hotspot() const { return hotspot_; }
-  bool has_hotspot() const { return hotspot_ != nullptr; }
-  void set_hotspot(const HotSpotPtr& hotspot) {
-    SetComplexChild(hotspot, &hotspot_);
-  }
-  void clear_hotspot() {
-    set_hotspot(NULL);
-  }
+  const HotSpotPtr& get_hotspot() const;
+  bool has_hotspot() const;
+  void set_hotspot(const HotSpotPtr& hotspot);
+  void clear_hotspot();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

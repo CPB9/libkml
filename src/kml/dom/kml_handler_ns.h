@@ -32,6 +32,7 @@
 
 #include <stack>
 #include <string>
+#include "kml/config.h"
 #include "kml_handler.h"
 #include "kml/base/expat_handler.h"
 #include "kml/dom/element.h"
@@ -43,7 +44,7 @@ namespace kmldom {
 class KmlFactory;
 
 // This subclass of KmlHandler is used with Expat's namespace-aware parsing.
-class KmlHandlerNS : public KmlHandler {
+class KML_EXPORT KmlHandlerNS : public KmlHandler {
  public:
   KmlHandlerNS(parser_observer_vector_t& observers);
   ~KmlHandlerNS();

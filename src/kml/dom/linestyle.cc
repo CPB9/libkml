@@ -65,4 +65,28 @@ void LineStyle::Accept(Visitor* visitor) {
   visitor->VisitLineStyle(LineStylePtr(this));
 }
 
+
+kmldom::KmlDomType LineStyle::Type() const{ return Type_LineStyle; }
+
+bool LineStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_LineStyle || ColorStyle::IsA(type);
+ }
+
+double LineStyle::get_width() const{
+   return width_;
+ }
+
+bool LineStyle::has_width() const{
+   return has_width_;
+ }
+
+void LineStyle::set_width(double width){
+   width_ = width;
+   has_width_ = true;
+ }
+
+void LineStyle::clear_width(){
+   width_ = 1.0;
+   has_width_ = false;
+ }
 }  // end namespace kmldom

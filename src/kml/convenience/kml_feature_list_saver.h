@@ -28,6 +28,7 @@
 #ifndef KML_CONVENIENCE_KML_FEATURE_LIST_SAVER_H__
 #define KML_CONVENIENCE_KML_FEATURE_LIST_SAVER_H__
 
+#include "kml/config.h"
 #include "kml/convenience/feature_list.h"
 #include "kml/dom.h"
 #include "kml/engine/engine_types.h"
@@ -47,57 +48,16 @@ namespace kmlconvenience {
 //  parser.AddObserver(&kml_saver);
 //  string errors;
 //  parser.Parse(kml, &errors);
-class KmlFeatureListSaver : public kmldom::ParserObserver {
+class KML_EXPORT KmlFeatureListSaver : public kmldom::ParserObserver {
  public:
   KmlFeatureListSaver(FeatureList* feature_list,
                       kmlengine::SharedStyleMap* shared_style_map,
-                      const char* style_base)
-    : feature_list_(feature_list),
-      shared_style_map_(shared_style_map),
-      in_update_(false) {
-    if (style_base) {
-      style_base_ = string(style_base);
-    }
-  }
+                      const char* style_base);
 
-  virtual bool StartElement(const kmldom::ElementPtr& element) {
-    if (element->Type() == kmldom::Type_Update) {
-      in_update_ = true;
-    }
-    return true;
-  }
+  virtual bool StartElement(const kmldom::ElementPtr& element);
 
   virtual bool EndElement(const kmldom::ElementPtr& parent,
-                          const kmldom::ElementPtr& child) {
-    if (child->Type() == kmldom::Type_Update) {  // </Update>
-      in_update_ = false;
-      return false;
-    }
-    if (in_update_) {
-      return true;
-    }
-    if (child->IsA(kmldom::Type_Feature) &&
-        !child->IsA(kmldom::Type_Container)) {
-      kmldom::FeaturePtr feature = kmldom::AsFeature(child);
-      if (!style_base_.empty() && feature->has_styleurl()) {
-        const string& styleurl = feature->get_styleurl();
-        if (styleurl.size() > 2 && styleurl[0] == '#') {
-          feature->set_styleurl(style_base_ + styleurl);
-        }
-      }
-      feature_list_->PushBack(feature);
-      return false;
-    }
-    if (shared_style_map_ && child->IsA(kmldom::Type_StyleSelector) &&
-        parent->IsA(kmldom::Type_Document)) {
-      const kmldom::StyleSelectorPtr ss = kmldom::AsStyleSelector(child);
-      if (ss->has_id()) {
-        (*shared_style_map_)[ss->get_id()] = ss;
-        return false;
-      }
-    }
-    return true;
-  }
+                          const kmldom::ElementPtr& child);
 
  private:
   FeatureList* feature_list_;

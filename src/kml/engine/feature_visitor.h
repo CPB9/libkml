@@ -29,26 +29,27 @@
 #ifndef KML_ENGINE_FEATURE_VISITOR_H__
 #define KML_ENGINE_FEATURE_VISITOR_H__
 
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlengine {
 
 // This returns the root Feature of the given KML hierarchy.  If root is
 // neither of Type_Kml nor Type_Feature NULL is returned.
-const kmldom::FeaturePtr GetRootFeature(const kmldom::ElementPtr& root);
+KML_EXPORT const kmldom::FeaturePtr GetRootFeature(const kmldom::ElementPtr& root);
 
 // This is the base class for use with VisitFeatureHierarchy.  Derive your own
 // class and implement VisitFeature and pass the instance of your class to
 // VisitFeatureHierarchy
-class FeatureVisitor {
+class KML_EXPORT FeatureVisitor {
  public:
-  virtual ~FeatureVisitor() {}
-  virtual void VisitFeature(const kmldom::FeaturePtr& feature) {}
+  virtual ~FeatureVisitor();
+  virtual void VisitFeature(const kmldom::FeaturePtr& feature);
 };
 
 // Visit the Feature hierarchy rooted at feature calling the VisitFeature()
 // method of the given FeatureVisitor in depth-first order.
-void VisitFeatureHierarchy(const kmldom::FeaturePtr& feature,
+KML_EXPORT void VisitFeatureHierarchy(const kmldom::FeaturePtr& feature,
                            FeatureVisitor& feature_visitor);
 
 }  // end namespace kmlengine

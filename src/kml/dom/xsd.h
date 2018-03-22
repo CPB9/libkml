@@ -32,6 +32,7 @@
 #define KML_XSD_XSD_H__
 
 #include <map>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmldom {
@@ -79,7 +80,7 @@ typedef std::map<string,int> tag_id_map_t;
 // This a 0.1 C++ version of the information in the KML XSD.
 // At present it is just the list of elements.  Each element has a name,
 // libkml-specific id, and type info (simple vs complex).
-class Xsd {
+class KML_EXPORT Xsd {
  public:
   static Xsd* GetSchema();
 

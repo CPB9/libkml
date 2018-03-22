@@ -162,4 +162,12 @@ void StyleMerger::MergeStyleSelector(const StyleSelectorPtr& styleselector) {
   }
 }
 
+
+const kmldom::StylePtr& StyleMerger::GetResolvedStyle() const{
+   return resolved_style_;
+ }
+
+int StyleMerger::get_nesting_depth() const{
+   return nesting_depth_;
+ }
 }  // endnamespace kmlengine

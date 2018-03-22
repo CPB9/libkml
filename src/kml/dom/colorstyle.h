@@ -28,6 +28,7 @@
 #ifndef KML_DOM_COLORSTYLE_H__
 #define KML_DOM_COLORSTYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/substyle.h"
 #include "kml/base/color32.h"
 #include "kml/dom/kml22.h"
@@ -37,45 +38,23 @@ namespace kmldom {
 
 // OGC KML 2.2 Standard: 12.7 kml:AbstractColorStyleGroup
 // OGC KML 2.2 XSD: <element name="AbstractColorStyleGroup"...
-class ColorStyle : public SubStyle {
+class KML_EXPORT ColorStyle : public SubStyle {
  public:
   virtual ~ColorStyle();
-  virtual KmlDomType Type() const { return Type_ColorStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_ColorStyle || SubStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <color>
-  const kmlbase::Color32& get_color() const {
-    return color_;
-  }
-  bool has_color() const {
-    return has_color_;
-  }
-  void set_color(const kmlbase::Color32& color) {
-    color_ = color;
-    has_color_ = true;
-  }
-  void clear_color() {
-    color_ = kmlbase::Color32(0xffffffff);
-    has_color_ = false;
-  }
+  const kmlbase::Color32& get_color() const;
+  bool has_color() const;
+  void set_color(const kmlbase::Color32& color);
+  void clear_color();
 
   // <colorMode>
-  int get_colormode() const {
-    return colormode_;
-  }
-  bool has_colormode() const {
-    return has_colormode_;
-  }
-  void set_colormode(int colormode) {
-    colormode_ = colormode;
-    has_colormode_ = true;
-  }
-  void clear_colormode() {
-    colormode_ = COLORMODE_NORMAL;
-    has_colormode_ = false;
-  }
+  int get_colormode() const;
+  bool has_colormode() const;
+  void set_colormode(int colormode);
+  void clear_colormode();
 
  protected:
   // ColorStyle is abstract.

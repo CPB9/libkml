@@ -46,4 +46,10 @@ void Folder::Accept(Visitor* visitor) {
   visitor->VisitFolder(FolderPtr(this));
 }
 
+
+kmldom::KmlDomType Folder::Type() const{ return Type_Folder; }
+
+bool Folder::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Folder || Container::IsA(type);
+ }
 }  // end namespace kmldom

@@ -27,6 +27,7 @@
 #define KML_XSD_XSD_TYPE_H__
 
 #include <bmcl/Rc.h>
+#include "kml/config.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 
@@ -34,7 +35,7 @@ namespace kmlxsd {
 
 // This is a pure virtual base type for all other XSD type types such as
 // <xs:simpleType> and <xs:complexType>.
-class XsdType : public kmlbase::Referent {
+class KML_EXPORT XsdType : public kmlbase::Referent {
  public:
   typedef enum {
     XSD_TYPE_PRIMITIVE,
@@ -44,7 +45,7 @@ class XsdType : public kmlbase::Referent {
 
   virtual XsdTypeEnum get_xsd_type_id() const = 0;
 
-  virtual ~XsdType() {}
+  virtual ~XsdType();
 
   // This returns true of this is an <xs:complexType>.
   virtual bool is_complex() const = 0;
@@ -59,9 +60,7 @@ class XsdType : public kmlbase::Referent {
   virtual const string get_base() const = 0;
 
   // Two XsdType's are equal if their names are the same.
-  bool operator==(const XsdType& xsd_type) const {
-    return get_name() == xsd_type.get_name();
-  }
+  bool operator==(const XsdType& xsd_type) const;
 
 };
 

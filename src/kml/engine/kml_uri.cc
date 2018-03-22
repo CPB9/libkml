@@ -231,4 +231,29 @@ bool ResolveModelTargetHref(const string& base_url,
   return true;
 }
 
+void KmlUri::set_path_in_kmz(const std::__cxx11::string path_in_kmz){
+   path_in_kmz_ = path_in_kmz;
+   url_ = kmz_url_ + "/" + path_in_kmz;
+ }
+
+const std::__cxx11::string& KmlUri::get_path_in_kmz() const{
+   return path_in_kmz_;
+ }
+
+const std::__cxx11::string& KmlUri::get_kmz_url() const{
+   return kmz_url_;
+ }
+
+const std::__cxx11::string& KmlUri::get_url() const{
+   return url_;
+ }
+
+const std::__cxx11::string& KmlUri::get_target() const{
+   return target_;
+ }
+
+bool KmlUri::is_kmz() const{
+   return is_kmz_;
+ }
+
 }  // end namespace kmlengine

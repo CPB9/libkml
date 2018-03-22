@@ -48,13 +48,10 @@ class XsdFile;
 //   // Parse it.
 //   XsdHandler my_xsd_handler;
 //   ExpatParser(xsd_data, &my_xsd_handler);
-class XsdHandler : public kmlbase::ExpatHandler {
+class KML_EXPORT XsdHandler : public kmlbase::ExpatHandler {
  public:
-  XsdHandler(XsdFile* xsd_file)
-    : xsd_file_(xsd_file),
-      current_type_(NULL) {
-  }
-  virtual ~XsdHandler() {}
+  XsdHandler(XsdFile* xsd_file);
+  virtual ~XsdHandler();
 
   // ExpatHandler::StartElement.
   virtual void StartElement(const string& element_name,
@@ -64,7 +61,7 @@ class XsdHandler : public kmlbase::ExpatHandler {
   virtual void EndElement(const string& element_name);
 
   // ExpatHandler::CharData.  No XSD element has character data.
-  virtual void CharData(const string& s) {}
+  virtual void CharData(const string& s);
 
  private:
   XsdFile* xsd_file_;

@@ -30,6 +30,7 @@
 
 #include <map>
 #include <string>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/dom/parser_observer.h"
 #include "kml/engine/engine_types.h"
@@ -41,12 +42,11 @@ namespace kmlengine {
 // <Schema> as global in scope and as such multiple <Schema>'s in the same file
 // with the same name= follow a "last one wins" pattern.
 // TODO: decide if <Schema> is scoped by <Document>
-class SchemaParserObserver : public kmldom::ParserObserver {
+class KML_EXPORT SchemaParserObserver : public kmldom::ParserObserver {
  public:
-  SchemaParserObserver(SchemaNameMap* schema_name_map)
-    : schema_name_map_(schema_name_map) {}
+  SchemaParserObserver(SchemaNameMap* schema_name_map);
 
-  virtual ~SchemaParserObserver() {}
+  virtual ~SchemaParserObserver();
 
   // ParserObserver::AddChild()
   // Old-style <Schema> looked like this:
@@ -54,17 +54,7 @@ class SchemaParserObserver : public kmldom::ParserObserver {
   //   ...
   // </Schema>
   virtual bool AddChild(const kmldom::ElementPtr& parent,
-                        const kmldom::ElementPtr& child) {
-    if (kmldom::DocumentPtr document = kmldom::AsDocument(parent)) {
-      if (kmldom::SchemaPtr schema = kmldom::AsSchema(child)) {
-        if (schema->has_name()) {
-          // Last one wins on name collisions.
-          (*schema_name_map_)[schema->get_name()] = schema;
-        }
-      }
-    }
-    return true;  // Keep parsing.
-  }
+                        const kmldom::ElementPtr& child);
 
  private:
   SchemaNameMap* schema_name_map_;

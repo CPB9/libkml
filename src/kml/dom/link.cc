@@ -57,6 +57,252 @@ static bool SetStringInsideCdata(ElementPtr element,
   return element->SetString(val);
 }
 
+void IconStyleIcon::clear_gx_h(){
+   gx_h_= 0.0;
+   has_gx_h_ = false;
+ }
+
+void IconStyleIcon::set_gx_h(const double h){
+   gx_h_ = h;
+   has_gx_h_= true;
+ }
+
+bool IconStyleIcon::has_gx_h() const{
+   return has_gx_h_;
+ }
+
+double IconStyleIcon::get_gx_h() const{
+   return gx_h_;
+ }
+
+void IconStyleIcon::clear_gx_w(){
+   gx_w_= 0.0;
+   has_gx_w_ = false;
+ }
+
+void IconStyleIcon::set_gx_w(const double w){
+   gx_w_ = w;
+   has_gx_w_= true;
+ }
+
+bool IconStyleIcon::has_gx_w() const{
+   return has_gx_w_;
+ }
+
+double IconStyleIcon::get_gx_w() const{
+   return gx_w_;
+ }
+
+void IconStyleIcon::clear_gx_y(){
+   gx_y_= 0.0;
+   has_gx_y_ = false;
+ }
+
+void IconStyleIcon::set_gx_y(const double y){
+   gx_y_ = y;
+   has_gx_y_= true;
+ }
+
+bool IconStyleIcon::has_gx_y() const{
+   return has_gx_y_;
+ }
+
+double IconStyleIcon::get_gx_y() const{
+   return gx_y_;
+ }
+
+void IconStyleIcon::clear_gx_x(){
+   gx_x_= 0.0;
+   has_gx_x_ = false;
+ }
+
+void IconStyleIcon::set_gx_x(const double x){
+   gx_x_ = x;
+   has_gx_x_= true;
+ }
+
+bool IconStyleIcon::has_gx_x() const{
+   return has_gx_x_;
+ }
+
+double IconStyleIcon::get_gx_x() const{
+   return gx_x_;
+ }
+
+bool IconStyleIcon::IsA(kmldom::KmlDomType type) const{
+   return type == Type_IconStyleIcon || BasicLink::IsA(type);
+ }
+
+kmldom::KmlDomType IconStyleIcon::Type() const{ return Type_IconStyleIcon; }
+
+bool Url::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Url || AbstractLink::IsA(type);
+ }
+
+kmldom::KmlDomType Url::Type() const{ return Type_Url; }
+
+bool Icon::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Icon || AbstractLink::IsA(type);
+ }
+
+kmldom::KmlDomType Icon::Type() const{ return Type_Icon; }
+
+bool Link::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Link || AbstractLink::IsA(type);
+ }
+
+kmldom::KmlDomType Link::Type() const{ return Type_Link; }
+
+void AbstractLink::clear_httpquery(){
+   httpquery_.clear();
+   has_httpquery_ = false;
+ }
+
+void AbstractLink::set_httpquery(const std::__cxx11::string& httpquery){
+   httpquery_ = httpquery;
+   has_httpquery_ = true;
+ }
+
+bool AbstractLink::has_httpquery() const{
+   return has_httpquery_;
+ }
+
+const std::__cxx11::string& AbstractLink::get_httpquery() const{
+   return httpquery_;
+ }
+
+void AbstractLink::clear_viewformat(){
+   viewformat_.clear();
+   has_viewformat_ = false;
+ }
+
+void AbstractLink::set_viewformat(const std::__cxx11::string& viewformat){
+   viewformat_ = viewformat;
+   has_viewformat_ = true;
+ }
+
+bool AbstractLink::has_viewformat() const{
+   return has_viewformat_;
+ }
+
+const std::__cxx11::string& AbstractLink::get_viewformat() const{
+   return viewformat_;
+ }
+
+void AbstractLink::clear_viewboundscale(){
+   viewboundscale_ = 1.0;
+   has_viewboundscale_ = false;
+ }
+
+void AbstractLink::set_viewboundscale(const double viewboundscale){
+   viewboundscale_ = viewboundscale;
+   has_viewboundscale_ = true;
+ }
+
+bool AbstractLink::has_viewboundscale() const{
+   return has_viewboundscale_;
+ }
+
+double AbstractLink::get_viewboundscale() const{
+   return viewboundscale_;
+ }
+
+void AbstractLink::clear_viewrefreshtime(){
+   viewrefreshtime_ = 4.0;
+   has_viewrefreshtime_ = false;
+ }
+
+void AbstractLink::set_viewrefreshtime(const double viewrefreshtime){
+   viewrefreshtime_ = viewrefreshtime;
+   has_viewrefreshtime_ = true;
+ }
+
+bool AbstractLink::has_viewrefreshtime() const{
+   return has_viewrefreshtime_;
+ }
+
+double AbstractLink::get_viewrefreshtime() const{
+   return viewrefreshtime_;
+ }
+
+void AbstractLink::clear_viewrefreshmode(){
+   viewrefreshmode_ = VIEWREFRESHMODE_NEVER;
+   has_viewrefreshmode_ = false;
+ }
+
+void AbstractLink::set_viewrefreshmode(const int viewrefreshmode){
+   viewrefreshmode_ = viewrefreshmode;
+   has_viewrefreshmode_ = true;
+ }
+
+bool AbstractLink::has_viewrefreshmode() const{
+   return has_viewrefreshmode_;
+ }
+
+int AbstractLink::get_viewrefreshmode() const{
+   return viewrefreshmode_;
+ }
+
+void AbstractLink::clear_refreshinterval(){
+   refreshinterval_ = 4.0;
+   has_refreshinterval_ = false;
+ }
+
+void AbstractLink::set_refreshinterval(const double refreshinterval){
+   refreshinterval_ = refreshinterval;
+   has_refreshinterval_ = true;
+ }
+
+bool AbstractLink::has_refreshinterval() const{
+   return has_refreshinterval_;
+ }
+
+double AbstractLink::get_refreshinterval() const{
+   return refreshinterval_;
+ }
+
+void AbstractLink::clear_refreshmode(){
+   refreshmode_ = REFRESHMODE_ONCHANGE;
+   has_refreshmode_ = false;
+ }
+
+void AbstractLink::set_refreshmode(const int refreshmode){
+   refreshmode_ = refreshmode;
+   has_refreshmode_ = true;
+ }
+
+bool AbstractLink::has_refreshmode() const{
+   return has_refreshmode_;
+ }
+
+int AbstractLink::get_refreshmode() const{
+   return refreshmode_;
+ }
+
+void BasicLink::clear_href(){
+   href_.clear();
+   has_href_ = false;
+ }
+
+void BasicLink::set_href(const std::__cxx11::string& href){
+   href_ = href;
+   has_href_ = true;
+ }
+
+bool BasicLink::has_href() const{
+   return has_href_;
+ }
+
+const std::__cxx11::string& BasicLink::get_href() const{
+   return href_;
+ }
+
+bool BasicLink::IsA(kmldom::KmlDomType type) const{
+   return type == Type_BasicLink || Object::IsA(type);
+ }
+
+kmldom::KmlDomType BasicLink::Type() const{ return Type_BasicLink; }
+
 void BasicLink::AddElement(const ElementPtr& element) {
   if (!element) {
     return;

@@ -191,4 +191,208 @@ void Camera::Accept(Visitor* visitor) {
   visitor->VisitCamera(CameraPtr(this));
 }
 
+
+kmldom::KmlDomType AbstractView::Type() const{ return Type_AbstractView; }
+
+bool AbstractView::IsA(kmldom::KmlDomType type) const{
+   return type == Type_AbstractView || Object::IsA(type);
+ }
+
+const TimePrimitivePtr& AbstractView::get_gx_timeprimitive() const{
+   return gx_timeprimitive_;
+ }
+
+void AbstractView::set_gx_timeprimitive(const TimePrimitivePtr& gx_timeprimitive){
+   SetComplexChild(gx_timeprimitive, &gx_timeprimitive_);
+ }
+
+bool AbstractView::has_gx_timeprimitive() const{ return gx_timeprimitive_ != nullptr; }
+
+void AbstractView::clear_gx_timeprimitive(){
+   set_gx_timeprimitive(NULL);
+ }
+
+AbstractView::AbstractView(){}
+
+kmldom::KmlDomType LookAt::Type() const{ return Type_LookAt; }
+
+bool LookAt::IsA(kmldom::KmlDomType type) const{
+   return type == Type_LookAt || AbstractView::IsA(type);
+ }
+
+LookAt::~LookAt(){}
+
+Camera::~Camera(){}
+
+kmldom::KmlDomType Camera::Type() const{ return Type_Camera; }
+
+bool Camera::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Camera || AbstractView::IsA(type);
+ }
+
+void Camera::clear_roll(){
+   roll_ = 0.0;
+   has_roll_ = false;
+ }
+
+bool Camera::has_roll() const{
+   return has_roll_;
+ }
+
+double Camera::get_roll() const{
+   return roll_;
+ }
+
+void Camera::set_roll(double roll){
+   roll_ = roll;
+   has_roll_ = true;
+ }
+
+void LookAt::clear_range(){
+   range_ = 0.0;
+   has_range_ = false;
+ }
+
+void LookAt::set_range(double range){
+   range_ = range;
+   has_range_ = true;
+ }
+
+bool LookAt::has_range() const{
+   return has_range_;
+ }
+
+double LookAt::get_range() const{
+   return range_;
+ }
+
+void AbstractViewCommon::clear_gx_altitudemode(){
+   gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
+   has_gx_altitudemode_ = false;
+ }
+
+void AbstractViewCommon::set_gx_altitudemode(int gx_altitudemode){
+   gx_altitudemode_ = gx_altitudemode;
+   has_gx_altitudemode_ = true;
+ }
+
+bool AbstractViewCommon::has_gx_altitudemode() const{
+   return has_gx_altitudemode_;
+ }
+
+int AbstractViewCommon::get_gx_altitudemode() const{
+   return gx_altitudemode_;
+ }
+
+void AbstractViewCommon::clear_altitudemode(){
+   altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
+   has_altitudemode_ = false;
+ }
+
+bool AbstractViewCommon::has_altitudemode() const{
+   return has_altitudemode_;
+ }
+
+void AbstractViewCommon::set_altitudemode(int altitudemode){
+   altitudemode_ = altitudemode;
+   has_altitudemode_ = true;
+ }
+
+int AbstractViewCommon::get_altitudemode() const{
+   return altitudemode_;
+ }
+
+void AbstractViewCommon::clear_tilt(){
+   tilt_ = 0.0;
+   has_tilt_ = false;
+ }
+
+void AbstractViewCommon::set_tilt(double tilt){
+   tilt_ = tilt;
+   has_tilt_ = true;
+ }
+
+bool AbstractViewCommon::has_tilt() const{
+   return has_tilt_;
+ }
+
+double AbstractViewCommon::get_tilt() const{
+   return tilt_;
+ }
+
+void AbstractViewCommon::clear_heading(){
+   heading_ = 0.0;
+   has_heading_ = false;
+ }
+
+void AbstractViewCommon::set_heading(double heading){
+   heading_ = heading;
+   has_heading_ = true;
+ }
+
+bool AbstractViewCommon::has_heading() const{
+   return has_heading_;
+ }
+
+double AbstractViewCommon::get_heading() const{
+   return heading_;
+ }
+
+void AbstractViewCommon::clear_altitude(){
+   altitude_ = 0.0;
+   has_altitude_ = false;
+ }
+
+void AbstractViewCommon::set_altitude(double altitude){
+   altitude_ = altitude;
+   has_altitude_ = true;
+ }
+
+bool AbstractViewCommon::has_altitude() const{
+   return has_altitude_;
+ }
+
+double AbstractViewCommon::get_altitude() const{
+   return altitude_;
+ }
+
+void AbstractViewCommon::clear_latitude(){
+   latitude_ = 0.0;
+   has_latitude_ = false;
+ }
+
+void AbstractViewCommon::set_latitude(double latitude){
+   latitude_ = latitude;
+   has_latitude_ = true;
+ }
+
+bool AbstractViewCommon::has_latitude() const{
+   return has_latitude_;
+ }
+
+double AbstractViewCommon::get_latitude() const{
+   return latitude_;
+ }
+
+void AbstractViewCommon::clear_longitude(){
+   longitude_ = 0.0;
+   has_longitude_ = false;
+ }
+
+void AbstractViewCommon::set_longitude(double longitude){
+   longitude_ = longitude;
+   has_longitude_ = true;
+ }
+
+bool AbstractViewCommon::has_longitude() const{
+   return has_longitude_;
+ }
+
+double AbstractViewCommon::get_longitude() const{
+   return longitude_;
+ }
+
+AbstractView::~AbstractView(){}
+
+AbstractViewCommon::~AbstractViewCommon(){}
 }  // end namespace kmldom

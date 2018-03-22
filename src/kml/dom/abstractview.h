@@ -26,6 +26,7 @@
 #ifndef KML_DOM_ABSTRACTVIEW_H__
 #define KML_DOM_ABSTRACTVIEW_H__
 
+#include "kml/config.h"
 #include "kml/dom/object.h"
 #include "kml/dom/gx_timeprimitive.h"
 
@@ -36,32 +37,24 @@ class VisitorDriver;
 
 // OGC KML 2.2 Standard: 14.1 kml:AbstractViewGroup
 // OGC KML 2.2 XSD: <element name="AbstractViewGroup"...
-class AbstractView : public Object {
+class KML_EXPORT AbstractView : public Object {
  public:
-  virtual ~AbstractView() {}
-  virtual KmlDomType Type() const { return Type_AbstractView; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_AbstractView || Object::IsA(type);
-  }
+  virtual ~AbstractView();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // From kml:AbstractViewObjectExtensionGroup.
-  const TimePrimitivePtr& get_gx_timeprimitive() const {
-    return gx_timeprimitive_;
-  }
-  bool has_gx_timeprimitive() const { return gx_timeprimitive_ != nullptr; }
-  void set_gx_timeprimitive(const TimePrimitivePtr& gx_timeprimitive) {
-    SetComplexChild(gx_timeprimitive, &gx_timeprimitive_);
-  }
-  void clear_gx_timeprimitive() {
-    set_gx_timeprimitive(NULL);
-  }
+  const TimePrimitivePtr& get_gx_timeprimitive() const;
+  bool has_gx_timeprimitive() const;
+  void set_gx_timeprimitive(const TimePrimitivePtr& gx_timeprimitive);
+  void clear_gx_timeprimitive();
 
   // Visitor API methods, see visitor.h.
   virtual void AcceptChildren(VisitorDriver* driver);
 
  protected:
   // AbstractView is abstract.
-  AbstractView() {}
+  AbstractView();
   virtual void AddElement(const ElementPtr& element);
   virtual void Serialize(Serializer& serializer) const;
 
@@ -72,126 +65,56 @@ class AbstractView : public Object {
 
 // This is an internal convenience class for code common to LookAt and Camera.
 // This is not part of the OGC KML 2.2 standard.
-class AbstractViewCommon : public AbstractView {
+class KML_EXPORT AbstractViewCommon : public AbstractView {
  public:
   // <longitude>
-  double get_longitude() const {
-    return longitude_;
-  }
-  bool has_longitude() const {
-    return has_longitude_;
-  }
-  void set_longitude(double longitude) {
-    longitude_ = longitude;
-    has_longitude_ = true;
-  }
-  void clear_longitude() {
-    longitude_ = 0.0;
-    has_longitude_ = false;
-  }
+  double get_longitude() const;
+  bool has_longitude() const;
+  void set_longitude(double longitude);
+  void clear_longitude();
 
   // <latitude>
-  double get_latitude() const {
-    return latitude_;
-  }
-  bool has_latitude() const {
-    return has_latitude_;
-  }
-  void set_latitude(double latitude) {
-    latitude_ = latitude;
-    has_latitude_ = true;
-  }
-  void clear_latitude() {
-    latitude_ = 0.0;
-    has_latitude_ = false;
-  }
+  double get_latitude() const;
+  bool has_latitude() const;
+  void set_latitude(double latitude);
+  void clear_latitude();
 
   // <altitude>
-  double get_altitude() const {
-    return altitude_;
-  }
-  bool has_altitude() const {
-    return has_altitude_;
-  }
-  void set_altitude(double altitude) {
-    altitude_ = altitude;
-    has_altitude_ = true;
-  }
-  void clear_altitude() {
-    altitude_ = 0.0;
-    has_altitude_ = false;
-  }
+  double get_altitude() const;
+  bool has_altitude() const;
+  void set_altitude(double altitude);
+  void clear_altitude();
 
   // <heading>
-  double get_heading() const {
-    return heading_;
-  }
-  bool has_heading() const {
-    return has_heading_;
-  }
-  void set_heading(double heading) {
-    heading_ = heading;
-    has_heading_ = true;
-  }
-  void clear_heading() {
-    heading_ = 0.0;
-    has_heading_ = false;
-  }
+  double get_heading() const;
+  bool has_heading() const;
+  void set_heading(double heading);
+  void clear_heading();
 
   // <tilt>
-  double get_tilt() const {
-    return tilt_;
-  }
-  bool has_tilt() const {
-    return has_tilt_;
-  }
-  void set_tilt(double tilt) {
-    tilt_ = tilt;
-    has_tilt_ = true;
-  }
-  void clear_tilt() {
-    tilt_ = 0.0;
-    has_tilt_ = false;
-  }
+  double get_tilt() const;
+  bool has_tilt() const;
+  void set_tilt(double tilt);
+  void clear_tilt();
 
   // <altitudeMode>
-  int get_altitudemode() const {
-    return altitudemode_;
-  }
-  bool has_altitudemode() const {
-    return has_altitudemode_;
-  }
-  void set_altitudemode(int altitudemode) {
-    altitudemode_ = altitudemode;
-    has_altitudemode_ = true;
-  }
-  void clear_altitudemode() {
-    altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
-    has_altitudemode_ = false;
-  }
+  int get_altitudemode() const;
+  bool has_altitudemode() const;
+  void set_altitudemode(int altitudemode);
+  void clear_altitudemode();
 
   // <gx:altitudeMode>
   // NOTE: In OGC KML 2.2 altitude mode is a group hence only one of
   // <altitudeMode> _OR_ <gx:altitudeMode> shall be used for XSD validation.
-  int get_gx_altitudemode() const {
-    return gx_altitudemode_;
-  }
-  bool has_gx_altitudemode() const {
-    return has_gx_altitudemode_;
-  }
-  void set_gx_altitudemode(int gx_altitudemode) {
-    gx_altitudemode_ = gx_altitudemode;
-    has_gx_altitudemode_ = true;
-  }
-  void clear_gx_altitudemode() {
-    gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
-    has_gx_altitudemode_ = false;
-  }
+  int get_gx_altitudemode() const;
+  bool has_gx_altitudemode() const;
+  void set_gx_altitudemode(int gx_altitudemode);
+  void clear_gx_altitudemode();
 
  protected:
   // AbstractViewCommon is abstract.
   AbstractViewCommon();
-  ~AbstractViewCommon() {}
+  ~AbstractViewCommon();
   virtual void AddElement(const ElementPtr& element);
   virtual void SerializeBeforeR(Serializer& serializer) const;
   virtual void SerializeAfterR(Serializer& serializer) const;
@@ -215,29 +138,17 @@ class AbstractViewCommon : public AbstractView {
 };
 
 // <LookAt>
-class LookAt : public AbstractViewCommon {
+class KML_EXPORT LookAt : public AbstractViewCommon {
  public:
-  virtual ~LookAt() {}
-  virtual KmlDomType Type() const { return Type_LookAt; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_LookAt || AbstractView::IsA(type);
-  }
+  virtual ~LookAt();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <range>
-  double get_range() const {
-    return range_;
-  }
-  bool has_range() const {
-    return has_range_;
-  }
-  void set_range(double range) {
-    range_ = range;
-    has_range_ = true;
-  }
-  void clear_range() {
-    range_ = 0.0;
-    has_range_ = false;
-  }
+  double get_range() const;
+  bool has_range() const;
+  void set_range(double range);
+  void clear_range();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -255,29 +166,17 @@ class LookAt : public AbstractViewCommon {
 };
 
 // <Camera>
-class Camera : public AbstractViewCommon {
+class KML_EXPORT Camera : public AbstractViewCommon {
  public:
-  virtual ~Camera() {}
-  virtual KmlDomType Type() const { return Type_Camera; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Camera || AbstractView::IsA(type);
-  }
+  virtual ~Camera();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <roll>
-  double get_roll() const {
-    return roll_;
-  }
-  bool has_roll() const {
-    return has_roll_;
-  }
-  void set_roll(double roll) {
-    roll_ = roll;
-    has_roll_ = true;
-  }
-  void clear_roll() {
-    roll_ = 0.0;
-    has_roll_ = false;
-  }
+  double get_roll() const;
+  bool has_roll() const;
+  void set_roll(double roll);
+  void clear_roll();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

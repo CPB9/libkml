@@ -66,4 +66,28 @@ void LabelStyle::Accept(Visitor* visitor) {
   visitor->VisitLabelStyle(LabelStylePtr(this));
 }
 
+
+kmldom::KmlDomType LabelStyle::Type() const{ return Type_LabelStyle; }
+
+bool LabelStyle::IsA(kmldom::KmlDomType type) const{
+   return type == Type_LabelStyle || ColorStyle::IsA(type);
+ }
+
+double LabelStyle::get_scale() const{
+   return scale_;
+ }
+
+bool LabelStyle::has_scale() const{
+   return has_scale_;
+ }
+
+void LabelStyle::set_scale(double scale){
+   scale_ = scale;
+   has_scale_ = true;
+ }
+
+void LabelStyle::clear_scale(){
+   scale_ = 1.0;
+   has_scale_ = false;
+ }
 }  // end namespace kmldom

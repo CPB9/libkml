@@ -30,6 +30,7 @@
 #define KML_DOM_VISITOR_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/util.h"
 #include "kml/dom/kml_ptr.h"
 
@@ -68,7 +69,7 @@ namespace kmldom {
 // SimplePreorderDriver(visitor).Visit(root);
 // ProcessResults(visitor.GetResults());
 //
-class Visitor {
+class KML_EXPORT Visitor {
  protected:
   Visitor();
 

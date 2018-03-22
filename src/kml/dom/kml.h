@@ -26,6 +26,7 @@
 #ifndef KML_DOM_KML_H__
 #define KML_DOM_KML_H__
 
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
@@ -43,40 +44,24 @@ class Visitor;
 class VisitorDriver;
 
 // <kml>
-class Kml : public BasicElement<Type_kml> {
+class KML_EXPORT Kml : public BasicElement<Type_kml> {
  public:
   virtual ~Kml();
 
-  const string& get_hint() { return hint_; }
-  bool has_hint() const { return has_hint_; }
-  void set_hint(const string& hint) {
-    hint_ = hint;
-    has_hint_ = true;
-  }
-  void clear_hint() {
-    hint_.clear();
-    has_hint_ = false;
-  }
+  const string& get_hint();
+  bool has_hint() const;
+  void set_hint(const string& hint);
+  void clear_hint();
 
-  const NetworkLinkControlPtr& get_networklinkcontrol() const {
-    return networklinkcontrol_;
-  }
-  bool has_networklinkcontrol() const { return networklinkcontrol_ != nullptr; }
-  void set_networklinkcontrol(const NetworkLinkControlPtr& networklinkcontrol) {
-    SetComplexChild(networklinkcontrol, &networklinkcontrol_);
-  }
-  void clear_networklinkcontrol() {
-    set_networklinkcontrol(NULL);
-  }
+  const NetworkLinkControlPtr& get_networklinkcontrol() const;
+  bool has_networklinkcontrol() const;
+  void set_networklinkcontrol(const NetworkLinkControlPtr& networklinkcontrol);
+  void clear_networklinkcontrol();
 
-  const FeaturePtr& get_feature() const { return feature_; }
-  bool has_feature() const { return feature_ != nullptr; }
-  void set_feature(const FeaturePtr& feature) {
-    SetComplexChild(feature, &feature_);
-  }
-  void clear_feature() {
-    set_feature(NULL);
-  }
+  const FeaturePtr& get_feature() const;
+  bool has_feature() const;
+  void set_feature(const FeaturePtr& feature);
+  void clear_feature();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

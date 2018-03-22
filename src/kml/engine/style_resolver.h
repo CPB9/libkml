@@ -28,6 +28,7 @@
 #ifndef KML_ENGINE_STYLE_RESOLVER_H__
 #define KML_ENGINE_STYLE_RESOLVER_H__
 
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/engine/kml_cache.h"
 #include "kml/engine/kml_file.h"
@@ -39,12 +40,12 @@ namespace kmlengine {
 // the given style state (<key>).  All SubStyle simple and complex children
 // set in inline/shared StyleSelectors are also set in the created Style.
 // This folows an internal maximum number of nested styleUrls.
-kmldom::StylePtr CreateResolvedStyle(const kmldom::FeaturePtr& feature,
+KML_EXPORT kmldom::StylePtr CreateResolvedStyle(const kmldom::FeaturePtr& feature,
                                      const KmlFilePtr& kml_file,
                                      kmldom::StyleStateEnum style_state);
 
 // This class provides the full set of style resolution possibilities.
-class StyleResolver {
+class KML_EXPORT StyleResolver {
  public:
   // This creates a <Style> representing the fully resolved style of the
   // given state.  The styleurl and styleselector are typically those from

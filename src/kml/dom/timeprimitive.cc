@@ -109,4 +109,64 @@ void TimeStamp::Accept(Visitor* visitor) {
   visitor->VisitTimeStamp(TimeStampPtr(this));
 }
 
+
+kmldom::KmlDomType TimePrimitive::Type() const{ return Type_TimePrimitive; }
+
+bool TimePrimitive::IsA(kmldom::KmlDomType type) const{
+   return type == Type_TimePrimitive || Object::IsA(type);
+ }
+
+kmldom::KmlDomType TimeSpan::Type() const{ return Type_TimeSpan; }
+
+bool TimeSpan::IsA(kmldom::KmlDomType type) const{
+   return type == Type_TimeSpan || TimePrimitive::IsA(type);
+ }
+
+const std::__cxx11::string& TimeSpan::get_begin() const{ return begin_; }
+
+bool TimeSpan::has_begin() const{ return has_begin_; }
+
+void TimeSpan::set_begin(const std::__cxx11::string& value){
+   begin_ = value;
+   has_begin_ = true;
+ }
+
+void TimeSpan::clear_begin(){
+   begin_.clear();
+   has_begin_ = false;
+ }
+
+const std::__cxx11::string& TimeSpan::get_end() const{ return end_; }
+
+bool TimeSpan::has_end() const{ return has_end_; }
+
+void TimeSpan::set_end(const std::__cxx11::string& value){
+   end_ = value;
+   has_end_ = true;
+ }
+
+void TimeSpan::clear_end(){
+   end_.clear();
+   has_end_ = false;
+ }
+
+kmldom::KmlDomType TimeStamp::Type() const{ return Type_TimeStamp; }
+
+bool TimeStamp::IsA(kmldom::KmlDomType type) const{
+   return type == Type_TimeStamp || TimePrimitive::IsA(type);
+ }
+
+const std::__cxx11::string& TimeStamp::get_when() const{ return when_; }
+
+bool TimeStamp::has_when() const{ return has_when_; }
+
+void TimeStamp::set_when(const std::__cxx11::string& value){
+   when_ = value;
+   has_when_ = true;
+ }
+
+void TimeStamp::clear_when(){
+   when_.clear();
+   has_when_ = false;
+ }
 }  // end namespace kmldom

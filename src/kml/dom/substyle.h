@@ -26,6 +26,7 @@
 #ifndef KML_DOM_SUBSTYLE_H__
 #define KML_DOM_SUBSTYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/object.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -34,13 +35,11 @@ namespace kmldom {
 
 // OGC KML 2.2 Standard: 12.5 kml:AbstractSubStyleGroup
 // OGC KML 2.2 XSD: <element name="AbstractSubStyleGroup"...
-class SubStyle : public Object {
+class KML_EXPORT SubStyle : public Object {
  public:
   virtual ~SubStyle();
-  virtual KmlDomType Type() const { return Type_SubStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_SubStyle || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   virtual void AddElement(const ElementPtr& element);
   virtual void Serialize(Serializer& serializer) const;

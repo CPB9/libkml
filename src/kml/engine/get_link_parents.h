@@ -30,31 +30,26 @@
 #define KML_ENGINE_GET_LINK_PARENTS_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/engine/engine_types.h"
 
 namespace kmlengine {
 
 // Is this element the parent of a Link?
-bool IsLinkParent(const kmldom::ElementPtr& element);
+KML_EXPORT bool IsLinkParent(const kmldom::ElementPtr& element);
 
 // Is this element the parent of an Icon?
-bool IsIconParent(const kmldom::ElementPtr& element);
+KML_EXPORT bool IsIconParent(const kmldom::ElementPtr& element);
 
 // This ParserObserver looks for all elements that have a link child.
-class GetLinkParentsParserObserver : public kmldom::ParserObserver {
+class KML_EXPORT GetLinkParentsParserObserver : public kmldom::ParserObserver {
  public:
-  GetLinkParentsParserObserver(ElementVector* link_parent_vector)
-      : link_parent_vector_(link_parent_vector) {}
+  GetLinkParentsParserObserver(ElementVector* link_parent_vector);
 
-  virtual ~GetLinkParentsParserObserver() {}
+  virtual ~GetLinkParentsParserObserver();
 
-  virtual bool NewElement(const kmldom::ElementPtr& element) {
-    if (IsLinkParent(element) || IsIconParent(element)) {
-      link_parent_vector_->push_back(element);
-    }
-    return true;
-  }
+  virtual bool NewElement(const kmldom::ElementPtr& element);
 
  private:
   ElementVector* link_parent_vector_;
@@ -64,7 +59,7 @@ class GetLinkParentsParserObserver : public kmldom::ParserObserver {
 // vector.  This returns false if a NULL vector pointer is supplied or if the
 // parse of the kml fails.  See the IsLinkParent() and IsIconParent()
 // functions for the definition of "Element with link child".
-bool GetLinkParents(const string& kml, ElementVector* link_parent_vector);
+KML_EXPORT bool GetLinkParents(const string& kml, ElementVector* link_parent_vector);
 
 }  // end namespace kmlengine
 

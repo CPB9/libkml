@@ -29,6 +29,7 @@
 #define KML_DOM_SERIALIZER_H__
 
 #include <sstream>
+#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/dom/kml_ptr.h"
 
@@ -50,13 +51,13 @@ class Serializer {
 
   Serializer();
 
-  virtual ~Serializer() {}
+  virtual ~Serializer();
 
   // Emit the start tag of the given element: <Placemark id="pm123">.
-  virtual void BeginById(int type_id, const kmlbase::Attributes& attributes) {};
+  virtual void BeginById(int type_id, const kmlbase::Attributes& attributes);
 
   // Emit the end tag of the given element: </Placemark>.
-  virtual void End() {};
+  virtual void End();
 
   // Emit a complex element.
   virtual void SaveElement(const ElementPtr& element);
@@ -64,21 +65,15 @@ class Serializer {
   // Emit a complex element as a member of the specified group.  For example,
   // when Point is a child of Placemark it is a Geometry, but when it is a
   // child of PhotoOverlay it is emitted with SaveElement and no group id.
-  virtual void SaveElementGroup(const ElementPtr& element, int group_id) {
-    // Default implementation just calls SaveElement for those serializers
-    // that have no need to use the group id of the given child element.
-    // This also ensures that a serializer recurses on a complex element
-    // whether SaveElement() or SaveElementGroup() is used.
-    SaveElement(element);
-  }
+  virtual void SaveElementGroup(const ElementPtr& element, int group_id);
 
   // Emit a simple element.
-  virtual void SaveStringFieldById(int type_id, string value) {}
+  virtual void SaveStringFieldById(int type_id, string value);
 
   // Save out raw text.  If maybe_quote is true the content is examined
   // for non-XML-valid characters and if so the content is CDATA escaped.
   // If maybe_quote is false the content is emitted directly.
-  virtual void SaveContent(const string& content, bool maybe_quote) {};
+  virtual void SaveContent(const string& content, bool maybe_quote);;
 
   // Save a lon,lat,alt tuple as appears within <coordinates>.
   virtual void SaveVec3(const kmlbase::Vec3& vec3);
@@ -88,10 +83,10 @@ class Serializer {
                               const string& delimiter);
 
   // Emit indent.
-  virtual void Indent() {}
+  virtual void Indent();
 
   // Save a Color32 value.
-  virtual void SaveColor(int type_id, const kmlbase::Color32& color) {}
+  virtual void SaveColor(int type_id, const kmlbase::Color32& color);
 
   // If value contains any non-XML valid characters a CDATA-escaped
   // string is returned, else the original string is returned.
@@ -108,10 +103,10 @@ class Serializer {
 
   // Notify the serializer that an array of the given type of element is being
   // saved.  SaveElement will now be called N times (N == element_count).
-  virtual void BeginElementArray(int type_id, size_t element_count) {}
+  virtual void BeginElementArray(int type_id, size_t element_count);
 
   // Notify the serializer that an array of the given type was just saved.
-  virtual void EndElementArray(int type_id) {}
+  virtual void EndElementArray(int type_id);
 
   // This is common code for saving any element array.  The BeginElementArray
   // and EndElementArray methods are called before/after saving all elements.
@@ -129,10 +124,10 @@ class Serializer {
   // Notify the serializer that an array of the given group type of element is
   // being saved.  SaveElementGroup will now be called N times (N ==
   // element_count).
-  virtual void BeginElementGroupArray(int group_id, size_t element_count) {}
+  virtual void BeginElementGroupArray(int group_id, size_t element_count);
 
   // Notify the serializer that an array of the given group type was just saved.
-  virtual void EndElementGroupArray(int group_id) {}
+  virtual void EndElementGroupArray(int group_id);
 
   // This is common code for saving any substitution group element array.  The
   // BeginElementArray and EndElementArray methods are called before/after

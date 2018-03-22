@@ -70,6 +70,10 @@ static string GetScope() {
   return kScope;
 }
 
+const std::__cxx11::string& GooglePicasaWeb::get_scope() const{
+   return scope_;
+ }
+
 GooglePicasaWeb::GooglePicasaWeb()
   : scope_(GetScope()) {
 }

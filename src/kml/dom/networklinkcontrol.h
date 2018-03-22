@@ -29,6 +29,7 @@
 #define KML_DOM_NETWORKLINKCONTROL_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom/abstractview.h"
 #include "kml/dom/container.h"
 #include "kml/dom/element.h"
@@ -46,7 +47,7 @@ class VisitorDriver;
 // UpdateOperation
 // An internal class from which <Create>, <Delete> and <Change> derive. The
 // KML XSD uses a choice here which is not readily modeled in C++.
-class UpdateOperation : public Element {
+class KML_EXPORT UpdateOperation : public Element {
  public:
   virtual ~UpdateOperation();
 
@@ -62,25 +63,19 @@ class UpdateOperation : public Element {
 };
 
 // <Create>
-class Create : public UpdateOperation {
+class KML_EXPORT Create : public UpdateOperation {
  public:
   virtual ~Create();
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const { return type == ElementType(); }
-  static KmlDomType ElementType() { return Type_Create; }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
+  static KmlDomType ElementType();
 
   // Create targets containers.
-  void add_container(const ContainerPtr& container) {
-    AddComplexChild(container, &container_array_);
-  }
+  void add_container(const ContainerPtr& container);
 
-  size_t get_container_array_size() const {
-    return container_array_.size();
-  }
+  size_t get_container_array_size() const;
 
-  const ContainerPtr& get_container_array_at(size_t index) const {
-    return container_array_[index];
-  }
+  const ContainerPtr& get_container_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -98,25 +93,19 @@ class Create : public UpdateOperation {
 };
 
 // <Delete>
-class Delete : public UpdateOperation {
+class KML_EXPORT Delete : public UpdateOperation {
  public:
   virtual ~Delete();
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const { return type == ElementType(); }
-  static KmlDomType ElementType() { return Type_Delete; }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
+  static KmlDomType ElementType();
 
   // Delete targets Features.
-  void add_feature(const FeaturePtr& feature) {
-    AddComplexChild(feature, &feature_array_);
-  }
+  void add_feature(const FeaturePtr& feature);
 
-  size_t get_feature_array_size() const {
-    return feature_array_.size();
-  }
+  size_t get_feature_array_size() const;
 
-  const FeaturePtr& get_feature_array_at(size_t index) const {
-    return feature_array_[index];
-  }
+  const FeaturePtr& get_feature_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -134,25 +123,19 @@ class Delete : public UpdateOperation {
 };
 
 // <Change>
-class Change : public UpdateOperation {
+class KML_EXPORT Change : public UpdateOperation {
  public:
   virtual ~Change();
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const { return type == ElementType(); }
-  static KmlDomType ElementType() { return Type_Change; }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
+  static KmlDomType ElementType();
 
   // Change targets Objects.
-  void add_object(const ObjectPtr& object) {
-    AddComplexChild(object, &object_array_);
-  }
+  void add_object(const ObjectPtr& object);
 
-  size_t get_object_array_size() const {
-    return object_array_.size();
-  }
+  size_t get_object_array_size() const;
 
-  const ObjectPtr& get_object_array_at(size_t index) const {
-    return object_array_[index];
-  }
+  const ObjectPtr& get_object_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -170,35 +153,23 @@ class Change : public UpdateOperation {
 };
 
 // <Update>
-class Update : public BasicElement<Type_Update> {
+class KML_EXPORT Update : public BasicElement<Type_Update> {
  public:
   virtual ~Update();
 
   // <targetHref>
-  const string& get_targethref() const { return targethref_; }
-  bool has_targethref() const { return has_targethref_; }
-  void set_targethref(const string& targethref) {
-    targethref_ = targethref;
-    has_targethref_ = true;
-  }
-  void clear_targethref() {
-    targethref_.clear();
-    has_targethref_ = false;
-  }
+  const string& get_targethref() const;
+  bool has_targethref() const;
+  void set_targethref(const string& targethref);
+  void clear_targethref();
 
   // <Create>, <Delete> and <Change> elements.
-  void add_updateoperation(const UpdateOperationPtr& updateoperation) {
-    AddComplexChild(updateoperation, &updateoperation_array_);
-  }
+  void add_updateoperation(const UpdateOperationPtr& updateoperation);
 
-  size_t get_updateoperation_array_size() const {
-    return updateoperation_array_.size();
-  }
+  size_t get_updateoperation_array_size() const;
 
   const UpdateOperationPtr& get_updateoperation_array_at(
-      size_t index) const {
-    return updateoperation_array_[index];
-  }
+      size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -218,123 +189,69 @@ class Update : public BasicElement<Type_Update> {
 };
 
 // <NetworkLinkControl>
-class NetworkLinkControl : public BasicElement<Type_NetworkLinkControl> {
+class KML_EXPORT NetworkLinkControl : public BasicElement<Type_NetworkLinkControl> {
  public:
   virtual ~NetworkLinkControl();
 
   // <minRefreshPeriod>
-  double get_minrefreshperiod() const { return minrefreshperiod_; }
-  bool has_minrefreshperiod() const { return has_minrefreshperiod_; }
-  void set_minrefreshperiod(double value) {
-    minrefreshperiod_ = value;
-    has_minrefreshperiod_ = true;
-  }
-  void clear_minrefreshperiod() {
-    minrefreshperiod_ = 0.0;
-    has_minrefreshperiod_ = false;
-  }
+  double get_minrefreshperiod() const;
+  bool has_minrefreshperiod() const;
+  void set_minrefreshperiod(double value);
+  void clear_minrefreshperiod();
 
   // <maxSessionLength>
-  double get_maxsessionlength() const { return maxsessionlength_; }
-  bool has_maxsessionlength() const { return has_maxsessionlength_; }
-  void set_maxsessionlength(double value) {
-    maxsessionlength_ = value;
-    has_maxsessionlength_ = true;
-  }
-  void clear_maxsessionlength() {
-    maxsessionlength_ = 0.0;
-    has_maxsessionlength_ = false;
-  }
+  double get_maxsessionlength() const;
+  bool has_maxsessionlength() const;
+  void set_maxsessionlength(double value);
+  void clear_maxsessionlength();
 
   // <cookie>
-  const string& get_cookie() const { return cookie_; }
-  bool has_cookie() const { return has_cookie_; }
-  void set_cookie(const string& cookie) {
-    cookie_ = cookie;
-    has_cookie_ = true;
-  }
-  void clear_cookie() {
-    cookie_.clear();
-    has_cookie_ = false;
-  }
+  const string& get_cookie() const;
+  bool has_cookie() const;
+  void set_cookie(const string& cookie);
+  void clear_cookie();
 
   // <message>
-  const string& get_message() const { return message_; }
-  bool has_message() const { return has_message_; }
-  void set_message(const string& message) {
-    message_ = message;
-    has_message_ = true;
-  }
-  void clear_message() {
-    message_.clear();
-    has_message_ = false;
-  }
+  const string& get_message() const;
+  bool has_message() const;
+  void set_message(const string& message);
+  void clear_message();
 
   // <linkName>
-  const string& get_linkname() const { return linkname_; }
-  bool has_linkname() const { return has_linkname_; }
-  void set_linkname(const string& linkname) {
-    linkname_ = linkname;
-    has_linkname_ = true;
-  }
-  void clear_linkname() {
-    linkname_.clear();
-    has_linkname_ = false;
-  }
+  const string& get_linkname() const;
+  bool has_linkname() const;
+  void set_linkname(const string& linkname);
+  void clear_linkname();
 
   // <linkDescription>
-  const string& get_linkdescription() const { return linkdescription_; }
-  bool has_linkdescription() const { return has_linkdescription_; }
-  void set_linkdescription(const string& linkdescription) {
-    linkdescription_ = linkdescription;
-    has_linkdescription_ = true;
-  }
-  void clear_linkdescription() {
-    linkdescription_.clear();
-    has_linkdescription_ = false;
-  }
+  const string& get_linkdescription() const;
+  bool has_linkdescription() const;
+  void set_linkdescription(const string& linkdescription);
+  void clear_linkdescription();
 
   // <linkSnippet>
-  const LinkSnippetPtr& get_linksnippet() const { return linksnippet_; }
-  bool has_linksnippet() const { return linksnippet_ != nullptr; }
-  void set_linksnippet(LinkSnippetPtr linksnippet) {
-    SetComplexChild(linksnippet, &linksnippet_);
-  }
-  void clear_linksnippet() {
-    set_linksnippet(NULL);
-  }
+  const LinkSnippetPtr& get_linksnippet() const;
+  bool has_linksnippet() const;
+  void set_linksnippet(LinkSnippetPtr linksnippet);
+  void clear_linksnippet();
 
   // <expires>
-  const string& get_expires() const { return expires_; }
-  bool has_expires() const { return has_expires_; }
-  void set_expires(const string& expires) {
-    expires_ = expires;
-    has_expires_ = true;
-  }
-  void clear_expires() {
-    expires_.clear();
-    has_expires_ = false;
-  }
+  const string& get_expires() const;
+  bool has_expires() const;
+  void set_expires(const string& expires);
+  void clear_expires();
 
   // <Update>
-  const UpdatePtr& get_update() const { return update_; }
-  bool has_update() const { return update_ != nullptr; }
-  void set_update(const UpdatePtr& update) {
-    SetComplexChild(update, &update_);
-  }
-  void clear_update() {
-    set_update(NULL);
-  }
+  const UpdatePtr& get_update() const;
+  bool has_update() const;
+  void set_update(const UpdatePtr& update);
+  void clear_update();
 
   // AbstractView
-  const AbstractViewPtr& get_abstractview() const { return abstractview_; }
-  bool has_abstractview() const { return abstractview_ != nullptr; }
-  void set_abstractview(const AbstractViewPtr& abstractview) {
-    SetComplexChild(abstractview, &abstractview_);
-  }
-  void clear_abstractview() {
-    set_abstractview(NULL);
-  }
+  const AbstractViewPtr& get_abstractview() const;
+  bool has_abstractview() const;
+  void set_abstractview(const AbstractViewPtr& abstractview);
+  void clear_abstractview();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

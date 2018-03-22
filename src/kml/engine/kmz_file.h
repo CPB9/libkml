@@ -31,6 +31,7 @@
 #include <vector>
 #include <bmcl/Rc.h>
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 #include "kml/engine/kml_file.h"
@@ -47,7 +48,7 @@ namespace kmlengine {
 // for reading and writing KMZ files. By default, there is an upper limit of
 // 2 GB on uncompressed file sizes. If you need to lower this limit, use
 // the set_max_uncompressed_size method.
-class KmzFile : public kmlbase::Referent {
+class KML_EXPORT KmzFile : public kmlbase::Referent {
  public:
   ~KmzFile();
 
@@ -61,9 +62,7 @@ class KmzFile : public kmlbase::Referent {
   // returns NULL.
   static KmzFile* OpenFromString(const string& kmz_data);
 
-  static KmzFile* CreateFromString(const string& kmz_data) {
-    return OpenFromString(kmz_data);
-  }
+  static KmzFile* CreateFromString(const string& kmz_data);
 
   // Sets the upper limit for the largest uncompressed file size (in bytes)
   // for the underlying Zip implementation to handle. By default it is 2 GB.

@@ -32,6 +32,7 @@
 
 #include <vector>
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/net_cache.h"
 
 namespace kmlconvenience {
@@ -60,7 +61,7 @@ enum HttpMethodEnum {
 // is to derive a class from this in which the SendRequest() implementation
 // performs I/O.  The key purpose of this class is to hold authorization and
 // other header state used for a given "session".
-class HttpClient : kmlbase::NetFetcher {
+class KML_EXPORT HttpClient : kmlbase::NetFetcher {
  public:
   // The application_name is used in the HTTP User-Agent.
   HttpClient(const string &application_name);
@@ -131,15 +132,11 @@ class HttpClient : kmlbase::NetFetcher {
 
   // This returns the internal state of the authorization token.  This will be
   // empty unless Login() was called successfully.
-  const string& get_auth_token() const {
-    return auth_token_;
-  }
+  const string& get_auth_token() const;
 
   // This returns the internal state of the request headers to be used with
   // each SendRequest.
-  const StringPairVector& get_headers() const {
-    return headers_;
-  }
+  const StringPairVector& get_headers() const;
 
  private:
   // The key reason for this class is to hold the authorization token from

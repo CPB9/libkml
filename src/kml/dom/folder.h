@@ -26,6 +26,7 @@
 #ifndef KML_DOM_FOLDER_H__
 #define KML_DOM_FOLDER_H__
 
+#include "kml/config.h"
 #include "kml/dom/container.h"
 #include "kml/dom/kml22.h"
 
@@ -35,13 +36,11 @@ class Serializer;
 class Visitor;
 
 // <Folder>
-class Folder : public Container {
+class KML_EXPORT Folder : public Container {
  public:
   virtual ~Folder();
-  virtual KmlDomType Type() const { return Type_Folder; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Folder || Container::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

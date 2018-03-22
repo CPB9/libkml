@@ -32,6 +32,8 @@ using kmldom::Parser;
 
 namespace kmlengine {
 
+GetLinkParentsParserObserver::GetLinkParentsParserObserver(ElementVector* link_parent_vector)
+      : link_parent_vector_(link_parent_vector) {}
 bool IsIconParent(const ElementPtr& element) {
   switch (element->Type()) {
     default:
@@ -65,5 +67,14 @@ bool GetLinkParents(const string& kml,
   parser.AddObserver(&get_link_parents);
   return parser.Parse(kml, NULL) != nullptr;
 }
+
+bool GetLinkParentsParserObserver::NewElement(const kmldom::ElementPtr& element){
+   if (IsLinkParent(element) || IsIconParent(element)) {
+     link_parent_vector_->push_back(element);
+   }
+   return true;
+ }
+
+GetLinkParentsParserObserver::~GetLinkParentsParserObserver(){}
 
 }  // end namespace kmlengine

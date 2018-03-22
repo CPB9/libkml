@@ -28,6 +28,7 @@
 #ifndef KML_ENGINE_LINK_UTIL_H__
 #define KML_ENGINE_LINK_UTIL_H__
 
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/engine.h"
 
@@ -37,12 +38,12 @@ namespace kmlengine {
 // The NetworkLink must be within the KmlFile and the KmlFile must point to
 // a KmlCache (such as a KmlFile created by KmlCache).
 // If the fetch or parse fail a NULL KmlFilePtr is returned.
-KmlFilePtr FetchLink(const KmlFilePtr& kml_file,
+KML_EXPORT KmlFilePtr FetchLink(const KmlFilePtr& kml_file,
                      const kmldom::NetworkLinkPtr& networklink);
 
 // This function fetches the Overlay's Icon image data.  The KmlFile must have
 // a KmlCache (see KmlCache).  If the fetch fails false is returned.
-bool FetchIcon(const KmlFilePtr& kml_file,
+KML_EXPORT bool FetchIcon(const KmlFilePtr& kml_file,
                const kmldom::OverlayPtr& overlay,
                string* data);
 

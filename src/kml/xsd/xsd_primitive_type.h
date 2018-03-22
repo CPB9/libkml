@@ -28,6 +28,7 @@
 #ifndef KML_XSD_XSD_PRIMITIVE_TYPE_H__
 #define KML_XSD_XSD_PRIMITIVE_TYPE_H__
 
+#include "kml/config.h"
 #include "kml/xsd/xsd_type.h"
 
 namespace kmlxsd {
@@ -36,7 +37,7 @@ namespace kmlxsd {
 // types.  This permits elements of non-complexType and non-simpleType to have
 // an XsdType.  This class also has methods to convert between type name as
 // found in an XSD file and the enum defined here.
-class XsdPrimitiveType : public XsdType {
+class KML_EXPORT XsdPrimitiveType : public XsdType {
  public:
   // This enumerates the XSD primitive ("built-in") types as listed here:
   //   http://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes
@@ -73,34 +74,20 @@ class XsdPrimitiveType : public XsdType {
   // XsdPrimitiveTypePtr primitive_type = XsdPrimitiveType::Create("boolean");
   // If the type_name is not that of an XSD primitive type then no
   // XsdPrimitiveType is created and NULL is returned.
-  static XsdPrimitiveType* Create(const string& type_name) {
-    TypeId type_id = GetTypeId(type_name);
-    if (type_id != XSD_INVALID) {
-      return new XsdPrimitiveType(type_id);
-    }
-    return nullptr;
-  }
+  static XsdPrimitiveType* Create(const string& type_name);
 
-  virtual XsdTypeEnum get_xsd_type_id() const {
-    return XSD_TYPE_PRIMITIVE;
-  }
+  virtual XsdTypeEnum get_xsd_type_id() const;
 
   // The XsdPrimitiveType implementation of this XsdType virtual method always
   // returns false.
-  virtual bool is_complex() const {
-    return false;
-  }
+  virtual bool is_complex() const;
 
   // The XsdPrimitiveType implementation of this XsdType virtual method returns
   // the name of the type.
-  virtual const string get_name() const {
-    return GetTypeName(type_id_);
-  }
+  virtual const string get_name() const;
 
   // The XsdPrimitiveType implementation of XsdType returns "xsd:primitive".
-  virtual const string get_base() const {
-    return "xsd:primitive";
-  }
+  virtual const string get_base() const;
 
   // This returns the name of the given XSD primitive type.  For example,
   // XSD_DOUBLE returns "double.  An empty string is returned for an invalid
@@ -114,9 +101,7 @@ class XsdPrimitiveType : public XsdType {
 
  private:
   // Use the static Create method to create an XsdPrimitiveType.
-  XsdPrimitiveType(TypeId type_id)
-    : type_id_(type_id) {
-  }
+  XsdPrimitiveType(TypeId type_id);
   TypeId type_id_;
 };
 

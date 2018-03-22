@@ -37,10 +37,9 @@ namespace kmlregionator {
 // This RegionHandler creates a Region-based NetworkLink hierarchy from a
 // FeatureList.  See the FeatureList class comments for usage of this with
 // a CSV file of point data.
-class FeatureListRegionHandler : public RegionHandler {
+class KML_EXPORT FeatureListRegionHandler : public RegionHandler {
  public:
-  FeatureListRegionHandler(kmlconvenience::FeatureList* feature_list)
-      : feature_list_(*feature_list) {}
+  FeatureListRegionHandler(kmlconvenience::FeatureList* feature_list);
 
   // TODO rename to RegionHandler::BeginRegion()
   // RegionHandler::HasData()

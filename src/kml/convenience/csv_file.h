@@ -28,6 +28,7 @@
 // NOTE: The CsvFile class is deprecated.  Use CsvParser in new code.
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlconvenience {
@@ -42,10 +43,9 @@ class FeatureList;
 // A FeatureList can be used with the FeatureListRegionHandler or directly
 // with a KML Container.  See feature_list.h for more information.
 // NOTE: This class is deprecated.  Use CsvParser in new code.
-class CsvFile {
+class KML_EXPORT CsvFile {
  public:
-  CsvFile(kmlconvenience::FeatureList* feature_list)
-      : feature_list_(feature_list) {}
+  CsvFile(kmlconvenience::FeatureList* feature_list);
 
   void ParseCsvLine(const string& csv_line);
 

@@ -29,6 +29,7 @@
 #define KML_ENGINE_KML_STREAM_H__
 
 #include <istream>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_file.h"
@@ -43,7 +44,7 @@ namespace kmlengine {
 // Unlike the KmlFile class this does NOT build a map of object and shared
 // style ids.  This does still build a full KML DOM (unless the user-supplied
 // ParserObserver inhibits parenting of certain children).
-class KmlStream : public kmlbase::XmlFile {
+class KML_EXPORT KmlStream : public kmlbase::XmlFile {
  public:
   // Create a KmlFile from KML/KMZ in the given C++ istream.  The entire
   // input is consumed.  On any parse or I/O failure NULL is returned and an
@@ -53,13 +54,11 @@ class KmlStream : public kmlbase::XmlFile {
                                      kmldom::ParserObserver* observer);
 
   // This returns the root element of this KML stream.
-  const kmldom::ElementPtr get_root() const {
-    return kmldom::AsElement(XmlFile::get_root());
-  }
+  const kmldom::ElementPtr get_root() const;
 
  private:
   // Constructor is private.  Use static creation methods.
-  KmlStream() {}
+  KmlStream();
 
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmlStream);
 };

@@ -157,4 +157,96 @@ void Schema::AcceptChildren(VisitorDriver* driver) {
                                                  driver);
 }
 
+
+const std::__cxx11::string& SimpleField::get_type() const{ return type_; }
+
+bool SimpleField::has_type() const{ return has_type_; }
+
+void SimpleField::set_type(const std::__cxx11::string& value){
+   type_ = value;
+   has_type_ = true;
+ }
+
+void SimpleField::clear_type(){
+   type_.clear();
+   has_type_ = false;
+ }
+
+const std::__cxx11::string& SimpleField::get_name() const{ return name_; }
+
+bool SimpleField::has_name() const{ return has_name_; }
+
+void SimpleField::set_name(const std::__cxx11::string& value){
+   name_ = value;
+   has_name_ = true;
+ }
+
+void SimpleField::clear_name(){
+   name_.clear();
+   has_name_ = false;
+ }
+
+const std::__cxx11::string& SimpleField::get_displayname() const{ return displayname_; }
+
+bool SimpleField::has_displayname() const{ return has_displayname_; }
+
+void SimpleField::set_displayname(const std::__cxx11::string& value){
+   displayname_ = value;
+   has_displayname_ = true;
+ }
+
+void SimpleField::clear_displayname(){
+   displayname_.clear();
+   has_displayname_ = false;
+ }
+
+kmldom::KmlDomType GxSimpleArrayField::Type() const{ return Type_GxSimpleArrayField; }
+
+bool GxSimpleArrayField::IsA(kmldom::KmlDomType type) const{
+   return type == Type_GxSimpleArrayField || SimpleField::IsA(type);
+ }
+
+kmldom::KmlDomType Schema::Type() const{ return Type_Schema; }
+
+bool Schema::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Schema || Object::IsA(type);
+ }
+
+const std::__cxx11::string& Schema::get_name() const{ return name_; }
+
+bool Schema::has_name() const{ return has_name_; }
+
+void Schema::set_name(const std::__cxx11::string& value){
+   name_ = value;
+   has_name_ = true;
+ }
+
+void Schema::clear_name(){
+   name_.clear();
+   has_name_ = false;
+ }
+
+void Schema::add_simplefield(const SimpleFieldPtr& simplefield){
+   AddComplexChild(simplefield, &simplefield_array_);
+ }
+
+size_t Schema::get_simplefield_array_size() const{
+   return simplefield_array_.size();
+ }
+
+const SimpleFieldPtr& Schema::get_simplefield_array_at(size_t index) const{
+   return simplefield_array_[index];
+ }
+
+void Schema::add_gx_simplearrayfield(const GxSimpleArrayFieldPtr& gx_simplearrayfield){
+   AddComplexChild(gx_simplearrayfield, &gx_simplearrayfield_array_);
+ }
+
+size_t Schema::get_gx_simplearrayfield_array_size() const{
+   return gx_simplearrayfield_array_.size();
+ }
+
+const GxSimpleArrayFieldPtr& Schema::get_gx_simplearrayfield_array_at(size_t index) const{
+   return gx_simplearrayfield_array_[index];
+ }
 }  // end namespace kmldom

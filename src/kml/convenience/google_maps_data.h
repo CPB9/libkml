@@ -35,6 +35,7 @@
 
 #include <exception>
 #include <memory>
+#include "kml/config.h"
 #include "kml/dom.h"
 
 // TODO: move Bbox to kmlbase
@@ -63,7 +64,7 @@ class HttpClient;
 //   maps_data->GetMapFeed(&map_feed_atom);
 //   kmldom::ElementPtr root = kmldom::ParseAtom(map_feed_atom);
 //   kmlconvenience::AtomUtil... for common Atom inspection.
-class GoogleMapsData {
+class KML_EXPORT GoogleMapsData {
  public:
   // Create a GoogleMapsData object.  The HttpClient must already be logged
   // in.  See http_client.h for more information about authentication.

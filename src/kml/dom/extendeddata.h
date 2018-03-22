@@ -30,6 +30,7 @@
 #define KML_DOM_EXTENDEDDATA_H__
 
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/kml_ptr.h"
@@ -46,33 +47,21 @@ class Visitor;
 class VisitorDriver;
 
 // <SimpleData>
-class SimpleData : public BasicElement<Type_SimpleData> {
+class KML_EXPORT SimpleData : public BasicElement<Type_SimpleData> {
  public:
   virtual ~SimpleData();
 
   // name=
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
   // char data
-  const string& get_text() const { return text_; }
-  bool has_text() const { return has_text_; }
-  void set_text(const string& value) {
-    text_ = value;
-    has_text_ = true;
-  }
-  void clear_text() {
-    text_.clear();
-    has_text_ = false;
-  }
+  const string& get_text() const;
+  bool has_text() const;
+  void set_text(const string& value);
+  void clear_text();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -94,34 +83,22 @@ class SimpleData : public BasicElement<Type_SimpleData> {
 };
 
 // <gx:SimpleArrayData>
-class GxSimpleArrayData : public BasicElement<Type_GxSimpleArrayData> {
+class KML_EXPORT GxSimpleArrayData : public BasicElement<Type_GxSimpleArrayData> {
  public:
   virtual ~GxSimpleArrayData();
 
   // name=
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
   // <gx:value>
-  void add_gx_value(const string& value) {
-    gx_value_array_.push_back(value);
-  }
+  void add_gx_value(const string& value);
 
-  size_t get_gx_value_array_size() const {
-    return gx_value_array_.size();
-  }
+  size_t get_gx_value_array_size() const;
 
-  const string& get_gx_value_array_at(size_t index) const {
-    return gx_value_array_[index];
-  }
+  const string& get_gx_value_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -142,52 +119,32 @@ class GxSimpleArrayData : public BasicElement<Type_GxSimpleArrayData> {
 };
 
 // <SchemaData>
-class SchemaData : public Object {
+class KML_EXPORT SchemaData : public Object {
  public:
   virtual ~SchemaData();
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Object::IsA(type);
-  }
-  static KmlDomType ElementType() { return Type_SchemaData; }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
+  static KmlDomType ElementType();
 
   // schemaUrl=
-  const string& get_schemaurl() const { return schemaurl_; }
-  bool has_schemaurl() const { return has_schemaurl_; }
-  void set_schemaurl(const string& value) {
-    schemaurl_ = value;
-    has_schemaurl_ = true;
-  }
-  void clear_schemaurl() {
-    schemaurl_.clear();
-    has_schemaurl_ = false;
-  }
+  const string& get_schemaurl() const;
+  bool has_schemaurl() const;
+  void set_schemaurl(const string& value);
+  void clear_schemaurl();
 
-  void add_simpledata(const SimpleDataPtr& simpledata) {
-    AddComplexChild(simpledata, &simpledata_array_);
-  }
+  void add_simpledata(const SimpleDataPtr& simpledata);
 
-  size_t get_simpledata_array_size() const {
-    return simpledata_array_.size();
-  }
+  size_t get_simpledata_array_size() const;
 
-  const SimpleDataPtr& get_simpledata_array_at(size_t index) const {
-    return simpledata_array_[index];
-  }
+  const SimpleDataPtr& get_simpledata_array_at(size_t index) const;
 
   void add_gx_simplearraydata(
-      const GxSimpleArrayDataPtr& gx_simplearraydata) {
-    AddComplexChild(gx_simplearraydata, &gx_simplearraydata_array_);
-  }
+      const GxSimpleArrayDataPtr& gx_simplearraydata);
 
-  size_t get_gx_simplearraydata_array_size() const {
-    return gx_simplearraydata_array_.size();
-  }
+  size_t get_gx_simplearraydata_array_size() const;
 
   const GxSimpleArrayDataPtr& get_gx_simplearraydata_array_at(
-      size_t index) const {
-    return gx_simplearraydata_array_[index];
-  }
+      size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -211,50 +168,30 @@ class SchemaData : public Object {
 };
 
 // <Data>
-class Data : public Object {
+class KML_EXPORT Data : public Object {
  public:
   virtual ~Data();
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Object::IsA(type);
-  }
-  static KmlDomType ElementType() { return Type_Data; }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
+  static KmlDomType ElementType();
 
   // name=
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
   // <displayname>
-  const string& get_displayname() const { return displayname_; }
-  bool has_displayname() const { return has_displayname_; }
-  void set_displayname(const string& value) {
-    displayname_ = value;
-    has_displayname_ = true;
-  }
-  void clear_displayname() {
-    displayname_.clear();
-    has_displayname_ = false;
-  }
+  const string& get_displayname() const;
+  bool has_displayname() const;
+  void set_displayname(const string& value);
+  void clear_displayname();
 
   // <value>
-  const string& get_value() const { return value_; }
-  bool has_value() const { return has_value_; }
-  void set_value(const string& value) {
-    value_ = value;
-    has_value_ = true;
-  }
-  void clear_value() {
-    value_.clear();
-    has_value_ = false;
-  }
+  const string& get_value() const;
+  bool has_value() const;
+  void set_value(const string& value);
+  void clear_value();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -279,35 +216,23 @@ class Data : public Object {
 };
 
 // <ExtendedData>
-class ExtendedData : public BasicElement<Type_ExtendedData> {
+class KML_EXPORT ExtendedData : public BasicElement<Type_ExtendedData> {
  public:
   virtual ~ExtendedData();
 
   // <Data>.
-  void add_data(const DataPtr& data) {
-    AddComplexChild(data, &data_array_);
-  }
+  void add_data(const DataPtr& data);
 
-  size_t get_data_array_size() const {
-    return data_array_.size();
-  }
+  size_t get_data_array_size() const;
 
-  const DataPtr& get_data_array_at(size_t index) const {
-    return data_array_[index];
-  }
+  const DataPtr& get_data_array_at(size_t index) const;
 
   // <SchemaData>.
-  void add_schemadata(const SchemaDataPtr& schemadata) {
-    AddComplexChild(schemadata, &schemadata_array_);
-  }
+  void add_schemadata(const SchemaDataPtr& schemadata);
 
-  size_t get_schemadata_array_size() const {
-    return schemadata_array_.size();
-  }
+  size_t get_schemadata_array_size() const;
 
-  const SchemaDataPtr& get_schemadata_array_at(size_t index) const {
-    return schemadata_array_[index];
-  }
+  const SchemaDataPtr& get_schemadata_array_at(size_t index) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -328,7 +253,7 @@ class ExtendedData : public BasicElement<Type_ExtendedData> {
 // <Metadata>
 // This element is deprecated in OGC KML 2.2.  New KML should use
 // <ExtendedData>.
-class Metadata : public BasicElement<Type_Metadata> {
+class KML_EXPORT Metadata : public BasicElement<Type_Metadata> {
  public:
   virtual ~Metadata();
 

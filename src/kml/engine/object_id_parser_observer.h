@@ -43,32 +43,17 @@ namespace kmlengine {
 // However, Google Earth never enforced this in its KML ingest and thus the
 // web has a lot of invalid KML. Clients who want to successfully parse unknown
 // KML from the wider web should attempt to parse this by default.
-class ObjectIdParserObserver : public kmldom::ParserObserver {
+class KML_EXPORT ObjectIdParserObserver : public kmldom::ParserObserver {
  public:
-  ObjectIdParserObserver(ObjectIdMap* object_id_map, bool strict_parsing)
-    : object_id_map_(object_id_map),
-      strict_parse_(strict_parsing) {}  // TODO: NULL check, or use reference
+  ObjectIdParserObserver(ObjectIdMap* object_id_map, bool strict_parsing);
 
-  virtual ~ObjectIdParserObserver() {}
+  virtual ~ObjectIdParserObserver();
 
   // This is ParserObserver::NewElement().  If the Element is an Object with an
   // id and a mapping for this id already exists and strict parsing has been
   // enabled, return false. Else add this id to Object mapping to the
   // object_id_map and return true.
-  virtual bool NewElement(const kmldom::ElementPtr& element) {
-    if (kmldom::ObjectPtr object = kmldom::AsObject(element)) {
-      if (object->has_id()) {
-        if (object_id_map_->find(object->get_id()) != object_id_map_->end()
-            && strict_parse_) {
-          // TODO: create an error message
-          return false;  // Duplicate id, fail parse.
-        }
-        (*object_id_map_)[object->get_id()] = object;  // Last one wins.
-      }
-    }
-    // Not a duplicate id, or strict parsing not enabled, keep parsing.
-    return true;
-  }
+  virtual bool NewElement(const kmldom::ElementPtr& element);
 
   // The default implementation of Parser::AddChild() is essentially a nop.
 

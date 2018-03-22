@@ -26,6 +26,7 @@
 #ifndef KML_DOM_POLYSTYLE_H__
 #define KML_DOM_POLYSTYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/colorstyle.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -35,45 +36,23 @@ namespace kmldom {
 class Visitor;
 
 // <PolyStyle>
-class PolyStyle : public ColorStyle {
+class KML_EXPORT PolyStyle : public ColorStyle {
  public:
   virtual ~PolyStyle();
-  virtual KmlDomType Type() const { return Type_PolyStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_PolyStyle || ColorStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <fill>
-  bool get_fill() const {
-    return fill_;
-  }
-  bool has_fill() const {
-    return has_fill_;
-  }
-  void set_fill(bool fill) {
-    fill_ = fill;
-    has_fill_ = true;
-  }
-  void clear_fill() {
-    fill_ = true;
-    has_fill_ = false;
-  }
+  bool get_fill() const;
+  bool has_fill() const;
+  void set_fill(bool fill);
+  void clear_fill();
 
   // <outline>
-  bool get_outline() const {
-    return outline_;
-  }
-  bool has_outline() const {
-    return has_outline_;
-  }
-  void set_outline(bool outline) {
-    outline_ = outline;
-    has_outline_ = true;
-  }
-  void clear_outline() {
-    outline_ = true;
-    has_outline_ = false;
-  }
+  bool get_outline() const;
+  bool has_outline() const;
+  void set_outline(bool outline);
+  void clear_outline();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

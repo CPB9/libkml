@@ -35,6 +35,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlconvenience {
@@ -60,7 +61,7 @@ class HttpClient;
 //   kmlconvenience::AtomUtil... for common Atom inspection.
 // TODO: this and the other Google Data API classes here provide ample
 // opportunity for refactoring to more common code.
-class GooglePicasaWeb {
+class KML_EXPORT GooglePicasaWeb {
  public:
   // Create a GooglePicasaWeb object.  The HttpClient must already be logged
   // in.  See http_client.h for more information about authentication.
@@ -76,9 +77,7 @@ class GooglePicasaWeb {
 
   static const char* get_metafeed_uri();
 
-  const string& get_scope() const {
-    return scope_;
-  }
+  const string& get_scope() const;
 
   // This returns the "meta feed" for the authenticated user.  The result is an
   // Atom <feed> containing an <entry> for each of the user's albums.  See:

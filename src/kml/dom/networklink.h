@@ -28,6 +28,7 @@
 #ifndef KML_DOM_NETWORKLINK_H__
 #define KML_DOM_NETWORKLINK_H__
 
+#include "kml/config.h"
 #include "kml/dom/feature.h"
 #include "kml/dom/link.h"
 #include "kml/dom/kml22.h"
@@ -40,48 +41,30 @@ class Visitor;
 class VisitorDriver;
 
 // <NetworkLink>
-class NetworkLink : public Feature {
+class KML_EXPORT NetworkLink : public Feature {
  public:
   virtual ~NetworkLink();
-  virtual KmlDomType Type() const { return Type_NetworkLink; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_NetworkLink || Feature::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <refreshVisibility>
-  bool get_refreshvisibility() const { return refreshvisibility_; }
-  bool has_refreshvisibility() const { return has_refreshvisibility_; }
-  void set_refreshvisibility(bool value) {
-    refreshvisibility_ = value;
-    has_refreshvisibility_ = true;
-  }
-  void clear_refreshvisibility() {
-    refreshvisibility_ = false;
-    has_refreshvisibility_ = false;
-  }
+  bool get_refreshvisibility() const;
+  bool has_refreshvisibility() const;
+  void set_refreshvisibility(bool value);
+  void clear_refreshvisibility();
 
   // <flyToView>
-  bool get_flytoview() const { return flytoview_; }
-  bool has_flytoview() const { return has_flytoview_; }
-  void set_flytoview(bool value) {
-    flytoview_ = value;
-    has_flytoview_ = true;
-  }
-  void clear_flytoview() {
-    flytoview_ = false;
-    has_flytoview_ = false;
-  }
+  bool get_flytoview() const;
+  bool has_flytoview() const;
+  void set_flytoview(bool value);
+  void clear_flytoview();
 
   // <Link>
   // <Url> is deprecated, no API access
-  const LinkPtr& get_link() const { return link_; }
-  bool has_link() const { return link_ != nullptr; }
-  void set_link(const LinkPtr& link) {
-    SetComplexChild(link, &link_);
-  }
-  void clear_link() {
-    set_link(NULL);
-  }
+  const LinkPtr& get_link() const;
+  bool has_link() const;
+  void set_link(const LinkPtr& link);
+  void clear_link();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

@@ -29,6 +29,7 @@
 #define KML_BASE_DATE_TIME_H__
 
 #include <time.h>
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -62,7 +63,7 @@ class DateTime {
   struct tm tm_;
 };
 
-time_t DateTimeToTimeT(const string& date_time_str);
+KML_EXPORT time_t DateTimeToTimeT(const string& date_time_str);
 
 }  // end namespace kmlbase
 

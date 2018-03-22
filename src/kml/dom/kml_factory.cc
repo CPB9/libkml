@@ -518,4 +518,6 @@ GxWait* KmlFactory::CreateGxWait() const {
   return new GxWait();
 }
 
+
+KmlFactory::KmlFactory(){}
 }  // namespace kmldom

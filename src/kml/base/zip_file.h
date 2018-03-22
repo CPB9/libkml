@@ -29,6 +29,7 @@
 #define KML_BASE_ZIP_FILE_H__
 
 #include <memory>
+#include "kml/config.h"
 #include "kml/base/string_util.h"
 #include "kml/base/util.h"
 
@@ -41,7 +42,7 @@ class MinizipFile;
 // This class represents a ZIP file. Obviously the intent within this project
 // is for use with KMZ files, but this class has no particular KML or KMZ
 // specifics.
-class ZipFile {
+class KML_EXPORT ZipFile {
  public:
   // Open a ZIP file in-memory suitable for reading. Will return NULL on any
   // internal error.
@@ -59,12 +60,8 @@ class ZipFile {
 
   // The default maximum uncompressed file size we permit the underlying
   // zip reader to handle is 2 GB by default.
-  void set_max_uncompressed_file_size(unsigned int i) {
-    max_uncompressed_file_size_ = i;
-  }
-  unsigned int get_max_uncompressed_file_size() {
-    return max_uncompressed_file_size_;
-  }
+  void set_max_uncompressed_file_size(unsigned int i);
+  unsigned int get_max_uncompressed_file_size();
 
   // Returns true if zip_data looks like a PK ZIP archive. This is the only
   // supported ZIP variant.

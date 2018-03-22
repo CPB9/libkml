@@ -46,6 +46,36 @@ static string EnityEscapeXml(const string& xml) {
   return kmlbase::CreateExpandedStrings(xml, map, "", "");
 }
 
+void Serializer::EndElementGroupArray(int group_id){}
+
+void Serializer::BeginElementGroupArray(int group_id, size_t element_count){}
+
+void Serializer::EndElementArray(int type_id){}
+
+void Serializer::BeginElementArray(int type_id, size_t element_count){}
+
+void Serializer::SaveColor(int type_id, const kmlbase::Color32& color){}
+
+void Serializer::Indent(){}
+
+void Serializer::SaveContent(const std::__cxx11::string& content, bool maybe_quote){}
+
+void Serializer::SaveStringFieldById(int type_id, std::__cxx11::string value){}
+
+void Serializer::SaveElementGroup(const ElementPtr& element, int group_id){
+   // Default implementation just calls SaveElement for those serializers
+   // that have no need to use the group id of the given child element.
+   // This also ensures that a serializer recurses on a complex element
+   // whether SaveElement() or SaveElementGroup() is used.
+   SaveElement(element);
+ }
+
+void Serializer::End(){}
+
+void Serializer::BeginById(int type_id, const kmlbase::Attributes& attributes){}
+
+Serializer::~Serializer(){}
+
 Serializer::Serializer() : xsd_(*Xsd::GetSchema()) {
 }
 

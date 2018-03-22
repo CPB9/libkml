@@ -30,6 +30,7 @@
 #define KML_DOM_GX_TIMEPRIMITIVE_H__
 
 #include <string>
+#include "kml/config.h"
 #include "kml/base/xml_namespaces.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/object.h"
@@ -41,16 +42,12 @@ class Serializer;
 class Visitor;
 
 // <gx:TimeSpan>
-class GxTimeSpan : public TimeSpan {
+class KML_EXPORT GxTimeSpan : public TimeSpan {
  public:
   virtual ~GxTimeSpan();
-  static KmlDomType ElementType() {
-    return Type_GxTimeSpan;
-  }
-  virtual KmlDomType Type() const { return Type_GxTimeSpan; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_GxTimeSpan || TimeSpan::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -62,16 +59,12 @@ class GxTimeSpan : public TimeSpan {
 };
 
 // <gx:TimeStamp>
-class GxTimeStamp : public TimeStamp {
+class KML_EXPORT GxTimeStamp : public TimeStamp {
  public:
   virtual ~GxTimeStamp();
-  static KmlDomType ElementType() {
-    return Type_GxTimeStamp;
-  }
-  virtual KmlDomType Type() const { return Type_GxTimeStamp; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_GxTimeStamp || TimeStamp::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

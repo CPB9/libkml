@@ -69,4 +69,42 @@ void Document::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<StyleSelectorPtr>(&styleselector_array_, driver);
 }
 
+
+kmldom::KmlDomType Document::Type() const{ return Type_Document; }
+
+bool Document::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Document || Container::IsA(type);
+ }
+
+void Document::add_schema(const SchemaPtr& schema){
+   AddComplexChild(schema, &schema_array_);
+ }
+
+size_t Document::get_schema_array_size() const{
+   return schema_array_.size();
+ }
+
+const SchemaPtr& Document::get_schema_array_at(size_t index) const{
+   return schema_array_[index];
+ }
+
+SchemaPtr Document::DeleteSchemaAt(size_t index){
+   return Element::DeleteFromArrayAt(&schema_array_, index);
+ }
+
+void Document::add_styleselector(const StyleSelectorPtr& styleselector){
+   AddComplexChild(styleselector, &styleselector_array_);
+ }
+
+size_t Document::get_styleselector_array_size() const{
+   return styleselector_array_.size();
+ }
+
+const StyleSelectorPtr& Document::get_styleselector_array_at(size_t index) const{
+   return styleselector_array_[index];
+ }
+
+StyleSelectorPtr Document::DeleteStyleSelectorAt(size_t index){
+   return Element::DeleteFromArrayAt(&styleselector_array_, index);
+ }
 }  // end namespace kmldom

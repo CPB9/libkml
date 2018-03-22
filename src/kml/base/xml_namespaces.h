@@ -26,6 +26,7 @@
 #ifndef KML_BASE_XML_NAMESPACES_H__
 #define KML_BASE_XML_NAMESPACES_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlbase {
@@ -71,8 +72,8 @@ struct XmlNamespace {
 // a small identifier instead of a full namespace string.  Either prefix or
 // xml_namespace pointers can be NULL.  The return value indicates whether
 // the given id is known to libkml.
-bool FindXmlNamespaceAndPrefix(XmlnsId xmlns_id, string* prefix,
-                               string* xml_namespace);
+KML_EXPORT bool FindXmlNamespaceAndPrefix(XmlnsId xmlns_id, string* prefix,
+                                          string* xml_namespace);
 
 }  // end namespace kmlbase
 

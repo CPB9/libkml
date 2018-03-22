@@ -41,12 +41,11 @@ namespace kmlengine {
 // the converted Placemark into the container within which the Schema instance
 // element was found.
 // TODO: delete the unparsed xml after conversion.
-class OldSchemaParserObserver : public kmldom::ParserObserver {
+class KML_EXPORT OldSchemaParserObserver : public kmldom::ParserObserver {
  public:
-  OldSchemaParserObserver(const SchemaNameMap& schema_name_map)
-    : schema_name_map_(schema_name_map) {}
+  OldSchemaParserObserver(const SchemaNameMap& schema_name_map);
 
-  virtual ~OldSchemaParserObserver() {}
+  virtual ~OldSchemaParserObserver();
 
   // ParserObserver::AddChild()
   // Old-style <Schema> looked like this:
@@ -54,24 +53,7 @@ class OldSchemaParserObserver : public kmldom::ParserObserver {
   //   ...
   // </Schema>
   virtual bool AddChild(const kmldom::ElementPtr& parent,
-                        const kmldom::ElementPtr& child) {
-    if (kmldom::ContainerPtr container = kmldom::AsContainer(child)) {
-      size_t size = container->get_unknown_elements_array_size();
-      for (size_t i = 0; i < size; ++i) {
-        string errors;
-        // TODO: this can fail if the original pass through had CDATA sections
-        // in <description>, for example, which were stripped going into the
-        // unknown elements array.
-        if (kmldom::PlacemarkPtr placemark = ParseOldSchema(
-            container->get_unknown_elements_array_at(i),
-            schema_name_map_, &errors)) {
-          container->add_feature(placemark);
-          // TODO: container->delete_unknown_elements_array_at(i)
-        }  // TODO: else terminate the parse and emit the error.
-      }
-    }
-    return true;  // Keep parsing.
-  }
+                        const kmldom::ElementPtr& child);
 
  private:
   const SchemaNameMap& schema_name_map_;

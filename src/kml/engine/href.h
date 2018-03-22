@@ -32,6 +32,7 @@
 #ifndef KML_ENGINE_HREF_H__
 #define KML_ENGINE_HREF_H__
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlengine {
@@ -42,77 +43,37 @@ namespace kmlengine {
 //     return href.Fragment();  // "object-id"
 //   }
 
-class Href {
+class KML_EXPORT Href {
  public:
-  Href() {}
+  Href();
   // Construct from the contents of <href>
-  Href(const string& href) {
-    Parse(href);
-  }
+  Href(const string& href);
 
-  bool IsRelative() const {
-    return !has_scheme() && !has_net_loc();
-  }
+  bool IsRelative() const;
 
-  bool IsRelativePath() const {
-    return !has_scheme() && !has_net_loc() && has_path();
-  }
+  bool IsRelativePath() const;
 
-  bool IsFragmentOnly() const {
-    return has_fragment() && !has_scheme() && !has_net_loc() && !has_path();
-  }
+  bool IsFragmentOnly() const;
 
-  const string& get_scheme() const {
-    return scheme_;
-  }
-  bool has_scheme() const {
-    return !scheme_.empty();
-  }
-  void set_scheme(const string& scheme) {
-    scheme_ = scheme;
-  }
-  void clear_scheme() {
-    scheme_.clear();
-  }
+  const string& get_scheme() const;
+  bool has_scheme() const;
+  void set_scheme(const string& scheme);
+  void clear_scheme();
 
-  const string& get_net_loc() const {
-    return net_loc_;
-  }
-  bool has_net_loc() const {
-    return !net_loc_.empty();
-  }
-  void set_net_loc(const string& net_loc) {
-    net_loc_ = net_loc;
-  }
-  void clear_net_loc() {
-    net_loc_.clear();
-  }
+  const string& get_net_loc() const;
+  bool has_net_loc() const;
+  void set_net_loc(const string& net_loc);
+  void clear_net_loc();
 
-  const string& get_path() const {
-    return path_;
-  }
-  bool has_path() const {
-    return !path_.empty();
-  }
-  void set_path(const string& path) {
-    path_ = path;
-  }
-  void clear_path() {
-    path_.clear();
-  }
+  const string& get_path() const;
+  bool has_path() const;
+  void set_path(const string& path);
+  void clear_path();
 
-  const string& get_fragment() const {
-    return fragment_;
-  }
-  bool has_fragment() const {
-    return !fragment_.empty();
-  }
-  void set_fragment(const string& fragment) {
-    fragment_ = fragment;
-  }
-  void clear_fragment() {
-    fragment_.clear();
-  }
+  const string& get_fragment() const;
+  bool has_fragment() const;
+  void set_fragment(const string& fragment);
+  void clear_fragment();
 
  private:
   void Parse(const string& href);

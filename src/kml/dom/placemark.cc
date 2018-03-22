@@ -67,4 +67,22 @@ void Placemark::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+kmldom::KmlDomType Placemark::Type() const{ return Type_Placemark; }
+
+bool Placemark::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Placemark || Feature::IsA(type);
+ }
+
+const GeometryPtr& Placemark::get_geometry() const{ return geometry_; }
+
+bool Placemark::has_geometry() const{ return geometry_ != nullptr; }
+
+void Placemark::set_geometry(const GeometryPtr& geometry){
+   SetComplexChild(geometry, &geometry_);
+ }
+
+void Placemark::clear_geometry(){
+   set_geometry(NULL);
+ }
 }  // namespace kmldom

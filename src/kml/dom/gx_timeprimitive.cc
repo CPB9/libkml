@@ -53,4 +53,24 @@ void GxTimeStamp::Accept(Visitor* visitor) {
   visitor->VisitGxTimeStamp(GxTimeStampPtr(this));
 }
 
+
+kmldom::KmlDomType GxTimeSpan::ElementType(){
+   return Type_GxTimeSpan;
+ }
+
+kmldom::KmlDomType GxTimeSpan::Type() const{ return Type_GxTimeSpan; }
+
+bool GxTimeSpan::IsA(kmldom::KmlDomType type) const{
+   return type == Type_GxTimeSpan || TimeSpan::IsA(type);
+ }
+
+kmldom::KmlDomType GxTimeStamp::ElementType(){
+   return Type_GxTimeStamp;
+ }
+
+kmldom::KmlDomType GxTimeStamp::Type() const{ return Type_GxTimeStamp; }
+
+bool GxTimeStamp::IsA(kmldom::KmlDomType type) const{
+   return type == Type_GxTimeStamp || TimeStamp::IsA(type);
+ }
 }  // end namespace kmldom

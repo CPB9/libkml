@@ -29,6 +29,7 @@
 #define KML_CONVENIENCE_FEATURE_LIST_H__
 
 #include <list>
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/engine.h"
 
@@ -36,11 +37,11 @@ namespace kmlconvenience {
 
 // This returns the value of the "Score" Data element as described above.
 // This uses GetExtendedDataValue().
-int GetFeatureScore(kmldom::FeaturePtr feature);
+KML_EXPORT int GetFeatureScore(kmldom::FeaturePtr feature);
 
 // This sets the value of the "Score" data element as described above.
 // This uses SetExtendedDataValue().
-void SetFeatureScore(const string& score, kmldom::FeaturePtr feature);
+KML_EXPORT void SetFeatureScore(const string& score, kmldom::FeaturePtr feature);
 
 // STL list has constant time erase.
 typedef std::list<kmldom::FeaturePtr> feature_list_t;
@@ -58,7 +59,7 @@ typedef std::list<kmldom::FeaturePtr> feature_list_t;
 //   FolderPtr folder;
 //   features_in_some_bbox.Save(&folder);
 //   folder->set_region(something-that-creates-a-Region-from-a-Bbox(some_bbox);
-class FeatureList {
+class KML_EXPORT FeatureList {
  public:
   // Append the feature to the end of the list.
   void PushBack(const kmldom::FeaturePtr& feature);
@@ -92,7 +93,6 @@ class FeatureList {
  private:
   feature_list_t feature_list_;
 };
-
 }  // end namespace kmlconvenience
 
 #endif  // KML_CONVENIENCE_FEATURE_LIST_H__

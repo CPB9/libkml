@@ -28,6 +28,7 @@
 
 #include <vector>
 #include <bmcl/Rc.h>
+#include "kml/config.h"
 #include "kml/base/attributes.h"
 #include "kml/xsd/xsd_element.h"
 #include "kml/xsd/xsd_type.h"
@@ -42,78 +43,46 @@ typedef bmcl::Rc<XsdComplexType> XsdComplexTypePtr;
 
 // Corresponds to <xs:complexType> with possible <xs:extension> and use of
 // <xs:sequence> (order of <xs:element>'s matters in <xs:sequence>).
-class XsdComplexType : public XsdType {
+class KML_EXPORT XsdComplexType : public XsdType {
  public:
+  ~XsdComplexType();
   // Create an XsdComplexType from the given attributes.  The "name" attribute
   // must exist for this to succeed.  On success a pointer is returned which
   // may be managed with intrusive_ptr using the recommended typedef above.
-  static XsdComplexType* Create(const kmlbase::Attributes& attributes) {
-    string name;
-    if (attributes.GetString("name", &name)) {
-      return new XsdComplexType(name);
-    }
-    return nullptr;
-  }
+  static XsdComplexType* Create(const kmlbase::Attributes& attributes);
 
   // This dynamic cast to XsdComplexTypePtr returns non-NULL if the xsd_type
   // is non-NULL and is_complex() is true.
-  static XsdComplexTypePtr AsComplexType(const XsdTypePtr& xsd_type) {
-    if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_COMPLEX) {
-      return bmcl::static_pointer_cast<XsdComplexType>(xsd_type);
-    }
-    return nullptr;
-  }
+  static XsdComplexTypePtr AsComplexType(const XsdTypePtr& xsd_type);
 
-  virtual XsdTypeEnum get_xsd_type_id() const {
-    return XSD_TYPE_COMPLEX;
-  }
+  virtual XsdTypeEnum get_xsd_type_id() const;
 
-  virtual bool is_complex() const {
-    return true;
-  }
+  virtual bool is_complex() const;
 
   // Get the value of the name attribute.
-  virtual const string get_name() const {
-    return name_;
-  }
+  virtual const string get_name() const;
 
-  virtual const string get_base() const {
-    return extension_base_;
-  }
+  virtual const string get_base() const;
 
   // Set the value of the "base" attribute of the complexType's
   // <xs:extension> element.
-  void set_extension_base(const string& extension_base) {
-    extension_base_ = extension_base;
-  }
+  void set_extension_base(const string& extension_base);
   // Get the <xs:extension base=".."> value.
-  const string& get_extension_base() const {
-    return extension_base_;
-  }
+  const string& get_extension_base() const;
   // Return true IFF this complexType has an <xs:extension base="..."/>.
-  bool has_extension_base() const {
-    return !extension_base_.empty();
-  }
+  bool has_extension_base() const;
 
   // Append the given <xs:element> to this complexType's <xs:sequence>.
-  void add_element(const XsdElementPtr& element) {
-    sequence_.push_back(element);
-  }
+  void add_element(const XsdElementPtr& element);
 
   // Return the number of elements in the <xs:sequence>.
-  size_t get_sequence_size() const {
-    return sequence_.size();
-  }
+  size_t get_sequence_size() const;
   // Return the index'th element in the <xs:sequence>.
-  const XsdElementPtr get_sequence_at(size_t index) const {
-    return sequence_[index];
-  }
+  const XsdElementPtr get_sequence_at(size_t index) const;
 
  private:
   bool ParseAttributes(const kmlbase::Attributes& attributes);
-  XsdComplexType(const string& name)
-    : name_(name) {
-  }
+  XsdComplexType(const string& name);
 
   string name_;
   string extension_base_;  // <xs:extension base="xx">

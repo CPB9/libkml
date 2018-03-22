@@ -30,6 +30,7 @@
 #ifndef KML_ENGINE_STYLE_MERGER_H__
 #define KML_ENGINE_STYLE_MERGER_H__
 
+#include "kml/config.h"
 #include "kml/dom.h"
 #include "kml/engine/engine_types.h"
 #include "kml/engine/kml_file.h"
@@ -57,7 +58,7 @@ class KmlCache;
 //  // found in the resolution process are set.
 //  The methods of the StyleResolver is the preferred API to use in
 //  application code.
-class StyleMerger {
+class KML_EXPORT StyleMerger {
  public:
   // A StyleMerger needs a SharedStyleMap and a style state.  If both a
   // KmlCache and base_url are given then StyleMerger performs networked
@@ -84,9 +85,7 @@ class StyleMerger {
   // This method is guaranteed to return non-NULL, however the resolved <Style>
   // itself may be devoid of child elements which simply means the style is
   // full default.
-  const kmldom::StylePtr& GetResolvedStyle() const {
-    return resolved_style_;
-  }
+  const kmldom::StylePtr& GetResolvedStyle() const;
 
   // Both Feature and Pair have a styleUrl and/or StyleSelector.
   void MergeStyle(const string& styleurl,
@@ -108,9 +107,7 @@ class StyleMerger {
   // Return the current styleUrl nesting depth.  If this is < 0 no further
   // styleUrl references are followed.  The resolved style is still essentially
   // valid, but it's up to the user of this class to decide if that's an error.
-  int get_nesting_depth() const {
-    return nesting_depth_;
-  }
+  int get_nesting_depth() const;
 
  private:
   const SharedStyleMap& shared_style_map_;

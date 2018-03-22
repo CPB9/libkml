@@ -29,6 +29,7 @@
 #define KML_XSD_XSD_ELEMENT_H__
 
 #include <bmcl/Rc.h>
+#include "kml/config.h"
 #include "kml/base/referent.h"
 #include "kml/xsd/xsd_primitive_type.h"
 
@@ -40,55 +41,39 @@ namespace kmlxsd {
 
 // XsdElement corresponds to <xs:element name="..." type="..." ... />
 // or <xs:element ref="..."/>.
-class XsdElement : public kmlbase::Referent {
+class KML_EXPORT XsdElement : public kmlbase::Referent {
 public:
   // Create an XsdElement from the given attributes.
   static XsdElement* Create(const kmlbase::Attributes& attributes);
 
   // Get the value of the <xs:element abstract="..."> attribute.
-  bool is_abstract() const {
-    return abstract_;
-  }
+  bool is_abstract() const;
 
   // Get the value of the <xs:element default="..."> attribute.
-  const string& get_default() const {
-    return default_;
-  }
+  const string& get_default() const;
 
   // Get the value of the <xs:element name="..."> attribute.  This is the
   // value of ref= if is_ref() is true.
-  const string& get_name() const {
-    return name_;
-  }
+  const string& get_name() const;
 
   // Get the <xs:element substitutionGroup="..."> attribute.
-  const string& get_substitution_group() const {
-    return substitution_group_;
-  }
+  const string& get_substitution_group() const;
 
   // Get the <xs:element type="..."> attribute.
-  const string& get_type() const {
-    return type_;
-  }
+  const string& get_type() const;
 
   // Return the XSD type id of the element type IF this element is of a
   // primitive type, else return XSD_INVALID.
-  XsdPrimitiveType::TypeId get_type_id() const {
-    return type_id_;
-  }
+  XsdPrimitiveType::TypeId get_type_id() const;
 
   // This returns true if the element is of an XSD native/primitive type.
   // Note that an element of any simpleType is _not_ considered primitive.
   // See XsdPrimitiveType for the list of XSD primitive types.
-  bool is_primitive() const {
-    return type_id_ != XsdPrimitiveType::XSD_INVALID;
-  }
+  bool is_primitive() const;
 
   // This returns true if this is an <xs:element ref="..."> and false if this
   // is an <xs:element name="..." ... >
-  bool is_ref() const {
-    return ref_ == true;
-  }
+  bool is_ref() const;
 
  private:
   // Use static Create().

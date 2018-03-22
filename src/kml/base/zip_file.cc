@@ -236,4 +236,11 @@ bool ZipFile::AddEntry(const string& data,
   return zipCloseFileInZip(zipfile) == ZIP_OK;
 }
 
+void ZipFile::set_max_uncompressed_file_size(unsigned int i){
+  max_uncompressed_file_size_ = i;
+}
+
+unsigned int ZipFile::get_max_uncompressed_file_size(){
+  return max_uncompressed_file_size_;
+}
 }  // end namespace kmlbase

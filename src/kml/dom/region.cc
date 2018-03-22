@@ -190,4 +190,190 @@ void Region::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+kmldom::KmlDomType LatLonAltBox::Type() const{ return Type_LatLonAltBox; }
+
+bool LatLonAltBox::IsA(kmldom::KmlDomType type) const{
+   return type == Type_LatLonAltBox || AbstractLatLonBox::IsA(type);
+ }
+
+double LatLonAltBox::get_minaltitude() const{
+   return minaltitude_;
+ }
+
+bool LatLonAltBox::has_minaltitude() const{
+   return has_minaltitude_;
+ }
+
+void LatLonAltBox::set_minaltitude(double minaltitude){
+   minaltitude_ = minaltitude;
+   has_minaltitude_ = true;
+ }
+
+void LatLonAltBox::clear_minaltitude(){
+   minaltitude_ = 0.0;
+   has_minaltitude_ = false;
+ }
+
+double LatLonAltBox::get_maxaltitude() const{
+   return maxaltitude_;
+ }
+
+bool LatLonAltBox::has_maxaltitude() const{
+   return has_maxaltitude_;
+ }
+
+void LatLonAltBox::set_maxaltitude(double maxaltitude){
+   maxaltitude_ = maxaltitude;
+   has_maxaltitude_ = true;
+ }
+
+void LatLonAltBox::clear_maxaltitude(){
+   maxaltitude_ = 0.0;
+   has_maxaltitude_ = false;
+ }
+
+int LatLonAltBox::get_altitudemode() const{
+   return altitudemode_;
+ }
+
+void LatLonAltBox::set_altitudemode(int altitudemode){
+   altitudemode_ = altitudemode;
+   has_altitudemode_ = true;
+ }
+
+bool LatLonAltBox::has_altitudemode() const{
+   return has_altitudemode_;
+ }
+
+void LatLonAltBox::clear_altitudemode(){
+   altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
+   has_altitudemode_ = false;
+ }
+
+int LatLonAltBox::get_gx_altitudemode() const{
+   return gx_altitudemode_;
+ }
+
+bool LatLonAltBox::has_gx_altitudemode() const{
+   return has_gx_altitudemode_;
+ }
+
+void LatLonAltBox::set_gx_altitudemode(int gx_altitudemode){
+   gx_altitudemode_ = gx_altitudemode;
+   has_gx_altitudemode_ = true;
+ }
+
+void LatLonAltBox::clear_gx_altitudemode(){
+   gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
+   has_gx_altitudemode_ = false;
+ }
+
+kmldom::KmlDomType Lod::Type() const{ return Type_Lod; }
+
+bool Lod::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Lod || Object::IsA(type);
+ }
+
+double Lod::get_minlodpixels() const{
+   return minlodpixels_;
+ }
+
+bool Lod::has_minlodpixels() const{
+   return has_minlodpixels_;
+ }
+
+void Lod::set_minlodpixels(double minlodpixels){
+   minlodpixels_ = minlodpixels;
+   has_minlodpixels_ = true;
+ }
+
+void Lod::clear_minlodpixels(){
+   minlodpixels_ = 0.0;
+   has_minlodpixels_ = false;
+ }
+
+double Lod::get_maxlodpixels() const{
+   return maxlodpixels_;
+ }
+
+bool Lod::has_maxlodpixels() const{
+   return has_maxlodpixels_;
+ }
+
+void Lod::set_maxlodpixels(double minlodpixels){
+   maxlodpixels_ = minlodpixels;
+   has_maxlodpixels_ = true;
+ }
+
+void Lod::clear_maxlodpixels(){
+   maxlodpixels_ = -1.0;
+   has_maxlodpixels_ = false;
+ }
+
+double Lod::get_minfadeextent() const{
+   return minfadeextent_;
+ }
+
+bool Lod::has_minfadeextent() const{
+   return has_minfadeextent_;
+ }
+
+void Lod::set_minfadeextent(double minlodpixels){
+   minfadeextent_ = minlodpixels;
+   has_minfadeextent_ = true;
+ }
+
+void Lod::clear_minfadeextent(){
+   minfadeextent_ = 0.0;
+   has_minfadeextent_ = false;
+ }
+
+double Lod::get_maxfadeextent() const{
+   return maxfadeextent_;
+ }
+
+bool Lod::has_maxfadeextent() const{
+   return has_maxfadeextent_;
+ }
+
+void Lod::set_maxfadeextent(double maxlodpixels){
+   maxfadeextent_ = maxlodpixels;
+   has_maxfadeextent_ = true;
+ }
+
+void Lod::clear_maxfadeextent(){
+   maxfadeextent_ = 0.0;
+   has_maxfadeextent_ = false;
+ }
+
+kmldom::KmlDomType Region::Type() const{ return Type_Region; }
+
+bool Region::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Region || Object::IsA(type);
+ }
+
+const LatLonAltBoxPtr& Region::get_latlonaltbox() const{ return latlonaltbox_; }
+
+bool Region::has_latlonaltbox() const{ return latlonaltbox_ != nullptr; }
+
+void Region::set_latlonaltbox(const LatLonAltBoxPtr& latlonaltbox){
+   SetComplexChild(latlonaltbox, &latlonaltbox_);
+ }
+
+void Region::clear_latlonaltbox(){
+   set_latlonaltbox(NULL);
+ }
+
+const LodPtr& Region::get_lod() const{ return lod_; }
+
+bool Region::has_lod() const{ return lod_ != nullptr; }
+
+void Region::set_lod(const LodPtr& lod){
+   SetComplexChild(lod, &lod_);
+ }
+
+void Region::clear_lod(){
+   set_lod(NULL);
+ }
 }  // end namespace kmldom

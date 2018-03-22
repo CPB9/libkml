@@ -25,6 +25,7 @@
 
 // This file contains XSD convenience utilities.
 
+#include "kml/config.h"
 #include "kml/base/util.h"
 
 namespace kmlxsd {
@@ -33,32 +34,32 @@ class XsdComplexType;
 class XsdElement;
 class XsdSchema;
 
-extern const char kAbstract[];
-extern const char kBase[];
-extern const char kComplexType[];
-extern const char kDefault[];
-extern const char kElement[];
-extern const char kEnumeration[];
-extern const char kExtension[];
-extern const char kName[];
-extern const char kSchema[];
-extern const char kSimpleType[];
-extern const char kSubstitutionGroup[];
-extern const char kRestriction[];
-extern const char kTargetNamespace[];
-extern const char kType[];
-extern const char kValue[];
+extern KML_EXPORT const char kAbstract[];
+extern KML_EXPORT const char kBase[];
+extern KML_EXPORT const char kComplexType[];
+extern KML_EXPORT const char kDefault[];
+extern KML_EXPORT const char kElement[];
+extern KML_EXPORT const char kEnumeration[];
+extern KML_EXPORT const char kExtension[];
+extern KML_EXPORT const char kName[];
+extern KML_EXPORT const char kSchema[];
+extern KML_EXPORT const char kSimpleType[];
+extern KML_EXPORT const char kSubstitutionGroup[];
+extern KML_EXPORT const char kRestriction[];
+extern KML_EXPORT const char kTargetNamespace[];
+extern KML_EXPORT const char kType[];
+extern KML_EXPORT const char kValue[];
 
 // Convenience utility to create a <xs:complexType name="TYPE_NAME"/>.
-XsdComplexType* CreateXsdComplexType(const string& type_name);
+KML_EXPORT XsdComplexType* CreateXsdComplexType(const string& type_name);
 
 // Convenience utility ot create a <xs:element name="NAME" type="TYPE"/>.
-XsdElement* CreateXsdElement(const string& name, const string& type);
+KML_EXPORT XsdElement* CreateXsdElement(const string& name, const string& type);
 
 // Convenience utilty to create an XsdSchema based on:
 // <schema xmlns:PREFIX="TARGET_NAMESPACE"
 //         targetNamespace="TARGET_NAMESPACE"/>
-XsdSchema* CreateXsdSchema(const string& prefix,
+KML_EXPORT XsdSchema* CreateXsdSchema(const string& prefix,
                            const string& target_namespace);
 
 }  // end namespace kmlxsd

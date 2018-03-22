@@ -29,6 +29,7 @@
 #define KML_BASE_XML_ELEMENT_H__
 
 #include <bmcl/Rc.h>
+#include "kml/config.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_namespaces.h"
@@ -45,59 +46,37 @@ typedef bmcl::Rc<XmlElement> XmlElementPtr;
 // This class represents an XML element.  An XmlElement may be in one XmlFile,
 // and may have one parent XmlElement.  This class is derived from Referent
 // such that derived classes can use boost::intrusive_ptr.
-class XmlElement : public Referent {
+class KML_EXPORT XmlElement : public Referent {
  public:
   // Get the parent XmlElement if any.
-  const XmlElement* GetParent() const {
-    return parent_;
-  }
+  const XmlElement* GetParent() const;
 
   // Get the parent XmlFile if any.
-  const XmlFile* GetXmlFile() const {
-    return xml_file_;
-  }
+  const XmlFile* GetXmlFile() const;
 
-  XmlnsId get_xmlns() const {
-    return xmlns_id_;
-  }
+  XmlnsId get_xmlns() const;
 
   // This returns true if the passed element is in the same XmlFile or if both
   // this XmlElement and the passed element are in no XmlFile.  Passing a NULL
   // pointer always causes a false return value.
-  bool InSameXmlFile(const XmlElementPtr& element) const {
-    return element && xml_file_ == element->xml_file_;
-  }
+  bool InSameXmlFile(const XmlElementPtr& element) const;
 
   // If this element is not already in an XmlFile this associates this element
   // with the given XmlFile and true is returned.  If this element is already
   // in an XmlFile false is returned and that association remains.  There is
   // no means to detach an XmlElement from an XmlFile.
-  bool SetXmlFile(const XmlFile* xml_file) {
-    if (!xml_file_ && xml_file) {
-      xml_file_ = xml_file;
-      return true;
-    }
-    return false;
-  }
+  bool SetXmlFile(const XmlFile* xml_file);
 
  protected:
   // This is an abstract base class and is never created directly.
-  XmlElement() : xmlns_id_(XMLNS_NONE), parent_(nullptr), xml_file_(nullptr) {}
+  XmlElement();
 
-  void set_xmlns(XmlnsId xmlns_id) {
-    xmlns_id_ = xmlns_id;
-  }
+  void set_xmlns(XmlnsId xmlns_id);
 
   // Only a derived class can set its parent.  This returns false if this
   // XmlElement already has a parent or if this XmlElement is in a different
   // XmlFile.
-  bool SetParent(const XmlElementPtr& parent) {
-    if (!parent_ && parent && InSameXmlFile(parent)) {
-      parent_ = parent.get();
-      return true;
-    }
-    return false;
-  }
+  bool SetParent(const XmlElementPtr& parent);
 
  private:
   XmlnsId xmlns_id_;

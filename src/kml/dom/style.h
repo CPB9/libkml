@@ -26,6 +26,7 @@
 #ifndef KML_DOM_STYLE_H__
 #define KML_DOM_STYLE_H__
 
+#include "kml/config.h"
 #include "kml/dom/balloonstyle.h"
 #include "kml/dom/iconstyle.h"
 #include "kml/dom/kml22.h"
@@ -42,73 +43,47 @@ class Serializer;
 class Visitor;
 class VisitorDriver;
 
-class Style : public StyleSelector {
+class KML_EXPORT Style : public StyleSelector {
  public:
   virtual ~Style();
-  virtual KmlDomType Type() const { return Type_Style; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Style || StyleSelector::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <IconStyle>
-  const IconStylePtr& get_iconstyle() const { return iconstyle_; }
-  bool has_iconstyle() const { return iconstyle_ != nullptr; }
-  void set_iconstyle(const IconStylePtr& iconstyle) {
-    SetComplexChild(iconstyle, &iconstyle_);
-  }
-  void clear_iconstyle() {
-    set_iconstyle(NULL);
-  }
+  const IconStylePtr& get_iconstyle() const;
+  bool has_iconstyle() const;
+  void set_iconstyle(const IconStylePtr& iconstyle);
+  void clear_iconstyle();
 
   // <LabelStyle>
-  const LabelStylePtr& get_labelstyle() const { return labelstyle_; }
-  bool has_labelstyle() const { return labelstyle_ != nullptr; }
-  void set_labelstyle(const LabelStylePtr& labelstyle) {
-    SetComplexChild(labelstyle, &labelstyle_);
-  }
-  void clear_labelstyle() {
-    set_labelstyle(NULL);
-  }
+  const LabelStylePtr& get_labelstyle() const;
+  bool has_labelstyle() const;
+  void set_labelstyle(const LabelStylePtr& labelstyle);
+  void clear_labelstyle();
 
   // <LineStyle>
-  const LineStylePtr& get_linestyle() const { return linestyle_; }
-  bool has_linestyle() const { return linestyle_ != nullptr; }
-  void set_linestyle(const LineStylePtr& linestyle) {
-    SetComplexChild(linestyle, &linestyle_);
-  }
-  void clear_linestyle() {
-    set_linestyle(NULL);
-  }
+  const LineStylePtr& get_linestyle() const;
+  bool has_linestyle() const;
+  void set_linestyle(const LineStylePtr& linestyle);
+  void clear_linestyle();
 
   // <PolyStyle>
-  const PolyStylePtr& get_polystyle() const { return polystyle_; }
-  bool has_polystyle() const { return polystyle_ != nullptr; }
-  void set_polystyle(const PolyStylePtr& polystyle) {
-    SetComplexChild(polystyle, &polystyle_);
-  }
-  void clear_polystyle() {
-    set_polystyle(NULL);
-  }
+  const PolyStylePtr& get_polystyle() const;
+  bool has_polystyle() const;
+  void set_polystyle(const PolyStylePtr& polystyle);
+  void clear_polystyle();
 
   // <BalloonStyle>
-  const BalloonStylePtr& get_balloonstyle() const { return balloonstyle_; }
-  bool has_balloonstyle() const { return balloonstyle_ != nullptr; }
-  void set_balloonstyle(const BalloonStylePtr& balloonstyle) {
-    SetComplexChild(balloonstyle, &balloonstyle_);
-  }
-  void clear_balloonstyle() {
-    set_balloonstyle(NULL);
-  }
+  const BalloonStylePtr& get_balloonstyle() const;
+  bool has_balloonstyle() const;
+  void set_balloonstyle(const BalloonStylePtr& balloonstyle);
+  void clear_balloonstyle();
 
   // <ListStyle>
-  const ListStylePtr& get_liststyle() const { return liststyle_; }
-  bool has_liststyle() const { return liststyle_ != nullptr; }
-  void set_liststyle(const ListStylePtr& liststyle) {
-    SetComplexChild(liststyle, &liststyle_);
-  }
-  void clear_liststyle() {
-    set_liststyle(NULL);
-  }
+  const ListStylePtr& get_liststyle() const;
+  bool has_liststyle() const;
+  void set_liststyle(const ListStylePtr& liststyle);
+  void clear_liststyle();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

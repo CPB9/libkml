@@ -36,7 +36,7 @@ class Attributes;
 // This declares the pure virtual ExpatHandler interface.
 class ExpatHandler {
 public:
-  virtual ~ExpatHandler() {}
+  virtual ~ExpatHandler();
   virtual void StartElement(const string& name,
                             const StringVector& atts) = 0;
   virtual void EndElement(const string& name) = 0;
@@ -44,15 +44,11 @@ public:
 
   // Namespace handlers with an empty default implementation.
   virtual void StartNamespace(const string& prefix,
-                              const string& uri) {}
-  virtual void EndNamespace(const string& prefix) {}
+                              const string& uri);
+  virtual void EndNamespace(const string& prefix);
 
-  void set_parser(XML_Parser parser) {
-    parser_ = parser;
-  }
-  XML_Parser get_parser() {
-    return parser_;
-  }
+  void set_parser(XML_Parser parser);
+  XML_Parser get_parser();
 
 private:
   XML_Parser parser_;

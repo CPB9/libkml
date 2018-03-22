@@ -68,4 +68,36 @@ XsdElement* XsdElement::Create(const kmlbase::Attributes& attributes) {
   return nullptr;
 }
 
+
+bool XsdElement::is_abstract() const{
+   return abstract_;
+ }
+
+const std::__cxx11::string& XsdElement::get_default() const{
+   return default_;
+ }
+
+const std::__cxx11::string& XsdElement::get_name() const{
+   return name_;
+ }
+
+const std::__cxx11::string& XsdElement::get_substitution_group() const{
+   return substitution_group_;
+ }
+
+const std::__cxx11::string& XsdElement::get_type() const{
+   return type_;
+ }
+
+XsdPrimitiveType::TypeId XsdElement::get_type_id() const{
+   return type_id_;
+ }
+
+bool XsdElement::is_primitive() const{
+   return type_id_ != XsdPrimitiveType::XSD_INVALID;
+ }
+
+bool XsdElement::is_ref() const{
+   return ref_ == true;
+ }
 }  // end namespace kmlxsd

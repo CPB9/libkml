@@ -28,6 +28,7 @@
 
 #include <algorithm>
 #include <vector>
+#include "kml/config.h"
 #include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
 #include "kml/base/util.h"
@@ -39,34 +40,20 @@ class VisitorDriver;
 
 // OGC KML 2.2 Standard: 9.6 kml:AbstractContainerGroup
 // OGC KML 2.2 XSD: <element name="AbstractContainerGroup"...
-class Container : public Feature {
+class KML_EXPORT Container : public Feature {
  public:
   virtual ~Container();
-  virtual KmlDomType Type() const { return Type_Container; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Container || Feature::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   void add_feature(const FeaturePtr& feature);
-  void insert_feature_at(std::size_t at, const FeaturePtr& feature) {
-      InsertComplexChild(at, feature, &feature_array_);
-  }
+  void insert_feature_at(std::size_t at, const FeaturePtr& feature);
 
-  int get_index_of_feature(const FeaturePtr& feature) const {
-    std::vector<FeaturePtr>::const_iterator it = std::find(feature_array_.begin(), feature_array_.end(), feature);
-    if (it == feature_array_.end()) {
-      return -1;
-    }
-    return int(it - feature_array_.begin()); //HACK
-  }
+  int get_index_of_feature(const FeaturePtr& feature) const;
 
-  size_t get_feature_array_size() const {
-    return feature_array_.size();
-  }
+  size_t get_feature_array_size() const;
 
-  const FeaturePtr& get_feature_array_at(size_t index) const {
-    return feature_array_[index];
-  }
+  const FeaturePtr& get_feature_array_at(size_t index) const;
 
   // The following two methods delete a Feature from the Container.  If the
   // id='ed or index'ed Feature exists a pointer to it is returned and it is

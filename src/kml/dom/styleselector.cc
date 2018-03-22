@@ -31,4 +31,10 @@ StyleSelector::StyleSelector() {}
 
 StyleSelector::~StyleSelector() {}
 
+
+kmldom::KmlDomType StyleSelector::Type() const{ return Type_StyleSelector; }
+
+bool StyleSelector::IsA(kmldom::KmlDomType type) const{
+   return type == Type_StyleSelector || Object::IsA(type);
+ }
 }  // end namespace kmldom

@@ -120,4 +120,6 @@ ElementPtr ParseAtom(const string& atom, string* errors) {
   return parser.ParseAtom(atom, errors);
 }
 
+Parser::Parser(){}
+
 } // end namespace kmldom

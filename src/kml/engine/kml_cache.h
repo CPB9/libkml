@@ -26,8 +26,9 @@
 #ifndef KML_ENGINE_KML_CACHE_H__
 #define KML_ENGINE_KML_CACHE_H__
 
-#include "kml/base/net_cache.h"
 #include <memory>
+#include "kml/config.h"
+#include "kml/base/net_cache.h"
 #include "kml/engine/kml_file.h"
 #include "kml/engine/kmz_cache.h"
 
@@ -58,7 +59,7 @@ typedef kmlbase::NetCache<KmlFile> KmlFileNetCache;
 //                                   "image.jpg", &data);
 // As the "cache" name suggests subsequent fetches for a given URL will
 // potentially hit the cache.
-class KmlCache {
+class KML_EXPORT KmlCache {
  public:
   KmlCache(kmlbase::NetFetcher* net_fetcher, size_t max_size);
 

@@ -35,6 +35,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include "kml/config.h"
 #include "kml/dom.h"
 
 namespace kmlconvenience {
@@ -58,7 +59,7 @@ class HttpClient;
 //   maps_data->GetMetaFeed(&spreadsheets_feed);
 //   kmldom::ElementPtr root = kmldom::ParseAtom(spreadsheets_feed);
 //   kmlconvenience::AtomUtil... for common Atom inspection.
-class GoogleDocList {
+class KML_EXPORT GoogleDocList {
  public:
   // Create a GoogleDocList object.  The HttpClient must already be logged
   // in.  See http_client.h for more information about authentication.
@@ -74,9 +75,7 @@ class GoogleDocList {
 
   static const char* get_metafeed_uri();
 
-  const string& get_scope() const {
-    return scope_;
-  }
+  const string& get_scope() const;
 
   // This returns the "meta feed" for the authenticated user.  The result is an
   // Atom <feed> containing an <entry> for each spreadsheet.  See:

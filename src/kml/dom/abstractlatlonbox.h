@@ -26,6 +26,7 @@
 #ifndef KML_DOM_ABSTRACTLATLONBOX_H__
 #define KML_DOM_ABSTRACTLATLONBOX_H__
 
+#include "kml/config.h"
 #include "kml/dom/kml22.h"
 #include "kml/dom/object.h"
 
@@ -36,77 +37,35 @@ class Serializer;
 
 // OGC KML 2.2 Standard: 9.14 kml:AbstractLatLonAltBox
 // OGC KML 2.2 XSD: <complexType name="AbstractLatLonBoxType" abstract="true">
-class AbstractLatLonBox : public Object {
+class KML_EXPORT AbstractLatLonBox : public Object {
  public:
   virtual ~AbstractLatLonBox();
-  virtual KmlDomType Type() const { return Type_AbstractLatLonBox; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_AbstractLatLonBox || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <north>
-  double get_north() const {
-    return north_;
-  }
-  bool has_north() const {
-    return has_north_;
-  }
-  void set_north(double north) {
-    north_ = north;
-    has_north_ = true;
-  }
-  void clear_north() {
-    north_ = 180.0;
-    has_north_ = false;
-  }
+  double get_north() const;
+  bool has_north() const;
+  void set_north(double north);
+  void clear_north();
 
   // <south>
-  double get_south() const {
-    return south_;
-  }
-  bool has_south() const {
-    return has_south_;
-  }
-  void set_south(double south) {
-    south_ = south;
-    has_south_ = true;
-  }
-  void clear_south() {
-    south_ = -180.0;
-    has_south_ = false;
-  }
+  double get_south() const;
+  bool has_south() const;
+  void set_south(double south);
+  void clear_south();
 
   // <east>
-  double get_east() const {
-    return east_;
-  }
-  bool has_east() const {
-    return has_east_;
-  }
-  void set_east(double south) {
-    east_ = south;
-    has_east_ = true;
-  }
-  void clear_east() {
-    east_ = 180.0;
-    has_east_ = false;
-  }
+  double get_east() const;
+  bool has_east() const;
+  void set_east(double south);
+  void clear_east();
 
   // <west>
-  double get_west() const {
-    return west_;
-  }
-  bool has_west() const {
-    return has_west_;
-  }
-  void set_west(double south) {
-    west_ = south;
-    has_west_ = true;
-  }
-  void clear_west() {
-    west_ = -180.0;
-    has_west_ = false;
-  }
+  double get_west() const;
+  bool has_west() const;
+  void set_west(double south);
+  void clear_west();
 
  protected:
   // Abstract element.  Access for derived types only.

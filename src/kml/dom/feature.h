@@ -28,6 +28,7 @@
 #ifndef KML_DOM_FEATURE_H__
 #define KML_DOM_FEATURE_H__
 
+#include "kml/config.h"
 #include "kml/dom/abstractview.h"
 #include "kml/dom/atom.h"
 #include "kml/dom/extendeddata.h"
@@ -47,206 +48,120 @@ class VisitorDriver;
 
 // OGC KML 2.2 Standard: 9.1 kml:AbstractFeatureGroup
 // OGC KML 2.2 XSD: <element name="AbstractFeatureGroup"...
-class Feature : public Object {
+class KML_EXPORT Feature : public Object {
  public:
   virtual ~Feature();
-  virtual KmlDomType Type() const { return Type_Feature; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_Feature || Object::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <name>
-  const string& get_name() const { return name_; }
-  bool has_name() const { return has_name_; }
-  void set_name(const string& value) {
-    name_ = value;
-    has_name_ = true;
-  }
-  void clear_name() {
-    name_.clear();
-    has_name_ = false;
-  }
+  const string& get_name() const;
+  bool has_name() const;
+  void set_name(const string& value);
+  void clear_name();
 
   // <visibility>
-  bool get_visibility() const { return visibility_; }
-  bool has_visibility() const { return has_visibility_; }
-  void set_visibility(bool value) {
-    visibility_ = value;
-    has_visibility_ = true;
-  }
-  void clear_visibility() {
-    visibility_ = true;  // Default <visibility> is true.
-    has_visibility_ = false;
-  }
+  bool get_visibility() const;
+  bool has_visibility() const;
+  void set_visibility(bool value);
+  void clear_visibility();
 
   // <open>
-  bool get_open() const { return open_; }
-  bool has_open() const { return has_open_; }
-  void set_open(bool value) {
-    open_ = value;
-    has_open_ = true;
-  }
-  void clear_open() {
-    open_ = false;
-    has_open_ = false;
-  }
+  bool get_open() const;
+  bool has_open() const;
+  void set_open(bool value);
+  void clear_open();
 
   // <atom:author>
-  const AtomAuthorPtr& get_atomauthor() const { return atomauthor_; }
-  bool has_atomauthor() const { return atomauthor_ != nullptr; }
-  void set_atomauthor(const AtomAuthorPtr& atomauthor) {
-    SetComplexChild(atomauthor, &atomauthor_);
-  }
-  void clear_atomauthor() {
-    set_atomauthor(NULL);
-  }
+  const AtomAuthorPtr& get_atomauthor() const;
+  bool has_atomauthor() const;
+  void set_atomauthor(const AtomAuthorPtr& atomauthor);
+  void clear_atomauthor();
 
   // <atom:link>
-  const AtomLinkPtr& get_atomlink() const { return atomlink_; }
-  bool has_atomlink() const { return atomlink_ != nullptr; }
-  void set_atomlink(const AtomLinkPtr& atomlink) {
-    SetComplexChild(atomlink, &atomlink_);
-  }
+  const AtomLinkPtr& get_atomlink() const;
+  bool has_atomlink() const;
+  void set_atomlink(const AtomLinkPtr& atomlink);
   void clear_atomlink() {
     set_atomlink(NULL);
   }
 
   // <address>
-  const string& get_address() const { return address_; }
-  bool has_address() const { return has_address_; }
-  void set_address(const string& value) {
-    address_ = value;
-    has_address_ = true;
-  }
-  void clear_address() {
-    address_.clear();
-    has_address_ = false;
-  }
+  const string& get_address() const;
+  bool has_address() const;
+  void set_address(const string& value);
+  void clear_address();
 
   // <xal:AddressDetails>
-  const XalAddressDetailsPtr& get_xaladdressdetails() const {
-    return xaladdressdetails_;
-  }
-  bool has_xaladdressdetails() const { return xaladdressdetails_ != nullptr; }
-  void set_xaladdressdetails(const XalAddressDetailsPtr& xaladdressdetails) {
-    SetComplexChild(xaladdressdetails, &xaladdressdetails_);
-  }
-  void clear_xaladdressdetails() {
-    set_xaladdressdetails(NULL);
-  }
+  const XalAddressDetailsPtr& get_xaladdressdetails() const;
+  bool has_xaladdressdetails() const;
+  void set_xaladdressdetails(const XalAddressDetailsPtr& xaladdressdetails);
+  void clear_xaladdressdetails();
 
   // <phoneNumber>
-  const string& get_phonenumber() const { return phonenumber_; }
-  bool has_phonenumber() const { return has_phonenumber_; }
-  void set_phonenumber(const string& value) {
-    phonenumber_ = value;
-    has_phonenumber_ = true;
-  }
-  void clear_phonenumber() {
-    phonenumber_.clear();
-    has_phonenumber_ = false;
-  }
+  const string& get_phonenumber() const;
+  bool has_phonenumber() const;
+  void set_phonenumber(const string& value);
+  void clear_phonenumber();
 
   // TODO: "little" <snippet> (presently preserved as a misplaced child)
   // <Snippet>
-  const SnippetPtr& get_snippet() const { return snippet_; }
-  bool has_snippet() const { return snippet_ != nullptr; }
-  void set_snippet(const SnippetPtr& snippet) {
-    SetComplexChild(snippet, &snippet_);
-  }
-  void clear_snippet() {
-    set_snippet(NULL);
-  }
+  const SnippetPtr& get_snippet() const;
+  bool has_snippet() const;
+  void set_snippet(const SnippetPtr& snippet);
+  void clear_snippet();
 
   // <description>
-  const string& get_description() const { return description_; }
-  bool has_description() const { return has_description_; }
-  void set_description(const string& value) {
-    description_ = value;
-    has_description_ = true;
-  }
-  void clear_description() {
-    description_.clear();
-    has_description_ = false;
-  }
+  const string& get_description() const;
+  bool has_description() const;
+  void set_description(const string& value);
+  void clear_description();
 
   // AbstractView
-  const AbstractViewPtr& get_abstractview() const { return abstractview_; }
-  bool has_abstractview() const { return abstractview_ != nullptr; }
-  void set_abstractview(const AbstractViewPtr& abstractview) {
-    SetComplexChild(abstractview, &abstractview_);
-  }
-  void clear_abstractview() {
-    set_abstractview(NULL);
-  }
+  const AbstractViewPtr& get_abstractview() const;
+  bool has_abstractview() const;
+  void set_abstractview(const AbstractViewPtr& abstractview);
+  void clear_abstractview();
 
   // TimePrimitive
-  const TimePrimitivePtr& get_timeprimitive() const { return timeprimitive_; }
-  bool has_timeprimitive() const { return timeprimitive_ != nullptr; }
-  void set_timeprimitive(const TimePrimitivePtr& timeprimitive) {
-    SetComplexChild(timeprimitive, &timeprimitive_);
-  }
-  void clear_timeprimitive() {
-    set_timeprimitive(NULL);
-  }
+  const TimePrimitivePtr& get_timeprimitive() const;
+  bool has_timeprimitive() const;
+  void set_timeprimitive(const TimePrimitivePtr& timeprimitive);
+  void clear_timeprimitive();
 
   // <styleUrl>
-  const string& get_styleurl() const { return styleurl_; }
-  string& styleurl() { return styleurl_; }
-  bool has_styleurl() const { return has_styleurl_; }
-  void set_styleurl(const string& value) {
-    styleurl_ = value;
-    has_styleurl_ = true;
-  }
-  void clear_styleurl() {
-    styleurl_.clear();
-    has_styleurl_ = false;
-  }
+  const string& get_styleurl() const;
+  string& styleurl();
+  bool has_styleurl() const;
+  void set_styleurl(const string& value);
+  void clear_styleurl();
 
   // StyleSelector
-  const StyleSelectorPtr& get_styleselector() const { return styleselector_; }
-  bool has_styleselector() const { return styleselector_ != nullptr; }
-  void set_styleselector(const StyleSelectorPtr& styleselector) {
-    SetComplexChild(styleselector, &styleselector_);
-  }
-  void clear_styleselector() {
-    set_styleselector(NULL);
-  }
+  const StyleSelectorPtr& get_styleselector() const;
+  bool has_styleselector() const;
+  void set_styleselector(const StyleSelectorPtr& styleselector);
+  void clear_styleselector();
 
   // <Region>
-  const RegionPtr& get_region() const { return region_; }
-  bool has_region() const { return region_ != nullptr; }
-  void set_region(const RegionPtr& region) {
-    SetComplexChild(region, &region_);
-  }
-  void clear_region() {
-    set_region(NULL);
-  }
+  const RegionPtr& get_region() const;
+  bool has_region() const;
+  void set_region(const RegionPtr& region);
+  void clear_region();
 
   // TODO: <Metadata> (presently preserved as a misplaced child)
   // <ExtendedData>
-  const ExtendedDataPtr& get_extendeddata() const { return extendeddata_; }
-  bool has_extendeddata() const { return extendeddata_ != nullptr; }
-  void set_extendeddata(const ExtendedDataPtr& extendeddata) {
-    SetComplexChild(extendeddata, &extendeddata_);
-  }
-  void clear_extendeddata() {
-    set_extendeddata(NULL);
-  }
+  const ExtendedDataPtr& get_extendeddata() const;
+  bool has_extendeddata() const;
+  void set_extendeddata(const ExtendedDataPtr& extendeddata);
+  void clear_extendeddata();
 
   // From kml:AbstractFeatureSimpleExtensionGroup.
 
   // <gx:balloonVisibility>
-  bool get_gx_balloonvisibility() const { return gx_balloonvisibility_; }
-  bool has_gx_balloonvisibility() const { return has_gx_balloonvisibility_; }
-  void set_gx_balloonvisibility(bool value) {
-    gx_balloonvisibility_ = value;
-    has_gx_balloonvisibility_ = true;
-  }
-  void clear_gx_balloonvisibility() {
-    gx_balloonvisibility_ = false;
-    has_gx_balloonvisibility_ = false;
-  }
+  bool get_gx_balloonvisibility() const;
+  bool has_gx_balloonvisibility() const;
+  void set_gx_balloonvisibility(bool value);
+  void clear_gx_balloonvisibility();
 
   // Visitor API methods, see visitor.h.
   virtual void AcceptChildren(VisitorDriver* driver);

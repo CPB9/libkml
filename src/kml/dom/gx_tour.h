@@ -30,6 +30,7 @@
 #ifndef KML_GX_DOM_TOUR_H__
 #define KML_GX_DOM_TOUR_H__
 
+#include "kml/config.h"
 #include "kml/dom/element.h"
 #include "kml/dom/feature.h"
 #include "kml/dom/kml22.h"
@@ -47,26 +48,18 @@ class Visitor;
 class VisitorDriver;
 
 // <gx:Tour>
-class GxTour : public Feature {
+class KML_EXPORT GxTour : public Feature {
  public:
   virtual ~GxTour();
-  static KmlDomType ElementType() {
-    return Type_GxTour;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Feature::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <gx:Playlist>
-  const GxPlaylistPtr& get_gx_playlist() const { return gx_playlist_; }
-  bool has_gx_playlist() const { return gx_playlist_ != nullptr; }
-  void set_gx_playlist(const GxPlaylistPtr& gx_playlist) {
-    SetComplexChild(gx_playlist, &gx_playlist_);
-  }
-  void clear_gx_playlist() {
-    set_gx_playlist(NULL);
-  }
+  const GxPlaylistPtr& get_gx_playlist() const;
+  bool has_gx_playlist() const;
+  void set_gx_playlist(const GxPlaylistPtr& gx_playlist);
+  void clear_gx_playlist();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -84,16 +77,12 @@ class GxTour : public Feature {
 };
 
 // <gx:Playlist>
-class GxPlaylist : public Object {
+class KML_EXPORT GxPlaylist : public Object {
  public:
   virtual ~GxPlaylist();
-  static KmlDomType ElementType() {
-    return Type_GxPlaylist;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || Object::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // GxTourPrimitive...
   void add_gx_tourprimitive(const GxTourPrimitivePtr& tourprimitive);
@@ -117,48 +106,32 @@ class GxPlaylist : public Object {
 
 // GxTourPrimitive is an abstract base type.  This corresponds to
 // gx:AbstractGxTourPrimitiveType/Group in KML 2.2 gx.
-class GxTourPrimitive : public Object {
+class KML_EXPORT GxTourPrimitive : public Object {
  public:
-  static KmlDomType ElementType() {
-    return static_cast<KmlDomType>(Type_GxTourPrimitive);
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  bool IsA(KmlDomType type) const {
-    return type == ElementType() || Object::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  bool IsA(KmlDomType type) const;
 
  protected:
-  GxTourPrimitive() {}
+  GxTourPrimitive();
 
  private:
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(GxTourPrimitive);
 };
 
 // Intermediate common class for GxTourPrimitive with gx_duration.
-class GxTourPrimitiveCommon : public GxTourPrimitive {
+class KML_EXPORT GxTourPrimitiveCommon : public GxTourPrimitive {
  public:
   //  <gx:duration>
-  double get_gx_duration() const {
-    return gx_duration_;
-  }
-  bool has_gx_duration() const {
-    return has_gx_duration_;
-  }
-  void set_gx_duration(double gx_duration) {
-    gx_duration_ = gx_duration;
-    has_gx_duration_ = true;
-  }
-  void clear_gx_duration() {
-    gx_duration_ = 0.0;
-    has_gx_duration_ = false;
-  }
+  double get_gx_duration() const;
+  bool has_gx_duration() const;
+  void set_gx_duration(double gx_duration);
+  void clear_gx_duration();
 
  protected:
   // This is an internal abstract element and is inherited only and never
   // instantiated directly.
-  GxTourPrimitiveCommon()
-    : has_gx_duration_(false), gx_duration_(0.0) {
-  }
+  GxTourPrimitiveCommon();
 
   virtual void AddElement(const ElementPtr& element);
   virtual void Serialize(Serializer& serializer) const;
@@ -170,26 +143,18 @@ class GxTourPrimitiveCommon : public GxTourPrimitive {
 };
 
 // <gx:AnimatedUpdate>
-class GxAnimatedUpdate : public GxTourPrimitiveCommon {
+class KML_EXPORT GxAnimatedUpdate : public GxTourPrimitiveCommon {
  public:
   virtual ~GxAnimatedUpdate();
-  static KmlDomType ElementType() {
-    return Type_GxAnimatedUpdate;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || GxTourPrimitive::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <Update>
-  const UpdatePtr& get_update() const { return update_; }
-  bool has_update() const { return update_ != nullptr; }
-  void set_update(const UpdatePtr& update) {
-    SetComplexChild(update, &update_);
-  }
-  void clear_update() {
-    set_update(NULL);
-  }
+  const UpdatePtr& get_update() const;
+  bool has_update() const;
+  void set_update(const UpdatePtr& update);
+  void clear_update();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -207,38 +172,24 @@ class GxAnimatedUpdate : public GxTourPrimitiveCommon {
 };
 
 // <gx:FlyTo>
-class GxFlyTo : public GxTourPrimitiveCommon {
+class KML_EXPORT GxFlyTo : public GxTourPrimitiveCommon {
  public:
   virtual ~GxFlyTo();
-  static KmlDomType ElementType() {
-    return Type_GxFlyTo;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || GxTourPrimitive::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <gx:flyToMode>.
-  int get_gx_flytomode() const { return gx_flytomode_; }
-  bool has_gx_flytomode() const { return has_gx_flytomode_; }
-  void set_gx_flytomode(int value) {
-    gx_flytomode_ = value;
-    has_gx_flytomode_ = true;
-  }
-  void clear_gx_flytomode() {
-    gx_flytomode_ = kmldom::GX_FLYTOMODE_BOUNCE;
-    has_gx_flytomode_ = false;
-  }
+  int get_gx_flytomode() const;
+  bool has_gx_flytomode() const;
+  void set_gx_flytomode(int value);
+  void clear_gx_flytomode();
 
   // AbstractView
-  const AbstractViewPtr& get_abstractview() const { return abstractview_; }
-  bool has_abstractview() const { return abstractview_ != nullptr; }
-  void set_abstractview(const AbstractViewPtr& abstractview) {
-    SetComplexChild(abstractview, &abstractview_);
-  }
-  void clear_abstractview() {
-    set_abstractview(NULL);
-  }
+  const AbstractViewPtr& get_abstractview() const;
+  bool has_abstractview() const;
+  void set_abstractview(const AbstractViewPtr& abstractview);
+  void clear_abstractview();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -258,16 +209,12 @@ class GxFlyTo : public GxTourPrimitiveCommon {
 };
 
 // <gx:Wait>
-class GxWait : public GxTourPrimitiveCommon {
+class KML_EXPORT GxWait : public GxTourPrimitiveCommon {
  public:
   virtual ~GxWait();
-  static KmlDomType ElementType() {
-    return Type_GxWait;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || GxTourPrimitive::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -281,32 +228,18 @@ class GxWait : public GxTourPrimitiveCommon {
 };
 
 // <gx:SoundCue>
-class GxSoundCue : public GxTourPrimitive {
+class KML_EXPORT GxSoundCue : public GxTourPrimitive {
  public:
   virtual ~GxSoundCue();
-  static KmlDomType ElementType() {
-    return Type_GxSoundCue;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || GxTourPrimitive::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <href>
-  const string& get_href() const {
-    return href_;
-  }
-  bool has_href() const {
-    return has_href_;
-  }
-  void set_href(const string& href) {
-    href_ = href;
-    has_href_ = true;
-  }
-  void clear_href() {
-    href_.clear();
-    has_href_ = false;
-  }
+  const string& get_href() const;
+  bool has_href() const;
+  void set_href(const string& href);
+  void clear_href();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);
@@ -324,32 +257,18 @@ class GxSoundCue : public GxTourPrimitive {
 };
 
 // <gx:TourControl>
-class GxTourControl : public GxTourPrimitive {
+class KML_EXPORT GxTourControl : public GxTourPrimitive {
  public:
   virtual ~GxTourControl();
-  static KmlDomType ElementType() {
-    return Type_GxTourControl;
-  }
-  virtual KmlDomType Type() const { return ElementType(); }
-  virtual bool IsA(KmlDomType type) const {
-    return type == ElementType() || GxTourPrimitive::IsA(type);
-  }
+  static KmlDomType ElementType();
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <gx:playMode>
-  int get_gx_playmode() const {
-    return gx_playmode_;
-  }
-  bool has_gx_playmode() const {
-    return has_gx_playmode_;
-  }
-  void set_gx_playmode(int value) {
-    gx_playmode_ = value;
-    has_gx_playmode_ = true;
-  }
-  void clear_gx_playmode() {
-    gx_playmode_ = GX_PLAYMODE_PAUSE;
-    has_gx_playmode_ = false;
-  }
+  int get_gx_playmode() const;
+  bool has_gx_playmode() const;
+  void set_gx_playmode(int value);
+  void clear_gx_playmode();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

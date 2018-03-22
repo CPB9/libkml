@@ -581,4 +581,622 @@ void GxMultiTrack::AcceptChildren(VisitorDriver* driver) {
   Element::AcceptRepeated<GxTrackPtr>(&gx_track_array_, driver);
 }
 
+
+void Coordinates::add_latlngalt(double latitude, double longitude, double altitude){
+   coordinates_array_.push_back(kmlbase::Vec3(longitude, latitude, altitude));
+ }
+
+void Coordinates::add_latlng(double latitude, double longitude){
+   coordinates_array_.push_back(kmlbase::Vec3(longitude, latitude));
+ }
+
+void Coordinates::insert_latlng(std::size_t index, double latitude, double longitude){
+   coordinates_array_.insert(coordinates_array_.begin() + index, kmlbase::Vec3(longitude, latitude));
+ }
+
+void Coordinates::remove_at(std::size_t index){
+   coordinates_array_.erase(coordinates_array_.begin() + index);
+ }
+
+void Coordinates::add_vec3(const kmlbase::Vec3& vec3){
+   coordinates_array_.push_back(vec3);
+ }
+
+size_t Coordinates::get_coordinates_array_size() const{
+   return coordinates_array_.size();
+ }
+
+const kmlbase::Vec3& Coordinates::get_coordinates_array_at(size_t index) const{
+   return coordinates_array_[index];
+ }
+
+kmlbase::Vec3& Coordinates::get_coordinates_array_at(size_t index){
+   return coordinates_array_[index];
+ }
+
+void Coordinates::erase_coordinates_array_at(size_t index){
+   coordinates_array_.erase(coordinates_array_.begin() + index);
+ }
+
+void Coordinates::set_coordinates_array_at(const kmlbase::Vec3& vec, size_t index){
+   coordinates_array_[index] = vec;
+ }
+
+void Coordinates::Clear(){
+   coordinates_array_.clear();
+ }
+
+kmldom::KmlDomType Geometry::Type() const{ return Type_Geometry; }
+
+bool Geometry::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Geometry || Object::IsA(type);
+ }
+
+int AltitudeGeometryCommon::get_altitudemode() const{ return altitudemode_; }
+
+bool AltitudeGeometryCommon::has_altitudemode() const{ return has_altitudemode_; }
+
+void AltitudeGeometryCommon::set_altitudemode(int value){
+   altitudemode_ = value;
+   has_altitudemode_ = true;
+ }
+
+void AltitudeGeometryCommon::clear_altitudemode(){
+   altitudemode_ = ALTITUDEMODE_CLAMPTOGROUND;
+   has_altitudemode_ = false;
+ }
+
+int AltitudeGeometryCommon::get_gx_altitudemode() const{ return gx_altitudemode_; }
+
+bool AltitudeGeometryCommon::has_gx_altitudemode() const{ return has_gx_altitudemode_; }
+
+void AltitudeGeometryCommon::set_gx_altitudemode(int value){
+   gx_altitudemode_ = value;
+   has_gx_altitudemode_ = true;
+ }
+
+void AltitudeGeometryCommon::clear_gx_altitudemode(){
+   gx_altitudemode_ = GX_ALTITUDEMODE_CLAMPTOSEAFLOOR;
+   has_gx_altitudemode_ = false;
+ }
+
+bool ExtrudeGeometryCommon::get_extrude() const{ return extrude_; }
+
+bool ExtrudeGeometryCommon::has_extrude() const{ return has_extrude_; }
+
+void ExtrudeGeometryCommon::set_extrude(bool value){
+   extrude_ = value;
+   has_extrude_ = true;
+ }
+
+void ExtrudeGeometryCommon::clear_extrude(){
+   extrude_ = false;
+   has_extrude_ = false;
+ }
+
+const CoordinatesPtr& CoordinatesGeometryCommon::get_coordinates() const{ return coordinates_; }
+
+bool CoordinatesGeometryCommon::has_coordinates() const{ return coordinates_ != nullptr; }
+
+void CoordinatesGeometryCommon::set_coordinates(const CoordinatesPtr& coordinates){
+   SetComplexChild(coordinates, &coordinates_);
+ }
+
+void CoordinatesGeometryCommon::clear_coordinates(){
+   set_coordinates(NULL);
+ }
+
+kmldom::KmlDomType Point::Type() const{ return Type_Point; }
+
+bool Point::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Point || Geometry::IsA(type);
+ }
+
+bool LineCommon::get_tessellate() const{ return tessellate_; }
+
+bool LineCommon::has_tessellate() const{ return has_tessellate_; }
+
+void LineCommon::set_tessellate(bool value){
+   tessellate_ = value;
+   has_tessellate_ = true;
+ }
+
+void LineCommon::clear_tessellate(){
+   tessellate_ = false;
+   has_tessellate_ = false;
+ }
+
+kmldom::KmlDomType LineString::Type() const{ return Type_LineString; }
+
+bool LineString::IsA(kmldom::KmlDomType type) const{
+   return type == Type_LineString || Geometry::IsA(type);
+ }
+
+kmldom::KmlDomType LinearRing::Type() const{ return Type_LinearRing; }
+
+bool LinearRing::IsA(kmldom::KmlDomType type) const{
+   return type == Type_LinearRing || Geometry::IsA(type);
+ }
+
+const LinearRingPtr& BoundaryCommon::get_linearring() const{ return linearring_; }
+
+bool BoundaryCommon::has_linearring() const{ return linearring_ != nullptr; }
+
+void BoundaryCommon::set_linearring(const LinearRingPtr& linearring){
+   SetComplexChild(linearring, &linearring_);
+ }
+
+void BoundaryCommon::clear_linearring(){
+   set_linearring(NULL);
+ }
+
+kmldom::KmlDomType OuterBoundaryIs::Type() const{ return Type_outerBoundaryIs; }
+
+bool OuterBoundaryIs::IsA(kmldom::KmlDomType type) const{
+   return type == Type_outerBoundaryIs;
+ }
+
+kmldom::KmlDomType InnerBoundaryIs::Type() const{ return Type_innerBoundaryIs; }
+
+bool InnerBoundaryIs::IsA(kmldom::KmlDomType type) const{
+   return type == Type_innerBoundaryIs;
+ }
+
+kmldom::KmlDomType Polygon::Type() const{ return Type_Polygon; }
+
+bool Polygon::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Polygon || Geometry::IsA(type);
+ }
+
+bool Polygon::get_tessellate() const{ return tessellate_; }
+
+bool Polygon::has_tessellate() const{ return has_tessellate_; }
+
+void Polygon::set_tessellate(bool value){
+   tessellate_ = value;
+   has_tessellate_ = true;
+ }
+
+void Polygon::clear_tessellate(){
+   tessellate_ = false;
+   has_tessellate_ = false;
+ }
+
+const OuterBoundaryIsPtr& Polygon::get_outerboundaryis() const{
+   return outerboundaryis_;
+ }
+
+bool Polygon::has_outerboundaryis() const{ return outerboundaryis_ != nullptr; }
+
+void Polygon::set_outerboundaryis(const OuterBoundaryIsPtr& outerboundaryis){
+   SetComplexChild(outerboundaryis, &outerboundaryis_);
+ }
+
+void Polygon::clear_outerboundaryis(){
+   set_outerboundaryis(NULL);
+ }
+
+void Polygon::add_innerboundaryis(const InnerBoundaryIsPtr& innerboundaryis){
+   AddComplexChild(innerboundaryis, &innerboundaryis_array_);
+ }
+
+size_t Polygon::get_innerboundaryis_array_size() const{
+   return innerboundaryis_array_.size();
+ }
+
+const InnerBoundaryIsPtr& Polygon::get_innerboundaryis_array_at(size_t index){
+   return innerboundaryis_array_[index];
+ }
+
+kmldom::KmlDomType MultiGeometry::Type() const{ return Type_MultiGeometry; }
+
+bool MultiGeometry::IsA(kmldom::KmlDomType type) const{
+   return type == Type_MultiGeometry || Geometry::IsA(type);
+ }
+
+size_t MultiGeometry::get_geometry_array_size() const{
+   return geometry_array_.size();
+ }
+
+const GeometryPtr& MultiGeometry::get_geometry_array_at(size_t index) const{
+   return geometry_array_[index];
+ }
+
+kmldom::KmlDomType GxTrack::ElementType(){ return Type_GxTrack; }
+
+kmldom::KmlDomType GxTrack::Type() const{ return ElementType(); }
+
+bool GxTrack::IsA(kmldom::KmlDomType type) const{
+   return type == ElementType() || Geometry::IsA(type);
+ }
+
+size_t GxTrack::get_when_array_size(){
+   return when_array_.size();
+ }
+
+void GxTrack::add_when(const std::__cxx11::string& when){
+   when_array_.push_back(when);
+ }
+
+const std::__cxx11::string& GxTrack::get_when_array_at(size_t index) const{
+   return when_array_[index];
+ }
+
+size_t GxTrack::get_gx_coord_array_size(){
+   return gx_coord_array_.size();
+ }
+
+void GxTrack::add_gx_coord(const kmlbase::Vec3& gx_coord){
+   gx_coord_array_.push_back(gx_coord);
+ }
+
+const kmlbase::Vec3& GxTrack::get_gx_coord_array_at(size_t index) const{
+   return gx_coord_array_[index];
+ }
+
+size_t GxTrack::get_gx_angles_array_size(){
+   return gx_angles_array_.size();
+ }
+
+void GxTrack::add_gx_angles(const kmlbase::Vec3& gx_angles){
+   gx_angles_array_.push_back(gx_angles);
+ }
+
+const kmlbase::Vec3& GxTrack::get_gx_angles_array_at(size_t index) const{
+   return gx_angles_array_[index];
+ }
+
+const ModelPtr& GxTrack::get_model() const{ return model_; }
+
+void GxTrack::set_model(const ModelPtr& model){
+   SetComplexChild(model, &model_);
+ }
+
+bool GxTrack::has_model() const{ return model_ != nullptr; }
+
+void GxTrack::clear_model(){ set_model(NULL); }
+
+const ExtendedDataPtr& GxTrack::get_extendeddata() const{ return extendeddata_; }
+
+bool GxTrack::has_extendeddata() const{ return extendeddata_ != nullptr; }
+
+void GxTrack::set_extendeddata(const ExtendedDataPtr& extendeddata){
+   SetComplexChild(extendeddata, &extendeddata_);
+ }
+
+void GxTrack::clear_extendeddata(){
+   set_extendeddata(NULL);
+ }
+
+kmldom::KmlDomType GxMultiTrack::ElementType(){ return Type_GxMultiTrack; }
+
+kmldom::KmlDomType GxMultiTrack::Type() const{ return ElementType(); }
+
+bool GxMultiTrack::IsA(kmldom::KmlDomType type) const{
+   return type == ElementType() || Geometry::IsA(type);
+ }
+
+bool GxMultiTrack::get_gx_interpolate() const{ return gx_interpolate_; }
+
+bool GxMultiTrack::has_gx_interpolate() const{ return has_gx_interpolate_; }
+
+void GxMultiTrack::set_gx_interpolate(bool value){
+   gx_interpolate_ = value;
+   has_gx_interpolate_ = true;
+ }
+
+void GxMultiTrack::clear_gx_interpolate(){
+   gx_interpolate_ = false;  // Default <gx:interpolate> is false.
+   has_gx_interpolate_ = false;
+ }
+
+size_t GxMultiTrack::get_gx_track_array_size() const{
+   return gx_track_array_.size();
+ }
+
+const GxTrackPtr& GxMultiTrack::get_gx_track_array_at(size_t index) const{
+   return gx_track_array_[index];
+ }
+
+kmldom::KmlDomType Location::Type() const{ return Type_Location; }
+
+bool Location::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Location || Object::IsA(type);
+ }
+
+double Location::get_longitude() const{
+   return longitude_;
+ }
+
+bool Location::has_longitude() const{
+   return has_longitude_;
+ }
+
+void Location::set_longitude(double longitude){
+   longitude_ = longitude;
+   has_longitude_ = true;
+ }
+
+void Location::clear_longitude(){
+   longitude_ = 0.0;
+   has_longitude_ = false;
+ }
+
+double Location::get_latitude() const{
+   return latitude_;
+ }
+
+bool Location::has_latitude() const{
+   return has_latitude_;
+ }
+
+void Location::set_latitude(double latitude){
+   latitude_ = latitude;
+   has_latitude_ = true;
+ }
+
+void Location::clear_latitude(){
+   latitude_ = 0.0;
+   has_latitude_ = false;
+ }
+
+double Location::get_altitude() const{
+   return altitude_;
+ }
+
+bool Location::has_altitude() const{
+   return has_altitude_;
+ }
+
+void Location::set_altitude(double altitude){
+   altitude_ = altitude;
+   has_altitude_ = true;
+ }
+
+void Location::clear_altitude(){
+   altitude_ = 0.0;
+   has_altitude_ = false;
+ }
+
+kmldom::KmlDomType Orientation::Type() const{ return Type_Orientation; }
+
+bool Orientation::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Orientation || Object::IsA(type);
+ }
+
+double Orientation::get_heading() const{
+   return heading_;
+ }
+
+bool Orientation::has_heading() const{
+   return has_heading_;
+ }
+
+void Orientation::set_heading(double heading){
+   heading_ = heading;
+   has_heading_ = true;
+ }
+
+void Orientation::clear_heading(){
+   heading_ = 0.0;
+   has_heading_ = false;
+ }
+
+double Orientation::get_tilt() const{
+   return tilt_;
+ }
+
+bool Orientation::has_tilt() const{
+   return has_tilt_;
+ }
+
+void Orientation::set_tilt(double tilt){
+   tilt_ = tilt;
+   has_tilt_ = true;
+ }
+
+void Orientation::clear_tilt(){
+   tilt_ = 0.0;
+   has_tilt_ = false;
+ }
+
+double Orientation::get_roll() const{
+   return roll_;
+ }
+
+void Orientation::set_roll(double roll){
+   roll_ = roll;
+   has_roll_ = true;
+ }
+
+bool Orientation::has_roll() const{
+   return has_roll_;
+ }
+
+void Orientation::clear_roll(){
+   roll_ = 0.0;
+   has_roll_ = false;
+ }
+
+kmldom::KmlDomType Scale::Type() const{ return Type_Scale; }
+
+bool Scale::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Scale || Object::IsA(type);
+ }
+
+double Scale::get_x() const{
+   return x_;
+ }
+
+bool Scale::has_x() const{
+   return has_x_;
+ }
+
+void Scale::set_x(double x){
+   x_ = x;
+   has_x_ = true;
+ }
+
+void Scale::clear_x(){
+   x_ = 1.0;
+   has_x_ = false;
+ }
+
+double Scale::get_y() const{
+   return y_;
+ }
+
+bool Scale::has_y() const{
+   return has_y_;
+ }
+
+void Scale::set_y(double y){
+   y_ = y;
+   has_y_ = true;
+ }
+
+void Scale::clear_y(){
+   y_ = 1.0;
+   has_y_ = false;
+ }
+
+double Scale::get_z() const{
+   return z_;
+ }
+
+bool Scale::has_z() const{
+   return has_z_;
+ }
+
+void Scale::set_z(double z){
+   z_ = z;
+   has_z_ = true;
+ }
+
+void Scale::clear_z(){
+   z_ = 1.0;
+   has_z_ = false;
+ }
+
+kmldom::KmlDomType Alias::Type() const{ return Type_Alias; }
+
+bool Alias::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Alias || Object::IsA(type);
+ }
+
+const std::__cxx11::string& Alias::get_targethref() const{
+   return targethref_;
+ }
+
+bool Alias::has_targethref() const{
+   return has_targethref_;
+ }
+
+void Alias::set_targethref(const std::__cxx11::string& targethref){
+   targethref_ = targethref;
+   has_targethref_ = true;
+ }
+
+void Alias::clear_targethref(){
+   targethref_.clear();
+   has_targethref_ = false;
+ }
+
+const std::__cxx11::string& Alias::get_sourcehref() const{
+   return sourcehref_;
+ }
+
+bool Alias::has_sourcehref() const{
+   return has_sourcehref_;
+ }
+
+void Alias::set_sourcehref(const std::__cxx11::string& sourcehref){
+   sourcehref_ = sourcehref;
+   has_sourcehref_ = true;
+ }
+
+void Alias::clear_sourcehref(){
+   sourcehref_.clear();
+   has_sourcehref_ = false;
+ }
+
+kmldom::KmlDomType ResourceMap::Type() const{ return Type_ResourceMap; }
+
+bool ResourceMap::IsA(kmldom::KmlDomType type) const{
+   return type == Type_ResourceMap || Object::IsA(type);
+ }
+
+size_t ResourceMap::get_alias_array_size() const{
+   return alias_array_.size();
+ }
+
+const AliasPtr& ResourceMap::get_alias_array_at(size_t index) const{
+   return alias_array_[index];
+ }
+
+kmldom::KmlDomType Model::Type() const{ return Type_Model; }
+
+bool Model::IsA(kmldom::KmlDomType type) const{
+   return type == Type_Model || Geometry::IsA(type);
+ }
+
+const LocationPtr& Model::get_location() const{ return location_; }
+
+bool Model::has_location() const{ return location_ != nullptr; }
+
+void Model::set_location(const LocationPtr& location){
+   SetComplexChild(location, &location_);
+ }
+
+void Model::clear_location(){
+   set_location(NULL);
+ }
+
+const OrientationPtr& Model::get_orientation() const{ return orientation_; }
+
+bool Model::has_orientation() const{ return orientation_ != nullptr; }
+
+void Model::set_orientation(const OrientationPtr& orientation){
+   SetComplexChild(orientation, &orientation_);
+ }
+
+void Model::clear_orientation(){
+   set_orientation(NULL);
+ }
+
+const ScalePtr& Model::get_scale() const{ return scale_; }
+
+bool Model::has_scale() const{ return scale_ != nullptr; }
+
+void Model::set_scale(const ScalePtr& scale){
+   SetComplexChild(scale, &scale_);
+ }
+
+void Model::clear_scale(){
+   set_scale(NULL);
+ }
+
+const LinkPtr& Model::get_link() const{ return link_; }
+
+bool Model::has_link() const{ return link_ != nullptr; }
+
+void Model::set_link(const LinkPtr& link){
+   SetComplexChild(link, &link_);
+ }
+
+void Model::clear_link(){
+   set_link(NULL);
+ }
+
+const ResourceMapPtr& Model::get_resourcemap() const{ return resourcemap_; }
+
+bool Model::has_resourcemap() const{ return resourcemap_ != nullptr; }
+
+void Model::set_resourcemap(const ResourceMapPtr& resourcemap){
+   SetComplexChild(resourcemap, &resourcemap_);
+ }
+
+void Model::clear_resourcemap(){
+   resourcemap_ = NULL;
+ }
 }  // end namespace kmldom

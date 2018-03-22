@@ -28,6 +28,7 @@
 #ifndef KML_DOM_BALLOONSTYLE_H__
 #define KML_DOM_BALLOONSTYLE_H__
 
+#include "kml/config.h"
 #include "kml/base/color32.h"
 #include "kml/dom/substyle.h"
 #include "kml/dom/kml22.h"
@@ -36,77 +37,35 @@ namespace kmldom {
 
 class Visitor;
 
-class BalloonStyle : public SubStyle {
+class KML_EXPORT BalloonStyle : public SubStyle {
  public:
   virtual ~BalloonStyle();
-  virtual KmlDomType Type() const { return Type_BalloonStyle; }
-  virtual bool IsA(KmlDomType type) const {
-    return type == Type_BalloonStyle || SubStyle::IsA(type);
-  }
+  virtual KmlDomType Type() const;
+  virtual bool IsA(KmlDomType type) const;
 
   // <bgColor>
-  const kmlbase::Color32& get_bgcolor() const {
-    return bgcolor_;
-  }
-  bool has_bgcolor() const {
-    return has_bgcolor_;
-  }
-  void set_bgcolor(const kmlbase::Color32& bgcolor) {
-    bgcolor_ = bgcolor;
-    has_bgcolor_ = true;
-  }
-  void clear_bgcolor() {
-    bgcolor_ = kmlbase::Color32(0xffffffff);
-    has_bgcolor_ = false;
-  }
+  const kmlbase::Color32& get_bgcolor() const;
+  bool has_bgcolor() const;
+  void set_bgcolor(const kmlbase::Color32& bgcolor);
+  void clear_bgcolor();
 
   // <textColor>
-  const kmlbase::Color32& get_textcolor() const {
-    return textcolor_;
-  }
-  bool has_textcolor() const {
-    return has_textcolor_;
-  }
-  void set_textcolor(const kmlbase::Color32& textcolor) {
-    textcolor_ = textcolor;
-    has_textcolor_ = true;
-  }
-  void clear_textcolor() {
-    textcolor_ = kmlbase::Color32(0xff000000);
-    has_textcolor_ = false;
-  }
+  const kmlbase::Color32& get_textcolor() const;
+  bool has_textcolor() const;
+  void set_textcolor(const kmlbase::Color32& textcolor);
+  void clear_textcolor();
 
   // <text>
-  const string& get_text() const {
-    return text_;
-  }
-  bool has_text() const {
-    return has_text_;
-  }
-  void set_text(const string& text) {
-    text_ = text;
-    has_text_ = true;
-  }
-  void clear_text() {
-    text_.clear();
-    has_text_ = false;
-  }
+  const string& get_text() const;
+  bool has_text() const;
+  void set_text(const string& text);
+  void clear_text();
 
   // <displayMode>
-  int get_displaymode() const {
-    return displaymode_;
-  }
-  bool has_displaymode() const {
-    return has_displaymode_;
-  }
-  void set_displaymode(int displaymode) {
-    displaymode_ = displaymode;
-    has_displaymode_ = true;
-  }
-  void clear_displaymode() {
-    displaymode_ = DISPLAYMODE_DEFAULT;
-    has_displaymode_ = false;
-  }
+  int get_displaymode() const;
+  bool has_displaymode() const;
+  void set_displaymode(int displaymode);
+  void clear_displaymode();
 
   // Visitor API methods, see visitor.h.
   virtual void Accept(Visitor* visitor);

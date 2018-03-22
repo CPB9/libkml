@@ -173,4 +173,11 @@ void HttpClient::AppendHeaders(const StringPairVector& src,
   }
 }
 
+const string& HttpClient::get_auth_token() const {
+  return auth_token_;
+}
+
+const StringPairVector& HttpClient::get_headers() const {
+  return headers_;
+}
 }  // end namespace kmlconvenience

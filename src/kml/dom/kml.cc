@@ -94,4 +94,44 @@ void Kml::AcceptChildren(VisitorDriver* driver) {
   }
 }
 
+
+const std::__cxx11::string& Kml::get_hint(){ return hint_; }
+
+bool Kml::has_hint() const{ return has_hint_; }
+
+void Kml::set_hint(const std::__cxx11::string& hint){
+   hint_ = hint;
+   has_hint_ = true;
+ }
+
+void Kml::clear_hint(){
+   hint_.clear();
+   has_hint_ = false;
+ }
+
+const NetworkLinkControlPtr& Kml::get_networklinkcontrol() const{
+   return networklinkcontrol_;
+ }
+
+bool Kml::has_networklinkcontrol() const{ return networklinkcontrol_ != nullptr; }
+
+void Kml::set_networklinkcontrol(const NetworkLinkControlPtr& networklinkcontrol){
+   SetComplexChild(networklinkcontrol, &networklinkcontrol_);
+ }
+
+void Kml::clear_networklinkcontrol(){
+   set_networklinkcontrol(NULL);
+ }
+
+const FeaturePtr& Kml::get_feature() const{ return feature_; }
+
+bool Kml::has_feature() const{ return feature_ != nullptr; }
+
+void Kml::set_feature(const FeaturePtr& feature){
+   SetComplexChild(feature, &feature_);
+ }
+
+void Kml::clear_feature(){
+   set_feature(NULL);
+ }
 }  // end namespace kmldom
