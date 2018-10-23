@@ -24,495 +24,495 @@
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "kml_cast.h"
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include "kml/dom/kmldom.h"
 
 namespace kmldom {
 
 template <class T>
-inline const bmcl::Rc<T> ElementCast(const ElementPtr& element) {
+inline const kmlbase::Rc<T> ElementCast(const ElementPtr& element) {
   if (element && element->IsA(T::ElementType())) {
-    return bmcl::static_pointer_cast<T>(element);
+    return kmlbase::static_pointer_cast<T>(element);
   }
   return nullptr;
 }
 
 const ElementPtr AsElement(const kmlbase::XmlElementPtr& xml_element) {
-  return bmcl::static_pointer_cast<Element>(xml_element);
+  return kmlbase::static_pointer_cast<Element>(xml_element);
 }
 
 const AbstractLatLonBoxPtr AsAbstractLatLonBox(const ElementPtr element) {
   if (element && element->IsA(Type_AbstractLatLonBox)) {
-    return bmcl::static_pointer_cast<AbstractLatLonBox>(element);
+    return kmlbase::static_pointer_cast<AbstractLatLonBox>(element);
   }
   return nullptr;
 }
 
 const AbstractViewPtr AsAbstractView(const ElementPtr element) {
   if (element && element->IsA(Type_AbstractView)) {
-    return bmcl::static_pointer_cast<AbstractView>(element);
+    return kmlbase::static_pointer_cast<AbstractView>(element);
   }
   return nullptr;
 }
 
 const ColorStylePtr AsColorStyle(const ElementPtr element) {
   if (element && element->IsA(Type_ColorStyle)) {
-    return bmcl::static_pointer_cast<ColorStyle>(element);
+    return kmlbase::static_pointer_cast<ColorStyle>(element);
   }
   return nullptr;
 }
 
 const ContainerPtr AsContainer(const ElementPtr element) {
   if (element && element->IsA(Type_Container)) {
-    return bmcl::static_pointer_cast<Container>(element);
+    return kmlbase::static_pointer_cast<Container>(element);
   }
   return nullptr;
 }
 
 const FeaturePtr AsFeature(const ElementPtr element) {
   if (element && element->IsA(Type_Feature)) {
-    return bmcl::static_pointer_cast<Feature>(element);
+    return kmlbase::static_pointer_cast<Feature>(element);
   }
   return nullptr;
 }
 
 const GeometryPtr AsGeometry(const ElementPtr element) {
   if (element && element->IsA(Type_Geometry)) {
-    return bmcl::static_pointer_cast<Geometry>(element);
+    return kmlbase::static_pointer_cast<Geometry>(element);
   }
   return nullptr;
 }
 
 const ObjectPtr AsObject(const ElementPtr element) {
   if (element && element->IsA(Type_Object)) {
-    return bmcl::static_pointer_cast<Object>(element);
+    return kmlbase::static_pointer_cast<Object>(element);
   }
   return nullptr;
 }
 
 const OverlayPtr AsOverlay(const ElementPtr element) {
   if (element && element->IsA(Type_Overlay)) {
-    return bmcl::static_pointer_cast<Overlay>(element);
+    return kmlbase::static_pointer_cast<Overlay>(element);
   }
   return nullptr;
 }
 
 const StyleSelectorPtr AsStyleSelector(const ElementPtr element) {
   if (element && element->IsA(Type_StyleSelector)) {
-    return bmcl::static_pointer_cast<StyleSelector>(element);
+    return kmlbase::static_pointer_cast<StyleSelector>(element);
   }
   return nullptr;
 }
 
 const SubStylePtr AsSubStyle(const ElementPtr element) {
   if (element && element->IsA(Type_SubStyle)) {
-    return bmcl::static_pointer_cast<SubStyle>(element);
+    return kmlbase::static_pointer_cast<SubStyle>(element);
   }
   return nullptr;
 }
 
 const TimePrimitivePtr AsTimePrimitive(const ElementPtr element) {
   if (element && element->IsA(Type_TimePrimitive)) {
-    return bmcl::static_pointer_cast<TimePrimitive>(element);
+    return kmlbase::static_pointer_cast<TimePrimitive>(element);
   }
   return nullptr;
 }
 
 const AliasPtr AsAlias(const ElementPtr element) {
   if (element && element->Type() == Type_Alias) {
-    return bmcl::static_pointer_cast<Alias>(element);
+    return kmlbase::static_pointer_cast<Alias>(element);
   }
   return nullptr;
 }
 
 const BalloonStylePtr AsBalloonStyle(const ElementPtr element) {
   if (element && element->Type() == Type_BalloonStyle) {
-    return bmcl::static_pointer_cast<BalloonStyle>(element);
+    return kmlbase::static_pointer_cast<BalloonStyle>(element);
   }
   return nullptr;
 }
 
 const CameraPtr AsCamera(const ElementPtr element) {
   if (element && element->Type() == Type_Camera) {
-    return bmcl::static_pointer_cast<Camera>(element);
+    return kmlbase::static_pointer_cast<Camera>(element);
   }
   return nullptr;
 }
 
 const ChangePtr AsChange(const ElementPtr element) {
   if (element && element->Type() == Type_Change) {
-    return bmcl::static_pointer_cast<Change>(element);
+    return kmlbase::static_pointer_cast<Change>(element);
   }
   return nullptr;
 }
 
 const CreatePtr AsCreate(const ElementPtr element) {
   if (element && element->Type() == Type_Create) {
-    return bmcl::static_pointer_cast<Create>(element);
+    return kmlbase::static_pointer_cast<Create>(element);
   }
   return nullptr;
 }
 
 const DataPtr AsData(const ElementPtr element) {
   if (element && element->Type() == Type_Data) {
-    return bmcl::static_pointer_cast<Data>(element);
+    return kmlbase::static_pointer_cast<Data>(element);
   }
   return nullptr;
 }
 
 const DeletePtr AsDelete(const ElementPtr element) {
   if (element && element->Type() == Type_Delete) {
-    return bmcl::static_pointer_cast<Delete>(element);
+    return kmlbase::static_pointer_cast<Delete>(element);
   }
   return nullptr;
 }
 
 const DocumentPtr AsDocument(const ElementPtr element) {
   if (element && element->Type() == Type_Document) {
-    return bmcl::static_pointer_cast<Document>(element);
+    return kmlbase::static_pointer_cast<Document>(element);
   }
   return nullptr;
 }
 
 const FolderPtr AsFolder(const ElementPtr element) {
   if (element && element->Type() == Type_Folder) {
-    return bmcl::static_pointer_cast<Folder>(element);
+    return kmlbase::static_pointer_cast<Folder>(element);
   }
   return nullptr;
 }
 
 const GroundOverlayPtr AsGroundOverlay(const ElementPtr element) {
   if (element && element->Type() == Type_GroundOverlay) {
-    return bmcl::static_pointer_cast<GroundOverlay>(element);
+    return kmlbase::static_pointer_cast<GroundOverlay>(element);
   }
   return nullptr;
 }
 
 const HotSpotPtr AsHotSpot(const ElementPtr element) {
   if (element && element->Type() == Type_hotSpot) {
-    return bmcl::static_pointer_cast<HotSpot>(element);
+    return kmlbase::static_pointer_cast<HotSpot>(element);
   }
   return nullptr;
 }
 
 const IconPtr AsIcon(const ElementPtr element) {
   if (element && element->Type() == Type_Icon) {
-    return bmcl::static_pointer_cast<Icon>(element);
+    return kmlbase::static_pointer_cast<Icon>(element);
   }
   return nullptr;
 }
 
 const IconStylePtr AsIconStyle(const ElementPtr element) {
   if (element && element->Type() == Type_IconStyle) {
-    return bmcl::static_pointer_cast<IconStyle>(element);
+    return kmlbase::static_pointer_cast<IconStyle>(element);
   }
   return nullptr;
 }
 
 const IconStyleIconPtr AsIconStyleIcon(const ElementPtr element) {
   if (element && element->Type() == Type_IconStyleIcon) {
-    return bmcl::static_pointer_cast<IconStyleIcon>(element);
+    return kmlbase::static_pointer_cast<IconStyleIcon>(element);
   }
   return nullptr;
 }
 
 const ImagePyramidPtr AsImagePyramid(const ElementPtr element) {
   if (element && element->Type() == Type_ImagePyramid) {
-    return bmcl::static_pointer_cast<ImagePyramid>(element);
+    return kmlbase::static_pointer_cast<ImagePyramid>(element);
   }
   return nullptr;
 }
 
 const InnerBoundaryIsPtr AsInnerBoundaryIs(const ElementPtr element) {
   if (element && element->Type() == Type_innerBoundaryIs) {
-    return bmcl::static_pointer_cast<InnerBoundaryIs>(element);
+    return kmlbase::static_pointer_cast<InnerBoundaryIs>(element);
   }
   return nullptr;
 }
 
 const ItemIconPtr AsItemIcon(const ElementPtr element) {
   if (element && element->Type() == Type_ItemIcon) {
-    return bmcl::static_pointer_cast<ItemIcon>(element);
+    return kmlbase::static_pointer_cast<ItemIcon>(element);
   }
   return nullptr;
 }
 
 const LabelStylePtr AsLabelStyle(const ElementPtr element) {
   if (element && element->Type() == Type_LabelStyle) {
-    return bmcl::static_pointer_cast<LabelStyle>(element);
+    return kmlbase::static_pointer_cast<LabelStyle>(element);
   }
   return nullptr;
 }
 
 const LatLonAltBoxPtr AsLatLonAltBox(const ElementPtr element) {
   if (element && element->Type() == Type_LatLonAltBox) {
-    return bmcl::static_pointer_cast<LatLonAltBox>(element);
+    return kmlbase::static_pointer_cast<LatLonAltBox>(element);
   }
   return nullptr;
 }
 
 const LatLonBoxPtr AsLatLonBox(const ElementPtr element) {
   if (element && element->Type() == Type_LatLonBox) {
-    return bmcl::static_pointer_cast<LatLonBox>(element);
+    return kmlbase::static_pointer_cast<LatLonBox>(element);
   }
   return nullptr;
 }
 
 const LineStringPtr AsLineString(const ElementPtr element) {
   if (element && element->Type() == Type_LineString) {
-    return bmcl::static_pointer_cast<LineString>(element);
+    return kmlbase::static_pointer_cast<LineString>(element);
   }
   return nullptr;
 }
 
 const LineStylePtr AsLineStyle(const ElementPtr element) {
   if (element && element->Type() == Type_LineStyle) {
-    return bmcl::static_pointer_cast<LineStyle>(element);
+    return kmlbase::static_pointer_cast<LineStyle>(element);
   }
   return nullptr;
 }
 
 const LinearRingPtr AsLinearRing(const ElementPtr element) {
   if (element && element->Type() == Type_LinearRing) {
-    return bmcl::static_pointer_cast<LinearRing>(element);
+    return kmlbase::static_pointer_cast<LinearRing>(element);
   }
   return nullptr;
 }
 
 const LinkPtr AsLink(const ElementPtr element) {
   if (element && element->Type() == Type_Link) {
-    return bmcl::static_pointer_cast<Link>(element);
+    return kmlbase::static_pointer_cast<Link>(element);
   }
   return nullptr;
 }
 
 const LinkSnippetPtr AsLinkSnippet(const ElementPtr element) {
   if (element && element->Type() == Type_linkSnippet) {
-    return bmcl::static_pointer_cast<LinkSnippet>(element);
+    return kmlbase::static_pointer_cast<LinkSnippet>(element);
   }
   return nullptr;
 }
 
 const ListStylePtr AsListStyle(const ElementPtr element) {
   if (element && element->Type() == Type_ListStyle) {
-    return bmcl::static_pointer_cast<ListStyle>(element);
+    return kmlbase::static_pointer_cast<ListStyle>(element);
   }
   return nullptr;
 }
 
 const LocationPtr AsLocation(const ElementPtr element) {
   if (element && element->Type() == Type_Location) {
-    return bmcl::static_pointer_cast<Location>(element);
+    return kmlbase::static_pointer_cast<Location>(element);
   }
   return nullptr;
 }
 
 const LodPtr AsLod(const ElementPtr element) {
   if (element && element->Type() == Type_Lod) {
-    return bmcl::static_pointer_cast<Lod>(element);
+    return kmlbase::static_pointer_cast<Lod>(element);
   }
   return nullptr;
 }
 
 const LookAtPtr AsLookAt(const ElementPtr element) {
   if (element && element->Type() == Type_LookAt) {
-    return bmcl::static_pointer_cast<LookAt>(element);
+    return kmlbase::static_pointer_cast<LookAt>(element);
   }
   return nullptr;
 }
 
 const ModelPtr AsModel(const ElementPtr element) {
   if (element && element->Type() == Type_Model) {
-    return bmcl::static_pointer_cast<Model>(element);
+    return kmlbase::static_pointer_cast<Model>(element);
   }
   return nullptr;
 }
 
 const MultiGeometryPtr AsMultiGeometry(const ElementPtr element) {
   if (element && element->Type() == Type_MultiGeometry) {
-    return bmcl::static_pointer_cast<MultiGeometry>(element);
+    return kmlbase::static_pointer_cast<MultiGeometry>(element);
   }
   return nullptr;
 }
 
 const NetworkLinkPtr AsNetworkLink(const ElementPtr element) {
   if (element && element->Type() == Type_NetworkLink) {
-    return bmcl::static_pointer_cast<NetworkLink>(element);
+    return kmlbase::static_pointer_cast<NetworkLink>(element);
   }
   return nullptr;
 }
 
 const OrientationPtr AsOrientation(const ElementPtr element) {
   if (element && element->Type() == Type_Orientation) {
-    return bmcl::static_pointer_cast<Orientation>(element);
+    return kmlbase::static_pointer_cast<Orientation>(element);
   }
   return nullptr;
 }
 
 const OuterBoundaryIsPtr AsOuterBoundaryIs(const ElementPtr element) {
   if (element && element->Type() == Type_outerBoundaryIs) {
-    return bmcl::static_pointer_cast<OuterBoundaryIs>(element);
+    return kmlbase::static_pointer_cast<OuterBoundaryIs>(element);
   }
   return nullptr;
 }
 
 const OverlayXYPtr AsOverlayXY(const ElementPtr element) {
   if (element && element->Type() == Type_overlayXY) {
-    return bmcl::static_pointer_cast<OverlayXY>(element);
+    return kmlbase::static_pointer_cast<OverlayXY>(element);
   }
   return nullptr;
 }
 
 const PairPtr AsPair(const ElementPtr element) {
   if (element && element->Type() == Type_Pair) {
-    return bmcl::static_pointer_cast<Pair>(element);
+    return kmlbase::static_pointer_cast<Pair>(element);
   }
   return nullptr;
 }
 
 const PhotoOverlayPtr AsPhotoOverlay(const ElementPtr element) {
   if (element && element->Type() == Type_PhotoOverlay) {
-    return bmcl::static_pointer_cast<PhotoOverlay>(element);
+    return kmlbase::static_pointer_cast<PhotoOverlay>(element);
   }
   return nullptr;
 }
 
 const PlacemarkPtr AsPlacemark(const ElementPtr element) {
   if (element && element->Type() == Type_Placemark) {
-    return bmcl::static_pointer_cast<Placemark>(element);
+    return kmlbase::static_pointer_cast<Placemark>(element);
   }
   return nullptr;
 }
 
 const PointPtr AsPoint(const ElementPtr element) {
   if (element && element->Type() == Type_Point) {
-    return bmcl::static_pointer_cast<Point>(element);
+    return kmlbase::static_pointer_cast<Point>(element);
   }
   return nullptr;
 }
 
 const PolyStylePtr AsPolyStyle(const ElementPtr element) {
   if (element && element->Type() == Type_PolyStyle) {
-    return bmcl::static_pointer_cast<PolyStyle>(element);
+    return kmlbase::static_pointer_cast<PolyStyle>(element);
   }
   return nullptr;
 }
 
 const PolygonPtr AsPolygon(const ElementPtr element) {
   if (element && element->Type() == Type_Polygon) {
-    return bmcl::static_pointer_cast<Polygon>(element);
+    return kmlbase::static_pointer_cast<Polygon>(element);
   }
   return nullptr;
 }
 
 const RegionPtr AsRegion(const ElementPtr element) {
   if (element && element->Type() == Type_Region) {
-    return bmcl::static_pointer_cast<Region>(element);
+    return kmlbase::static_pointer_cast<Region>(element);
   }
   return nullptr;
 }
 
 const ResourceMapPtr AsResourceMap(const ElementPtr element) {
   if (element && element->Type() == Type_ResourceMap) {
-    return bmcl::static_pointer_cast<ResourceMap>(element);
+    return kmlbase::static_pointer_cast<ResourceMap>(element);
   }
   return nullptr;
 }
 
 const RotationXYPtr AsRotationXY(const ElementPtr element) {
   if (element && element->Type() == Type_rotationXY) {
-    return bmcl::static_pointer_cast<RotationXY>(element);
+    return kmlbase::static_pointer_cast<RotationXY>(element);
   }
   return nullptr;
 }
 
 const ScalePtr AsScale(const ElementPtr element) {
   if (element && element->Type() == Type_Scale) {
-    return bmcl::static_pointer_cast<Scale>(element);
+    return kmlbase::static_pointer_cast<Scale>(element);
   }
   return nullptr;
 }
 
 const SchemaPtr AsSchema(const ElementPtr element) {
   if (element && element->Type() == Type_Schema) {
-    return bmcl::static_pointer_cast<Schema>(element);
+    return kmlbase::static_pointer_cast<Schema>(element);
   }
   return nullptr;
 }
 
 const SchemaDataPtr AsSchemaData(const ElementPtr element) {
   if (element && element->Type() == Type_SchemaData) {
-    return bmcl::static_pointer_cast<SchemaData>(element);
+    return kmlbase::static_pointer_cast<SchemaData>(element);
   }
   return nullptr;
 }
 
 const ScreenOverlayPtr AsScreenOverlay(const ElementPtr element) {
   if (element && element->Type() == Type_ScreenOverlay) {
-    return bmcl::static_pointer_cast<ScreenOverlay>(element);
+    return kmlbase::static_pointer_cast<ScreenOverlay>(element);
   }
   return nullptr;
 }
 
 const ScreenXYPtr AsScreenXY(const ElementPtr element) {
   if (element && element->Type() == Type_screenXY) {
-    return bmcl::static_pointer_cast<ScreenXY>(element);
+    return kmlbase::static_pointer_cast<ScreenXY>(element);
   }
   return nullptr;
 }
 
 const SizePtr AsSize(const ElementPtr element) {
   if (element && element->Type() == Type_size) {
-    return bmcl::static_pointer_cast<Size>(element);
+    return kmlbase::static_pointer_cast<Size>(element);
   }
   return nullptr;
 }
 
 const SnippetPtr AsSnippet(const ElementPtr element) {
   if (element && element->Type() == Type_Snippet) {
-    return bmcl::static_pointer_cast<Snippet>(element);
+    return kmlbase::static_pointer_cast<Snippet>(element);
   }
   return nullptr;
 }
 
 const StylePtr AsStyle(const ElementPtr element) {
   if (element && element->Type() == Type_Style) {
-    return bmcl::static_pointer_cast<Style>(element);
+    return kmlbase::static_pointer_cast<Style>(element);
   }
   return nullptr;
 }
 
 const StyleMapPtr AsStyleMap(const ElementPtr element) {
   if (element && element->Type() == Type_StyleMap) {
-    return bmcl::static_pointer_cast<StyleMap>(element);
+    return kmlbase::static_pointer_cast<StyleMap>(element);
   }
   return nullptr;
 }
 
 const TimeSpanPtr AsTimeSpan(const ElementPtr element) {
   if (element && element->Type() == Type_TimeSpan) {
-    return bmcl::static_pointer_cast<TimeSpan>(element);
+    return kmlbase::static_pointer_cast<TimeSpan>(element);
   }
   return nullptr;
 }
 
 const TimeStampPtr AsTimeStamp(const ElementPtr element) {
   if (element && element->Type() == Type_TimeStamp) {
-    return bmcl::static_pointer_cast<TimeStamp>(element);
+    return kmlbase::static_pointer_cast<TimeStamp>(element);
   }
   return nullptr;
 }
 
 const UpdatePtr AsUpdate(const ElementPtr element) {
   if (element && element->Type() == Type_Update) {
-    return bmcl::static_pointer_cast<Update>(element);
+    return kmlbase::static_pointer_cast<Update>(element);
   }
   return nullptr;
 }
 
 const ViewVolumePtr AsViewVolume(const ElementPtr element) {
   if (element && element->Type() == Type_ViewVolume) {
-    return bmcl::static_pointer_cast<ViewVolume>(element);
+    return kmlbase::static_pointer_cast<ViewVolume>(element);
   }
   return nullptr;
 }

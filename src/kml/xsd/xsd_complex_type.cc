@@ -50,7 +50,7 @@ kmlxsd::XsdComplexType* XsdComplexType::Create(
 XsdComplexTypePtr XsdComplexType::AsComplexType(
     const kmlxsd::XsdTypePtr& xsd_type) {
   if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_COMPLEX) {
-    return bmcl::static_pointer_cast<XsdComplexType>(xsd_type);
+    return kmlbase::static_pointer_cast<XsdComplexType>(xsd_type);
   }
   return nullptr;
 }

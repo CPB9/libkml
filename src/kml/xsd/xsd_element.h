@@ -28,7 +28,7 @@
 #ifndef KML_XSD_XSD_ELEMENT_H__
 #define KML_XSD_XSD_ELEMENT_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include "kml/base/referent.h"
 #include "kml/config.h"
 #include "kml/xsd/xsd_primitive_type.h"
@@ -91,7 +91,7 @@ class KML_EXPORT XsdElement : public kmlbase::Referent {
   string substitution_group_;
 };
 
-typedef bmcl::Rc<XsdElement> XsdElementPtr;
+typedef kmlbase::Rc<XsdElement> XsdElementPtr;
 
 }  // end namespace kmlxsd
 

@@ -40,7 +40,7 @@ kmlxsd::XsdSimpleType* XsdSimpleType::Create(
 
 XsdSimpleTypePtr XsdSimpleType::AsSimpleType(const XsdTypePtr& xsd_type) {
   if (xsd_type && xsd_type->get_xsd_type_id() == XSD_TYPE_SIMPLE) {
-    return bmcl::static_pointer_cast<XsdSimpleType>(xsd_type);
+    return kmlbase::static_pointer_cast<XsdSimpleType>(xsd_type);
   }
   return nullptr;
 }

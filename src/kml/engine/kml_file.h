@@ -28,7 +28,7 @@
 #ifndef KML_ENGINE_KML_FILE_H__
 #define KML_ENGINE_KML_FILE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include <memory>
 #include <ostream>
 #include <vector>
@@ -154,7 +154,7 @@ class KML_EXPORT KmlFile : public kmlbase::XmlFile {
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmlFile);
 };
 
-typedef bmcl::Rc<KmlFile> KmlFilePtr;
+typedef kmlbase::Rc<KmlFile> KmlFilePtr;
 
 }  // end namespace kmlengine
 

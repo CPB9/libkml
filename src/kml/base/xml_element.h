@@ -28,7 +28,7 @@
 #ifndef KML_BASE_XML_ELEMENT_H__
 #define KML_BASE_XML_ELEMENT_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 #include "kml/base/xml_namespaces.h"
@@ -41,7 +41,7 @@ class XmlFile;
 // Forward declare XmlElement to create typedef used within class XmlElement.
 class XmlElement;
 
-typedef bmcl::Rc<XmlElement> XmlElementPtr;
+typedef kmlbase::Rc<XmlElement> XmlElementPtr;
 
 // This class represents an XML element.  An XmlElement may be in one XmlFile,
 // and may have one parent XmlElement.  This class is derived from Referent

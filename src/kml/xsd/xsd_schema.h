@@ -28,7 +28,7 @@
 #ifndef KML_XSD_XSD_SCHEMA_H__
 #define KML_XSD_XSD_SCHEMA_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include <memory>
 #include "kml/base/referent.h"
 #include "kml/base/xmlns.h"
@@ -72,7 +72,7 @@ class KML_EXPORT XsdSchema : public kmlbase::Referent {
   string target_namespace_prefix_;
 };
 
-typedef bmcl::Rc<XsdSchema> XsdSchemaPtr;
+typedef kmlbase::Rc<XsdSchema> XsdSchemaPtr;
 
 }  // end namespace kmlxsd
 

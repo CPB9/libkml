@@ -28,7 +28,7 @@
 #ifndef KML_BASE_NET_CACHE_H__
 #define KML_BASE_NET_CACHE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include <map>
 #include "kml/config.h"
 #include "kml/base/util.h"
@@ -70,7 +70,7 @@ class KML_EXPORT NetFetcher {
 //     }
 //     // other methods if you have them
 //   };
-//   typedef bmcl::Rc<MyCacheItem> MyCacheItemPtr;
+//   typedef kmlbase::Rc<MyCacheItem> MyCacheItemPtr;
 //
 // Create a NetCache for that CacheItem:
 //   NetCache<MyCacheItem> net_cache_of_my_cache_items;
@@ -98,7 +98,7 @@ class KML_EXPORT NetFetcher {
 template <class CacheItem>
 class NetCache {
  public:
-  typedef bmcl::Rc<CacheItem> CacheItemPtr;
+  typedef kmlbase::Rc<CacheItem> CacheItemPtr;
   typedef std::pair<CacheItemPtr, uint64_t> CacheEntry;
   typedef std::map<string, CacheEntry> CacheMap;
 

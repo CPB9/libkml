@@ -26,7 +26,7 @@
 #ifndef KML_XSD_XSD_TYPE_H__
 #define KML_XSD_XSD_TYPE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 #include "kml/config.h"
@@ -63,7 +63,7 @@ class KML_EXPORT XsdType : public kmlbase::Referent {
   bool operator==(const XsdType& xsd_type) const;
 };
 
-typedef bmcl::Rc<XsdType> XsdTypePtr;
+typedef kmlbase::Rc<XsdType> XsdTypePtr;
 
 }  // end namespace kmlxsd
 

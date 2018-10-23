@@ -28,7 +28,7 @@
 #ifndef KML_ENGINE_KMZ_FILE_H__
 #define KML_ENGINE_KMZ_FILE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include <memory>
 #include <vector>
 #include "kml/base/referent.h"
@@ -172,7 +172,7 @@ class KML_EXPORT KmzFile : public kmlbase::Referent {
   LIBKML_DISALLOW_EVIL_CONSTRUCTORS(KmzFile);
 };
 
-typedef bmcl::Rc<KmzFile> KmzFilePtr;
+typedef kmlbase::Rc<KmzFile> KmzFilePtr;
 
 }  // end namespace kmlengine
 

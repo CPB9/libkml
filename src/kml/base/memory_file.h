@@ -26,7 +26,7 @@
 #ifndef KML_BASE_MEMORY_FILE_H__
 #define KML_BASE_MEMORY_FILE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include "kml/base/referent.h"
 #include "kml/base/util.h"
 
@@ -53,7 +53,7 @@ class MemoryFile : public Referent {
   string content_;
 };
 
-typedef bmcl::Rc<MemoryFile> MemoryFilePtr;
+typedef kmlbase::Rc<MemoryFile> MemoryFilePtr;
 
 }  // end namespace kmlbase
 

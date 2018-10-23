@@ -26,7 +26,7 @@
 #ifndef KML_XSD_XSD_COMPLEX_TYPE_H__
 #define KML_XSD_XSD_COMPLEX_TYPE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include <vector>
 #include "kml/base/util.h"
 #include "kml/config.h"
@@ -43,7 +43,7 @@ class XsdComplexType;
 
 // Use this typedef to manage the XsdComplexType pointer.  For example:
 //   XsdComplexTypePtr complex_type = XsdComplexType::Create(attributes);
-typedef bmcl::Rc<XsdComplexType> XsdComplexTypePtr;
+typedef kmlbase::Rc<XsdComplexType> XsdComplexTypePtr;
 
 // Corresponds to <xs:complexType> with possible <xs:extension> and use of
 // <xs:sequence> (order of <xs:element>'s matters in <xs:sequence>).

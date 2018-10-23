@@ -23,49 +23,37 @@
 // OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 // ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// This file contains the TempFile class.
+#ifndef KML_BASE_RC_H__
+#define KML_BASE_RC_H__
 
-#ifndef KML_BASE_TEMPFILE_H__
-#define KML_BASE_TEMPFILE_H__
-
-#include "kml/base/rc.h"
-#include "kml/base/file.h"
-#include "kml/base/referent.h"
+#include <bmcl/Rc.h>
 
 namespace kmlbase {
 
-class TempFile;
-typedef kmlbase::Rc<kmlbase::TempFile> TempFilePtr;
+template <typename T>
+class Rc : public bmcl::Rc<T> {
+public:
+  using bmcl::Rc<T>::Rc;
 
-// A helper class to manage the creation and deletion of temporary files.
-// TempFile::CreateTempFile(string) returns a pointer to the class upon
-// successful creation of a tempfile. Returns NULL otherwise. The class
-// is derived from Referent, which implements the boost::intrusive_ptr
-// behavior.
-class TempFile : public Referent {
- public:
-  static TempFile* CreateTempFile() {
-    string tempfile;
-    if (!File::CreateNewTempFile(&tempfile)) {
-      return nullptr;
-    }
-    return new TempFile(tempfile);
+  operator bool() const {
+    return !bmcl::Rc<T>::isNull();
   }
-  ~TempFile() {
-    if (File::Exists(name_)) {
-      File::Delete(name_);
-    }
-  }
-  const string& name() {
-    return name_;
-  }
-
- private:
-  TempFile(const string& filename) : name_(filename) {
-  }
-  string name_;
 };
 
+template <typename T, typename U>
+Rc<T> static_pointer_cast(const Rc<U>& ptr) {
+    return static_cast<T*>(ptr.get());
+}
+
+template <typename T, typename U>
+Rc<T> const_pointer_cast(const Rc<U>& ptr) {
+    return const_cast<T*>(ptr.get());
+}
+
+template <typename T, typename U>
+Rc<T> dynamic_pointer_cast(const Rc<U>& ptr) {
+    return dynamic_cast<T*>(ptr.get());
+}
 }  // end namespace kmlbase
 
-#endif  // KML_BASE_TEMPFILE_H__
+#endif  // KML_BASE_RC_H__

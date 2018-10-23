@@ -26,7 +26,7 @@
 #ifndef KML_XSD_XSD_SIMPLE_TYPE_H__
 #define KML_XSD_XSD_SIMPLE_TYPE_H__
 
-#include <bmcl/Rc.h>
+#include "kml/base/rc.h"
 #include <vector>
 #include "kml/base/util.h"
 #include "kml/config.h"
@@ -40,7 +40,7 @@ namespace kmlxsd {
 
 class XsdSimpleType;
 
-typedef bmcl::Rc<XsdSimpleType> XsdSimpleTypePtr;
+typedef kmlbase::Rc<XsdSimpleType> XsdSimpleTypePtr;
 
 // Corresponds to <xs:simpleType>.
 class KML_EXPORT XsdSimpleType : public XsdType {
