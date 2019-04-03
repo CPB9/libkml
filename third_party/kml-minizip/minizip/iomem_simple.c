@@ -77,11 +77,6 @@ static int fseek_calc(ZPOS_T offset, int origin, ZPOS_T* position, ZPOS_T size)
    return bOK ? 0 : -1;
 }
 
-static voidpf ZCALLBACK mem_open OF((
-   voidpf opaque,
-   const char* filename,
-   int mode));
-
 static uLong ZCALLBACK mem_read OF((
    voidpf opaque,
    voidpf stream,
@@ -125,6 +120,7 @@ static uLong ZCALLBACK mem_read (opaque, stream, buf, size)
    void* buf;
    uLong size;
 {
+   (void)opaque;
    MEMFILE* handle = (MEMFILE*) stream;
 
    /* It's possible for this function to be called with an invalid position.
@@ -158,6 +154,7 @@ static uLong ZCALLBACK mem_write (opaque, stream, buf, size)
    const void* buf;
    uLong size;
 {
+   (void)opaque;
    MEMFILE* handle = (MEMFILE*) stream;
 
    if ((handle->position + size) > handle->length)
@@ -176,6 +173,7 @@ static ZPOS_T ZCALLBACK mem_tell (opaque, stream)
    voidpf opaque;
    voidpf stream;
 {
+   (void)opaque;
    MEMFILE *handle = (MEMFILE *)stream;
    return handle->position;
 }
@@ -186,6 +184,7 @@ static long ZCALLBACK mem_seek (opaque, stream, offset, origin)
    ZOFF_T offset;
    int origin;
 {
+   (void)opaque;
    MEMFILE* handle = (MEMFILE*)stream;
    return fseek_calc(offset, origin, &handle->position, handle->length);
 }
@@ -194,6 +193,7 @@ int ZCALLBACK mem_close (opaque, stream)
    voidpf opaque;
    voidpf stream;
 {
+   (void)opaque;
     MEMFILE *handle = (MEMFILE *)stream;
 
     /* Note that once we've written to the buffer we don't tell anyone
@@ -212,7 +212,8 @@ int ZCALLBACK mem_error (opaque, stream)
    voidpf opaque;
    voidpf stream;
 {
-    MEMFILE *handle = (MEMFILE *)stream;
+   (void)opaque;
+   (void)stream;
     /* We never return errors */
     return 0;
 }
